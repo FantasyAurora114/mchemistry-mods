@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "particle": "mchemistry:block/synthesis_tower",
+  "textures": {
+    "top": "mchemistry:block/synthesis_tower_top",
+    "side": "mchemistry:block/synthesis_tower",
+    "bottom": "mchemistry:block/synthesis_tower"
+  }
+}

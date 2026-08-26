@@ -1,0 +1,3076 @@
+{
+  "variants": {
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=north,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=south,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=east,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=0": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=1": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=2": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=3": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=4": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=5": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=6": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=false,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=false,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=false,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=false,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=false,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    },
+    "facing=west,has_contents=true,has_lamp=true,has_stopper=true,has_tube=true,lamp_lit=true,rotation=7": {
+      "model": "mchemistry:block/iron_stand_0"
+    }
+  }
+}

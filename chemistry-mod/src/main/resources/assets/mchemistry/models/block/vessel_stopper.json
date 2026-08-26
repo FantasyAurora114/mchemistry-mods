@@ -1,0 +1,144 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "stopper": "mchemistry:block/rubber_stopper"
+  },
+  "elements": [
+    {
+      "from": [
+        -0.55,
+        -0.9,
+        -0.55
+      ],
+      "to": [
+        0.55,
+        0,
+        0.55
+      ],
+      "faces": {
+        "north": {
+          "texture": "stopper",
+          "uv": [
+            7,
+            2.33333,
+            8,
+            3
+          ]
+        },
+        "east": {
+          "texture": "stopper",
+          "uv": [
+            6,
+            2.33333,
+            7,
+            3
+          ]
+        },
+        "south": {
+          "texture": "stopper",
+          "uv": [
+            5,
+            2.33333,
+            6,
+            3
+          ]
+        },
+        "west": {
+          "texture": "stopper",
+          "uv": [
+            4,
+            6.33333,
+            5,
+            7
+          ]
+        },
+        "up": {
+          "texture": "stopper",
+          "uv": [
+            7,
+            9,
+            8,
+            10
+          ]
+        },
+        "down": {
+          "texture": "stopper",
+          "uv": [
+            8,
+            9,
+            9,
+            10
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        -0.8,
+        0,
+        -0.8
+      ],
+      "to": [
+        0.8,
+        0.7,
+        0.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "stopper",
+          "uv": [
+            7.33333,
+            2.33333,
+            9,
+            3
+          ]
+        },
+        "east": {
+          "texture": "stopper",
+          "uv": [
+            7.33333,
+            2.33333,
+            9,
+            3
+          ]
+        },
+        "south": {
+          "texture": "stopper",
+          "uv": [
+            6,
+            2.33333,
+            7.66667,
+            3
+          ]
+        },
+        "west": {
+          "texture": "stopper",
+          "uv": [
+            8,
+            2.33333,
+            9.66667,
+            3
+          ]
+        },
+        "up": {
+          "texture": "stopper",
+          "uv": [
+            7,
+            9,
+            8.66667,
+            10.66667
+          ]
+        },
+        "down": {
+          "texture": "stopper",
+          "uv": [
+            7,
+            9.33333,
+            8.66667,
+            11
+          ]
+        }
+      }
+    }
+  ]
+}

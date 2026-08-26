@@ -1,0 +1,77 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "glass_tube": "mchemistry:block/glass_tube"
+  },
+  "elements": [
+    {
+      "from": [
+        -0.2,
+        0,
+        -0.2
+      ],
+      "to": [
+        0.2,
+        4,
+        0.2
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "south": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "east": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "west": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "up": {
+          "texture": "glass_tube",
+          "uv": [
+            3,
+            4,
+            6,
+            7
+          ]
+        },
+        "down": {
+          "texture": "glass_tube",
+          "uv": [
+            3,
+            4,
+            6,
+            7
+          ]
+        }
+      }
+    }
+  ]
+}

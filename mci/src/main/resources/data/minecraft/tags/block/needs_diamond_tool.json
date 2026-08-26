@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "mchemistry:ore_chromite",
+    "mchemistry:deepslate_ore_chromite",
+    "mchemistry:ore_ilmenite",
+    "mchemistry:deepslate_ore_ilmenite",
+    "mchemistry:ore_molybdenite",
+    "mchemistry:deepslate_ore_molybdenite",
+    "mchemistry:ore_wolframite",
+    "mchemistry:deepslate_ore_wolframite",
+    "mchemistry:ore_sperrylite",
+    "mchemistry:deepslate_ore_sperrylite",
+    "mchemistry:ore_bismuthinite",
+    "mchemistry:deepslate_ore_bismuthinite",
+    "mchemistry:ore_greenockite",
+    "mchemistry:deepslate_ore_greenockite",
+    "mchemistry:ore_stibnite",
+    "mchemistry:deepslate_ore_stibnite"
+  ]
+}

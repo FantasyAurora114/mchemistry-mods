@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "open=false,has_stopper=false": {
+      "model": "mchemistry:block/separatory_funnel_closed"
+    },
+    "open=false,has_stopper=true": {
+      "model": "mchemistry:block/separatory_funnel_closed_stoppered"
+    },
+    "open=true,has_stopper=false": {
+      "model": "mchemistry:block/separatory_funnel_open"
+    },
+    "open=true,has_stopper=true": {
+      "model": "mchemistry:block/separatory_funnel_open_stoppered"
+    }
+  }
+}

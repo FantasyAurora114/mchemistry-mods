@@ -1,0 +1,215 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "clay_triangle": "mchemistry:block/clay_triangle"
+  },
+  "elements": [
+    {
+      "from": [
+        -1.5,
+        -0.5,
+        -0.5
+      ],
+      "to": [
+        1.5,
+        0.5,
+        0.5
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "clay_triangle",
+          "uv": [
+            3,
+            3,
+            6,
+            6
+          ]
+        },
+        "south": {
+          "texture": "clay_triangle",
+          "uv": [
+            3,
+            3,
+            6,
+            6
+          ]
+        },
+        "east": {
+          "texture": "clay_triangle",
+          "uv": [
+            3,
+            3,
+            6,
+            6
+          ]
+        },
+        "west": {
+          "texture": "clay_triangle",
+          "uv": [
+            3,
+            3,
+            6,
+            6
+          ]
+        },
+        "up": {
+          "texture": "clay_triangle",
+          "uv": [
+            3,
+            3,
+            6,
+            6
+          ]
+        },
+        "down": {
+          "texture": "clay_triangle",
+          "uv": [
+            3,
+            3,
+            6,
+            6
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        -3,
+        -0.333,
+        -0.333
+      ],
+      "to": [
+        -1.5,
+        0.333,
+        0.333
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "clay_triangle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "clay_triangle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "clay_triangle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "clay_triangle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "clay_triangle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "clay_triangle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        1.5,
+        -0.333,
+        -0.333
+      ],
+      "to": [
+        3,
+        0.333,
+        0.333
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "clay_triangle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "clay_triangle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "clay_triangle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "clay_triangle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "clay_triangle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "clay_triangle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/**/build/
+
+# IntelliJ IDEA / VS Code / Eclipse
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.run/
+.vscode/
+.classpath
+.project
+.settings
+bin/
+
+# Minecraft development
+run/
+repo/
+**/src/generated/**/.cache/
+
+# Built jars (rebuilt via gradle; desktop copies are separate)
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# macOS
+.DS_Store

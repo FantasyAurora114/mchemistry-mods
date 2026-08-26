@@ -1,0 +1,19 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "cases": [
+      {
+        "when": "filled",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/spatula_full"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "mchemistry:item/spatula"
+    }
+  }
+}

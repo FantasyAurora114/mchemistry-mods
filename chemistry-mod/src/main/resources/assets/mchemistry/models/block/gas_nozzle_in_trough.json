@@ -1,0 +1,156 @@
+{
+  "ambientocclusion": false,
+  "particle": "gas_bottle",
+  "textures": {
+    "gas_bottle": "mchemistry:block/gas_bottle"
+  },
+  "elements": [
+    {
+      "from": [
+        7.9,
+        2.0,
+        7.9
+      ],
+      "to": [
+        8.1,
+        3.2,
+        8.1
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "south": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "east": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "west": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "up": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "down": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.8,
+        3.2,
+        7.8
+      ],
+      "to": [
+        8.2,
+        5.4,
+        8.2
+      ],
+      "shade": false,
+      "rotation": {
+        "origin": [
+          8.0,
+          3.2,
+          8.0
+        ],
+        "axis": "z",
+        "angle": 45
+      },
+      "faces": {
+        "north": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "south": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "east": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "west": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "up": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "down": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        }
+      }
+    }
+  ]
+}

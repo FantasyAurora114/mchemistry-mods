@@ -1,0 +1,393 @@
+{
+  "ambientocclusion": false,
+  "particle": "iron_stand",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    }
+  },
+  "textures": {
+    "iron_stand": "mchemistry:block/iron_stand",
+    "test_tube": "mchemistry:block/test_tube",
+    "contents": "mchemistry:block/test_tube_contents",
+    "stopper": "mchemistry:block/rubber_stopper"
+  },
+  "elements": [
+    {
+      "from": [
+        6.0,
+        8.667,
+        8.3333
+      ],
+      "to": [
+        6.333,
+        9.667,
+        9.3333
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            13,
+            3,
+            14
+          ]
+        },
+        "east": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            13,
+            3,
+            14
+          ]
+        },
+        "south": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            13,
+            3,
+            14
+          ]
+        },
+        "west": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            13,
+            3,
+            14
+          ]
+        },
+        "up": {
+          "texture": "test_tube",
+          "uv": [
+            3,
+            0,
+            6,
+            3
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          9.5,
+          10
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        6.333,
+        9.667,
+        8.3333
+      ],
+      "to": [
+        11.0,
+        10.0,
+        9.3333
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            0,
+            1,
+            14
+          ]
+        },
+        "east": {
+          "texture": "test_tube",
+          "uv": [
+            6,
+            0,
+            9,
+            14
+          ]
+        },
+        "south": {
+          "texture": "test_tube",
+          "uv": [
+            2,
+            0,
+            3,
+            14
+          ]
+        },
+        "west": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            0,
+            3,
+            14
+          ]
+        },
+        "up": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            0,
+            3,
+            1
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          9.5,
+          10
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        6.333,
+        8.333,
+        8.3333
+      ],
+      "to": [
+        11.0,
+        8.667,
+        9.3333
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "test_tube",
+          "uv": [
+            2,
+            0,
+            3,
+            14
+          ]
+        },
+        "east": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            0,
+            3,
+            14
+          ]
+        },
+        "south": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            0,
+            1,
+            14
+          ]
+        },
+        "west": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            0,
+            3,
+            14
+          ]
+        },
+        "up": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            0,
+            3,
+            1
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          9.5,
+          10
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        6.333,
+        8.667,
+        8
+      ],
+      "to": [
+        11.0,
+        9.667,
+        8.3333
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "test_tube",
+          "uv": [
+            6,
+            0,
+            9,
+            14
+          ]
+        },
+        "east": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            0,
+            1,
+            14
+          ]
+        },
+        "south": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            0,
+            3,
+            14
+          ]
+        },
+        "west": {
+          "texture": "test_tube",
+          "uv": [
+            8,
+            0,
+            9,
+            14
+          ]
+        },
+        "up": {
+          "texture": "test_tube",
+          "uv": [
+            6,
+            0,
+            7,
+            3
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          9.5,
+          10
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        6.333,
+        8.667,
+        9.3333
+      ],
+      "to": [
+        11.0,
+        9.667,
+        9.6667
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "test_tube",
+          "uv": [
+            6,
+            0,
+            9,
+            14
+          ]
+        },
+        "east": {
+          "texture": "test_tube",
+          "uv": [
+            8,
+            0,
+            9,
+            14
+          ]
+        },
+        "south": {
+          "texture": "test_tube",
+          "uv": [
+            6,
+            0,
+            9,
+            14
+          ]
+        },
+        "west": {
+          "texture": "test_tube",
+          "uv": [
+            6,
+            0,
+            7,
+            14
+          ]
+        },
+        "up": {
+          "texture": "test_tube",
+          "uv": [
+            0,
+            0,
+            3,
+            1
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          9.5,
+          10
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+description='''
+MCI（化学时代·化工）— MChemistry 的工业/矿石附属模组。
+26 种矿石与对应化学冶炼链、原版铁/铜/金矿石的化学处理改造、
+工业合成塔（反应需先在实验室中解锁）等。
+前置模组：MChemistry（mchemistry）。
+'''
+
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="[${neo_version},)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="mchemistry"
+    type="required"
+    versionRange="[0.1.0,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="mekanism"
+    type="optional"
+    ordering="NONE"
+    side="BOTH"

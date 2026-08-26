@@ -1,0 +1,96 @@
+{
+  "ambientocclusion": false,
+  "particle": "iron_stand",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    }
+  },
+  "textures": {
+    "iron_stand": "mchemistry:block/iron_stand",
+    "test_tube": "mchemistry:block/test_tube",
+    "contents": "mchemistry:block/test_tube_contents",
+    "stopper": "mchemistry:block/rubber_stopper"
+  },
+  "elements": [
+    {
+      "from": [
+        7.667,
+        10.333,
+        8.3333
+      ],
+      "to": [
+        8.667,
+        11.667,
+        9.3333
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "contents",
+          "tintindex": 0
+        },
+        "south": {
+          "texture": "contents",
+          "tintindex": 0
+        },
+        "east": {
+          "texture": "contents",
+          "tintindex": 0
+        },
+        "west": {
+          "texture": "contents",
+          "tintindex": 0
+        },
+        "up": {
+          "texture": "contents",
+          "tintindex": 0
+        },
+        "down": {
+          "texture": "contents",
+          "tintindex": 0
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          9.5,
+          10
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    }
+  ]
+}

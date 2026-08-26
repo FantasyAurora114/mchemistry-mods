@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "filled=false,stoppered=false": {
+      "model": "mchemistry:block/placed_test_tube"
+    },
+    "filled=true,stoppered=false": {
+      "model": "mchemistry:block/placed_test_tube_filled"
+    },
+    "filled=false,stoppered=true": {
+      "model": "mchemistry:block/placed_test_tube_stoppered"
+    },
+    "filled=true,stoppered=true": {
+      "model": "mchemistry:block/placed_test_tube_stoppered_filled"
+    }
+  }
+}

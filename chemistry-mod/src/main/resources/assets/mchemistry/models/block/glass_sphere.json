@@ -1,0 +1,518 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "glass_sphere": "mchemistry:block/glass_sphere"
+  },
+  "elements": [
+    {
+      "from": [
+        -0.49186397833832723,
+        -0.954929658551372,
+        -0.49186397833832723
+      ],
+      "to": [
+        0.49186397833832723,
+        -0.68209261325098,
+        0.49186397833832723
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        -0.783664749512218,
+        -0.68209261325098,
+        -0.783664749512218
+      ],
+      "to": [
+        0.783664749512218,
+        -0.40925556795058804,
+        0.783664749512218
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "axis": "y",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        -0.915123270107799,
+        -0.40925556795058804,
+        -0.915123270107799
+      ],
+      "to": [
+        0.915123270107799,
+        -0.13641852265019605,
+        0.915123270107799
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        -0.954929658551372,
+        -0.13641852265019605,
+        -0.954929658551372
+      ],
+      "to": [
+        0.954929658551372,
+        0.13641852265019594,
+        0.954929658551372
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "axis": "y",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        -0.9151232701077991,
+        0.13641852265019594,
+        -0.9151232701077991
+      ],
+      "to": [
+        0.9151232701077991,
+        0.40925556795058793,
+        0.9151232701077991
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        -0.7836647495122181,
+        0.4092555679505878,
+        -0.7836647495122181
+      ],
+      "to": [
+        0.7836647495122181,
+        0.6820926132509798,
+        0.7836647495122181
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "axis": "y",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        -0.49186397833832757,
+        0.6820926132509799,
+        -0.49186397833832757
+      ],
+      "to": [
+        0.49186397833832757,
+        0.9549296585513719,
+        0.49186397833832757
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "glass_sphere",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

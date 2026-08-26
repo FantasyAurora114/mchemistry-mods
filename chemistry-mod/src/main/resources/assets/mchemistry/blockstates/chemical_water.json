@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "mchemistry:block/chemical_water" }
+  }
+}

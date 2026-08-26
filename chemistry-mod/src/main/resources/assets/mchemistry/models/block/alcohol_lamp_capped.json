@@ -1,0 +1,310 @@
+{
+  "ambientocclusion": false,
+  "particle": "alcohol_lamp",
+  "textures": {
+    "alcohol_lamp": "mchemistry:block/alcohol_lamp",
+    "flame": "mchemistry:block/alcohol_lamp_flame"
+  },
+  "elements": [
+    {
+      "from": [
+        7.75,
+        0.0,
+        7.75
+      ],
+      "to": [
+        9.25,
+        1.0,
+        9.25
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        },
+        "east": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        },
+        "south": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        },
+        "west": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        },
+        "up": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.25,
+        1.0,
+        7.25
+      ],
+      "to": [
+        9.75,
+        2.0,
+        9.75
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        },
+        "east": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        },
+        "south": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        },
+        "west": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        },
+        "up": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            3,
+            7,
+            12,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.75,
+        2.0,
+        7.75
+      ],
+      "to": [
+        9.25,
+        2.5,
+        9.25
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        },
+        "east": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        },
+        "south": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        },
+        "west": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            0,
+            10,
+            3
+          ]
+        },
+        "up": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            3,
+            7,
+            6,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        8.125,
+        2.5,
+        8.125
+      ],
+      "to": [
+        8.875,
+        3.5,
+        8.875
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "east": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "south": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "west": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "up": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            3,
+            4,
+            6,
+            7
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        8.25,
+        3.5,
+        8.25
+      ],
+      "to": [
+        8.75,
+        4.25,
+        8.75
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            13,
+            0.5,
+            14
+          ]
+        },
+        "east": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            13,
+            0.5,
+            14
+          ]
+        },
+        "south": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            13,
+            0.5,
+            14
+          ]
+        },
+        "west": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            13,
+            0.5,
+            14
+          ]
+        },
+        "up": {
+          "texture": "alcohol_lamp",
+          "uv": [
+            0,
+            14,
+            0.5,
+            14.5
+          ]
+        }
+      }
+    }
+  ]
+}

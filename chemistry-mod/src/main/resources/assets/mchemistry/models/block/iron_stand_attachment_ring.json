@@ -1,0 +1,284 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "iron_stand": "mchemistry:block/iron_stand"
+  },
+  "elements": [
+    {
+      "from": [
+        9.5,
+        9.4,
+        8
+      ],
+      "to": [
+        9.6,
+        9.5,
+        10
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "iron_stand",
+          "uv": [
+            1.9,
+            1.9,
+            2,
+            2
+          ]
+        },
+        "east": {
+          "texture": "iron_stand",
+          "uv": [
+            4,
+            1.9,
+            6,
+            2
+          ]
+        },
+        "south": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            1.9,
+            0.1,
+            2
+          ]
+        },
+        "west": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            1.9,
+            2,
+            2
+          ]
+        },
+        "up": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            0,
+            0.1,
+            2
+          ]
+        },
+        "down": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            4,
+            0.1,
+            6
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        9.4,
+        8
+      ],
+      "to": [
+        7.6,
+        9.5,
+        10
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "iron_stand",
+          "uv": [
+            1.9,
+            1.9,
+            2,
+            2
+          ]
+        },
+        "east": {
+          "texture": "iron_stand",
+          "uv": [
+            4,
+            1.9,
+            6,
+            2
+          ]
+        },
+        "south": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            1.9,
+            0.1,
+            2
+          ]
+        },
+        "west": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            1.9,
+            2,
+            2
+          ]
+        },
+        "up": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            0,
+            0.1,
+            2
+          ]
+        },
+        "down": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            4,
+            0.1,
+            6
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        9.4,
+        8
+      ],
+      "to": [
+        9.5,
+        9.5,
+        8.1
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "iron_stand",
+          "uv": [
+            3,
+            1.9,
+            5,
+            2
+          ]
+        },
+        "east": {
+          "texture": "iron_stand",
+          "uv": [
+            5.9,
+            1.9,
+            6,
+            2
+          ]
+        },
+        "south": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            1.9,
+            2,
+            2
+          ]
+        },
+        "west": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            1.9,
+            0.1,
+            2
+          ]
+        },
+        "up": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            0,
+            2,
+            0.1
+          ]
+        },
+        "down": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            5.9,
+            2,
+            6
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        9.4,
+        10
+      ],
+      "to": [
+        9.5,
+        9.5,
+        10.1
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "iron_stand",
+          "uv": [
+            3,
+            1.9,
+            5,
+            2
+          ]
+        },
+        "east": {
+          "texture": "iron_stand",
+          "uv": [
+            5.9,
+            1.9,
+            6,
+            2
+          ]
+        },
+        "south": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            1.9,
+            2,
+            2
+          ]
+        },
+        "west": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            1.9,
+            0.1,
+            2
+          ]
+        },
+        "up": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            0,
+            2,
+            0.1
+          ]
+        },
+        "down": {
+          "texture": "iron_stand",
+          "uv": [
+            0,
+            5.9,
+            2,
+            6
+          ]
+        }
+      }
+    }
+  ]
+}

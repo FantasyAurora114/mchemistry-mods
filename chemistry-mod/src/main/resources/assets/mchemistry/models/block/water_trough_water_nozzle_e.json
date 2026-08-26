@@ -1,0 +1,459 @@
+{
+  "ambientocclusion": false,
+  "particle": "water_trough",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    }
+  },
+  "textures": {
+    "water_trough": "mchemistry:block/water_trough",
+    "water_trough_water": "mchemistry:block/water_trough_water",
+    "water_trough_ice": "mchemistry:block/water_trough_ice",
+    "glass_tube": "mchemistry:block/glass_tube"
+  },
+  "elements": [
+    {
+      "from": [
+        4,
+        0,
+        4
+      ],
+      "to": [
+        13,
+        1,
+        13
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            1,
+            10,
+            4
+          ]
+        },
+        "east": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            1,
+            10,
+            4
+          ]
+        },
+        "south": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            1,
+            10,
+            4
+          ]
+        },
+        "west": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            1,
+            10,
+            4
+          ]
+        },
+        "up": {
+          "texture": "water_trough",
+          "uv": [
+            3,
+            7,
+            12,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        0,
+        4
+      ],
+      "to": [
+        4,
+        4,
+        13
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "water_trough",
+          "uv": [
+            8,
+            0,
+            9,
+            4
+          ]
+        },
+        "east": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            0,
+            9,
+            4
+          ]
+        },
+        "south": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            0,
+            1,
+            4
+          ]
+        },
+        "west": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            0,
+            9,
+            4
+          ]
+        },
+        "up": {
+          "texture": "water_trough",
+          "uv": [
+            3,
+            7,
+            4,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        0,
+        4
+      ],
+      "to": [
+        14,
+        4,
+        13
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "water_trough",
+          "uv": [
+            8,
+            0,
+            9,
+            4
+          ]
+        },
+        "east": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            0,
+            9,
+            4
+          ]
+        },
+        "south": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            0,
+            1,
+            4
+          ]
+        },
+        "west": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            0,
+            9,
+            4
+          ]
+        },
+        "up": {
+          "texture": "water_trough",
+          "uv": [
+            11,
+            7,
+            12,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        0,
+        3
+      ],
+      "to": [
+        13,
+        4,
+        4
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            0,
+            9,
+            4
+          ]
+        },
+        "east": {
+          "texture": "water_trough",
+          "uv": [
+            8,
+            0,
+            9,
+            4
+          ]
+        },
+        "south": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            0,
+            9,
+            4
+          ]
+        },
+        "west": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            0,
+            1,
+            4
+          ]
+        },
+        "up": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            0,
+            9,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        0,
+        13
+      ],
+      "to": [
+        13,
+        4,
+        14
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            0,
+            9,
+            4
+          ]
+        },
+        "east": {
+          "texture": "water_trough",
+          "uv": [
+            8,
+            0,
+            9,
+            4
+          ]
+        },
+        "south": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            0,
+            9,
+            4
+          ]
+        },
+        "west": {
+          "texture": "water_trough",
+          "uv": [
+            0,
+            0,
+            1,
+            4
+          ]
+        },
+        "up": {
+          "texture": "water_trough",
+          "uv": [
+            3,
+            15,
+            12,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        4.05,
+        1.05,
+        4.05
+      ],
+      "to": [
+        12.95,
+        3.85,
+        12.95
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "water_trough_water"
+        },
+        "south": {
+          "texture": "water_trough_water"
+        },
+        "east": {
+          "texture": "water_trough_water"
+        },
+        "west": {
+          "texture": "water_trough_water"
+        },
+        "up": {
+          "texture": "water_trough_water"
+        },
+        "down": {
+          "texture": "water_trough_water"
+        }
+      }
+    },
+    {
+      "from": [
+        7.9,
+        2.5,
+        7.9
+      ],
+      "to": [
+        8.1,
+        5.5,
+        8.1
+      ],
+      "shade": false,
+      "rotation": {
+        "origin": [
+          8.0,
+          2.5,
+          8.0
+        ],
+        "axis": "z",
+        "angle": -45
+      },
+      "faces": {
+        "north": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "south": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "east": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "west": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "up": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "down": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        }
+      }
+    }
+  ]
+}

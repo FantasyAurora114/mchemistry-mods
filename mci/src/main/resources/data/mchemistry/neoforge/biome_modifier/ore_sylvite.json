@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_badlands",
+  "features": "mchemistry:ore_sylvite",
+  "step": "underground_ores"
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mchemistry:item/open_gas_collecting_bottle_argon"
+  }
+}

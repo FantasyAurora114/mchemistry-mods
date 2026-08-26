@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mchemistry:item/solid_aluminium_hydroxide"
+  }
+}

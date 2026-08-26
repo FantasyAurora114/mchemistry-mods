@@ -1,0 +1,186 @@
+{
+  "ambientocclusion": false,
+  "particle": "iron_stand",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    }
+  },
+  "textures": {
+    "iron_stand": "mchemistry:block/iron_stand",
+    "test_tube": "mchemistry:block/test_tube",
+    "contents": "mchemistry:block/test_tube_contents",
+    "stopper": "mchemistry:block/rubber_stopper"
+  },
+  "elements": [
+    {
+      "from": [
+        6.0,
+        9.333,
+        8.3333
+      ],
+      "to": [
+        6.667,
+        10.333,
+        9.3333
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "stopper",
+          "uv": [
+            7,
+            2.33333,
+            8,
+            3
+          ]
+        },
+        "east": {
+          "texture": "stopper",
+          "uv": [
+            6,
+            2.33333,
+            7,
+            3
+          ]
+        },
+        "south": {
+          "texture": "stopper",
+          "uv": [
+            5,
+            2.33333,
+            6,
+            3
+          ]
+        },
+        "west": {
+          "texture": "stopper",
+          "uv": [
+            4,
+            6.33333,
+            5,
+            7
+          ]
+        },
+        "up": {
+          "texture": "stopper",
+          "uv": [
+            7,
+            9,
+            8,
+            10
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          9.5,
+          10
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        5.333,
+        9.0,
+        8
+      ],
+      "to": [
+        6.0,
+        10.667,
+        9.6667
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "stopper",
+          "uv": [
+            7.33333,
+            2.33333,
+            9,
+            3
+          ]
+        },
+        "east": {
+          "texture": "stopper",
+          "uv": [
+            7.33333,
+            2.33333,
+            9,
+            3
+          ]
+        },
+        "south": {
+          "texture": "stopper",
+          "uv": [
+            6,
+            2.33333,
+            7.66667,
+            3
+          ]
+        },
+        "west": {
+          "texture": "stopper",
+          "uv": [
+            8,
+            2.33333,
+            9.66667,
+            3
+          ]
+        },
+        "up": {
+          "texture": "stopper",
+          "uv": [
+            7,
+            9,
+            8.66667,
+            10.66667
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          9.5,
+          10
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    }
+  ]
+}

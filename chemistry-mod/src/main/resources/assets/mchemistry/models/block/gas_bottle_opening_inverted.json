@@ -1,0 +1,391 @@
+{
+  "ambientocclusion": false,
+  "particle": "gas_bottle",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    }
+  },
+  "textures": {
+    "gas_bottle": "mchemistry:block/gas_bottle",
+    "glass_tube": "mchemistry:block/glass_tube"
+  },
+  "elements": [
+    {
+      "from": [
+        6,
+        2.0999999999999996,
+        6
+      ],
+      "to": [
+        11,
+        7.1,
+        11
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        0.09999999999999964,
+        7
+      ],
+      "to": [
+        10,
+        2.0999999999999996,
+        10
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "gas_bottle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        8,
+        0.0,
+        5
+      ],
+      "to": [
+        15,
+        0.09999999999999964,
+        12
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "gas_bottle",
+          "uv": [
+            5,
+            0,
+            6,
+            1
+          ]
+        },
+        "east": {
+          "texture": "gas_bottle",
+          "uv": [
+            5,
+            0,
+            6,
+            1
+          ]
+        },
+        "south": {
+          "texture": "gas_bottle",
+          "uv": [
+            5,
+            0,
+            6,
+            1
+          ]
+        },
+        "west": {
+          "texture": "gas_bottle",
+          "uv": [
+            5,
+            0,
+            6,
+            1
+          ]
+        },
+        "down": {
+          "texture": "gas_bottle",
+          "uv": [
+            5,
+            15,
+            6,
+            16
+          ]
+        },
+        "up": {
+          "texture": "gas_bottle",
+          "uv": [
+            5,
+            15,
+            6,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.6,
+        -1.4000000000000004,
+        7.6
+      ],
+      "to": [
+        8.0,
+        6.1,
+        8.0
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            6,
+            3,
+            12
+          ]
+        },
+        "south": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            6,
+            3,
+            12
+          ]
+        },
+        "east": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            6,
+            3,
+            12
+          ]
+        },
+        "west": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            6,
+            3,
+            12
+          ]
+        },
+        "down": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "up": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.73,
+        6.1,
+        7.73
+      ],
+      "to": [
+        7.87,
+        6.43,
+        7.87
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            6,
+            3,
+            12
+          ]
+        },
+        "south": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            6,
+            3,
+            12
+          ]
+        },
+        "east": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            6,
+            3,
+            12
+          ]
+        },
+        "west": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            6,
+            3,
+            12
+          ]
+        },
+        "down": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        },
+        "up": {
+          "texture": "glass_tube",
+          "uv": [
+            0,
+            4,
+            3,
+            10
+          ]
+        }
+      }
+    }
+  ]
+}

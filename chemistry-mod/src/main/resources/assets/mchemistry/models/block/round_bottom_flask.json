@@ -1,0 +1,285 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "funnel": "mchemistry:block/funnel"
+  },
+  "elements": [
+    {
+      "from": [
+        6,
+        2,
+        6
+      ],
+      "to": [
+        11,
+        4,
+        11
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "east": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "south": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "west": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "up": {
+          "texture": "funnel",
+          "uv": [
+            3,
+            7,
+            10,
+            14
+          ]
+        },
+        "down": {
+          "texture": "funnel",
+          "uv": [
+            3,
+            0,
+            10,
+            7
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        4,
+        6.5
+      ],
+      "to": [
+        10.5,
+        5,
+        10.5
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "east": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "south": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "west": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "up": {
+          "texture": "funnel",
+          "uv": [
+            3,
+            7,
+            10,
+            14
+          ]
+        },
+        "down": {
+          "texture": "funnel",
+          "uv": [
+            3,
+            7,
+            10,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        5,
+        7.5
+      ],
+      "to": [
+        9.5,
+        9,
+        9.5
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "east": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "south": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "west": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "up": {
+          "texture": "funnel",
+          "uv": [
+            3,
+            7,
+            10,
+            14
+          ]
+        },
+        "down": {
+          "texture": "funnel",
+          "uv": [
+            3,
+            7,
+            10,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        1,
+        6.5
+      ],
+      "to": [
+        10.5,
+        2,
+        10.5
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "east": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "south": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "west": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            3,
+            16,
+            7
+          ]
+        },
+        "up": {
+          "texture": "funnel",
+          "uv": [
+            3,
+            7,
+            10,
+            14
+          ]
+        },
+        "down": {
+          "texture": "funnel",
+          "uv": [
+            3,
+            7,
+            10,
+            14
+          ]
+        }
+      }
+    }
+  ],
+  "particle": "mchemistry:block/funnel"
+}

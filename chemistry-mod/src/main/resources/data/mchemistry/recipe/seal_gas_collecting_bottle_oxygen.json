@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "A",
+    "B"
+  ],
+  "key": {
+    "A": "mchemistry:open_gas_collecting_bottle_oxygen",
+    "B": "minecraft:glass_bottle"
+  },
+  "result": {
+    "id": "mchemistry:gas_collecting_bottle_oxygen",
+    "count": 1
+  }
+}

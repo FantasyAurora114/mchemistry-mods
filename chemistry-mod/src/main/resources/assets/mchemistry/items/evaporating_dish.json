@@ -1,0 +1,35 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "cases": [
+      {
+        "when": "filled",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/evaporating_dish"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/evaporating_dish_contents",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "mchemistry:item/evaporating_dish"
+    }
+  }
+}

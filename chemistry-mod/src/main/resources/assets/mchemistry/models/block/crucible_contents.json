@@ -1,0 +1,47 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "contents": "mchemistry:block/vessel_contents"
+  },
+  "elements": [
+    {
+      "from": [
+        6.3,
+        0.2,
+        7.3
+      ],
+      "to": [
+        8.7,
+        5.2,
+        9.7
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "contents",
+          "tintindex": 0
+        },
+        "south": {
+          "texture": "contents",
+          "tintindex": 0
+        },
+        "east": {
+          "texture": "contents",
+          "tintindex": 0
+        },
+        "west": {
+          "texture": "contents",
+          "tintindex": 0
+        },
+        "up": {
+          "texture": "contents",
+          "tintindex": 0
+        },
+        "down": {
+          "texture": "contents",
+          "tintindex": 0
+        }
+      }
+    }
+  ]
+}

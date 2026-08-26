@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mchemistry:item/liquid_ammonia_water_bucket"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "cases": [
+      {
+        "when": "wet",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/rubber_tube_wet"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "mchemistry:item/rubber_tube"
+    }
+  }
+}

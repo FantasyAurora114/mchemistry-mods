@@ -1,0 +1,147 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "funnel": "mchemistry:block/funnel"
+  },
+  "elements": [
+    {
+      "from": [
+        7,
+        5,
+        6
+      ],
+      "to": [
+        8,
+        12,
+        7
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "funnel",
+          "uv": [
+            0,
+            0,
+            3,
+            14
+          ]
+        },
+        "east": {
+          "texture": "funnel",
+          "uv": [
+            0,
+            0,
+            3,
+            14
+          ]
+        },
+        "south": {
+          "texture": "funnel",
+          "uv": [
+            0,
+            0,
+            3,
+            14
+          ]
+        },
+        "west": {
+          "texture": "funnel",
+          "uv": [
+            0,
+            0,
+            3,
+            14
+          ]
+        },
+        "up": {
+          "texture": "funnel",
+          "uv": [
+            3,
+            0,
+            10,
+            7
+          ]
+        },
+        "down": {
+          "texture": "funnel",
+          "uv": [
+            10,
+            0,
+            13,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.25,
+        4,
+        6.25
+      ],
+      "to": [
+        7.75,
+        5,
+        6.75
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "funnel",
+          "uv": [
+            15.5,
+            0,
+            16,
+            1
+          ]
+        },
+        "east": {
+          "texture": "funnel",
+          "uv": [
+            15.5,
+            0,
+            16,
+            1
+          ]
+        },
+        "south": {
+          "texture": "funnel",
+          "uv": [
+            15.5,
+            0,
+            16,
+            1
+          ]
+        },
+        "west": {
+          "texture": "funnel",
+          "uv": [
+            15.5,
+            0,
+            16,
+            1
+          ]
+        },
+        "up": {
+          "texture": "funnel",
+          "uv": [
+            15.5,
+            0,
+            16,
+            0.5
+          ]
+        },
+        "down": {
+          "texture": "funnel",
+          "uv": [
+            15.5,
+            1.5,
+            16,
+            2
+          ]
+        }
+      }
+    }
+  ],
+  "particle": "mchemistry:block/funnel"
+}

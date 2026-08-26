@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "lit=false,capped=false,stuck=false": {
+      "model": "mchemistry:block/alcohol_lamp"
+    },
+    "lit=false,capped=false,stuck=true": {
+      "model": "mchemistry:block/alcohol_lamp"
+    },
+    "lit=false,capped=true,stuck=false": {
+      "model": "mchemistry:block/alcohol_lamp_capped"
+    },
+    "lit=false,capped=true,stuck=true": {
+      "model": "mchemistry:block/alcohol_lamp_capped"
+    },
+    "lit=true,capped=false,stuck=false": {
+      "model": "mchemistry:block/alcohol_lamp_lit"
+    },
+    "lit=true,capped=false,stuck=true": {
+      "model": "mchemistry:block/alcohol_lamp_lit"
+    },
+    "lit=true,capped=true,stuck=false": {
+      "model": "mchemistry:block/alcohol_lamp_capped"
+    },
+    "lit=true,capped=true,stuck=true": {
+      "model": "mchemistry:block/alcohol_lamp_capped"
+    }
+  }
+}

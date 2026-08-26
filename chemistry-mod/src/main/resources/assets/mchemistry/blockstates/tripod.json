@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "has_clay_triangle=false,has_lamp=false,has_vessel=false,lamp_lit=false": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=false,has_lamp=false,has_vessel=true,lamp_lit=false": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=false,has_lamp=false,has_vessel=false,lamp_lit=true": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=false,has_lamp=false,has_vessel=true,lamp_lit=true": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=false,has_lamp=true,has_vessel=false,lamp_lit=false": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=false,has_lamp=true,has_vessel=true,lamp_lit=false": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=false,has_lamp=true,has_vessel=false,lamp_lit=true": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=false,has_lamp=true,has_vessel=true,lamp_lit=true": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=true,has_lamp=false,has_vessel=false,lamp_lit=false": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=true,has_lamp=false,has_vessel=true,lamp_lit=false": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=true,has_lamp=false,has_vessel=false,lamp_lit=true": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=true,has_lamp=false,has_vessel=true,lamp_lit=true": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=true,has_lamp=true,has_vessel=false,lamp_lit=false": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=true,has_lamp=true,has_vessel=true,lamp_lit=false": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=true,has_lamp=true,has_vessel=false,lamp_lit=true": {
+      "model": "mchemistry:block/tripod_bar"
+    },
+    "has_clay_triangle=true,has_lamp=true,has_vessel=true,lamp_lit=true": {
+      "model": "mchemistry:block/tripod_bar"
+    }
+  }
+}

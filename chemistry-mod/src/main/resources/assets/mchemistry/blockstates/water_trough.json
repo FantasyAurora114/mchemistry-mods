@@ -1,0 +1,49 @@
+{
+  "variants": {
+    "filled=empty,nozzle=none": {
+      "model": "mchemistry:block/water_trough"
+    },
+    "filled=empty,nozzle=north": {
+      "model": "mchemistry:block/water_trough"
+    },
+    "filled=empty,nozzle=south": {
+      "model": "mchemistry:block/water_trough"
+    },
+    "filled=empty,nozzle=east": {
+      "model": "mchemistry:block/water_trough"
+    },
+    "filled=empty,nozzle=west": {
+      "model": "mchemistry:block/water_trough"
+    },
+    "filled=water,nozzle=none": {
+      "model": "mchemistry:block/water_trough_water"
+    },
+    "filled=water,nozzle=north": {
+      "model": "mchemistry:block/water_trough_water_nozzle_n"
+    },
+    "filled=water,nozzle=south": {
+      "model": "mchemistry:block/water_trough_water_nozzle_s"
+    },
+    "filled=water,nozzle=east": {
+      "model": "mchemistry:block/water_trough_water_nozzle_e"
+    },
+    "filled=water,nozzle=west": {
+      "model": "mchemistry:block/water_trough_water_nozzle_w"
+    },
+    "filled=ice,nozzle=none": {
+      "model": "mchemistry:block/water_trough_ice"
+    },
+    "filled=ice,nozzle=north": {
+      "model": "mchemistry:block/water_trough_ice"
+    },
+    "filled=ice,nozzle=south": {
+      "model": "mchemistry:block/water_trough_ice"
+    },
+    "filled=ice,nozzle=east": {
+      "model": "mchemistry:block/water_trough_ice"
+    },
+    "filled=ice,nozzle=west": {
+      "model": "mchemistry:block/water_trough_ice"
+    }
+  }
+}

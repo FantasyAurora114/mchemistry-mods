@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "has_nozzle=false,has_plate=false,inverted=false": {
+      "model": "mchemistry:block/gas_bottle"
+    },
+    "has_nozzle=true,has_plate=false,inverted=false": {
+      "model": "mchemistry:block/gas_bottle_opening"
+    },
+    "has_nozzle=false,has_plate=true,inverted=false": {
+      "model": "mchemistry:block/gas_bottle_plate"
+    },
+    "has_nozzle=true,has_plate=true,inverted=false": {
+      "model": "mchemistry:block/gas_bottle_opening"
+    },
+    "has_nozzle=false,has_plate=false,inverted=true": {
+      "model": "mchemistry:block/gas_bottle_inverted"
+    },
+    "has_nozzle=true,has_plate=false,inverted=true": {
+      "model": "mchemistry:block/gas_bottle_opening_inverted"
+    },
+    "has_nozzle=false,has_plate=true,inverted=true": {
+      "model": "mchemistry:block/gas_bottle_plate_inverted"
+    },
+    "has_nozzle=true,has_plate=true,inverted=true": {
+      "model": "mchemistry:block/gas_bottle_opening_inverted"
+    }
+  }
+}
