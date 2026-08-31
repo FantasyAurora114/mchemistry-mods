@@ -1,24 +1,33 @@
 package com.example.chemistry.block;
 
 import com.example.chemistry.item.RubberTubeItem;
+import com.example.chemistry.item.GlassTubeItem;
+import com.example.chemistry.item.GlassTubeTubedItem;
+import com.example.chemistry.item.LabelItem;
 import com.example.chemistry.entity.RubberTubeEntity;
 import com.example.chemistry.blockentity.GasCollectingBottleBlockEntity;
-import com.example.chemistry.entity.RubberTubeEntity.Anchor;
+import com.example.chemistry.entity.RubberTubeEntity.Port;
+import com.example.chemistry.registry.ModBlockEntities;
 import com.example.chemistry.registry.ModItems;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -64,9 +73,26 @@ public class GasCollectingBottleBlock extends Block implements EntityBlock {
         return SHAPE;
     }
 
+    /** 集气瓶瓶口在碰撞体(至 y=7.2)之上悬空；交互命中框覆盖整个瓶身高度。 */
+    @Override
+    public VoxelShape getInteractionShape(BlockState state, net.minecraft.world.level.BlockGetter level,
+            BlockPos pos) {
+        return box(4.0, 0.0, 4.0, 12.0, 16.0, 12.0);
+    }
+
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new GasCollectingBottleBlockEntity(pos, state);
+    }
+
+    /** 服务器 tick：瓶内气体沿连接的橡胶管流向另一端。 */
+    @Override
+    @org.jetbrains.annotations.Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+            Level level, BlockState state, BlockEntityType<T> type) {
+        return type == ModBlockEntities.GAS_COLLECTING_BOTTLE.get()
+                ? (lvl, pos, st, be) -> ((GasCollectingBottleBlockEntity) be).tickServer(lvl)
+                : null;
     }
 
     @Override
@@ -84,11 +110,47 @@ public class GasCollectingBottleBlock extends Block implements EntityBlock {
             }
             return InteractionResult.SUCCESS;
         }
-        // Insert a gas nozzle through the glass-plate opening.
-        if (stack.is(ModItems.GAS_NOZZLE.get()) && state.getValue(HAS_PLATE) && !state.getValue(HAS_NOZZLE)) {
+        // 用湿橡胶管连瓶口但瓶上还没插导管：提示先插导管。
+        if ((stack.getItem() instanceof RubberTubeItem
+                || (stack.isEmpty() && player.getOffhandItem().getItem() instanceof RubberTubeItem))
+                && !state.getValue(HAS_NOZZLE)) {
+            if (!level.isClientSide()) {
+                player.displayClientMessage(
+                        Component.translatable("mchemistry.rubber_tube.need_bottle_nozzle"), true);
+            }
+            return InteractionResult.SUCCESS;
+        }
+        // 套着橡胶管的玻璃导管：把自由端连到瓶口导管。
+        if (stack.getItem() instanceof GlassTubeTubedItem) {
+            if (!state.getValue(HAS_NOZZLE)) {
+                if (!level.isClientSide()) {
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.rubber_tube.need_bottle_nozzle"), true);
+                }
+                return InteractionResult.SUCCESS;
+            }
+            if (!level.isClientSide()) {
+                Port nozzle = Port.nozzle(pos, Direction.UP);
+                if (RubberTubeItem.hasTubeAt(level, nozzle)) {
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.rubber_tube.occupied"), true);
+                } else {
+                    RubberTubeItem.createTube(level, player, stack,
+                            Port.entity(player.getUUID()), nozzle);
+                }
+            }
+            return InteractionResult.SUCCESS;
+        }
+        // Insert a glass tube through the glass-plate opening (原导气嘴功能，
+        // 三种玻璃导管都可以插)。
+        if (stack.getItem() instanceof GlassTubeItem
+                && state.getValue(HAS_PLATE) && !state.getValue(HAS_NOZZLE)) {
             if (!level.isClientSide()) {
                 level.setBlock(pos, state.setValue(HAS_NOZZLE, true), 3);
                 level.playSound(null, pos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                if (level.getBlockEntity(pos) instanceof GasCollectingBottleBlockEntity be) {
+                    be.setTubeType(GlassTubeItem.tubeType(stack));
+                }
                 stack.shrink(1);
             }
             return InteractionResult.SUCCESS;
@@ -118,12 +180,18 @@ public class GasCollectingBottleBlock extends Block implements EntityBlock {
             player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.need_wet"), true);
             return;
         }
-        Anchor nozzle = Anchor.nozzle(pos, Direction.UP);
+        Port nozzle = Port.nozzle(pos, Direction.UP);
         if (RubberTubeItem.hasTubeAt(level, nozzle)) {
             player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.occupied"), true);
             return;
         }
-        Anchor pending = RubberTubeItem.readPending(stack);
+        // 副手拿玻璃导管：从手上的导管直接连到瓶口导管（一次右键完成）。
+        if (com.example.chemistry.item.GlassTubeItem.isGlassTube(player.getOffhandItem())) {
+            RubberTubeItem.createTube(level, player, stack,
+                    Port.entity(player.getUUID()), nozzle);
+            return;
+        }
+        Port pending = RubberTubeItem.readPending(stack);
         if (pending == null) {
             RubberTubeItem.startPending(level, player, stack, nozzle);
             player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.start_nozzle"), true);
@@ -134,48 +202,56 @@ public class GasCollectingBottleBlock extends Block implements EntityBlock {
         }
     }
 
-    /** Empty hand: remove the nozzle first, then the glass plate. The bottle itself stays. */
+    /** Empty hand, right-click priority: remove the gas nozzle first (dropping
+     *  the whole rubber tube connected to it), then the glass plate, then pick
+     *  the bottle up. A rubber tube held in the offhand still connects. */
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos,
             Player player, BlockHitResult hitResult) {
-        // Never remove the nozzle while the player is handling a rubber tube
-        // (e.g. holding it in the offhand): connect instead.
-        ItemStack main = player.getMainHandItem();
+        // Offhand rubber tube: connect to the nozzle (not remove it).
         ItemStack off = player.getOffhandItem();
-        ItemStack tube = main.getItem() instanceof RubberTubeItem ? main
-                : off.getItem() instanceof RubberTubeItem ? off : ItemStack.EMPTY;
-        if (state.getValue(HAS_NOZZLE) && !tube.isEmpty()) {
+        if (state.getValue(HAS_NOZZLE) && off.getItem() instanceof RubberTubeItem) {
             if (!level.isClientSide()) {
-                handleTubeNozzle(level, player, tube, pos, state);
+                handleTubeNozzle(level, player, off, pos, state);
             }
-            return InteractionResult.SUCCESS;
-        }
-        // Empty hand: complete a pending tube anchored to the player, and
-        // never remove a nozzle that already has a tube on it.
-        if (state.getValue(HAS_NOZZLE)
-                && RubberTubeItem.handleNozzleEmptyClick(level, player,
-                        RubberTubeEntity.Anchor.nozzle(pos.immutable(), Direction.UP))) {
             return InteractionResult.SUCCESS;
         }
         if (!level.isClientSide()) {
             ItemStack give;
             if (state.getValue(HAS_NOZZLE)) {
-                RubberTubeItem.detachTubesAt(level, RubberTubeEntity.Anchor.nozzle(pos.immutable(), Direction.UP));
-                give = new ItemStack(ModItems.GAS_NOZZLE.get());
+                // The whole rubber tube connected to this tube head drops.
+                RubberTubeItem.dropTubesConnectedToNozzle(level, pos);
+                int tubeType = level.getBlockEntity(pos) instanceof GasCollectingBottleBlockEntity be
+                        ? be.getTubeType() : 1;
+                give = new ItemStack(tubeItemFor(tubeType));
                 level.setBlock(pos, state.setValue(HAS_NOZZLE, false), 3);
+                player.displayClientMessage(
+                        Component.translatable("mchemistry.gas_bottle.tube_out"), true);
             } else if (state.getValue(HAS_PLATE)) {
                 give = new ItemStack(ModItems.GLASS_SHEET.get());
                 level.setBlock(pos, state.setValue(HAS_PLATE, false), 3);
+                player.displayClientMessage(
+                        Component.translatable("mchemistry.gas_bottle.plate_out"), true);
             } else {
-                // No plate and no nozzle: nothing to remove.
+                // Nothing attached: pick the whole bottle up (keeps gas/purity).
+                if (!(level.getBlockEntity(pos) instanceof GasCollectingBottleBlockEntity be)) {
+                    return InteractionResult.SUCCESS;
+                }
+                ItemStack bottle = bottleItemFor(state, be.getGasId());
+                be.writeToItem(bottle);
+                com.example.chemistry.PurityHelper.setPurity(bottle, be.getPurity());
+                applyLabel(bottle, be.getLabelName());
+                level.removeBlock(pos, false);
+                if (!player.getInventory().add(bottle)) {
+                    player.drop(bottle, false);
+                }
+                level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 0.8F, 1.0F);
                 return InteractionResult.SUCCESS;
             }
             level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
             if (!player.getInventory().add(give)) {
                 player.drop(give, false);
             }
-            player.displayClientMessage(
-                    Component.literal("取下了导气嘴"), true);
         }
         return InteractionResult.SUCCESS;
     }
@@ -188,22 +264,30 @@ public class GasCollectingBottleBlock extends Block implements EntityBlock {
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide() && !player.isCreative()
-                && level.getBlockEntity(pos) instanceof GasCollectingBottleBlockEntity be) {
-            String gasId = be.getGasId();
-            ItemStack drop = bottleItemFor(state, gasId);
-            com.example.chemistry.PurityHelper.setPurity(drop, be.getPurity());
-            net.minecraft.world.entity.item.ItemEntity item = new net.minecraft.world.entity.item.ItemEntity(
-                    level, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, drop);
-            item.setDefaultPickUpDelay();
-            level.addFreshEntity(item);
-            if (state.getValue(HAS_NOZZLE)) {
-                RubberTubeItem.dropTubesConnectedToNozzle(level, pos);
-                net.minecraft.world.entity.item.ItemEntity nozzle = new net.minecraft.world.entity.item.ItemEntity(
-                        level, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
-                        new ItemStack(ModItems.GAS_NOZZLE.get()));
-                nozzle.setDefaultPickUpDelay();
-                level.addFreshEntity(nozzle);
+        if (!level.isClientSide()) {
+            // 破坏集气瓶：无论什么模式都把连在瓶口导管上的橡胶管清掉
+            // （否则创造模式下管子会悬空），生存模式才掉落橡胶管物品。
+            RubberTubeItem.dropTubesAtBlockPos(level, pos, !player.isCreative());
+            if (!player.isCreative()
+                    && level.getBlockEntity(pos) instanceof GasCollectingBottleBlockEntity be) {
+                String gasId = be.getGasId();
+                ItemStack drop = bottleItemFor(state, gasId);
+                be.writeToItem(drop);
+                com.example.chemistry.PurityHelper.setPurity(drop, be.getPurity());
+                applyLabel(drop, be.getLabelName());
+                net.minecraft.world.entity.item.ItemEntity item = new net.minecraft.world.entity.item.ItemEntity(
+                        level, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, drop);
+                item.setDefaultPickUpDelay();
+                level.addFreshEntity(item);
+                if (state.getValue(HAS_NOZZLE)) {
+                    int tubeType = level.getBlockEntity(pos) instanceof GasCollectingBottleBlockEntity bottleBe
+                            ? bottleBe.getTubeType() : 1;
+                    net.minecraft.world.entity.item.ItemEntity tubeDrop = new net.minecraft.world.entity.item.ItemEntity(
+                            level, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
+                            new ItemStack(tubeItemFor(tubeType)));
+                    tubeDrop.setDefaultPickUpDelay();
+                    level.addFreshEntity(tubeDrop);
+                }
             }
         }
         return super.playerWillDestroy(level, pos, state, player);
@@ -213,11 +297,31 @@ public class GasCollectingBottleBlock extends Block implements EntityBlock {
     private static ItemStack bottleItemFor(BlockState state, String gasId) {
         if (state.getValue(HAS_PLATE)) {
             return gasId.isEmpty()
-                    ? new ItemStack(ModItems.EMPTY_GAS_JAR.get())
-                    : new ItemStack(ModItems.gasJarItem(gasId));
+                    ? ModItems.emptyGasJar()
+                    : ModItems.gasBottle(gasId, true);
         }
         return gasId.isEmpty()
-                ? new ItemStack(ModItems.EMPTY_GAS_JAR.get())
-                : new ItemStack(ModItems.openGasJar(gasId));
+                ? ModItems.emptyGasJar()
+                : ModItems.gasBottle(gasId, false);
+    }
+
+    /** 导管类型 1=直管 2=90度管 3=90度长管 → 对应物品。 */
+    private static net.minecraft.world.item.Item tubeItemFor(int type) {
+        return switch (type) {
+            case 2 -> ModItems.RIGHT_ANGLE_GLASS_TUBE.get();
+            case 3 -> ModItems.RIGHT_ANGLE_GLASS_TUBE_LONG.get();
+            default -> ModItems.STRAIGHT_GLASS_TUBE.get();
+        };
+    }
+
+    /** 把方块实体上存的标签文字写回拾取到的瓶子物品。 */
+    private static void applyLabel(ItemStack stack, String label) {
+        if (label == null || label.isEmpty()) {
+            return;
+        }
+        stack.set(DataComponents.CUSTOM_NAME, Component.literal(label));
+        CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        tag.putString(LabelItem.KEY_LABEL, label);
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
     }
 }

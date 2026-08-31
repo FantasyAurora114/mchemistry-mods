@@ -5,21 +5,30 @@ import com.example.chemistry.CombustionEngine;
 import com.example.chemistry.VesselHeating;
 import com.example.chemistry.block.AlcoholLampBlock;
 import com.example.chemistry.block.GasCollectingBottleBlock;
+import com.example.chemistry.blockentity.GasCollectingBottleBlockEntity;
+import com.example.chemistry.blockentity.PlacedGraduatedCylinderBlockEntity;
 import com.example.chemistry.blockentity.IronStandBlockEntity;
 import com.example.chemistry.blockentity.PlacedTestTubeBlockEntity;
 import com.example.chemistry.item.CombustionSpoonItem;
 import com.example.chemistry.item.DropperHelper;
 import com.example.chemistry.item.DropperItem;
+import com.example.chemistry.item.GlassTubeItem;
+import com.example.chemistry.item.GraduatedCylinderItem;
 import com.example.chemistry.item.LabVesselItem;
+import com.example.chemistry.item.LabelItem;
 import com.example.chemistry.item.RubberTubeItem;
 import com.example.chemistry.item.SolidToolItem;
 import com.example.chemistry.item.SplintItem;
 import com.example.chemistry.item.TestTubeItem;
 import com.example.chemistry.registry.ModItems;
 import com.example.chemistry.registry.ModBlocks;
+import com.example.chemistry.api.goggles.ChemGoggleLines;
+import com.example.chemistry.transfer.BottleCodes;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -35,9 +44,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 /**
@@ -63,13 +74,28 @@ public class LabInteractions {
         ItemStack main = event.getItemStack();
         ItemStack off = player.getOffhandItem();
 
+        // 点燃手持玻璃导管喷出的气体（副手玻璃导管 + 主手打火石等）。
+        if (GlassTubeIgnition.tryIgnite(player.level(), player)) {
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            return;
+        }
+        // 虚拟选中框：对空右键瞄准铁架台上的瓶口端口（瓶口悬空也能插塞/塞塞子）。
+        if (main.is(ModItems.GLASS_STOPPER.get())
+                || main.is(ModItems.RUBBER_STOPPER_1_HOLE.get())
+                || main.is(ModItems.RUBBER_STOPPER_2_HOLE.get())
+                || main.is(ModItems.RUBBER_STOPPER_3_HOLE.get())) {
+            if (routeStopperViaPort(player.level(), player, main)) {
+                event.setCancellationResult(InteractionResult.SUCCESS);
+                return;
+            }
+        }
+
         // Gas-jar verification tests (offhand jar + mainhand splint / fire / limewater).
-        String offPathJar = BuiltInRegistries.ITEM.getKey(off.getItem()).getPath();
-        boolean offIsJar = offPathJar.startsWith("gas_collecting_bottle_")
-                || offPathJar.startsWith("open_gas_collecting_bottle_");
+        String offGas = BottleCodes.gasIdOf(off);
+        boolean offIsJar = offGas != null;
         if (offIsJar) {
             if (main.getItem() instanceof SplintItem splint && splint.isGlowing()) {
-                if (offPathJar.contains("oxygen")) {
+                if ("oxygen".equals(offGas)) {
                     if (player.level() instanceof ServerLevel sl) {
                         sl.sendParticles(ParticleTypes.FLAME, player.getX(), player.getEyeY(), player.getZ(),
                                 10, 0.2, 0.2, 0.2, 0.02);
@@ -79,7 +105,7 @@ public class LabInteractions {
                     event.setCancellationResult(InteractionResult.SUCCESS);
                     return;
                 }
-                if (offPathJar.contains("carbon_dioxide")) {
+                if ("carbon_dioxide".equals(offGas)) {
                     if (player.level() instanceof ServerLevel sl) {
                         sl.sendParticles(ParticleTypes.SMOKE, player.getX(), player.getEyeY(), player.getZ(),
                                 8, 0.1, 0.1, 0.1, 0.01);
@@ -93,7 +119,7 @@ public class LabInteractions {
             }
             if ((main.is(net.minecraft.world.item.Items.FLINT_AND_STEEL)
                     || main.getItem() instanceof com.example.chemistry.item.AlcoholLampLitItem)
-                    && offPathJar.contains("hydrogen")) {
+                    && "hydrogen".equals(offGas)) {
                 player.level().playSound(null, player.blockPosition(), SoundEvents.GENERIC_EXPLODE.value(),
                         SoundSource.BLOCKS, 0.8F, 1.4F);
                 if (player.level() instanceof ServerLevel sl) {
@@ -104,10 +130,10 @@ public class LabInteractions {
                 event.setCancellationResult(InteractionResult.SUCCESS);
                 return;
             }
-            if (offPathJar.contains("carbon_dioxide")) {
+            if ("carbon_dioxide".equals(offGas)) {
                 String liquid = main.getItem() instanceof DropperItem
                         ? DropperHelper.getLiquid(main)
-                        : liquidIdOf(BuiltInRegistries.ITEM.getKey(main.getItem()).getPath());
+                        : liquidIdOf(main);
                 if ("limewater_clear".equals(liquid)) {
                     if (player.level() instanceof ServerLevel sl) {
                         sl.sendParticles(ParticleTypes.CLOUD, player.getX(), player.getEyeY(), player.getZ(),
@@ -129,6 +155,84 @@ public class LabInteractions {
             ItemStack tmp = main;
             main = off;
             off = tmp;
+        }
+
+        // 主手敞口集气瓶 + 副手反应容器：往容器里倒一部分气体。
+        if (openGasIdOf(main) != null && off.getItem() instanceof LabVesselItem) {
+            pourGas(main, off, player);
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            return;
+        }
+
+        // 副手玻璃导管 + 主手湿橡胶管 → 合成“套着橡胶管的玻璃导管”。
+        if (off.getItem() instanceof GlassTubeItem && main.getItem() instanceof RubberTubeItem) {
+            if (RubberTubeItem.isWet(main)) {
+                RubberTubeItem.discardTempTube(player.level(), main);
+                player.setItemInHand(InteractionHand.MAIN_HAND,
+                        new ItemStack(ModItems.tubedVariantFor(off)));
+                off.shrink(1);
+                player.displayClientMessage(
+                        Component.translatable("mchemistry.rubber_tube.tubed"), true);
+                event.setCancellationResult(InteractionResult.SUCCESS);
+            } else {
+                player.displayClientMessage(
+                        Component.translatable("mchemistry.rubber_tube.need_wet"), true);
+                event.setCancellationResult(InteractionResult.FAIL);
+            }
+            return;
+        }
+
+        // 用温度计右键副手反应容器：读出当前温度。
+        if (main.is(ModItems.THERMOMETER.get()) && off.getItem() instanceof LabVesselItem) {
+            player.displayClientMessage(
+                    Component.translatable("mchemistry.thermometer.read",
+                            String.format("%.0f", TemperatureSystem.getTemp(off))), true);
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            return;
+        }
+
+        // 玻璃棒搅拌副手反应容器。
+        if (main.is(ModItems.GLASS_ROD.get()) && off.getItem() instanceof LabVesselItem) {
+            stir(player, off);
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            return;
+        }
+
+        // 主手细口瓶 + 副手量筒：倒 5mL 液体进量筒。
+        String bottleLiquid = liquidIdOf(main);
+        if (bottleLiquid != null && off.is(ModItems.GRADUATED_CYLINDER.get())) {
+            GraduatedCylinderItem.add(off, bottleLiquid, 5);
+            player.displayClientMessage(
+                    Component.translatable("mchemistry.cylinder.pour5"), true);
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            return;
+        }
+        // 主手量筒 + 副手反应容器：全部倒入。
+        if (main.is(ModItems.GRADUATED_CYLINDER.get()) && off.getItem() instanceof LabVesselItem) {
+            String liquid = GraduatedCylinderItem.getLiquid(main);
+            if (liquid != null) {
+                double ml = GraduatedCylinderItem.getMl(main);
+                LabVesselItem.addLiquid(off, liquid, (int) ml);
+                GraduatedCylinderItem.set(main, null, 0);
+                player.displayClientMessage(
+                        Component.translatable("mchemistry.cylinder.pour_all"), true);
+                ReactionEngine.checkAndStart(off, player);
+            }
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            return;
+        }
+        // 主手烧杯（含液体）倒入副手反应容器。
+        if (isBeaker(main) && off.getItem() instanceof LabVesselItem) {
+            pourBeaker(main, off, player);
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            return;
+        }
+        // 玻璃塞连接三颈烧瓶：直接塞，无需磨口。
+        if (main.is(ModItems.GLASS_STOPPER.get())
+                && off.is(ModItems.THREE_NECK_FLASK.get())) {
+            connectGlassStopper(main, off, player);
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            return;
         }
 
         // Attach a test tube clamp (offhand) onto a test tube (mainhand).
@@ -172,25 +276,10 @@ public class LabInteractions {
             }
         }
 
-        // Slip a wet rubber tube onto a gas nozzle (offhand nozzle + mainhand tube).
-        if (off.getItem() == ModItems.GAS_NOZZLE.get() && main.getItem() instanceof RubberTubeItem) {
-            if (RubberTubeItem.isWet(main)) {
-                RubberTubeItem.discardTempTube(player.level(), main);
-                player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.GAS_NOZZLE_TUBED.get()));
-                off.shrink(1);
-                event.setCancellationResult(InteractionResult.SUCCESS);
-            } else {
-                player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.need_wet"), true);
-                event.setCancellationResult(InteractionResult.FAIL);
-            }
-            return;
-        }
-
         // Insert a burning combustion spoon into an upright oxygen jar (offhand).
         if (main.getItem() instanceof CombustionSpoonItem && CombustionEngine.isLit(main)) {
-            String offPath = BuiltInRegistries.ITEM.getKey(off.getItem()).getPath();
-            if (offPath.equals("gas_collecting_bottle_oxygen")) {
-                player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.openGasJar("oxygen")));
+            if (BottleCodes.isGasBottle(off) && "oxygen".equals(BottleCodes.gasIdOf(off))) {
+                player.setItemInHand(InteractionHand.OFF_HAND, ModItems.gasBottle("oxygen", false));
                 CombustionEngine.setInBottle(main, true);
                 player.displayClientMessage(Component.translatable("mchemistry.spoon.insert"), true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
@@ -237,7 +326,7 @@ public class LabInteractions {
                 }
                 return;
             }
-            String liquidId = liquidIdOf(BuiltInRegistries.ITEM.getKey(main.getItem()).getPath());
+            String liquidId = liquidIdOf(main);
             if (liquidId != null) {
                 if (sealed) {
                     event.getEntity().displayClientMessage(
@@ -258,7 +347,7 @@ public class LabInteractions {
         }
 
         // Take a solid out of an open wide-mouth bottle (only take-out).
-        String solidId = solidIdOf(BuiltInRegistries.ITEM.getKey(off.getItem()).getPath());
+        String solidId = solidIdOf(off);
         if (solidId != null && main.getItem() instanceof SolidToolItem tool && SolidToolItem.isEmpty(main)) {
             boolean lumps = Solids.ALL.stream()
                     .filter(s -> s.id().equals(solidId))
@@ -284,6 +373,37 @@ public class LabInteractions {
         }
         Player player = event.getEntity();
         ItemStack main = event.getItemStack();
+        // 点燃手持玻璃导管喷出的气体（右键任意方块时也优先点燃）。
+        if (GlassTubeIgnition.tryIgnite(event.getLevel(), player)) {
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            return;
+        }
+        // 酒精灯 / 酒精喷灯右键铁架台：挂到架子上（块物品默认会被拿去放
+        // 到旁边的空气里，这里拦截并改为挂载）。
+        if ((main.is(ModItems.ALCOHOL_LAMP.get()) || main.is(ModItems.ALCOHOL_BLOWTORCH.get()))
+                && event.getLevel().getBlockState(event.getPos()).is(ModBlocks.IRON_STAND.get())) {
+            var st = event.getLevel().getBlockState(event.getPos());
+            if (!st.getValue(com.example.chemistry.block.IronStandBlock.HAS_LAMP)) {
+                if (!event.getLevel().isClientSide()) {
+                    boolean blowtorch = main.is(ModItems.ALCOHOL_BLOWTORCH.get());
+                    event.getLevel().setBlock(event.getPos(),
+                            st.setValue(com.example.chemistry.block.IronStandBlock.HAS_LAMP, true)
+                                    .setValue(com.example.chemistry.block.IronStandBlock.LAMP_LIT, false),
+                            3);
+                    if (event.getLevel().getBlockEntity(event.getPos())
+                            instanceof com.example.chemistry.blockentity.IronStandBlockEntity standBe) {
+                        standBe.setLampBlowtorch(blowtorch);
+                    }
+                    main.shrink(1);
+                    event.getLevel().playSound(null, event.getPos(), SoundEvents.GLASS_PLACE,
+                            SoundSource.BLOCKS, 1.0F, 1.0F);
+                }
+            }
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            return;
+        }
         // Light a plain splint on fire / a lit alcohol lamp.
         if (main.getItem() instanceof SplintItem splint && !splint.isGlowing()) {
             var clicked = event.getLevel().getBlockState(event.getPos());
@@ -310,12 +430,73 @@ public class LabInteractions {
             event.setCancellationResult(InteractionResult.SUCCESS);
             return;
         }
+        // 潜行+右键试管架：放倒置试管（普通右键由方块处理正置）。
+        // 原版潜行交互会绕过方块逻辑，这里直接拦截，避免放进不了。
+        if (player.isShiftKeyDown()
+                && event.getLevel().getBlockState(event.getPos()).is(ModBlocks.TEST_TUBE_RACK.get())
+                && main.getItem() instanceof TestTubeItem tt && !tt.isClamped()) {
+            if (event.getLevel().getBlockEntity(event.getPos())
+                    instanceof com.example.chemistry.blockentity.TestTubeRackBlockEntity rbe) {
+                int slot = rbe.pickSlot(player, event.getPos(), false);
+                if (slot >= 0 && !rbe.getTube(slot).isEmpty()) {
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.rack.slot_occupied"), true);
+                    event.setCanceled(true);
+                    event.setCancellationResult(InteractionResult.FAIL);
+                    return;
+                }
+                if (slot < 0) {
+                    slot = rbe.firstEmpty();
+                }
+                if (slot >= 0) {
+                    rbe.setTube(slot, main.copy(), true);
+                    main.shrink(1);
+                    event.getLevel().playSound(null, event.getPos(), SoundEvents.GLASS_PLACE,
+                            SoundSource.BLOCKS, 1.0F, 1.0F);
+                }
+            }
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            return;
+        }
+        // 潜行+右键放下的量筒：倒出 1mL（原版潜行交互绕过方块逻辑，这里拦截）。
+        if (player.isShiftKeyDown() && main.isEmpty()
+                && event.getLevel().getBlockState(event.getPos()).is(ModBlocks.PLACED_GRADUATED_CYLINDER.get())
+                && event.getLevel().getBlockEntity(event.getPos())
+                        instanceof PlacedGraduatedCylinderBlockEntity cbe
+                && !cbe.getCylinder().isEmpty()) {
+            String liquid = GraduatedCylinderItem.getLiquid(cbe.getCylinder());
+            if (liquid != null && GraduatedCylinderItem.getMl(cbe.getCylinder()) >= 1) {
+                GraduatedCylinderItem.set(cbe.getCylinder(), liquid,
+                        GraduatedCylinderItem.getMl(cbe.getCylinder()) - 1);
+                cbe.setCylinder(cbe.getCylinder());
+                player.displayClientMessage(
+                        Component.translatable("mchemistry.cylinder.pour_out"), true);
+                event.getLevel().playSound(null, event.getPos(), SoundEvents.BOTTLE_EMPTY,
+                        SoundSource.BLOCKS, 0.8F, 1.2F);
+            }
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            return;
+        }
         BlockEntity be = event.getLevel().getBlockEntity(event.getPos());
         ItemStack placedTube = null;
         if (be instanceof PlacedTestTubeBlockEntity pbe) {
             placedTube = pbe.getTube();
         } else if (be instanceof IronStandBlockEntity ibe) {
             placedTube = ibe.getTube();
+        }
+        // 敞口集气瓶右键放下的/铁架台上的试管：倒一部分气体进去。
+        if (placedTube != null && !placedTube.isEmpty() && openGasIdOf(main) != null) {
+            pourGas(main, placedTube, player);
+            if (be instanceof PlacedTestTubeBlockEntity pbe) {
+                pbe.setTube(placedTube);
+            } else {
+                ((IronStandBlockEntity) be).setTube(placedTube);
+            }
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            return;
         }
         // Right-click a placed test tube with a medicine tool to fill it.
         if (placedTube != null && !placedTube.isEmpty() && isMedicineTool(main)) {
@@ -375,7 +556,25 @@ public class LabInteractions {
                 player.level().playSound(null, event.getPos(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
             event.setCanceled(true);
-            event.setCancellationResult(InteractionResult.SUCCESS);
+        }
+    }
+
+    /** 空集气瓶走 BlockItem 放置（不经过 GasBottleItem.place），这里把
+     *  标签文字带到方块实体上，拾取时再写回物品。 */
+    @SubscribeEvent
+    public static void onBlockPlaced(BlockEvent.EntityPlaceEvent event) {
+        if (!(event.getLevel() instanceof ServerLevel serverLevel)
+                || !event.getPlacedBlock().is(ModBlocks.GAS_COLLECTING_BOTTLE.get())
+                || !(event.getEntity() instanceof Player player)
+                || !(serverLevel.getBlockEntity(event.getPos())
+                        instanceof GasCollectingBottleBlockEntity be)) {
+            return;
+        }
+        ItemStack held = player.getMainHandItem();
+        CompoundTag tag = held.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        String label = tag.getStringOr(LabelItem.KEY_LABEL, "");
+        if (!label.isEmpty()) {
+            be.setLabelName(label);
         }
     }
 
@@ -421,7 +620,7 @@ public class LabInteractions {
             player.displayClientMessage(Component.translatable("mchemistry.vessel.full"), true);
             return false;
         }
-        String liquidId = liquidIdOf(BuiltInRegistries.ITEM.getKey(main.getItem()).getPath());
+        String liquidId = liquidIdOf(main);
         if (liquidId != null) {
             if (LabVesselItem.addLiquid(vessel, liquidId, 25)) {
                 if (!ReactionEngine.checkAndStart(vessel, player)) {
@@ -437,6 +636,9 @@ public class LabInteractions {
 
     /** Whether the held item is a transfer tool / dropper / liquid bottle. */
     public static boolean isTransferTool(ItemStack main) {
+        if (openGasIdOf(main) != null) {
+            return true;
+        }
         if (main.getItem() instanceof SolidToolItem && !SolidToolItem.isEmpty(main)) {
             return true;
         }
@@ -446,7 +648,7 @@ public class LabInteractions {
         if (main.getItem() instanceof DropperItem && !DropperHelper.isEmpty(main)) {
             return true;
         }
-        return liquidIdOf(BuiltInRegistries.ITEM.getKey(main.getItem()).getPath()) != null;
+        return liquidIdOf(main) != null;
     }
 
     /** 散装固体物品（loose_<id>）对应的固体 id，非散装返回 null。 */
@@ -469,7 +671,30 @@ public class LabInteractions {
         if (!(vessel.getItem() instanceof LabVesselItem)) {
             return false;
         }
+        // 烧杯右键敞口放置容器：把烧杯里的液体倒进去。
+        if (isBeaker(main)) {
+            pourBeaker(main, vessel, player);
+            return true;
+        }
+        // 玻璃棒右键敞口放置容器：搅拌。
+        if (main.is(ModItems.GLASS_ROD.get())) {
+            stir(player, vessel);
+            return true;
+        }
+        // 用温度计右键敞口容器：直接读出当前温度（密封容器在方块处理器里
+        // 会优先把温度计插进橡胶塞）。
+        if (main.is(ModItems.THERMOMETER.get())) {
+            player.displayClientMessage(
+                    Component.translatable("mchemistry.thermometer.read",
+                            String.format("%.0f", TemperatureSystem.getTemp(vessel))), true);
+            return true;
+        }
         boolean sealed = VesselHeating.isSealed(vessel);
+        // 敞口集气瓶右键放置的容器：倒一部分气体进去。
+        if (openGasIdOf(main) != null) {
+            pourGas(main, vessel, player);
+            return true;
+        }
         if (!sealed) {
             return addToVessel(main, vessel, player);
         }
@@ -488,7 +713,7 @@ public class LabInteractions {
             player.displayClientMessage(Component.translatable("mchemistry.vessel.sealed"), true);
             return true;
         }
-        String liquidId = liquidIdOf(BuiltInRegistries.ITEM.getKey(main.getItem()).getPath());
+        String liquidId = liquidIdOf(main);
         if (liquidId != null) {
             if (hasFunnel) {
                 if (LabVesselItem.addLiquid(vessel, liquidId, 25)) {
@@ -523,7 +748,7 @@ public class LabInteractions {
         if (main.getItem() instanceof DropperItem) {
             return hasDropper;
         }
-        if (liquidIdOf(BuiltInRegistries.ITEM.getKey(main.getItem()).getPath()) != null) {
+        if (liquidIdOf(main) != null) {
             return hasFunnel;
         }
         return isTransferTool(main);
@@ -536,7 +761,7 @@ public class LabInteractions {
         if (main.getItem() instanceof DropperItem) {
             return !DropperHelper.isEmpty(main);
         }
-        return liquidIdOf(BuiltInRegistries.ITEM.getKey(main.getItem()).getPath()) != null;
+        return liquidIdOf(main) != null;
     }
 
     /** Fills a held/placed tube with the main-hand medicine tool. */
@@ -557,7 +782,7 @@ public class LabInteractions {
             }
             return false;
         }
-        String liquidId = liquidIdOf(BuiltInRegistries.ITEM.getKey(main.getItem()).getPath());
+        String liquidId = liquidIdOf(main);
         if (liquidId != null && LabVesselItem.addLiquid(tube, liquidId, 25)) {
             ReactionEngine.checkAndStart(tube, player);
             return true;
@@ -565,17 +790,331 @@ public class LabInteractions {
         return false;
     }
 
-    private static String liquidIdOf(String path) {
-        if (path.startsWith("liquid_")) {
-            return path.substring("liquid_".length());
+    /** 每次敞口集气瓶倒气量（mL）。 */
+    private static final int GAS_POUR_ML = 25;
+
+    /** 敞口集气瓶 → 反应容器倒气（密封/满时提示）。 */
+    private static void pourGas(ItemStack bottle, ItemStack vessel, Player player) {
+        String gasId = openGasIdOf(bottle);
+        if (gasId == null || !(vessel.getItem() instanceof LabVesselItem)) {
+            return;
         }
-        if (path.startsWith("open_liquid_")) {
-            return path.substring("open_liquid_".length());
+        if (VesselHeating.isSealed(vessel)) {
+            player.displayClientMessage(
+                    Component.translatable("mchemistry.gas_pour.sealed"), true);
+            return;
         }
-        return null;
+        if (VesselGasPhase.freeVolumeMl(vessel) < 1.0) {
+            player.displayClientMessage(
+                    Component.translatable("mchemistry.gas_pour.full"), true);
+            return;
+        }
+        VesselGasPhase.pour(vessel, gasId, GAS_POUR_ML);
+        player.displayClientMessage(
+                Component.translatable("mchemistry.gas_pour.success",
+                        Component.literal(ChemGoggleLines.gasName(gasId)), GAS_POUR_ML), true);
     }
 
-    private static String solidIdOf(String path) {
-        return path.startsWith("open_solid_") ? path.substring("open_solid_".length()) : null;
+    /** 玻璃棒搅拌：提示 + 触发反应引擎检测。 */
+    private static void stir(Player player, ItemStack vessel) {
+        // 玻璃棒每 tick 最多使用 1 次。
+        var data = player.getPersistentData();
+        long now = player.level().getGameTime();
+        if (data.getLong("chem_last_stir").orElse(-1L) == now) {
+            player.displayClientMessage(
+                    Component.translatable("mchemistry.stir.cooldown"), true);
+            return;
+        }
+        data.putLong("chem_last_stir", now);
+        player.displayClientMessage(
+                Component.translatable("mchemistry.stir"), true);
+        ReactionEngine.checkAndStart(vessel, player);
+        ReactionEngine.tick(vessel, player);
+    }
+
+    /** 主手是否烧杯。 */
+    private static boolean isBeaker(ItemStack stack) {
+        if (stack.isEmpty()) {
+            return false;
+        }
+        return BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath()
+                .startsWith("beaker_");
+    }
+
+    /** 烧杯里的液体倒入目标容器（倒空烧杯）。 */
+    private static void pourBeaker(ItemStack beaker, ItemStack target, Player player) {
+        for (LabVesselItem.Entry e : LabVesselItem.getContents(beaker)) {
+            if (e.type().equals("liquid")) {
+                double density = com.example.chemistry.data.ChemicalInfoProvider
+                        .densityOfLiquid(e.id());
+                int ml = (int) Math.round(e.amount() / (density > 0 ? density : 1.0));
+                if (LabVesselItem.addLiquid(target, e.id(), ml)) {
+                    LabVesselItem.consumeMass(beaker, "liquid", e.id(), e.amount());
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.cylinder.pour_all"), true);
+                    ReactionEngine.checkAndStart(target, player);
+                } else {
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.vessel.full"), true);
+                }
+                return;
+            }
+        }
+        player.displayClientMessage(
+                Component.translatable("mchemistry.beaker.empty"), true);
+    }
+
+    /** 玻璃塞连接（直接逐个塞满 3 个瓶口后密封，无需磨口）。 */
+    private static void connectGlassStopper(ItemStack stopper, ItemStack flask, Player player) {
+        if (VesselHeating.neckStopperCount(flask) >= 3) {
+            player.displayClientMessage(
+                    Component.translatable("mchemistry.flask.sealed_all"), true);
+            return;
+        }
+        int neck = -1;
+        for (int i = 0; i < 3; i++) {
+            if (!VesselHeating.neckHasStopper(flask, i)) {
+                neck = i;
+                break;
+            }
+        }
+        VesselHeating.setNeckStopper(flask, neck, true);
+        stopper.shrink(1);
+        int count = VesselHeating.neckStopperCount(flask);
+        player.displayClientMessage(
+                Component.translatable("mchemistry.flask.stoppered_n",
+                        count, count >= 3 ? "，三颈烧瓶已全部密封" : ""), true);
+    }
+
+    /** 在三颈瓶上按点击位置塞一个玻璃塞（放在任意挂载点上，传入该挂载点的变换）。 */
+    public static boolean tryPlugNeck(ItemStack flask, ItemStack stopper, Player player,
+            BlockPos pos, Vec3 click, double scale, double offX, double offY,
+            double offZ, double yaw) {
+        if (!VesselHeating.isThreeNeck(flask)) {
+            return false;
+        }
+        int neck = VesselHeating.neckForRay(
+                VesselHeating.neckWorldPositions(pos, scale, offX, offY, offZ, yaw), player);
+        if (neck < 0) {
+            // 射线没命中时退回点击点最近瓶口，保证三个颈都能塞。
+            neck = VesselHeating.neckForClick(
+                    VesselHeating.neckWorldPositions(pos, scale, offX, offY, offZ, yaw), click);
+        }
+        if (neck < 0) {
+            player.displayClientMessage(
+                    Component.translatable("mchemistry.flask.aim_neck"), true);
+            return true;
+        }
+        if (VesselHeating.neckHasStopper(flask, neck)) {
+            player.displayClientMessage(Component.translatable("mchemistry.flask.neck_occupied"), true);
+            return true;
+        }
+        VesselHeating.setNeckStopper(flask, neck, true);
+        stopper.shrink(1);
+        player.level().playSound(null, pos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS, 0.9F, 1.0F);
+        if (VesselHeating.neckStopperCount(flask) >= 3) {
+            player.displayClientMessage(Component.translatable("mchemistry.flask.sealed_all"), true);
+        } else {
+            player.displayClientMessage(
+                    Component.translatable("mchemistry.flask.stoppered_neck", neck + 1), true);
+        }
+        return true;
+    }
+
+    /** 射线选颈（三颈瓶）：命中半径 0.35，返回 -1 表示没对准任何瓶口。 */
+    public static int pickNeck(Player player, BlockPos pos, Vec3 click,
+            double scale, double offX, double offY, double offZ, double yaw) {
+        return VesselHeating.neckForRay(
+                VesselHeating.neckWorldPositions(pos, scale, offX, offY, offZ, yaw), player);
+    }
+
+    /** 拆下三颈瓶指定瓶口的玻璃塞；返回是否发生了拆塞。 */
+    public static boolean tryUnplugNeck(ItemStack flask, int neck, Player player) {
+        if (!VesselHeating.isThreeNeck(flask) || neck < 0 || neck > 2) {
+            return false;
+        }
+        if ((VesselHeating.neckStopperMask(flask) & (1 << neck)) == 0) {
+            return false;
+        }
+        VesselHeating.setNeckStopper(flask, neck, false);
+        ItemStack plug = new ItemStack(ModItems.GLASS_STOPPER.get());
+        if (!player.getInventory().add(plug)) {
+            player.drop(plug, false);
+        }
+        player.level().playSound(null, player.blockPosition(), SoundEvents.GLASS_PLACE,
+                SoundSource.BLOCKS, 0.9F, 1.0F);
+        return true;
+    }
+
+    /** 在三颈瓶上按点击位置塞一个带孔橡胶塞（holes 由物品决定）。 */
+    public static boolean tryPlugRubberNeck(ItemStack flask, ItemStack stopper, Player player,
+            BlockPos pos, Vec3 click, int holes, double scale, double offX, double offY,
+            double offZ, double yaw) {
+        if (!VesselHeating.isThreeNeck(flask)) {
+            return false;
+        }
+        int neck = VesselHeating.neckForRay(
+                VesselHeating.neckWorldPositions(pos, scale, offX, offY, offZ, yaw), player);
+        if (neck < 0) {
+            neck = VesselHeating.neckForClick(
+                    VesselHeating.neckWorldPositions(pos, scale, offX, offY, offZ, yaw), click);
+        }
+        if (neck < 0) {
+            player.displayClientMessage(
+                    Component.translatable("mchemistry.flask.aim_neck"), true);
+            return true;
+        }
+        if (VesselHeating.neckHasStopper(flask, neck)) {
+            player.displayClientMessage(Component.translatable("mchemistry.flask.neck_occupied"), true);
+            return true;
+        }
+        VesselHeating.sealNeck(flask, neck, holes);
+        stopper.shrink(1);
+        player.level().playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+        player.displayClientMessage(
+                Component.translatable("mchemistry.flask.stoppered_neck", neck + 1), true);
+        return true;
+    }
+
+    /** 拆下三颈瓶指定瓶口的橡胶塞；返回是否发生了拆除。 */
+    public static boolean tryUnplugRubberNeck(ItemStack flask, int neck, Player player) {
+        if (!VesselHeating.isThreeNeck(flask) || neck < 0 || neck > 2) {
+            return false;
+        }
+        int holes = VesselHeating.rubberHoles(flask, neck);
+        if (holes == 0) {
+            return false;
+        }
+        VesselHeating.unsealNeck(flask, neck);
+        ItemStack stopper = new ItemStack(ModItems.stopperForHoles(holes));
+        if (!player.getInventory().add(stopper)) {
+            player.drop(stopper, false);
+        }
+        player.level().playSound(null, player.blockPosition(), SoundEvents.WOOL_BREAK,
+                SoundSource.BLOCKS, 0.9F, 1.0F);
+        return true;
+    }
+
+    /** 敞口集气瓶 → 气体 id，非敞口集气瓶返回 null。 */
+    private static String openGasIdOf(ItemStack stack) {
+        if (stack.isEmpty() || !BottleCodes.isGasBottle(stack) || BottleCodes.isSealed(stack)) {
+            return null;
+        }
+        return BottleCodes.gasIdOf(stack);
+    }
+
+    private static String liquidIdOf(ItemStack stack) {
+        if (stack.isEmpty() || !BottleCodes.isLiquidBottle(stack)) {
+            return null;
+        }
+        return BottleCodes.liquidIdOf(stack);
+    }
+
+    private static String solidIdOf(ItemStack stack) {
+        if (stack.isEmpty() || !BottleCodes.isSolidJar(stack) || BottleCodes.isSealed(stack)) {
+            return null;
+        }
+        return BottleCodes.solidIdOf(stack);
+    }
+
+    /** 对空右键：扫描附近铁架台，用瓶口端口虚拟选中框命中并插塞。 */
+    private static boolean routeStopperViaPort(Level level, Player player, ItemStack stopper) {
+        boolean glass = stopper.is(ModItems.GLASS_STOPPER.get());
+        BlockPos c = player.blockPosition();
+        for (int dx = -2; dx <= 2; dx++) {
+            for (int dy = 0; dy <= 2; dy++) {
+                for (int dz = -2; dz <= 2; dz++) {
+                    BlockPos p = c.offset(dx, dy, dz);
+                    if (!(level.getBlockEntity(p) instanceof IronStandBlockEntity be)) {
+                        continue;
+                    }
+                    ItemStack flask = be.getVessel();
+                    if (flask.isEmpty()) {
+                        continue;
+                    }
+                    double yaw = -level.getBlockState(p)
+                            .getValue(com.example.chemistry.block.IronStandBlock.FACING).toYRot();
+                    if (glass) {
+                        if (!VesselHeating.isThreeNeck(flask)
+                                || !VesselHeating.isGrounded(flask)) {
+                            continue;
+                        }
+                        int neck = VesselHeating.neckForRay(
+                                VesselHeating.neckWorldPositions(p,
+                                        com.example.chemistry.block.IronStandBlock.VESSEL_SCALE,
+                                        com.example.chemistry.block.IronStandBlock.VESSEL_OFF_X,
+                                        com.example.chemistry.block.IronStandBlock.VESSEL_OFF_Y,
+                                        com.example.chemistry.block.IronStandBlock.VESSEL_OFF_Z,
+                                        yaw), player);
+                        if (neck < 0 || VesselHeating.neckHasStopper(flask, neck)) {
+                            continue;
+                        }
+                        VesselHeating.setNeckStopper(flask, neck, true);
+                        stopper.shrink(1);
+                        be.setVessel(flask);
+                        level.playSound(null, p, SoundEvents.GLASS_PLACE,
+                                SoundSource.BLOCKS, 0.9F, 1.0F);
+                        player.displayClientMessage(Component.translatable(
+                                "mchemistry.flask.stoppered_neck", neck + 1), true);
+                        return true;
+                    }
+                    // 橡胶塞：命中瓶口端口区域（三颈瓶需命中空闲瓶口）。
+                    if (VesselHeating.isSealed(flask)) {
+                        continue;
+                    }
+                    if (VesselHeating.isThreeNeck(flask)) {
+                        int neck = VesselHeating.neckForRay(
+                                VesselHeating.neckWorldPositions(p,
+                                        com.example.chemistry.block.IronStandBlock.VESSEL_SCALE,
+                                        com.example.chemistry.block.IronStandBlock.VESSEL_OFF_X,
+                                        com.example.chemistry.block.IronStandBlock.VESSEL_OFF_Y,
+                                        com.example.chemistry.block.IronStandBlock.VESSEL_OFF_Z,
+                                        yaw), player);
+                        if (neck < 0) {
+                            continue;
+                        }
+                    } else {
+                        // 圆底/锥形瓶：瓶口端口虚拟选中框命中才可塞。
+                        if (!hitsPoint(player, vesselMouthWorld(p, flask, yaw))) {
+                            continue;
+                        }
+                    }
+                    int holes = stopper.is(ModItems.RUBBER_STOPPER_3_HOLE.get()) ? 3
+                            : stopper.is(ModItems.RUBBER_STOPPER_2_HOLE.get()) ? 2 : 1;
+                    VesselHeating.seal(flask, holes);
+                    stopper.shrink(1);
+                    be.setVessel(flask);
+                    level.playSound(null, p, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /** 圆底/锥形瓶瓶口的世界坐标（VESSEL 变换 + 瓶口偏移，按朝向旋转）。 */
+    private static net.minecraft.world.phys.Vec3 vesselMouthWorld(BlockPos pos, ItemStack flask,
+            double yawDegrees) {
+        double s = com.example.chemistry.block.IronStandBlock.VESSEL_SCALE;
+        double x = pos.getX() + com.example.chemistry.block.IronStandBlock.VESSEL_OFF_X
+                + s * 8.5 / 16.0;
+        double y = pos.getY() + com.example.chemistry.block.IronStandBlock.VESSEL_OFF_Y
+                + s * 10.0 / 16.0;
+        double z = pos.getZ() + com.example.chemistry.block.IronStandBlock.VESSEL_OFF_Z
+                + s * 8.5 / 16.0;
+        double yaw = Math.toRadians(yawDegrees);
+        double c = Math.cos(yaw), sn = Math.sin(yaw);
+        double cx = pos.getX() + 0.5, cz = pos.getZ() + 0.5;
+        double dx = x - cx, dz = z - cz;
+        return new net.minecraft.world.phys.Vec3(cx + dx * c + dz * sn, y, cz - dx * sn + dz * c);
+    }
+
+    /** 射线是否命中一个点的虚拟选中框（±0.18 格）。 */
+    private static boolean hitsPoint(Player player, net.minecraft.world.phys.Vec3 point) {
+        net.minecraft.world.phys.Vec3 from = player.getEyePosition();
+        net.minecraft.world.phys.Vec3 to = from.add(player.getLookAngle().scale(6.0));
+        return new net.minecraft.world.phys.AABB(
+                point.x - 0.18, point.y - 0.18, point.z - 0.18,
+                point.x + 0.18, point.y + 0.18, point.z + 0.18).clip(from, to).isPresent();
     }
 }

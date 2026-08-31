@@ -74,16 +74,27 @@ public class PlacedVesselBlockEntity extends BlockEntity implements IChemGoggleI
         if (level.isClientSide() || vessel.isEmpty()) {
             return;
         }
+        if (VesselHeating.isTempLocked(vessel)) {
+            // Temperature pinned by the I key: neither heat nor cool.
+        } else {
+            if (VesselHeating.blowtorchBelow(level, worldPosition)) {
+                VesselHeating.heatFast(vessel, VesselHeating.BLOWTORCH_TEMP);
+            } else if (VesselHeating.lampBelow(level, worldPosition)) {
+                VesselHeating.heatSlow(vessel, VesselHeating.LAMP_TEMP);
+            } else {
+                VesselHeating.coolGradual(vessel);
+            }
+        }
         VesselHeating.Outcome outcome = VesselHeating.tick(vessel, level, worldPosition,
                 ItemStack.EMPTY, false,
+                !attached1.isEmpty() || !attached2.isEmpty(),
                 level.getNearestPlayer(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5,
                         worldPosition.getZ() + 0.5, 8.0, false));
         if (outcome == VesselHeating.Outcome.POPPED) {
             int holes = VesselHeating.getStopperHoles(vessel);
             net.minecraft.world.entity.item.ItemEntity stopper = new net.minecraft.world.entity.item.ItemEntity(
                     level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.7, worldPosition.getZ() + 0.5,
-                    new ItemStack(holes >= 2 ? ModItems.RUBBER_STOPPER_2_HOLE.get()
-                            : ModItems.RUBBER_STOPPER_1_HOLE.get()));
+                    new ItemStack(ModItems.stopperForHoles(holes)));
             stopper.setDefaultPickUpDelay();
             level.addFreshEntity(stopper);
             for (ItemStack attached : new ItemStack[] {attached2, attached1}) {
@@ -119,7 +130,19 @@ public class PlacedVesselBlockEntity extends BlockEntity implements IChemGoggleI
             return false;
         }
         tooltip.add(vessel.getHoverName().copy());
-        tooltip.add(ChemGoggleLines.temp(TemperatureSystem.getTemp(vessel)));
+        if (VesselHeating.isThreeNeck(vessel)) {
+            StringBuilder necks = new StringBuilder();
+            for (int i = 0; i < 3; i++) {
+                necks.append(VesselHeating.neckHasStopper(vessel, i) ? "●" : "○");
+            }
+            tooltip.add(Component.literal("瓶口（左中右）：" + necks));
+        }
+        if (ModItems.hasThermometer(attached1, attached2)) {
+            tooltip.add(ChemGoggleLines.temp(TemperatureSystem.getTemp(vessel),
+                    VesselHeating.isTempLocked(vessel)));
+        } else {
+            tooltip.add(Component.literal("温度：无法查看（未插温度计）"));
+        }
         ChemGoggleLines.appendContents(tooltip, vessel);
         ChemGoggleLines.appendPressure(tooltip, vessel);
         if (!attached1.isEmpty() || !attached2.isEmpty()) {

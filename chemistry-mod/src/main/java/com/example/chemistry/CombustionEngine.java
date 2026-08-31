@@ -7,11 +7,14 @@ import com.example.chemistry.item.CombustionSpoonItem;
 import com.example.chemistry.item.LabVesselItem;
 
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Burns the contents of a lit combustion spoon gradually with oxygen (air or
@@ -72,8 +75,22 @@ public final class CombustionEngine {
         if (!tag.getStringOr(KEY_FUEL, "").equals(canonical)) {
             tag.putString(KEY_FUEL, canonical);
             stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
-            player.displayClientMessage(Component.literal(isInBottle(stack)
-                    ? burn.oxygenMessage() : burn.airMessage()), true);
+            String prose = isInBottle(stack) ? burn.oxygenMessage() : burn.airMessage();
+            player.displayClientMessage(
+                    Component.translatable("mchemistry.combustion",
+                            Component.literal(burn.equation()), Component.literal(prose)), true);
+        }
+        // 持续燃烧：燃烧中的燃烧匙在玩家前方不断冒出火焰与烟。
+        if (player.level() instanceof ServerLevel server) {
+            Vec3 pos = player.getEyePosition().add(player.getLookAngle().scale(0.5));
+            if (player.tickCount % 2 == 0) {
+                server.sendParticles(ParticleTypes.FLAME, pos.x, pos.y - 0.1, pos.z,
+                        1, 0.04, 0.04, 0.04, 0.0);
+            }
+            if (player.tickCount % 8 == 0) {
+                server.sendParticles(ParticleTypes.SMOKE, pos.x, pos.y, pos.z,
+                        1, 0.05, 0.05, 0.05, 0.01);
+            }
         }
         double consumed = Math.min(BURN_RATE, fuel.amount());
         LabVesselItem.consumeMass(stack, fuel.type(), fuel.id(), consumed);

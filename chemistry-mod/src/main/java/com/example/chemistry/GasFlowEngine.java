@@ -11,7 +11,7 @@ import com.example.chemistry.blockentity.PlacedVesselBlockEntity;
 import com.example.chemistry.blockentity.WaterTroughBlockEntity;
 import com.example.chemistry.data.Reactions;
 import com.example.chemistry.entity.RubberTubeEntity;
-import com.example.chemistry.entity.RubberTubeEntity.Anchor;
+import com.example.chemistry.entity.RubberTubeEntity.Port;
 import com.example.chemistry.item.RubberTubeItem;
 import com.example.chemistry.registry.ModBlocks;
 
@@ -24,6 +24,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
@@ -57,41 +58,144 @@ public final class GasFlowEngine {
     /** Chinese gas name in reaction displays -> GasJar id ("" = uncollectable). */
     private static final Map<String, String> GAS_NAME_TO_ID = Map.ofEntries(
             Map.entry("二氧化碳", "carbon_dioxide"),
+            Map.entry("CO₂", "carbon_dioxide"),
             Map.entry("氢气", "hydrogen"),
+            Map.entry("H₂", "hydrogen"),
             Map.entry("氧气", "oxygen"),
+            Map.entry("O₂", "oxygen"),
             Map.entry("氮气", "nitrogen"),
+            Map.entry("N₂", "nitrogen"),
             Map.entry("一氧化氮", "nitric_oxide"),
+            Map.entry("NO", "nitric_oxide"),
             Map.entry("二氧化硫", "sulfur_dioxide"),
+            Map.entry("SO₂", "sulfur_dioxide"),
             Map.entry("氨气", "ammonia"),
+            Map.entry("NH₃", "ammonia"),
             Map.entry("氯气", "chlorine"),
+            Map.entry("Cl₂", "chlorine"),
             Map.entry("二氧化氮", "nitrogen_dioxide"),
+            Map.entry("NO₂", "nitrogen_dioxide"),
             Map.entry("一氧化碳", "carbon_monoxide"),
+            Map.entry("CO", "carbon_monoxide"),
             Map.entry("氯化氢", "hydrogen_chloride"),
+            Map.entry("HCl", "hydrogen_chloride"),
             Map.entry("硫化氢", "hydrogen_sulfide"),
+            Map.entry("H₂S", "hydrogen_sulfide"),
             Map.entry("氦气", "helium"),
+            Map.entry("He", "helium"),
             Map.entry("氖气", "neon"),
+            Map.entry("Ne", "neon"),
             Map.entry("氩气", "argon"),
+            Map.entry("Ar", "argon"),
             Map.entry("氪气", "krypton"),
+            Map.entry("Kr", "krypton"),
             Map.entry("氙气", "xenon"),
-            Map.entry("三氧化硫", "sulfur_trioxide"));
+            Map.entry("Xe", "xenon"),
+            Map.entry("三氧化硫", "sulfur_trioxide"),
+            Map.entry("SO₃", "sulfur_trioxide"),
+            Map.entry("甲烷", "methane"),
+            Map.entry("CH₄", "methane"),
+            Map.entry("乙烷", "ethane"),
+            Map.entry("C₂H₆", "ethane"),
+            Map.entry("丙烷", "propane"),
+            Map.entry("C₃H₈", "propane"),
+            Map.entry("丁烷", "butane"),
+            Map.entry("C₄H₁₀", "butane"),
+            Map.entry("氰气", "cyanogen"),
+            Map.entry("(CN)₂", "cyanogen"),
+            Map.entry("乙烯", "ethylene"),
+            Map.entry("C₂H₄", "ethylene"),
+            Map.entry("丙烯", "propylene"),
+            Map.entry("C₃H₆", "propylene"),
+            Map.entry("丁烯", "butene"),
+            Map.entry("C₄H₈", "butene"),
+            Map.entry("乙炔", "acetylene"),
+            Map.entry("C₂H₂", "acetylene"),
+            Map.entry("丙炔", "propyne"),
+            Map.entry("C₃H₄", "propyne"),
+            Map.entry("丁炔", "butyne"),
+            Map.entry("C₄H₆", "butyne"),
+            Map.entry("氟气", "fluorine"),
+            Map.entry("F₂", "fluorine"),
+            Map.entry("氯甲烷", "chloromethane"),
+            Map.entry("CH₃Cl", "chloromethane"),
+            Map.entry("一氧化二氮", "nitrous_oxide"),
+            Map.entry("N₂O", "nitrous_oxide"));
 
-    public record GasOut(String id, int ml) {
+    /** One gas produced by a reaction, with its stoichiometric coefficient. */
+    private record GasSource(String id, int coeff) {
     }
 
     /** One queued gas waiting to leave the vessel. */
     public record PendingGas(String id, int ml, double purity) {
     }
 
-    /** Gases produced by a completed reaction, parsed from its display text. */
-    public static List<GasOut> producedGases(Reactions.Reaction reaction) {
-        List<GasOut> out = new ArrayList<>();
+    /** Gases produced by a completed reaction: display ↑ tokens and
+     *  "gas"-type products, each with its stoichiometric coefficient. */
+    private static List<GasSource> gasSources(Reactions.Reaction reaction) {
+        List<GasSource> out = new ArrayList<>();
         for (Map.Entry<String, String> e : GAS_NAME_TO_ID.entrySet()) {
-            int count = countOccurrences(reaction.display(), e.getKey() + "↑");
-            if (count > 0) {
-                out.add(new GasOut(e.getValue(), ML_PER_COMPLETION * count));
+            int coeff = countFormulaCoefficients(reaction.display(), e.getKey() + "↑");
+            if (coeff > 0) {
+                out.add(new GasSource(e.getValue(), coeff));
+            }
+        }
+        for (Reactions.Product p : reaction.products()) {
+            if (p.type().equals("gas") && p.id() != null && !p.id().isEmpty()) {
+                out.add(new GasSource(p.id(), Math.max(1, p.coefficient())));
             }
         }
         return out;
+    }
+
+    /** Counts formula tokens like "O₂↑" without matching the "O₂↑" substring
+     *  inside "CO₂↑" / "SO₂↑". A token only counts when it does not start in
+     *  the middle of another formula: the preceding character must not be a
+     *  Latin letter or a Unicode subscript digit. */
+    private static int countFormulaOccurrences(String text, String token) {
+        int count = 0;
+        int idx = 0;
+        while ((idx = text.indexOf(token, idx)) >= 0) {
+            if (idx == 0 || isFormulaBoundary(text.charAt(idx - 1))) {
+                count++;
+            }
+            idx += token.length();
+        }
+        return count;
+    }
+
+    /** Sum of the leading coefficients of every formula token in the text,
+     *  e.g. "2CO₂↑ + 3H₂↑" -> CO₂:2, H₂:3. A token without a coefficient
+     *  counts as 1. */
+    private static int countFormulaCoefficients(String text, String token) {
+        int total = 0;
+        int idx = 0;
+        while ((idx = text.indexOf(token, idx)) >= 0) {
+            if (idx == 0 || isFormulaBoundary(text.charAt(idx - 1))) {
+                total += coefficientBefore(text, idx);
+            }
+            idx += token.length();
+        }
+        return total;
+    }
+
+    private static int coefficientBefore(String text, int idx) {
+        int start = idx;
+        while (start > 0 && text.charAt(start - 1) >= '0' && text.charAt(start - 1) <= '9') {
+            start--;
+        }
+        if (start == idx) {
+            return 1;
+        }
+        return Integer.parseInt(text.substring(start, idx));
+    }
+
+    private static boolean isFormulaBoundary(char c) {
+        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+            return false;
+        }
+        // Unicode subscript digits U+2080..U+2089 are part of a formula.
+        return !(c >= '\u2080' && c <= '\u2089');
     }
 
     /** A reaction completed: queue its produced gas inside the vessel instead
@@ -101,8 +205,27 @@ public final class GasFlowEngine {
         if (level.isClientSide()) {
             return;
         }
-        for (GasOut g : producedGases(completed)) {
-            addPending(vessel, g.id(), g.ml(), PurityHelper.getPurity(vessel));
+        // One completion produces ML_PER_COMPLETION mL of gas in total, split
+        // among the produced gases by stoichiometry (水煤气: CO 50 + H₂ 50).
+        List<GasSource> sources = gasSources(completed);
+        if (sources.isEmpty()) {
+            return;
+        }
+        int totalCoeff = 0;
+        for (GasSource s : sources) {
+            totalCoeff += s.coeff();
+        }
+        double purity = PurityHelper.getPurity(vessel);
+        int allocated = 0;
+        for (int i = 0; i < sources.size(); i++) {
+            GasSource s = sources.get(i);
+            int ml = (i == sources.size() - 1)
+                    ? ML_PER_COMPLETION - allocated
+                    : (int) Math.round((double) ML_PER_COMPLETION * s.coeff() / totalCoeff);
+            if (ml > 0) {
+                addPending(vessel, s.id(), ml, purity);
+            }
+            allocated += ml;
         }
     }
 
@@ -113,7 +236,7 @@ public final class GasFlowEngine {
             return;
         }
         List<PendingGas> pending = readPending(vessel);
-        Anchor head = vesselOutputHead(level, vesselPos);
+        Port head = vesselOutputHead(level, vesselPos);
         List<RubberTubeEntity> tubes = head != null
                 ? RubberTubeItem.findTubesAt(level, head)
                 : List.of();
@@ -127,7 +250,7 @@ public final class GasFlowEngine {
             double transitPurity = tube.getTransitPurity();
             int out = tube.takeTransit(FLOW_RATE_ML);
             if (out > 0) {
-                Anchor far = otherAnchor(tube, head);
+                Port far = otherAnchor(tube, head);
                 int accepted = far != null ? deliverTo(level, far, id, out,
                         transitPurity) : 0;
                 if (accepted < out) {
@@ -164,7 +287,7 @@ public final class GasFlowEngine {
      *  vents), then up to FLOW_RATE mL enters the source end. Returns the mL
      *  taken from the vessel this tick. */
     private static int pumpThroughTube(Level level, BlockPos vesselPos, RubberTubeEntity tube,
-            Anchor head, PendingGas gas, int available) {
+            Port head, PendingGas gas, int available) {
         // 1) Pull whatever reached the far end and deliver it.
         // Capture the id/purity BEFORE takeTransit clears them when the tube
         // empties completely this tick.
@@ -172,7 +295,7 @@ public final class GasFlowEngine {
         double transitPurity = tube.getTransitPurity();
         int out = tube.takeTransit(FLOW_RATE_ML);
         if (out > 0) {
-            Anchor far = otherAnchor(tube, head);
+            Port far = otherAnchor(tube, head);
             int accepted = far != null ? deliverTo(level, far, transitId, out,
                     transitPurity) : 0;
             if (accepted < out) {
@@ -192,30 +315,15 @@ public final class GasFlowEngine {
         return 0;
     }
 
-    /** Deliver mL to a gas bottle or an inverted bottle in a water trough.
-     *  Returns the accepted amount. */
-    private static int deliverTo(Level level, Anchor far, String id, int ml, double purity) {
-        if (far == null || far.kind() != Anchor.KIND_NOZZLE || far.pos() == null) {
-            return 0;
-        }
-        BlockPos pos = far.pos();
-        BlockState state = level.getBlockState(pos);
-        if (state.is(ModBlocks.GAS_COLLECTING_BOTTLE.get())
-                && state.getValue(GasCollectingBottleBlock.HAS_NOZZLE)
-                && level.getBlockEntity(pos) instanceof GasCollectingBottleBlockEntity be) {
-            return be.addGas(id, ml, purity);
-        }
-        if (state.is(ModBlocks.WATER_TROUGH.get())
-                && level.getBlockEntity(pos) instanceof WaterTroughBlockEntity wbe) {
-            return wbe.addGas(id, ml, purity);
-        }
-        return 0;
+    /** 送达目标 Port（统一走 FlowNetwork，气/液共用运输核心）。 */
+    public static int deliverTo(Level level, Port far, String id, int ml, double purity) {
+        return FlowNetwork.deliver(level, far, FlowNetwork.Packet.gas(id, ml, purity));
     }
 
     /** The glass-tube head in the vessel's stopper (its gas output port).
      *  Prefers a head that already has a rubber tube connected; otherwise the
      *  first glass tube is used (gas simply vents there without a tube). */
-    private static Anchor vesselOutputHead(Level level, BlockPos pos) {
+    private static Port vesselOutputHead(Level level, BlockPos pos) {
         BlockEntity be = level.getBlockEntity(pos);
         ItemStack attached1 = null;
         ItemStack attached2 = null;
@@ -228,17 +336,17 @@ public final class GasFlowEngine {
         }
         boolean aGlass = attached1 != null && isGlassTube(attached1);
         boolean bGlass = attached2 != null && isGlassTube(attached2);
-        if (aGlass && RubberTubeItem.hasTubeAt(level, Anchor.stand(pos.immutable(), 1))) {
-            return Anchor.stand(pos.immutable(), 1);
+        if (aGlass && RubberTubeItem.hasTubeAt(level, Port.stand(pos.immutable(), 1))) {
+            return Port.stand(pos.immutable(), 1);
         }
-        if (bGlass && RubberTubeItem.hasTubeAt(level, Anchor.stand(pos.immutable(), 2))) {
-            return Anchor.stand(pos.immutable(), 2);
+        if (bGlass && RubberTubeItem.hasTubeAt(level, Port.stand(pos.immutable(), 2))) {
+            return Port.stand(pos.immutable(), 2);
         }
         if (aGlass) {
-            return Anchor.stand(pos.immutable(), 1);
+            return Port.stand(pos.immutable(), 1);
         }
         if (bGlass) {
-            return Anchor.stand(pos.immutable(), 2);
+            return Port.stand(pos.immutable(), 2);
         }
         return null;
     }
@@ -249,9 +357,9 @@ public final class GasFlowEngine {
                 || stack.is(com.example.chemistry.registry.ModItems.RIGHT_ANGLE_GLASS_TUBE_LONG.get());
     }
 
-    private static Anchor otherAnchor(RubberTubeEntity tube, Anchor head) {
-        Anchor a = tube.getAnchorA();
-        Anchor b = tube.getAnchorB();
+    public static Port otherAnchor(RubberTubeEntity tube, Port head) {
+        Port a = tube.getAnchorA();
+        Port b = tube.getAnchorB();
         if (a != null && a.equals(head)) {
             return b;
         }
@@ -262,7 +370,7 @@ public final class GasFlowEngine {
     }
 
     /** Internal volume of the tube: one mL per block of sagging length. */
-    private static int tubeCapacity(Level level, RubberTubeEntity tube) {
+    public static int tubeCapacity(Level level, RubberTubeEntity tube) {
         Vec3 a = RubberTubeItem.anchorWorldPos(level, tube.getAnchorA());
         Vec3 b = RubberTubeItem.anchorWorldPos(level, tube.getAnchorB());
         if (a == null || b == null) {
@@ -324,6 +432,45 @@ public final class GasFlowEngine {
     }
 
     // ---- pending queue stored on the vessel ----
+
+    /** 容器内等待输送的主要气体（"" 表示没有）。 */
+    public static String dominantPendingGas(ItemStack vessel) {
+        List<PendingGas> list = readPending(vessel);
+        String best = "";
+        int bestMl = 0;
+        for (PendingGas g : list) {
+            if (g.ml() > bestMl) {
+                best = g.id();
+                bestMl = g.ml();
+            }
+        }
+        return best;
+    }
+
+    /** 从容器待输送气体中扣除最多 ml mL，返回实际扣除量。 */
+    public static int consumePending(ItemStack vessel, String id, int ml) {
+        if (vessel.isEmpty() || id == null || id.isEmpty() || ml <= 0) {
+            return 0;
+        }
+        List<PendingGas> list = readPending(vessel);
+        int removed = 0;
+        List<PendingGas> remaining = new ArrayList<>();
+        for (PendingGas g : list) {
+            if (g.id().equals(id) && removed < ml) {
+                int take = Math.min(ml - removed, g.ml());
+                removed += take;
+                if (g.ml() > take) {
+                    remaining.add(new PendingGas(id, g.ml() - take, g.purity()));
+                }
+            } else {
+                remaining.add(g);
+            }
+        }
+        if (removed > 0) {
+            writePending(vessel, remaining);
+        }
+        return removed;
+    }
 
     private static void addPending(ItemStack vessel, String id, int ml, double purity) {
         List<PendingGas> list = readPending(vessel);

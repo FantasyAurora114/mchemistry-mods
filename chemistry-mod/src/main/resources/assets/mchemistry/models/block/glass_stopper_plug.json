@@ -1,0 +1,21 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "glass": "mchemistry:block/flask_glass"
+  },
+  "elements": [
+    {
+      "from": [-0.35, 0, -0.35],
+      "to": [0.35, 0.8, 0.35],
+      "shade": false,
+      "faces": {
+        "north": {"texture": "glass"},
+        "south": {"texture": "glass"},
+        "east": {"texture": "glass"},
+        "west": {"texture": "glass"},
+        "up": {"texture": "glass"},
+        "down": {"texture": "glass"}
+      }
+    }
+  ]
+}

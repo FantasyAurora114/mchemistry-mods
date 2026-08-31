@@ -6,11 +6,13 @@ import java.util.List;
 import com.example.chemistry.data.ChemicalInfoProvider;
 import com.example.chemistry.data.Liquids;
 import com.example.chemistry.data.Solids;
+import com.example.chemistry.registry.ModItems;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -40,6 +42,13 @@ public class LabVesselItem extends Item {
         ItemStack other = hand == InteractionHand.MAIN_HAND
                 ? player.getOffhandItem() : player.getMainHandItem();
         if (com.example.chemistry.LabInteractions.isTransferTool(other)) {
+            return InteractionResult.SUCCESS;
+        }
+        // 左手反应容器 + 右手空手：倒出容器内全部物质（之后容器为空）。
+        if (hand == InteractionHand.OFF_HAND && other.isEmpty()) {
+            if (!level.isClientSide()) {
+                pourOutAll(player, player.getOffhandItem());
+            }
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
@@ -167,8 +176,10 @@ public class LabVesselItem extends Item {
             }
         }
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        tag.remove(com.example.chemistry.ReactionEngine.KEY_EQUILIBRIUM);
         tag.put("chem_contents", list);
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+        com.example.chemistry.VesselGasPhase.normalize(stack);
         updateTint(stack);
     }
 
@@ -177,6 +188,71 @@ public class LabVesselItem extends Item {
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         tag.remove("chem_contents");
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+        com.example.chemistry.VesselGasPhase.normalize(stack);
+    }
+
+    /**
+     * 左手反应容器 + 右手空手：倒出全部物质。腐蚀性液体会造成伤害；
+     * 固体以物品形式归还（单一固体给散装物品并标注克数，多种固体给混合物）。
+     */
+    public static void pourOutAll(Player player, ItemStack vessel) {
+        if (player == null || vessel.isEmpty() || !(vessel.getItem() instanceof LabVesselItem)) {
+            return;
+        }
+        List<Entry> contents = getContents(vessel);
+        if (contents.isEmpty()) {
+            return;
+        }
+        // 腐蚀性液体伤害
+        float dmg = 0.0F;
+        for (Entry e : contents) {
+            if (!e.type().equals("liquid")) {
+                continue;
+            }
+            ChemicalInfoProvider.ChemicalInfo info =
+                    ChemicalInfoProvider.forItem("liquid_" + e.id());
+            String corr = info == null ? "none" : info.corrosiveness();
+            if ("strong".equals(corr)) {
+                dmg = Math.max(dmg, 8.0F);
+            } else if ("moderate".equals(corr)) {
+                dmg = Math.max(dmg, 4.0F);
+            }
+        }
+        if (dmg > 0.0F) {
+            player.hurt(player.damageSources().generic(), dmg);
+        }
+        // 固体 → 物品形式
+        List<Entry> solids = contents.stream().filter(e -> e.type().equals("solid")).toList();
+        if (!solids.isEmpty()) {
+            ItemStack dump;
+            if (solids.size() == 1) {
+                Entry only = solids.get(0);
+                dump = new ItemStack(ModItems.looseSolid(only.id()));
+                CompoundTag tag = dump.getOrDefault(
+                        DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                tag.putDouble("chem_grams", only.amount());
+                dump.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+            } else {
+                dump = new ItemStack(ModItems.SOLID_MIXTURE.get());
+                CompoundTag tag = new CompoundTag();
+                ListTag list = new ListTag();
+                for (Entry e : solids) {
+                    CompoundTag c = new CompoundTag();
+                    c.putString("type", e.type());
+                    c.putString("id", e.id());
+                    c.putDouble("amount", e.amount());
+                    list.add(c);
+                }
+                tag.put("chem_contents", list);
+                dump.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+            }
+            if (!player.getInventory().add(dump)) {
+                player.drop(dump, false);
+            }
+        }
+        clearContents(vessel);
+        player.displayClientMessage(
+                Component.translatable("mchemistry.vessel.poured_out"), true);
     }
 
     private static boolean add(ItemStack stack, String type, String id, double amount) {
@@ -209,8 +285,10 @@ public class LabVesselItem extends Item {
             list.add(c);
         }
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        tag.remove(com.example.chemistry.ReactionEngine.KEY_EQUILIBRIUM);
         tag.put("chem_contents", list);
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+        com.example.chemistry.VesselGasPhase.normalize(stack);
         updateTint(stack);
         return true;
     }

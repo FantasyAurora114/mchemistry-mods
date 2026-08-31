@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "mchemistry:item/glass_stopper"
+    "layer0": "mchemistry:item/glass_stopper_item"
   }
 }

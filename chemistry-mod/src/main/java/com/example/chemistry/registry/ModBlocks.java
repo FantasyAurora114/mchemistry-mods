@@ -10,6 +10,11 @@ import com.example.chemistry.block.GasCollectingBottleBlock;
 import com.example.chemistry.block.GasWashingBottleBlock;
 import com.example.chemistry.block.SeparatoryFunnelBlock;
 import com.example.chemistry.block.TripodBlock;
+import com.example.chemistry.block.HeatingMantleBlock;
+import com.example.chemistry.block.TestTubeRackBlock;
+import com.example.chemistry.block.AssemblyFrameBlock;
+import com.example.chemistry.block.PlacedGraduatedCylinderBlock;
+import com.example.chemistry.block.MagneticStirrerBlock;
 import com.example.chemistry.block.PlacedVesselBlock;
 
 import net.minecraft.world.level.block.LiquidBlock;
@@ -70,6 +75,17 @@ public class ModBlocks {
                     .noOcclusion()
                     .pushReaction(PushReaction.DESTROY));
 
+    /** Alcohol blowtorch (酒精喷灯): reaches 1200 C, heats twice as fast. */
+    public static final DeferredBlock<AlcoholLampBlock> ALCOHOL_BLOWTORCH = BLOCKS.registerBlock(
+            "alcohol_blowtorch",
+            props -> new AlcoholLampBlock(props, AlcoholLampBlock.Kind.BLOWTORCH),
+            props -> props.mapColor(MapColor.COLOR_LIGHT_BLUE)
+                    .strength(2.0F, 2.0F)
+                    .sound(SoundType.METAL)
+                    .lightLevel(state -> state.getValue(AlcoholLampBlock.LIT) ? 15 : 0)
+                    .noOcclusion()
+                    .pushReaction(PushReaction.DESTROY));
+
     /** Water trough (水槽): empty / water-filled states. */
     public static final DeferredBlock<WaterTroughBlock> WATER_TROUGH = BLOCKS.registerBlock("water_trough",
             WaterTroughBlock::new,
@@ -125,12 +141,60 @@ public class ModBlocks {
                             .noOcclusion()
                             .pushReaction(PushReaction.DESTROY));
 
+    /** Heating mantle (加热套): holds a flask, heats toward a set temperature. */
+    public static final DeferredBlock<HeatingMantleBlock> HEATING_MANTLE =
+            BLOCKS.registerBlock("heating_mantle", HeatingMantleBlock::new,
+                    props -> props.mapColor(MapColor.COLOR_LIGHT_GRAY)
+                            .strength(0.8F, 3.0F)
+                            .sound(SoundType.STONE)
+                            .noOcclusion()
+                            .pushReaction(PushReaction.DESTROY));
+
     /** Vessel placed directly on the ground (drawn by its block-entity renderer). */
     public static final DeferredBlock<PlacedVesselBlock> PLACED_VESSEL =
             BLOCKS.registerBlock("placed_vessel", PlacedVesselBlock::new,
                     props -> props.mapColor(MapColor.COLOR_LIGHT_BLUE)
                             .strength(0.4F, 1.0F)
                             .sound(SoundType.GLASS)
+                            .noOcclusion()
+                            .noLootTable()
+                            .pushReaction(PushReaction.DESTROY));
+
+    /** Test tube rack (试管架). */
+    public static final DeferredBlock<TestTubeRackBlock> TEST_TUBE_RACK =
+            BLOCKS.registerBlock("test_tube_rack", TestTubeRackBlock::new,
+                    props -> props.mapColor(MapColor.WOOD)
+                            .strength(0.6F, 2.0F)
+                            .sound(SoundType.WOOD)
+                            .noOcclusion()
+                            .noLootTable()
+                            .pushReaction(PushReaction.DESTROY));
+
+    /** 机架块：2×3 通用框架（第 3 步）。 */
+    public static final DeferredBlock<AssemblyFrameBlock> ASSEMBLY_FRAME =
+            BLOCKS.registerBlock("assembly_frame", AssemblyFrameBlock::new,
+                    props -> props.mapColor(MapColor.METAL)
+                            .strength(1.0F, 3.0F)
+                            .sound(SoundType.METAL)
+                            .noOcclusion()
+                            .noLootTable()
+                            .pushReaction(PushReaction.DESTROY));
+
+    /** Placed graduated cylinder (量筒). */
+    public static final DeferredBlock<PlacedGraduatedCylinderBlock> PLACED_GRADUATED_CYLINDER =
+            BLOCKS.registerBlock("placed_graduated_cylinder", PlacedGraduatedCylinderBlock::new,
+                    props -> props.mapColor(MapColor.NONE)
+                            .strength(0.3F, 1.0F)
+                            .noOcclusion()
+                            .noLootTable()
+                            .pushReaction(PushReaction.DESTROY));
+
+    /** Magnetic stirrer (磁力搅拌机). */
+    public static final DeferredBlock<MagneticStirrerBlock> MAGNETIC_STIRRER =
+            BLOCKS.registerBlock("magnetic_stirrer", MagneticStirrerBlock::new,
+                    props -> props.mapColor(MapColor.COLOR_LIGHT_GRAY)
+                            .strength(0.8F, 3.0F)
+                            .sound(SoundType.METAL)
                             .noOcclusion()
                             .noLootTable()
                             .pushReaction(PushReaction.DESTROY));

@@ -77,6 +77,33 @@ public class TripodBlock extends Block implements EntityBlock {
         return SHAPE;
     }
 
+    /** 碰撞箱 = 三脚架本体 + 架上坩埚/蒸发皿/烧瓶的实体碰撞。 */
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, net.minecraft.world.level.BlockGetter level,
+            BlockPos pos, CollisionContext context) {
+        VoxelShape base = getShape(state, level, pos, context);
+        if (state.getValue(HAS_VESSEL)
+                && level.getBlockEntity(pos) instanceof TripodBlockEntity be
+                && !be.getVessel().isEmpty()) {
+            int vtype = VesselHeating.vesselType(be.getVessel());
+            if (vtype != 0) {
+                VoxelShape vessel = VesselHeating.tripodVesselCollisionShape(pos, vtype);
+                if (!vessel.isEmpty()) {
+                    base = Shapes.or(base, vessel);
+                }
+            }
+        }
+        return base;
+    }
+
+    /** 三脚架上的坩埚/蒸发皿/烧瓶瓶口悬空在三角环上方；交互命中框放大到整格，
+     *  让悬空瓶口也能被射线选中（与铁架台同一原理）。 */
+    @Override
+    public VoxelShape getInteractionShape(BlockState state, net.minecraft.world.level.BlockGetter level,
+            BlockPos pos) {
+        return box(3.0, 0.0, 3.0, 13.0, 16.0, 13.0);
+    }
+
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new TripodBlockEntity(pos, state);
@@ -143,13 +170,18 @@ public class TripodBlock extends Block implements EntityBlock {
             }
             return InteractionResult.SUCCESS;
         }
-        // Seal the vessel with a rubber stopper (pressure system).
-        if (state.getValue(HAS_VESSEL) && stack.is(ModItems.RUBBER_STOPPER_1_HOLE.get())
+        // Seal the vessel with a rubber stopper (1 / 2 / 3 holes, pressure system).
+        if (state.getValue(HAS_VESSEL)
+                && (stack.is(ModItems.RUBBER_STOPPER_1_HOLE.get())
+                        || stack.is(ModItems.RUBBER_STOPPER_2_HOLE.get())
+                        || stack.is(ModItems.RUBBER_STOPPER_3_HOLE.get()))
                 && level.getBlockEntity(pos) instanceof TripodBlockEntity be
                 && !be.getVessel().isEmpty() && !VesselHeating.isSealed(be.getVessel())) {
             if (!level.isClientSide()) {
                 ItemStack v = be.getVessel();
-                VesselHeating.seal(v, 1);
+                int holes = stack.is(ModItems.RUBBER_STOPPER_3_HOLE.get()) ? 3
+                        : stack.is(ModItems.RUBBER_STOPPER_2_HOLE.get()) ? 2 : 1;
+                VesselHeating.seal(v, holes);
                 be.setVessel(v);
                 stack.shrink(1);
                 level.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -189,6 +221,19 @@ public class TripodBlock extends Block implements EntityBlock {
         if (!level.isClientSide()) {
             if (state.getValue(HAS_VESSEL) && level.getBlockEntity(pos) instanceof TripodBlockEntity be) {
                 ItemStack vessel = be.getVessel();
+                // 对准瓶口取下橡胶塞。
+                int vtype = VesselHeating.vesselType(vessel);
+                if (vtype != 0 && VesselHeating.isSealed(vessel)
+                        && VesselHeating.tripodMouthForRay(pos, vtype, player)) {
+                    int holes = VesselHeating.getStopperHoles(vessel);
+                    VesselHeating.unseal(vessel);
+                    be.setVessel(vessel);
+                    ItemStack stopper = new ItemStack(ModItems.stopperForHoles(holes));
+                    if (!player.getInventory().add(stopper)) {
+                        player.drop(stopper, false);
+                    }
+                    return InteractionResult.SUCCESS;
+                }
                 be.setVessel(ItemStack.EMPTY);
                 if (!player.getInventory().add(vessel)) {
                     player.drop(vessel, false);

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mchemistry:item/liquid_ethyl_hydrogen_sulfate_bucket"
+  }
+}

@@ -66,19 +66,21 @@ public class TripodBlockEntity extends BlockEntity implements IChemGoggleInfo {
         }
         BlockState state = getBlockState();
         boolean lamp = state.getValue(TripodBlock.HAS_LAMP) && state.getValue(TripodBlock.LAMP_LIT);
-        if (lamp) {
-            VesselHeating.heat(vessel, 900.0);
+        if (VesselHeating.isTempLocked(vessel)) {
+            // Temperature pinned by the I key: neither heat nor cool.
+        } else if (lamp) {
+            VesselHeating.heatSlow(vessel, 900.0);
         } else {
-            VesselHeating.cool(vessel);
+            VesselHeating.coolGradual(vessel);
         }
         VesselHeating.Outcome outcome = VesselHeating.tick(
-                vessel, level, worldPosition, ItemStack.EMPTY, false,
+                vessel, level, worldPosition, ItemStack.EMPTY, false, false,
                 level.getNearestPlayer(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5,
                         worldPosition.getZ() + 0.5, 8.0, false));
         if (outcome == VesselHeating.Outcome.POPPED) {
             net.minecraft.world.entity.item.ItemEntity stopper = new net.minecraft.world.entity.item.ItemEntity(
                     level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.7, worldPosition.getZ() + 0.5,
-                    new ItemStack(ModItems.RUBBER_STOPPER_1_HOLE.get()));
+                    new ItemStack(ModItems.stopperForHoles(VesselHeating.getStopperHoles(vessel))));
             stopper.setDefaultPickUpDelay();
             level.addFreshEntity(stopper);
             level.playSound(null, worldPosition,
@@ -103,7 +105,8 @@ public class TripodBlockEntity extends BlockEntity implements IChemGoggleInfo {
             return false;
         }
         tooltip.add(vessel.getHoverName().copy());
-        tooltip.add(ChemGoggleLines.temp(TemperatureSystem.getTemp(vessel)));
+        // 三脚架容器无法插温度计，按规则不显示温度。
+        tooltip.add(Component.literal("温度：无法查看（未插温度计）"));
         ChemGoggleLines.appendContents(tooltip, vessel);
         ChemGoggleLines.appendPressure(tooltip, vessel);
         if (getBlockState().getValue(TripodBlock.HAS_LAMP)

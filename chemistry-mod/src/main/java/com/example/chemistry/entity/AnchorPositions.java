@@ -8,7 +8,7 @@ import com.example.chemistry.block.WaterTroughBlock;
 import com.example.chemistry.blockentity.IronStandBlockEntity;
 import com.example.chemistry.blockentity.PlacedVesselBlockEntity;
 import com.example.chemistry.blockentity.WaterTroughBlockEntity;
-import com.example.chemistry.entity.RubberTubeEntity.Anchor;
+import com.example.chemistry.entity.RubberTubeEntity.Port;
 import com.example.chemistry.item.DropperItem;
 import com.example.chemistry.item.TestTubeItem;
 import com.example.chemistry.registry.ModBlocks;
@@ -36,14 +36,14 @@ public final class AnchorPositions {
 
     /** World position of any anchor (block face centre, glass-tube head,
      *  nozzle tip, or entity position). */
-    public static Vec3 anchorWorldPos(Level level, Anchor anchor) {
+    public static Vec3 anchorWorldPos(Level level, Port anchor) {
         if (anchor == null) {
             return null;
         }
         return switch (anchor.kind()) {
-            case Anchor.KIND_BLOCK -> blockFaceCenter(anchor);
-            case Anchor.KIND_STAND -> standHead(level, anchor);
-            case Anchor.KIND_NOZZLE -> nozzleTip(level, anchor);
+            case Port.KIND_BLOCK -> blockFaceCenter(anchor);
+            case Port.KIND_STAND -> standHead(level, anchor);
+            case Port.KIND_NOZZLE -> nozzleTip(level, anchor);
             default -> {
                 Entity e = level.getEntity(anchor.uuid());
                 yield e != null ? e.position() : null;
@@ -52,7 +52,7 @@ public final class AnchorPositions {
     }
 
     /** Centre of a clicked block face. */
-    private static Vec3 blockFaceCenter(Anchor anchor) {
+    private static Vec3 blockFaceCenter(Port anchor) {
         BlockPos p = anchor.pos();
         Direction f = anchor.face();
         return new Vec3(p.getX() + 0.5 + f.getStepX() * 0.5,
@@ -64,7 +64,7 @@ public final class AnchorPositions {
      *  inserted in a placed gas bottle. The bottle nozzle passes through the
      *  mouth with the arm + pointed tip inside the bottle; a short stub sticks
      *  out above the mouth where the rubber tube connects. */
-    public static Vec3 nozzleTip(Level level, Anchor anchor) {
+    public static Vec3 nozzleTip(Level level, Port anchor) {
         BlockPos pos = anchor.pos();
         BlockState state = level.getBlockState(pos);
         if (state.is(ModBlocks.GAS_COLLECTING_BOTTLE.get())
@@ -106,7 +106,7 @@ public final class AnchorPositions {
 
     /** World position of a glass-tube delivery head on an iron stand (tube or
      *  vessel stopper) or on a vessel placed on the ground. */
-    public static Vec3 standHead(Level level, Anchor anchor) {
+    public static Vec3 standHead(Level level, Port anchor) {
         BlockPos standPos = anchor.pos();
         BlockState state = level.getBlockState(standPos);
         int type = 0;

@@ -1,6 +1,453 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "mchemistry:item/gas_collecting_bottle"
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "cases": [
+      {
+        "when": "gas_collecting_bottle_acetylene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_acetylene"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_ammonia",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_ammonia"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_argon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_argon"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_butane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_butane"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_butene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_butene"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_butyne",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_butyne"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_carbon_dioxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_carbon_dioxide"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_carbon_monoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_carbon_monoxide"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_chlorine",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_chlorine"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_chloromethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_chloromethane"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_cyanogen",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_cyanogen"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_ethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_ethane"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_ethylene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_ethylene"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_fluorine",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_fluorine"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_helium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_helium"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_hydrogen",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_hydrogen"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_hydrogen_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_hydrogen_chloride"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_hydrogen_sulfide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_hydrogen_sulfide"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_krypton",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_krypton"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_methane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_methane"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_neon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_neon"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_nitric_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_nitric_oxide"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_nitrogen",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_nitrogen"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_nitrogen_dioxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_nitrogen_dioxide"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_nitrous_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_nitrous_oxide"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_oxygen",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_oxygen"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_propane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_propane"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_propylene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_propylene"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_propyne",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_propyne"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_sulfur_dioxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_sulfur_dioxide"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_water",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_water"
+        }
+      },
+      {
+        "when": "gas_collecting_bottle_xenon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/gas_collecting_bottle_xenon"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_acetylene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_acetylene"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_ammonia",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_ammonia"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_argon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_argon"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_butane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_butane"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_butene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_butene"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_butyne",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_butyne"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_carbon_dioxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_carbon_dioxide"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_carbon_monoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_carbon_monoxide"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_chlorine",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_chlorine"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_chloromethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_chloromethane"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_cyanogen",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_cyanogen"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_ethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_ethane"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_ethylene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_ethylene"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_fluorine",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_fluorine"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_helium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_helium"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_hydrogen",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_hydrogen"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_hydrogen_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_hydrogen_chloride"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_hydrogen_sulfide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_hydrogen_sulfide"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_krypton",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_krypton"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_methane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_methane"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_neon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_neon"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_nitric_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_nitric_oxide"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_nitrogen",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_nitrogen"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_nitrogen_dioxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_nitrogen_dioxide"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_nitrous_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_nitrous_oxide"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_oxygen",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_oxygen"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_propane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_propane"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_propylene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_propylene"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_propyne",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_propyne"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_sulfur_dioxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_sulfur_dioxide"
+        }
+      },
+      {
+        "when": "open_gas_collecting_bottle_xenon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_gas_collecting_bottle_xenon"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "mchemistry:item/empty_gas_collecting_bottle"
+    }
   }
 }

@@ -23,6 +23,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
@@ -43,6 +44,11 @@ public class WaterTroughBlockEntity extends BlockEntity implements IChemGoggleIn
     private int fillMl;
     private int waterMl;
     private double purity = 1.0;
+    /** 插在水槽里的玻璃导管类型：1=直管 2=90度管 3=90度长管。 */
+    private int tubeType = 1;
+    /** 冰浴中浸泡的烧瓶（冰块状态时可放）。 */
+    private net.minecraft.world.item.ItemStack flask =
+            net.minecraft.world.item.ItemStack.EMPTY;
 
     public WaterTroughBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.WATER_TROUGH.get(), pos, state);
@@ -69,10 +75,81 @@ public class WaterTroughBlockEntity extends BlockEntity implements IChemGoggleIn
         return purity;
     }
 
+    public int getTubeType() {
+        return tubeType;
+    }
+
+    public void setTubeType(int type) {
+        this.tubeType = type >= 1 && type <= 3 ? type : 1;
+        setChanged();
+        sync();
+    }
+
+    public net.minecraft.world.item.ItemStack getFlask() {
+        return flask;
+    }
+
+    public void setFlask(net.minecraft.world.item.ItemStack stack) {
+        this.flask = stack.copy();
+        setChanged();
+        sync();
+    }
+
+    /** 冰浴：把浸泡的烧瓶慢慢冷却到 0°C。 */
+    public void tickServer(Level level) {
+        if (level.isClientSide() || flask.isEmpty()) {
+            return;
+        }
+        var fill = level.getBlockState(worldPosition)
+                .getValue(com.example.chemistry.block.WaterTroughBlock.FILLED);
+        // 烧瓶温度超过 40°C：冰块融化，水槽变成水。
+        if (fill == com.example.chemistry.block.WaterTroughBlock.Fill.ICE
+                && com.example.chemistry.TemperatureSystem.getTemp(flask) > 40.0) {
+            level.setBlock(worldPosition, level.getBlockState(worldPosition)
+                    .setValue(com.example.chemistry.block.WaterTroughBlock.FILLED,
+                            com.example.chemistry.block.WaterTroughBlock.Fill.WATER), 3);
+            level.playSound(null, worldPosition, SoundEvents.FIRE_EXTINGUISH,
+                    SoundSource.BLOCKS, 0.8F, 1.0F);
+            return;
+        }
+        // 冰浴：把烧瓶慢慢冷却到 0°C。
+        if (fill == com.example.chemistry.block.WaterTroughBlock.Fill.ICE) {
+            com.example.chemistry.VesselHeating.heat(flask, 0.0);
+        }
+        setChanged();
+    }
+
+    /** 从集到的气体中扣除最多 ml mL，返回实际扣除量。 */
+    public int removeGas(String id, int ml) {
+        if (ml <= 0 || id == null || !id.equals(gasId) || fillMl <= 0) {
+            return 0;
+        }
+        int take = Math.min(ml, fillMl);
+        fillMl -= take;
+        if (fillMl <= 0) {
+            gasId = "";
+        }
+        setChanged();
+        sync();
+        return take;
+    }
+
     @Override
     public boolean addGoggleInfo(List<Component> tooltip, boolean isPlayerSneaking) {
         tooltip.add(Component.literal("水槽"));
-        tooltip.add(Component.literal("水：已注满（排水法集气）"));
+        var fill = level != null ? level.getBlockState(worldPosition)
+                .getValue(com.example.chemistry.block.WaterTroughBlock.FILLED) : null;
+        if (fill == com.example.chemistry.block.WaterTroughBlock.Fill.ICE) {
+            tooltip.add(Component.literal("状态：装满冰块（冰浴）"));
+        } else if (fill == com.example.chemistry.block.WaterTroughBlock.Fill.WATER) {
+            tooltip.add(Component.literal("状态：装满水（排水法集气）"));
+        } else {
+            tooltip.add(Component.literal("状态：空"));
+        }
+        if (!flask.isEmpty()) {
+            tooltip.add(Component.literal("冰浴烧瓶：" + flask.getHoverName().getString()));
+            com.example.chemistry.api.goggles.ChemGoggleLines.appendContents(tooltip, flask);
+        }
         if (!hasBottle) {
             tooltip.add(Component.literal("集气瓶：未放入"));
             return true;
@@ -176,6 +253,8 @@ public class WaterTroughBlockEntity extends BlockEntity implements IChemGoggleIn
         output.putInt("fill_ml", fillMl);
         output.putInt("water_ml", waterMl);
         output.putDouble("purity", purity);
+        output.putInt("tube_type", tubeType);
+        output.store("flask", net.minecraft.world.item.ItemStack.OPTIONAL_CODEC, flask);
     }
 
     @Override
@@ -186,6 +265,9 @@ public class WaterTroughBlockEntity extends BlockEntity implements IChemGoggleIn
         fillMl = input.getIntOr("fill_ml", 0);
         waterMl = input.getIntOr("water_ml", 0);
         purity = input.getDoubleOr("purity", 1.0);
+        tubeType = input.getIntOr("tube_type", 1);
+        flask = input.read("flask", net.minecraft.world.item.ItemStack.OPTIONAL_CODEC)
+                .orElse(net.minecraft.world.item.ItemStack.EMPTY);
     }
 
     @Override

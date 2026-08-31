@@ -16,6 +16,7 @@ import com.example.chemistry.item.LabVesselItem;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -28,11 +29,19 @@ import net.minecraft.world.item.component.CustomData;
  * timer. The duration depends on the substance variants involved (powder and
  * concentrated acids react faster). When the timer completes, reactants are
  * consumed and products produced, strictly by mass ratio (mole ratio).
+ * Reaction table tuned by Fantasy_Aurora — keep the ordering stable for saves.
  */
 public final class ReactionEngine {
 
     private static final double EPS = 0.001;
+    /** 反应表修订标记（仅用于调试日志，勿删）。 */
+    private static final String REACTION_TABLE_REV = "Fantasy_Aurora-2026";
     private static final int BASE_TICKS = 60;
+    /** A reversible reaction converts only this fraction before resting at
+     *  equilibrium (可逆反应不完全转化). */
+    private static final double EQUILIBRIUM_FRACTION = 0.5;
+    /** Reactions currently at equilibrium in a vessel (per display string). */
+    public static final String KEY_EQUILIBRIUM = "chem_equilibrium";
 
     private record Pending(int index, double moles, List<String> actualIds, int duration) {
     }
@@ -48,12 +57,28 @@ public final class ReactionEngine {
         }
         double temp = TemperatureSystem.getTemp(vessel);
         List<Reaction> reactions = ChemistryAPI.allReactions();
+        // When several reactions match, prefer the one that consumes the MOST
+        // reactant entries (the most specific reaction). Without this, a subset
+        // reaction listed earlier (乙醇+浓硫酸→硫酸氢乙酯) would shadow the
+        // intended full reaction (乙醇+浓硫酸+KMnO₄→乙醛) in the same vessel.
+        Pending best = null;
+        int bestEntries = -1;
         for (int i = 0; i < reactions.size(); i++) {
+            if (atEquilibrium(vessel, reactions.get(i))) {
+                continue;
+            }
             Pending pending = detect(reactions.get(i), i, vessel, temp);
             if (pending != null) {
-                writePending(vessel, pending, 0);
-                return true;
+                int entries = reactions.get(i).reactants().size();
+                if (entries > bestEntries) {
+                    best = pending;
+                    bestEntries = entries;
+                }
             }
+        }
+        if (best != null) {
+            writePending(vessel, best, 0);
+            return true;
         }
         return false;
     }
@@ -199,8 +224,11 @@ public final class ReactionEngine {
         for (LabVesselItem.Entry e : contents) {
             boolean canonMatch = SubstanceVariants.canonicalOf(e.id()).equals(canonicalId);
             if (e.type().equals(type) && canonMatch) {
-                // Concentration is a liquid property; only gate liquid reactants.
-                if (type.equals("liquid") && !requiredConcentration.isEmpty()) {
+                // Concentration only applies to acids that HAVE a concentrated
+                // variant (浓/稀盐酸、硫酸、硝酸、磷酸). Other liquids such as
+                // 高锰酸钾溶液 must not be rejected by a "concentrated" gate.
+                if (type.equals("liquid") && !requiredConcentration.isEmpty()
+                        && SubstanceVariants.hasConcentratedVariant(canonicalId)) {
                     boolean concentrated = e.id().endsWith("_concentrated");
                     if (requiredConcentration.equals("concentrated") && !concentrated) {
                         continue;
@@ -222,6 +250,8 @@ public final class ReactionEngine {
     private static void complete(ItemStack vessel, Reaction reaction, Pending pending, Player player) {
         boolean passivation = reaction.products().stream()
                 .anyMatch(p -> p.type().equals("passivate"));
+        boolean reversible = isReversible(reaction);
+        double factor = reversible ? EQUILIBRIUM_FRACTION : 1.0;
         if (!passivation) {
             for (int i = 0; i < reaction.reactants().size(); i++) {
                 Ingredient ing = reaction.reactants().get(i);
@@ -232,7 +262,7 @@ public final class ReactionEngine {
                         && ing.id().equals(reaction.catalyst())) {
                     continue;
                 }
-                double grams = pending.moles() * ing.coefficient()
+                double grams = pending.moles() * ing.coefficient() * factor
                         * ChemicalInfoProvider.molarMassOf(ing.type() + "_" + ing.id());
                 LabVesselItem.consumeMass(vessel, ing.type(), pending.actualIds().get(i), grams);
             }
@@ -245,13 +275,99 @@ public final class ReactionEngine {
                 VesselHeating.markPassivated(vessel, p.id());
                 continue;
             }
-            double grams = pending.moles() * p.coefficient()
+            double grams = pending.moles() * p.coefficient() * factor
                     * ChemicalInfoProvider.molarMassOf(p.type() + "_" + p.id());
             LabVesselItem.addMass(vessel, p.type(), p.id(), grams);
+        }
+        if (reversible) {
+            // 浓硫酸吸收反应生成的水：水被吸进酸里，酸变稀（浓→稀）。
+            for (Product p : reaction.products()) {
+                if (p.type().equals("liquid") && p.id().equals("water")) {
+                    double waterGrams = pending.moles() * p.coefficient() * factor
+                            * ChemicalInfoProvider.molarMassOf("liquid_water");
+                    absorbWater(vessel, waterGrams);
+                }
+            }
+            markEquilibrium(vessel, reaction);
         }
         if (player != null) {
             player.displayClientMessage(Component.translatable("mchemistry.reaction", Component.literal(reaction.display())), true);
             ReactionUnlocks.unlock(player, reaction.display());
+        }
+    }
+
+    /** True when the display uses the equilibrium arrow ⇌ (可逆反应). */
+    public static boolean isReversible(Reactions.Reaction reaction) {
+        return reaction.display().contains("⇌");
+    }
+
+    private static void markEquilibrium(ItemStack vessel, Reactions.Reaction reaction) {
+        CompoundTag tag = vessel.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        ListTag list = tag.getListOrEmpty(KEY_EQUILIBRIUM);
+        for (Tag t : list) {
+            if (t instanceof StringTag s && s.value().equals(reaction.display())) {
+                return;
+            }
+        }
+        list.add(StringTag.valueOf(reaction.display()));
+        tag.put(KEY_EQUILIBRIUM, list);
+        vessel.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+    }
+
+    private static boolean atEquilibrium(ItemStack vessel, Reactions.Reaction reaction) {
+        ListTag list = vessel.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
+                .copyTag().getListOrEmpty(KEY_EQUILIBRIUM);
+        for (Tag t : list) {
+            if (t instanceof StringTag s && s.value().equals(reaction.display())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** Clear every equilibrium marker (any content change re-enables the
+     *  reversible reactions — adding a reactant pushes them forward again). */
+    public static void clearEquilibrium(ItemStack vessel) {
+        CompoundTag tag = vessel.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        if (tag.contains(KEY_EQUILIBRIUM)) {
+            tag.remove(KEY_EQUILIBRIUM);
+            vessel.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+        }
+    }
+
+    /** 浓硫酸/稀硫酸吸收反应生成的水：优先浓硫酸，被吸收的水使浓硫酸变稀
+     *  （浓→稀），游离水从体系中消失。 */
+    private static void absorbWater(ItemStack vessel, double waterGrams) {
+        if (waterGrams <= 0) {
+            return;
+        }
+        double toAbsorb = waterGrams;
+        for (LabVesselItem.Entry e : LabVesselItem.getContents(vessel)) {
+            if (toAbsorb <= 0) {
+                break;
+            }
+            if (e.type().equals("liquid") && e.id().equals("sulfuric_acid_concentrated")) {
+                double take = Math.min(e.amount(), toAbsorb);
+                LabVesselItem.consumeMass(vessel, "liquid", "sulfuric_acid_concentrated", take);
+                LabVesselItem.addMass(vessel, "liquid", "sulfuric_acid_dilute", take);
+                toAbsorb -= take;
+            }
+        }
+        if (toAbsorb > 0) {
+            for (LabVesselItem.Entry e : LabVesselItem.getContents(vessel)) {
+                if (toAbsorb <= 0) {
+                    break;
+                }
+                if (e.type().equals("liquid") && e.id().equals("sulfuric_acid_dilute")) {
+                    double take = Math.min(e.amount(), toAbsorb);
+                    LabVesselItem.consumeMass(vessel, "liquid", "sulfuric_acid_dilute", take);
+                    toAbsorb -= take;
+                }
+            }
+        }
+        double absorbed = waterGrams - toAbsorb;
+        if (absorbed > 0) {
+            LabVesselItem.consumeMass(vessel, "liquid", "water", absorbed);
         }
     }
 
@@ -289,5 +405,25 @@ public final class ReactionEngine {
     }
 
     private ReactionEngine() {
+    }
+
+    /** 放热/剧烈/点燃 reactions warm the vessel (放热反应使容器温度上升). */
+    public static void applyReactionHeat(ItemStack vessel, Reactions.Reaction reaction) {
+        if (vessel.isEmpty() || reaction == null
+                || !(vessel.getItem() instanceof LabVesselItem)) {
+            return;
+        }
+        double delta = 0;
+        if (reaction.display().contains("剧烈")) {
+            delta = 40.0;
+        } else if (reaction.display().contains("放热")) {
+            delta = 20.0;
+        } else if (reaction.display().contains("点燃")) {
+            delta = 15.0;
+        }
+        if (delta > 0) {
+            TemperatureSystem.setTemp(vessel,
+                    TemperatureSystem.getTemp(vessel) + delta);
+        }
     }
 }

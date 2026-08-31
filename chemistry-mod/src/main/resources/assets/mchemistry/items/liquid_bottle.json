@@ -1,0 +1,1062 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "cases": [
+      {
+        "when": "liquid_acetaldehyde",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_acetaldehyde"
+        }
+      },
+      {
+        "when": "liquid_acetic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_acetic_acid"
+        }
+      },
+      {
+        "when": "liquid_acetic_anhydride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_acetic_anhydride"
+        }
+      },
+      {
+        "when": "liquid_acetone",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_acetone"
+        }
+      },
+      {
+        "when": "liquid_ammonia_water",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_ammonia_water"
+        }
+      },
+      {
+        "when": "liquid_ammonia_water_concentrated",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_ammonia_water_concentrated"
+        }
+      },
+      {
+        "when": "liquid_benzene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_benzene"
+        }
+      },
+      {
+        "when": "liquid_bromic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_bromic_acid"
+        }
+      },
+      {
+        "when": "liquid_bromine",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_bromine"
+        }
+      },
+      {
+        "when": "liquid_bromine_water",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_bromine_water"
+        }
+      },
+      {
+        "when": "liquid_bromoethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_bromoethane"
+        }
+      },
+      {
+        "when": "liquid_carbon_tetrachloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_carbon_tetrachloride"
+        }
+      },
+      {
+        "when": "liquid_chloric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_chloric_acid"
+        }
+      },
+      {
+        "when": "liquid_chlorine_water",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_chlorine_water"
+        }
+      },
+      {
+        "when": "liquid_chloroethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_chloroethane"
+        }
+      },
+      {
+        "when": "liquid_chloroform",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_chloroform"
+        }
+      },
+      {
+        "when": "liquid_copper_sulfate_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_copper_sulfate_solution"
+        }
+      },
+      {
+        "when": "liquid_cyanic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_cyanic_acid"
+        }
+      },
+      {
+        "when": "liquid_dibromoethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_dibromoethane"
+        }
+      },
+      {
+        "when": "liquid_dibromoethylene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_dibromoethylene"
+        }
+      },
+      {
+        "when": "liquid_dichloromethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_dichloromethane"
+        }
+      },
+      {
+        "when": "liquid_diethyl_ether",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_diethyl_ether"
+        }
+      },
+      {
+        "when": "liquid_ethanol",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_ethanol"
+        }
+      },
+      {
+        "when": "liquid_ethanol_75",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_ethanol_75"
+        }
+      },
+      {
+        "when": "liquid_ethanol_95",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_ethanol_95"
+        }
+      },
+      {
+        "when": "liquid_ethyl_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_ethyl_acetate"
+        }
+      },
+      {
+        "when": "liquid_ethyl_benzoate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_ethyl_benzoate"
+        }
+      },
+      {
+        "when": "liquid_ethyl_formate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_ethyl_formate"
+        }
+      },
+      {
+        "when": "liquid_ethyl_hydrogen_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_ethyl_hydrogen_sulfate"
+        }
+      },
+      {
+        "when": "liquid_formamide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_formamide"
+        }
+      },
+      {
+        "when": "liquid_formic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_formic_acid"
+        }
+      },
+      {
+        "when": "liquid_glycerol",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_glycerol"
+        }
+      },
+      {
+        "when": "liquid_hydrazine",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_hydrazine"
+        }
+      },
+      {
+        "when": "liquid_hydrobromic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_hydrobromic_acid"
+        }
+      },
+      {
+        "when": "liquid_hydrochloric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_hydrochloric_acid"
+        }
+      },
+      {
+        "when": "liquid_hydrochloric_acid_concentrated",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_hydrochloric_acid_concentrated"
+        }
+      },
+      {
+        "when": "liquid_hydrocyanic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_hydrocyanic_acid"
+        }
+      },
+      {
+        "when": "liquid_hydrofluoric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_hydrofluoric_acid"
+        }
+      },
+      {
+        "when": "liquid_hydrogen_peroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_hydrogen_peroxide"
+        }
+      },
+      {
+        "when": "liquid_hydroiodic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_hydroiodic_acid"
+        }
+      },
+      {
+        "when": "liquid_hypobromous_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_hypobromous_acid"
+        }
+      },
+      {
+        "when": "liquid_hypochlorous_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_hypochlorous_acid"
+        }
+      },
+      {
+        "when": "liquid_hypoiodous_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_hypoiodous_acid"
+        }
+      },
+      {
+        "when": "liquid_iodic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_iodic_acid"
+        }
+      },
+      {
+        "when": "liquid_iodine_water",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_iodine_water"
+        }
+      },
+      {
+        "when": "liquid_iodomethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_iodomethane"
+        }
+      },
+      {
+        "when": "liquid_iron_chloride_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_iron_chloride_solution"
+        }
+      },
+      {
+        "when": "liquid_limewater_clear",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_limewater_clear"
+        }
+      },
+      {
+        "when": "liquid_limewater_cloudy",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_limewater_cloudy"
+        }
+      },
+      {
+        "when": "liquid_litmus_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_litmus_solution"
+        }
+      },
+      {
+        "when": "liquid_mercury",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_mercury"
+        }
+      },
+      {
+        "when": "liquid_methanol",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_methanol"
+        }
+      },
+      {
+        "when": "liquid_methyl_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_methyl_acetate"
+        }
+      },
+      {
+        "when": "liquid_methyl_ethyl_ether",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_methyl_ethyl_ether"
+        }
+      },
+      {
+        "when": "liquid_methyl_formate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_methyl_formate"
+        }
+      },
+      {
+        "when": "liquid_methyl_orange_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_methyl_orange_solution"
+        }
+      },
+      {
+        "when": "liquid_nitric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_nitric_acid"
+        }
+      },
+      {
+        "when": "liquid_nitric_acid_concentrated",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_nitric_acid_concentrated"
+        }
+      },
+      {
+        "when": "liquid_perbromic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_perbromic_acid"
+        }
+      },
+      {
+        "when": "liquid_perchloric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_perchloric_acid"
+        }
+      },
+      {
+        "when": "liquid_periodic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_periodic_acid"
+        }
+      },
+      {
+        "when": "liquid_phenolphthalein_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_phenolphthalein_solution"
+        }
+      },
+      {
+        "when": "liquid_phosphoric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_phosphoric_acid"
+        }
+      },
+      {
+        "when": "liquid_phosphoric_acid_concentrated",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_phosphoric_acid_concentrated"
+        }
+      },
+      {
+        "when": "liquid_potassium_carbonate_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_potassium_carbonate_solution"
+        }
+      },
+      {
+        "when": "liquid_potassium_hydroxide_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_potassium_hydroxide_solution"
+        }
+      },
+      {
+        "when": "liquid_potassium_permanganate_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_potassium_permanganate_solution"
+        }
+      },
+      {
+        "when": "liquid_sodium_carbonate_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_sodium_carbonate_solution"
+        }
+      },
+      {
+        "when": "liquid_sodium_chloride_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_sodium_chloride_solution"
+        }
+      },
+      {
+        "when": "liquid_sodium_hydroxide_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_sodium_hydroxide_solution"
+        }
+      },
+      {
+        "when": "liquid_sulfuric_acid_concentrated",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_sulfuric_acid_concentrated"
+        }
+      },
+      {
+        "when": "liquid_sulfuric_acid_dilute",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_sulfuric_acid_dilute"
+        }
+      },
+      {
+        "when": "liquid_thiocyanic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_thiocyanic_acid"
+        }
+      },
+      {
+        "when": "liquid_toluene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_toluene"
+        }
+      },
+      {
+        "when": "liquid_water",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/liquid_water"
+        }
+      },
+      {
+        "when": "open_liquid_acetaldehyde",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_acetaldehyde"
+        }
+      },
+      {
+        "when": "open_liquid_acetic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_acetic_acid"
+        }
+      },
+      {
+        "when": "open_liquid_acetic_anhydride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_acetic_anhydride"
+        }
+      },
+      {
+        "when": "open_liquid_acetone",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_acetone"
+        }
+      },
+      {
+        "when": "open_liquid_ammonia_water",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_ammonia_water"
+        }
+      },
+      {
+        "when": "open_liquid_ammonia_water_concentrated",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_ammonia_water_concentrated"
+        }
+      },
+      {
+        "when": "open_liquid_benzene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_benzene"
+        }
+      },
+      {
+        "when": "open_liquid_bromic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_bromic_acid"
+        }
+      },
+      {
+        "when": "open_liquid_bromine",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_bromine"
+        }
+      },
+      {
+        "when": "open_liquid_bromine_water",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_bromine_water"
+        }
+      },
+      {
+        "when": "open_liquid_bromoethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_bromoethane"
+        }
+      },
+      {
+        "when": "open_liquid_carbon_tetrachloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_carbon_tetrachloride"
+        }
+      },
+      {
+        "when": "open_liquid_chloric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_chloric_acid"
+        }
+      },
+      {
+        "when": "open_liquid_chlorine_water",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_chlorine_water"
+        }
+      },
+      {
+        "when": "open_liquid_chloroethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_chloroethane"
+        }
+      },
+      {
+        "when": "open_liquid_chloroform",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_chloroform"
+        }
+      },
+      {
+        "when": "open_liquid_copper_sulfate_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_copper_sulfate_solution"
+        }
+      },
+      {
+        "when": "open_liquid_cyanic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_cyanic_acid"
+        }
+      },
+      {
+        "when": "open_liquid_dibromoethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_dibromoethane"
+        }
+      },
+      {
+        "when": "open_liquid_dibromoethylene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_dibromoethylene"
+        }
+      },
+      {
+        "when": "open_liquid_dichloromethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_dichloromethane"
+        }
+      },
+      {
+        "when": "open_liquid_diethyl_ether",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_diethyl_ether"
+        }
+      },
+      {
+        "when": "open_liquid_ethanol",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_ethanol"
+        }
+      },
+      {
+        "when": "open_liquid_ethanol_75",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_ethanol_75"
+        }
+      },
+      {
+        "when": "open_liquid_ethanol_95",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_ethanol_95"
+        }
+      },
+      {
+        "when": "open_liquid_ethyl_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_ethyl_acetate"
+        }
+      },
+      {
+        "when": "open_liquid_ethyl_benzoate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_ethyl_benzoate"
+        }
+      },
+      {
+        "when": "open_liquid_ethyl_formate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_ethyl_formate"
+        }
+      },
+      {
+        "when": "open_liquid_ethyl_hydrogen_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_ethyl_hydrogen_sulfate"
+        }
+      },
+      {
+        "when": "open_liquid_formamide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_formamide"
+        }
+      },
+      {
+        "when": "open_liquid_formic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_formic_acid"
+        }
+      },
+      {
+        "when": "open_liquid_glycerol",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_glycerol"
+        }
+      },
+      {
+        "when": "open_liquid_hydrazine",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_hydrazine"
+        }
+      },
+      {
+        "when": "open_liquid_hydrobromic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_hydrobromic_acid"
+        }
+      },
+      {
+        "when": "open_liquid_hydrochloric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_hydrochloric_acid"
+        }
+      },
+      {
+        "when": "open_liquid_hydrochloric_acid_concentrated",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_hydrochloric_acid_concentrated"
+        }
+      },
+      {
+        "when": "open_liquid_hydrocyanic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_hydrocyanic_acid"
+        }
+      },
+      {
+        "when": "open_liquid_hydrofluoric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_hydrofluoric_acid"
+        }
+      },
+      {
+        "when": "open_liquid_hydrogen_peroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_hydrogen_peroxide"
+        }
+      },
+      {
+        "when": "open_liquid_hydroiodic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_hydroiodic_acid"
+        }
+      },
+      {
+        "when": "open_liquid_hypobromous_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_hypobromous_acid"
+        }
+      },
+      {
+        "when": "open_liquid_hypochlorous_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_hypochlorous_acid"
+        }
+      },
+      {
+        "when": "open_liquid_hypoiodous_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_hypoiodous_acid"
+        }
+      },
+      {
+        "when": "open_liquid_iodic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_iodic_acid"
+        }
+      },
+      {
+        "when": "open_liquid_iodine_water",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_iodine_water"
+        }
+      },
+      {
+        "when": "open_liquid_iodomethane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_iodomethane"
+        }
+      },
+      {
+        "when": "open_liquid_iron_chloride_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_iron_chloride_solution"
+        }
+      },
+      {
+        "when": "open_liquid_limewater_clear",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_limewater_clear"
+        }
+      },
+      {
+        "when": "open_liquid_limewater_cloudy",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_limewater_cloudy"
+        }
+      },
+      {
+        "when": "open_liquid_litmus_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_litmus_solution"
+        }
+      },
+      {
+        "when": "open_liquid_mercury",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_mercury"
+        }
+      },
+      {
+        "when": "open_liquid_methanol",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_methanol"
+        }
+      },
+      {
+        "when": "open_liquid_methyl_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_methyl_acetate"
+        }
+      },
+      {
+        "when": "open_liquid_methyl_ethyl_ether",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_methyl_ethyl_ether"
+        }
+      },
+      {
+        "when": "open_liquid_methyl_formate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_methyl_formate"
+        }
+      },
+      {
+        "when": "open_liquid_methyl_orange_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_methyl_orange_solution"
+        }
+      },
+      {
+        "when": "open_liquid_nitric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_nitric_acid"
+        }
+      },
+      {
+        "when": "open_liquid_nitric_acid_concentrated",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_nitric_acid_concentrated"
+        }
+      },
+      {
+        "when": "open_liquid_perbromic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_perbromic_acid"
+        }
+      },
+      {
+        "when": "open_liquid_perchloric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_perchloric_acid"
+        }
+      },
+      {
+        "when": "open_liquid_periodic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_periodic_acid"
+        }
+      },
+      {
+        "when": "open_liquid_phenolphthalein_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_phenolphthalein_solution"
+        }
+      },
+      {
+        "when": "open_liquid_phosphoric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_phosphoric_acid"
+        }
+      },
+      {
+        "when": "open_liquid_phosphoric_acid_concentrated",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_phosphoric_acid_concentrated"
+        }
+      },
+      {
+        "when": "open_liquid_potassium_carbonate_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_potassium_carbonate_solution"
+        }
+      },
+      {
+        "when": "open_liquid_potassium_hydroxide_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_potassium_hydroxide_solution"
+        }
+      },
+      {
+        "when": "open_liquid_potassium_permanganate_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_potassium_permanganate_solution"
+        }
+      },
+      {
+        "when": "open_liquid_sodium_carbonate_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_sodium_carbonate_solution"
+        }
+      },
+      {
+        "when": "open_liquid_sodium_chloride_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_sodium_chloride_solution"
+        }
+      },
+      {
+        "when": "open_liquid_sodium_hydroxide_solution",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_sodium_hydroxide_solution"
+        }
+      },
+      {
+        "when": "open_liquid_sulfuric_acid_concentrated",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_sulfuric_acid_concentrated"
+        }
+      },
+      {
+        "when": "open_liquid_sulfuric_acid_dilute",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_sulfuric_acid_dilute"
+        }
+      },
+      {
+        "when": "open_liquid_thiocyanic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_thiocyanic_acid"
+        }
+      },
+      {
+        "when": "open_liquid_toluene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_toluene"
+        }
+      },
+      {
+        "when": "open_liquid_water",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_liquid_water"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "mchemistry:item/empty_narrow_bottle"
+    }
+  }
+}

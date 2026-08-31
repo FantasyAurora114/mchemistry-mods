@@ -4,6 +4,9 @@ import com.example.chemistry.ChemistryMod;
 import com.example.chemistry.registry.ModBlocks;
 import com.example.chemistry.item.LabVesselItem;
 import com.example.chemistry.network.ChemistryNetworking;
+import com.example.chemistry.block.IronStandBlock;
+import com.example.chemistry.block.TripodBlock;
+import com.example.chemistry.blockentity.HeatingMantleBlockEntity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -27,6 +30,10 @@ public final class ModClientKeyHandler {
         public static void registerKeys(RegisterKeyMappingsEvent event) {
             event.register(ModKeyMappings.SNIFF);
             event.register(ModKeyMappings.SQUEEZE_DROPPER);
+            event.register(ModKeyMappings.FIX_TEMP);
+            event.register(ModKeyMappings.HEAT_UP);
+            event.register(ModKeyMappings.HEAT_DOWN);
+            event.register(ModKeyMappings.SHOW_PORTS);
         }
     }
 
@@ -46,6 +53,51 @@ public final class ModClientKeyHandler {
                         ClientPacketDistributor.sendToServer(
                                 new ChemistryNetworking.SqueezeDropperPacket(blockHit.getBlockPos()));
                     }
+                }
+            }
+            while (ModKeyMappings.SHOW_PORTS.consumeClick()) {
+                PortBoxOverlay.visible = !PortBoxOverlay.visible;
+                if (Minecraft.getInstance().player != null) {
+                    Minecraft.getInstance().player.displayClientMessage(
+                            net.minecraft.network.chat.Component.translatable(
+                                    PortBoxOverlay.visible
+                                            ? "mchemistry.ports.visible"
+                                            : "mchemistry.ports.hidden"),
+                            true);
+                }
+            }
+            while (ModKeyMappings.FIX_TEMP.consumeClick()) {
+                HitResult hit = Minecraft.getInstance().hitResult;
+                if (hit instanceof BlockHitResult blockHit
+                        && Minecraft.getInstance().level != null) {
+                    BlockState state = Minecraft.getInstance().level.getBlockState(blockHit.getBlockPos());
+                    boolean apparatus = state.is(ModBlocks.PLACED_VESSEL.get())
+                            || (state.is(ModBlocks.IRON_STAND.get())
+                                    && state.getValue(IronStandBlock.HAS_VESSEL))
+                            || (state.is(ModBlocks.TRIPOD.get())
+                                    && state.getValue(TripodBlock.HAS_VESSEL));
+                    if (apparatus) {
+                        ClientPacketDistributor.sendToServer(
+                                new ChemistryNetworking.FixTempPacket(blockHit.getBlockPos()));
+                    }
+                }
+            }
+            // 对着加热套按上/下键调节设定温度。
+            HitResult hit = Minecraft.getInstance().hitResult;
+            if (hit instanceof BlockHitResult blockHit
+                    && Minecraft.getInstance().level != null
+                    && Minecraft.getInstance().level.getBlockState(blockHit.getBlockPos())
+                            .is(ModBlocks.HEATING_MANTLE.get())) {
+                int delta = 0;
+                while (ModKeyMappings.HEAT_UP.consumeClick()) {
+                    delta += HeatingMantleBlockEntity.TEMP_STEP;
+                }
+                while (ModKeyMappings.HEAT_DOWN.consumeClick()) {
+                    delta -= HeatingMantleBlockEntity.TEMP_STEP;
+                }
+                if (delta != 0) {
+                    ClientPacketDistributor.sendToServer(
+                            new ChemistryNetworking.HeatMantlePacket(blockHit.getBlockPos(), delta));
                 }
             }
         }

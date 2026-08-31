@@ -28,6 +28,12 @@ public class ModStandaloneModels {
 
     private static final List<StandaloneModelKey<BlockStateModel>> KEYS = new ArrayList<>();
     private static final List<StandaloneModelKey<BlockStateModel>> KEYS_ATTACHMENT = new ArrayList<>();
+    private static final StandaloneModelKey<BlockStateModel> KEY_ERLENMEYER_BODY_UNIT =
+            new StandaloneModelKey<>(() -> "mchemistry:block/erlenmeyer_body_unit");
+    private static final StandaloneModelKey<BlockStateModel> KEY_ERLENMEYER_LIQUID_UNIT =
+            new StandaloneModelKey<>(() -> "mchemistry:block/erlenmeyer_liquid_unit");
+    private static final StandaloneModelKey<BlockStateModel> KEY_ERLENMEYER_EDGE_UNIT =
+            new StandaloneModelKey<>(() -> "mchemistry:block/erlenmeyer_edge_unit");
     private static final StandaloneModelKey<BlockStateModel> KEY_GLASS_STRAIGHT =
             new StandaloneModelKey<>(() -> "mchemistry:block/glass_tube_straight");
     private static final StandaloneModelKey<BlockStateModel> KEY_GLASS_RIGHT_ANGLE =
@@ -36,22 +42,49 @@ public class ModStandaloneModels {
             new StandaloneModelKey<>(() -> "mchemistry:block/glass_tube_right_angle_long");
     private static final StandaloneModelKey<BlockStateModel> KEY_GLASS_DROPPER =
             new StandaloneModelKey<>(() -> "mchemistry:block/glass_tube_dropper");
+    private static final StandaloneModelKey<BlockStateModel> KEY_THERMOMETER_IN_STOPPER =
+            new StandaloneModelKey<>(() -> "mchemistry:block/thermometer_in_stopper");
     private static final StandaloneModelKey<BlockStateModel> KEY_TRIPOD_BAR =
             new StandaloneModelKey<>(() -> "mchemistry:block/tripod_bar");
     private static final StandaloneModelKey<BlockStateModel> KEY_TRIPOD_LEG =
             new StandaloneModelKey<>(() -> "mchemistry:block/tripod_leg");
     private static final StandaloneModelKey<BlockStateModel> KEY_CLAY_TRIANGLE_UNIT =
             new StandaloneModelKey<>(() -> "mchemistry:block/clay_triangle_unit");
+    private static final StandaloneModelKey<BlockStateModel> KEY_TEST_TUBE_RACK =
+            new StandaloneModelKey<>(() -> "mchemistry:block/test_tube_rack");
+    private static final StandaloneModelKey<BlockStateModel> KEY_TEST_TUBE_RACK_TUBE =
+            new StandaloneModelKey<>(() -> "mchemistry:block/test_tube_rack_tube");
+    private static final StandaloneModelKey<BlockStateModel> KEY_TEST_TUBE_RACK_TUBE_CONTENTS =
+            new StandaloneModelKey<>(() -> "mchemistry:block/test_tube_rack_tube_contents");
+    private static final StandaloneModelKey<BlockStateModel> KEY_GRADUATED_CYLINDER =
+            new StandaloneModelKey<>(() -> "mchemistry:block/graduated_cylinder");
+    private static final StandaloneModelKey<BlockStateModel> KEY_GRADUATED_CYLINDER_LIQUID =
+            new StandaloneModelKey<>(() -> "mchemistry:block/graduated_cylinder_liquid");
+    private static final StandaloneModelKey<BlockStateModel> KEY_MAGNETIC_STIRRER =
+            new StandaloneModelKey<>(() -> "mchemistry:block/magnetic_stirrer");
+    private static final StandaloneModelKey<BlockStateModel> KEY_STIR_BAR =
+            new StandaloneModelKey<>(() -> "mchemistry:block/stir_bar");
+    private static final StandaloneModelKey<BlockStateModel> KEY_GLASS_STOPPER_PLUG =
+            new StandaloneModelKey<>(() -> "mchemistry:block/glass_stopper_plug");
     private static final StandaloneModelKey<BlockStateModel> KEY_FUNNEL_IN_STOPPER =
             new StandaloneModelKey<>(() -> "mchemistry:block/funnel_in_stopper");
     private static final StandaloneModelKey<BlockStateModel> KEY_SEPARATORY_IN_STOPPER =
             new StandaloneModelKey<>(() -> "mchemistry:block/separatory_funnel_in_stopper");
     private static final String[] VESSELS = {
-            "round_bottom_flask", "erlenmeyer_flask", "crucible", "evaporating_dish"};
+            "round_bottom_flask", "erlenmeyer_flask", "crucible", "evaporating_dish", "beaker",
+            "three_neck_flask", "flat_bottom_flask"};
     private static final List<StandaloneModelKey<BlockStateModel>> KEYS_VESSELS = new ArrayList<>();
     private static final List<StandaloneModelKey<BlockStateModel>> KEYS_VESSEL_CONTENTS = new ArrayList<>();
     private static final StandaloneModelKey<BlockStateModel> KEY_CONDENSER =
             new StandaloneModelKey<>(() -> "mchemistry:block/straight_condenser");
+    private static final StandaloneModelKey<BlockStateModel> KEY_DISTILLATION_HEAD =
+            new StandaloneModelKey<>(() -> "mchemistry:block/distillation_head");
+    private static final StandaloneModelKey<BlockStateModel> KEY_DISTILLATION_HEAD_ARM =
+            new StandaloneModelKey<>(() -> "mchemistry:block/distillation_head_arm");
+    private static final StandaloneModelKey<BlockStateModel> KEY_RECEIVER_ADAPTER_BENT =
+            new StandaloneModelKey<>(() -> "mchemistry:block/receiver_adapter_bent");
+    private static final StandaloneModelKey<BlockStateModel> KEY_RECEIVER_ADAPTER_STRAIGHT =
+            new StandaloneModelKey<>(() -> "mchemistry:block/receiver_adapter_straight");
     private static final StandaloneModelKey<BlockStateModel> KEY_VESSEL_STOPPER =
             new StandaloneModelKey<>(() -> "mchemistry:block/vessel_stopper");
     private static final StandaloneModelKey<BlockStateModel> KEY_RUBBER_TUBE_LINE =
@@ -83,6 +116,18 @@ public class ModStandaloneModels {
             event.register(key, SimpleUnbakedStandaloneModel.blockStateModel(id));
             KEYS_ATTACHMENT.add(key);
         }
+        event.register(KEY_ERLENMEYER_BODY_UNIT,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/erlenmeyer_body_unit")));
+        event.register(KEY_ERLENMEYER_LIQUID_UNIT,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/erlenmeyer_liquid_unit")));
+        event.register(KEY_ERLENMEYER_EDGE_UNIT,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/erlenmeyer_edge_unit")));
         for (String vessel : VESSELS) {
             ResourceLocation id = ResourceLocation.fromNamespaceAndPath(
                     ChemistryMod.MODID, "block/" + vessel);
@@ -100,6 +145,22 @@ public class ModStandaloneModels {
         event.register(KEY_CONDENSER,
                 SimpleUnbakedStandaloneModel.blockStateModel(
                         ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID, "block/straight_condenser")));
+        event.register(KEY_DISTILLATION_HEAD,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/distillation_head")));
+        event.register(KEY_DISTILLATION_HEAD_ARM,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/distillation_head_arm")));
+        event.register(KEY_RECEIVER_ADAPTER_BENT,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/receiver_adapter_bent")));
+        event.register(KEY_RECEIVER_ADAPTER_STRAIGHT,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/receiver_adapter_straight")));
         event.register(KEY_VESSEL_STOPPER,
                 SimpleUnbakedStandaloneModel.blockStateModel(
                         ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID, "block/vessel_stopper")));
@@ -127,6 +188,10 @@ public class ModStandaloneModels {
         event.register(KEY_GLASS_DROPPER,
                 SimpleUnbakedStandaloneModel.blockStateModel(
                         ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID, "block/glass_tube_dropper")));
+        event.register(KEY_THERMOMETER_IN_STOPPER,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/thermometer_in_stopper")));
         event.register(KEY_TRIPOD_BAR,
                 SimpleUnbakedStandaloneModel.blockStateModel(
                         ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID, "block/tripod_bar")));
@@ -136,6 +201,37 @@ public class ModStandaloneModels {
         event.register(KEY_CLAY_TRIANGLE_UNIT,
                 SimpleUnbakedStandaloneModel.blockStateModel(
                         ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID, "block/clay_triangle_unit")));
+        event.register(KEY_TEST_TUBE_RACK,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID, "block/test_tube_rack")));
+        event.register(KEY_TEST_TUBE_RACK_TUBE,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/test_tube_rack_tube")));
+        event.register(KEY_TEST_TUBE_RACK_TUBE_CONTENTS,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/test_tube_rack_tube_contents")));
+        event.register(KEY_GRADUATED_CYLINDER,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/graduated_cylinder")));
+        event.register(KEY_GRADUATED_CYLINDER_LIQUID,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/graduated_cylinder_liquid")));
+        event.register(KEY_MAGNETIC_STIRRER,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/magnetic_stirrer")));
+        event.register(KEY_STIR_BAR,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/stir_bar")));
+        event.register(KEY_GLASS_STOPPER_PLUG,
+                SimpleUnbakedStandaloneModel.blockStateModel(
+                        ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID,
+                                "block/glass_stopper_plug")));
         event.register(KEY_FUNNEL_IN_STOPPER,
                 SimpleUnbakedStandaloneModel.blockStateModel(
                         ResourceLocation.fromNamespaceAndPath(ChemistryMod.MODID, "block/funnel_in_stopper")));
@@ -156,9 +252,10 @@ public class ModStandaloneModels {
     }
 
     /** 1 = straight, 2 = right-angle, 3 = dropper, 4 = long right-angle,
-     *  5 = long-stem funnel, 6 = separatory funnel. */
+     *  5 = long-stem funnel, 6 = separatory funnel, 7 = thermometer. */
     public static BlockStateModel attachedModel(int type) {
         StandaloneModelKey<BlockStateModel> key = switch (type) {
+            case 7 -> KEY_THERMOMETER_IN_STOPPER;
             case 6 -> KEY_SEPARATORY_IN_STOPPER;
             case 5 -> KEY_FUNNEL_IN_STOPPER;
             case 4 -> KEY_GLASS_RIGHT_ANGLE_LONG;
@@ -181,9 +278,54 @@ public class ModStandaloneModels {
         return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_CLAY_TRIANGLE_UNIT);
     }
 
+    public static BlockStateModel testTubeRack() {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_TEST_TUBE_RACK);
+    }
+
+    public static BlockStateModel testTubeRackTube() {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_TEST_TUBE_RACK_TUBE);
+    }
+
+    public static BlockStateModel testTubeRackTubeContents() {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(
+                KEY_TEST_TUBE_RACK_TUBE_CONTENTS);
+    }
+
+    public static BlockStateModel graduatedCylinder() {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_GRADUATED_CYLINDER);
+    }
+
+    public static BlockStateModel graduatedCylinderLiquid() {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_GRADUATED_CYLINDER_LIQUID);
+    }
+
+    public static BlockStateModel magneticStirrer() {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_MAGNETIC_STIRRER);
+    }
+
+    public static BlockStateModel stirBar() {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_STIR_BAR);
+    }
+
+    public static BlockStateModel glassStopperPlug() {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_GLASS_STOPPER_PLUG);
+    }
+
     /** Vessel model: 1 = flask, 2 = erlenmeyer, 3 = crucible, 4 = evaporating dish. */
     public static BlockStateModel vessel(int type) {
         return Minecraft.getInstance().getModelManager().getStandaloneModel(KEYS_VESSELS.get(type - 1));
+    }
+
+    public static BlockStateModel erlenmeyerBodyUnit() {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_ERLENMEYER_BODY_UNIT);
+    }
+
+    public static BlockStateModel erlenmeyerLiquidUnit() {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_ERLENMEYER_LIQUID_UNIT);
+    }
+
+    public static BlockStateModel erlenmeyerEdgeUnit() {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_ERLENMEYER_EDGE_UNIT);
     }
 
     public static BlockStateModel vesselContents(int type) {
@@ -192,6 +334,19 @@ public class ModStandaloneModels {
 
     public static BlockStateModel condenser() {
         return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_CONDENSER);
+    }
+
+    public static BlockStateModel distillationHead() {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_DISTILLATION_HEAD);
+    }
+
+    public static BlockStateModel distillationHeadArm() {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(KEY_DISTILLATION_HEAD_ARM);
+    }
+
+    public static BlockStateModel receiverAdapter(boolean bent) {
+        return Minecraft.getInstance().getModelManager().getStandaloneModel(
+                bent ? KEY_RECEIVER_ADAPTER_BENT : KEY_RECEIVER_ADAPTER_STRAIGHT);
     }
 
     public static BlockStateModel vesselStopper() {

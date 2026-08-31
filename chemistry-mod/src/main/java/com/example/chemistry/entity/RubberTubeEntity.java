@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.example.chemistry.registry.ModEntities;
+import com.example.chemistry.item.RubberTubeItem;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,6 +20,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -29,30 +31,79 @@ import org.jetbrains.annotations.Nullable;
  */
 public class RubberTubeEntity extends Entity {
 
-    /** One end of the tube: block face, entity, or a glass-tube head on a stand. */
-    public record Anchor(int kind, @Nullable BlockPos pos, @Nullable Direction face,
+    /** 一根橡胶管的一个端点（Port）：位置 + 朝向 + 类型，橡胶管锚点即 Port。 */
+    public record Port(int kind, @Nullable BlockPos pos, @Nullable Direction face,
             @Nullable UUID uuid, int slot) {
         public static final int KIND_BLOCK = 0;
         public static final int KIND_ENTITY = 1;
         public static final int KIND_STAND = 2;
         public static final int KIND_NOZZLE = 3;
 
-        public static Anchor block(BlockPos pos, Direction face) {
-            return new Anchor(KIND_BLOCK, pos, face, null, 0);
+        public static Port block(BlockPos pos, Direction face) {
+            return new Port(KIND_BLOCK, pos, face, null, 0);
         }
 
-        public static Anchor entity(UUID uuid) {
-            return new Anchor(KIND_ENTITY, null, null, uuid, 0);
+        public static Port entity(UUID uuid) {
+            return new Port(KIND_ENTITY, null, null, uuid, 0);
         }
 
-        public static Anchor stand(BlockPos pos, int slot) {
-            return new Anchor(KIND_STAND, pos, null, null, slot);
+        public static Port stand(BlockPos pos, int slot) {
+            return new Port(KIND_STAND, pos, null, null, slot);
         }
 
         /** Gas nozzle placed in a water trough (pos + tilt direction). */
-        public static Anchor nozzle(BlockPos pos, Direction face) {
-            return new Anchor(KIND_NOZZLE, pos, face, null, 0);
+        public static Port nozzle(BlockPos pos, Direction face) {
+            return new Port(KIND_NOZZLE, pos, face, null, 0);
         }
+
+        /** 世界坐标（与渲染共用，管口必须精确落在嘴部/喷嘴处）。 */
+        @Nullable
+        public Vec3 worldPos(Level level) {
+            if (level == null) {
+                return null;
+            }
+            if (kind() == KIND_BLOCK) {
+                BlockPos p = pos();
+                Direction f = face();
+                return new Vec3(p.getX() + 0.5 + f.getStepX() * 0.5,
+                        p.getY() + 0.5 + f.getStepY() * 0.5,
+                        p.getZ() + 0.5 + f.getStepZ() * 0.5);
+            }
+            if (kind() == KIND_STAND) {
+                return AnchorPositions.standHead(level, this);
+            }
+            if (kind() == KIND_NOZZLE) {
+                return AnchorPositions.nozzleTip(level, this);
+            }
+            Entity e = level.getEntity(uuid());
+            return e != null ? e.position() : null;
+        }
+
+        /** 朝向（插头/接口对接时用）；实体/铁架台默认朝上。 */
+        public Direction orientation() {
+            if (kind() == KIND_BLOCK || kind() == KIND_NOZZLE) {
+                return face();
+            }
+            return Direction.UP;
+        }
+
+        /**
+         * 虚拟选中框：以端口世界坐标为中心的小盒（±0.18 格），
+         * 与"橡胶管任意一段可被剪刀选中"原理相同——射线命中即选中该端口。
+         */
+        @Nullable
+        public AABB selectionBox(Level level) {
+            Vec3 p = worldPos(level);
+            if (p == null) {
+                return null;
+            }
+            return new AABB(p.x - 0.35, p.y - 0.35, p.z - 0.35,
+                    p.x + 0.35, p.y + 0.35, p.z + 0.35);
+        }
+    }
+
+    /** 一条连接：起点 Port + 终点 Port（对应一根橡胶管实体）。 */
+    public record Connection(Port start, Port end) {
     }
 
     private static final EntityDataAccessor<Integer> DATA_A_KIND =
@@ -84,6 +135,7 @@ public class RubberTubeEntity extends Entity {
     /** Gas in transit through this tube (server-side only). Gas enters at the
      *  source end, occupies the tube, and leaves at the far end — cutting the
      *  tube drops everything still inside. */
+    public static final String AIR = "air";
     private String transitGas = "";
     private int transitMl;
     private double transitPurity = 1.0;
@@ -92,7 +144,7 @@ public class RubberTubeEntity extends Entity {
         super(type, level);
     }
 
-    public static RubberTubeEntity create(Level level, Anchor a, Anchor b, Vec3 spawn) {
+    public static RubberTubeEntity create(Level level, Port a, Port b, Vec3 spawn) {
         RubberTubeEntity tube = new RubberTubeEntity(ModEntities.RUBBER_TUBE.get(), level);
         tube.setAnchorA(a);
         tube.setAnchorB(b);
@@ -116,11 +168,11 @@ public class RubberTubeEntity extends Entity {
         builder.define(DATA_B_SLOT, 0);
     }
 
-    public void setAnchorA(Anchor a) {
+    public void setAnchorA(Port a) {
         writeAnchor(a, DATA_A_KIND, DATA_A_POS, DATA_A_FACE, DATA_A_UUID_MOST, DATA_A_UUID_LEAST, DATA_A_SLOT);
     }
 
-    public void setAnchorB(Anchor b) {
+    public void setAnchorB(Port b) {
         writeAnchor(b, DATA_B_KIND, DATA_B_POS, DATA_B_FACE, DATA_B_UUID_MOST, DATA_B_UUID_LEAST, DATA_B_SLOT);
     }
 
@@ -160,6 +212,27 @@ public class RubberTubeEntity extends Entity {
         return ml;
     }
 
+    /** A fresh tube is full of air: the produced gas first pushes the air out
+     *  (bubbles at the outlet) before it can be collected. Called once on
+     *  creation, server-side. */
+    public void initAir() {
+        if (!level().isClientSide()) {
+            transitGas = AIR;
+            transitMl = capacityMl();
+            transitPurity = 1.0;
+        }
+    }
+
+    /** Internal volume of the tube: one mL per block of sagging length. */
+    private int capacityMl() {
+        Vec3 a = RubberTubeItem.anchorWorldPos(level(), getAnchorA());
+        Vec3 b = RubberTubeItem.anchorWorldPos(level(), getAnchorB());
+        if (a == null || b == null) {
+            return 1;
+        }
+        return Math.max(1, (int) Math.round(a.distanceTo(b) * 1.0));
+    }
+
     /** Pull up to max mL out of the far end; returns the amount removed. */
     public int takeTransit(int max) {
         int out = Math.min(max, transitMl);
@@ -173,16 +246,36 @@ public class RubberTubeEntity extends Entity {
     }
 
     @Nullable
-    public Anchor getAnchorA() {
+    public Port getAnchorA() {
         return readAnchor(DATA_A_KIND, DATA_A_POS, DATA_A_FACE, DATA_A_UUID_MOST, DATA_A_UUID_LEAST, DATA_A_SLOT);
     }
 
     @Nullable
-    public Anchor getAnchorB() {
+    public Port getAnchorB() {
         return readAnchor(DATA_B_KIND, DATA_B_POS, DATA_B_FACE, DATA_B_UUID_MOST, DATA_B_UUID_LEAST, DATA_B_SLOT);
     }
 
-    private void writeAnchor(Anchor a, EntityDataAccessor<Integer> kind,
+    /** 起点 Port（对应 Connection.start）。 */
+    @Nullable
+    public Port startPort() {
+        return getAnchorA();
+    }
+
+    /** 终点 Port（对应 Connection.end）。 */
+    @Nullable
+    public Port endPort() {
+        return getAnchorB();
+    }
+
+    /** 本管对应的 Connection（两个端点）。 */
+    @Nullable
+    public Connection connection() {
+        Port a = startPort();
+        Port b = endPort();
+        return a == null || b == null ? null : new Connection(a, b);
+    }
+
+    private void writeAnchor(Port a, EntityDataAccessor<Integer> kind,
             EntityDataAccessor<Optional<BlockPos>> pos, EntityDataAccessor<Direction> face,
             EntityDataAccessor<Long> uuidMost, EntityDataAccessor<Long> uuidLeast,
             EntityDataAccessor<Integer> slot) {
@@ -190,11 +283,11 @@ public class RubberTubeEntity extends Entity {
             return;
         }
         this.entityData.set(kind, a.kind());
-        if (a.kind() == Anchor.KIND_ENTITY) {
+        if (a.kind() == Port.KIND_ENTITY) {
             this.entityData.set(pos, Optional.empty());
             this.entityData.set(uuidMost, a.uuid().getMostSignificantBits());
             this.entityData.set(uuidLeast, a.uuid().getLeastSignificantBits());
-        } else if (a.kind() == Anchor.KIND_STAND) {
+        } else if (a.kind() == Port.KIND_STAND) {
             this.entityData.set(pos, Optional.of(a.pos()));
             this.entityData.set(uuidMost, 0L);
             this.entityData.set(uuidLeast, 0L);
@@ -208,22 +301,22 @@ public class RubberTubeEntity extends Entity {
         }
     }
 
-    private Anchor readAnchor(EntityDataAccessor<Integer> kind,
+    private Port readAnchor(EntityDataAccessor<Integer> kind,
             EntityDataAccessor<Optional<BlockPos>> pos, EntityDataAccessor<Direction> face,
             EntityDataAccessor<Long> uuidMost, EntityDataAccessor<Long> uuidLeast,
             EntityDataAccessor<Integer> slot) {
         int k = this.entityData.get(kind);
-        if (k == Anchor.KIND_ENTITY) {
-            return Anchor.entity(new UUID(this.entityData.get(uuidMost), this.entityData.get(uuidLeast)));
+        if (k == Port.KIND_ENTITY) {
+            return Port.entity(new UUID(this.entityData.get(uuidMost), this.entityData.get(uuidLeast)));
         }
         Optional<BlockPos> p = this.entityData.get(pos);
-        if (k == Anchor.KIND_STAND) {
-            return p.map(blockPos -> Anchor.stand(blockPos, this.entityData.get(slot))).orElse(null);
+        if (k == Port.KIND_STAND) {
+            return p.map(blockPos -> Port.stand(blockPos, this.entityData.get(slot))).orElse(null);
         }
-        if (k == Anchor.KIND_NOZZLE) {
-            return p.map(blockPos -> Anchor.nozzle(blockPos, this.entityData.get(face))).orElse(null);
+        if (k == Port.KIND_NOZZLE) {
+            return p.map(blockPos -> Port.nozzle(blockPos, this.entityData.get(face))).orElse(null);
         }
-        return p.map(blockPos -> Anchor.block(blockPos, this.entityData.get(face))).orElse(null);
+        return p.map(blockPos -> Port.block(blockPos, this.entityData.get(face))).orElse(null);
     }
 
     @Override
@@ -253,18 +346,18 @@ public class RubberTubeEntity extends Entity {
         return false;
     }
 
-    private static void saveAnchor(ValueOutput output, String key, Anchor a) {
+    private static void saveAnchor(ValueOutput output, String key, Port a) {
         if (a == null) {
             return;
         }
         ValueOutput child = output.child(key);
         child.putInt("kind", a.kind());
-        if (a.kind() == Anchor.KIND_ENTITY) {
+        if (a.kind() == Port.KIND_ENTITY) {
             child.store("uuid", UUIDUtil.CODEC, a.uuid());
-        } else if (a.kind() == Anchor.KIND_STAND) {
+        } else if (a.kind() == Port.KIND_STAND) {
             child.store("pos", BlockPos.CODEC, a.pos());
             child.putInt("slot", a.slot());
-        } else if (a.kind() == Anchor.KIND_NOZZLE) {
+        } else if (a.kind() == Port.KIND_NOZZLE) {
             child.store("pos", BlockPos.CODEC, a.pos());
             child.store("face", Direction.CODEC, a.face());
         } else {
@@ -274,26 +367,26 @@ public class RubberTubeEntity extends Entity {
     }
 
     @Nullable
-    private static Anchor readAnchor(ValueInput input, String key) {
+    private static Port readAnchor(ValueInput input, String key) {
         Optional<ValueInput> child = input.child(key);
         if (child.isEmpty()) {
             return null;
         }
         ValueInput c = child.get();
         int kind = c.getIntOr("kind", 0);
-        if (kind == Anchor.KIND_ENTITY) {
+        if (kind == Port.KIND_ENTITY) {
             UUID uuid = c.read("uuid", UUIDUtil.CODEC).orElse(null);
-            return uuid == null ? null : Anchor.entity(uuid);
+            return uuid == null ? null : Port.entity(uuid);
         }
         BlockPos pos = c.read("pos", BlockPos.CODEC).orElse(null);
-        if (kind == Anchor.KIND_STAND) {
-            return pos == null ? null : Anchor.stand(pos, c.getIntOr("slot", 1));
+        if (kind == Port.KIND_STAND) {
+            return pos == null ? null : Port.stand(pos, c.getIntOr("slot", 1));
         }
-        if (kind == Anchor.KIND_NOZZLE) {
-            return pos == null ? null : Anchor.nozzle(pos, c.read("face", Direction.CODEC).orElse(Direction.UP));
+        if (kind == Port.KIND_NOZZLE) {
+            return pos == null ? null : Port.nozzle(pos, c.read("face", Direction.CODEC).orElse(Direction.UP));
         }
         Direction face = c.read("face", Direction.CODEC).orElse(Direction.UP);
-        return pos == null ? null : Anchor.block(pos, face);
+        return pos == null ? null : Port.block(pos, face);
     }
 
     /** The tube can be right-clicked (to remove it) but is not pushable. */

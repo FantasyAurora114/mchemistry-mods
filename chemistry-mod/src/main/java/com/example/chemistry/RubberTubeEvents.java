@@ -2,8 +2,8 @@ package com.example.chemistry;
 
 import com.example.chemistry.entity.RubberTubeEntity;
 import com.example.chemistry.item.RubberTubeItem;
-import com.example.chemistry.item.GasNozzleTubedItem;
-import com.example.chemistry.entity.RubberTubeEntity.Anchor;
+import com.example.chemistry.item.GlassTubeTubedItem;
+import com.example.chemistry.entity.RubberTubeEntity.Port;
 import com.example.chemistry.registry.ModItems;
 import com.example.chemistry.registry.ModBlocks;
 
@@ -53,9 +53,9 @@ public class RubberTubeEvents {
             RubberTubeItem.onEntityClicked(event.getLevel(), player, main, target);
             event.setCanceled(true);
             event.setCancellationResult(InteractionResult.SUCCESS);
-        } else if (main.getItem() instanceof GasNozzleTubedItem) {
+        } else if (main.getItem() instanceof GlassTubeTubedItem) {
             RubberTubeItem.createTube(event.getLevel(), player, main,
-                    Anchor.entity(player.getUUID()), Anchor.entity(target.getUUID()));
+                    Port.entity(player.getUUID()), Port.entity(target.getUUID()));
             event.setCanceled(true);
             event.setCancellationResult(InteractionResult.SUCCESS);
         }

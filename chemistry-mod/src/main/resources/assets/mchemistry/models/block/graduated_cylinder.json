@@ -1,0 +1,254 @@
+{
+  "ambientocclusion": false,
+  "particle": "glass",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    }
+  },
+  "textures": {
+    "glass": "mchemistry:block/graduated_cylinder",
+    "base": "mchemistry:block/graduated_cylinder_base",
+    "top": "mchemistry:block/graduated_cylinder_top"
+  },
+  "elements": [
+    {
+      "from": [
+        6,
+        0,
+        6
+      ],
+      "to": [
+        11,
+        1,
+        11
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "glass",
+          "uv": [
+            0,
+            14,
+            12.5,
+            16
+          ]
+        },
+        "east": {
+          "texture": "glass",
+          "uv": [
+            0,
+            14,
+            12.5,
+            16
+          ]
+        },
+        "south": {
+          "texture": "glass",
+          "uv": [
+            0,
+            14,
+            12.5,
+            16
+          ]
+        },
+        "west": {
+          "texture": "glass",
+          "uv": [
+            0,
+            14,
+            12.5,
+            16
+          ]
+        },
+        "up": {
+          "texture": "base",
+          "uv": [
+            0,
+            0,
+            10,
+            10
+          ]
+        },
+        "down": {
+          "texture": "base",
+          "uv": [
+            0,
+            0,
+            10,
+            10
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        1,
+        7
+      ],
+      "to": [
+        10,
+        15,
+        10
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "glass",
+          "uv": [
+            0,
+            0,
+            3,
+            14
+          ]
+        },
+        "east": {
+          "texture": "glass",
+          "uv": [
+            3,
+            0,
+            6,
+            14
+          ]
+        },
+        "south": {
+          "texture": "glass",
+          "uv": [
+            3,
+            0,
+            6,
+            14
+          ]
+        },
+        "west": {
+          "texture": "glass",
+          "uv": [
+            3,
+            0,
+            6,
+            14
+          ]
+        },
+        "up": {
+          "texture": "top",
+          "uv": [
+            0,
+            0,
+            10,
+            10
+          ]
+        },
+        "down": {
+          "texture": "glass",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        14,
+        8
+      ],
+      "to": [
+        7,
+        15,
+        9
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "top",
+          "uv": [
+            0,
+            10,
+            4,
+            14
+          ]
+        },
+        "east": {
+          "texture": "top",
+          "uv": [
+            0,
+            10,
+            4,
+            14
+          ]
+        },
+        "south": {
+          "texture": "top",
+          "uv": [
+            0,
+            10,
+            4,
+            14
+          ]
+        },
+        "west": {
+          "texture": "top",
+          "uv": [
+            0,
+            10,
+            4,
+            14
+          ]
+        },
+        "up": {
+          "texture": "top",
+          "uv": [
+            4,
+            10,
+            8,
+            14
+          ]
+        },
+        "down": {
+          "texture": "top",
+          "uv": [
+            0,
+            10,
+            4,
+            14
+          ]
+        }
+      }
+    }
+  ]
+}

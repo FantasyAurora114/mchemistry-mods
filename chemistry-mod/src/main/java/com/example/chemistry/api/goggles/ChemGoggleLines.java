@@ -52,6 +52,12 @@ public final class ChemGoggleLines {
         return Component.literal("温度：" + String.format("%.0f", temp) + "°C");
     }
 
+    /** Temperature line with the I-key pin state appended. */
+    public static Component temp(double temp, boolean locked) {
+        return Component.literal("温度：" + String.format("%.0f", temp) + "°C"
+                + (locked ? "（已锁定）" : ""));
+    }
+
     /** Sealed vessels build up pressure when heated; show it like a gauge. */
     public static void appendPressure(List<Component> tooltip, ItemStack stack) {
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
@@ -69,24 +75,33 @@ public final class ChemGoggleLines {
         List<LabVesselItem.Entry> entries = LabVesselItem.getContents(stack);
         if (entries.isEmpty()) {
             tooltip.add(Component.literal("内容物：空"));
-            return;
-        }
-        double used = entries.stream().mapToDouble(LabVesselItem.Entry::amount).sum();
-        tooltip.add(Component.literal("内容物：" + String.format("%.1f", used) + "g"));
-        for (LabVesselItem.Entry e : entries) {
-            String name;
-            if (e.type().equals("liquid")) {
-                name = liquidName(e.id());
-                double density = ChemicalInfoProvider.densityOfLiquid(e.id());
-                if (density > 0) {
-                    name += " ×" + String.format("%.1f", e.amount() / density) + "mL";
+        } else {
+            double used = entries.stream().mapToDouble(LabVesselItem.Entry::amount).sum();
+            tooltip.add(Component.literal("内容物：" + String.format("%.1f", used) + "g"));
+            for (LabVesselItem.Entry e : entries) {
+                String name;
+                if (e.type().equals("liquid")) {
+                    name = liquidName(e.id());
+                    double density = ChemicalInfoProvider.densityOfLiquid(e.id());
+                    if (density > 0) {
+                        name += " ×" + String.format("%.1f", e.amount() / density) + "mL";
+                    } else {
+                        name += " ×" + String.format("%.1f", e.amount()) + "g";
+                    }
                 } else {
-                    name += " ×" + String.format("%.1f", e.amount()) + "g";
+                    name = solidName(e.id()) + " ×" + String.format("%.1f", e.amount()) + "g";
                 }
-            } else {
-                name = solidName(e.id()) + " ×" + String.format("%.1f", e.amount()) + "g";
+                tooltip.add(Component.literal("  " + name));
             }
-            tooltip.add(Component.literal("  " + name));
+        }
+        List<com.example.chemistry.VesselGasPhase.Part> gas =
+                com.example.chemistry.VesselGasPhase.read(stack);
+        if (!gas.isEmpty()) {
+            String gasLine = gas.stream()
+                    .map(p -> gasName(p.id()) + " "
+                            + com.example.chemistry.VesselGasPhase.formatMl(p.ml()) + "mL")
+                    .collect(java.util.stream.Collectors.joining(", "));
+            tooltip.add(Component.literal("气相：" + gasLine));
         }
     }
 }

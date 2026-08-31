@@ -3,7 +3,6 @@ package com.example.mci.registry;
 import com.example.mci.data.Ores;
 import com.example.mci.data.MciSubstances;
 import com.example.mci.item.GasCanisterItem;
-import com.example.chemistry.item.SolidBottleItem;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -30,18 +29,11 @@ public class MciItems {
     public static final DeferredItem<BlockItem> SYNTHESIS_TOWER_ITEM =
             ITEMS.registerSimpleBlockItem("synthesis_tower", ModBlocks.SYNTHESIS_TOWER);
 
-    // Ore solids are registered here via the DeferredRegister (which sets the
-    // item id before the constructor runs), NOT through ChemistryAPI.
+    // Ore solids live in the unified solid_jar (NBT content) provided by the
+    // core mod; only the loose (散装) form is a per-substance item.
     static {
         for (com.example.chemistry.api.Substances.SolidSubstance s : MciSubstances.SOLIDS) {
             String id = s.id();
-            ITEMS.registerItem("solid_" + id, props -> new SolidBottleItem(props,
-                    () -> BuiltInRegistries.ITEM.getValue(
-                            ResourceLocation.fromNamespaceAndPath("mchemistry", "open_solid_" + id)),
-                    () -> BuiltInRegistries.ITEM.getValue(
-                            ResourceLocation.fromNamespaceAndPath("mchemistry", "glass_sheet"))),
-                    UnaryOperator.identity());
-            ITEMS.registerItem("open_solid_" + id, Item::new, UnaryOperator.identity());
             ITEMS.registerItem("loose_" + id, Item::new, UnaryOperator.identity());
         }
     }

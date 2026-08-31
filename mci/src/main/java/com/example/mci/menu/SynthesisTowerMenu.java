@@ -183,7 +183,11 @@ extends AbstractContainerMenu {
 
         public boolean mayPlace(ItemStack stack) {
             String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
-            return path.equals("iron_catalyst") || path.equals("vanadium_pentoxide_catalyst") || path.equals("platinum_rhodium_catalyst") || path.equals("solid_sulfuric_acid_concentrated");
+            boolean acidSolid = com.example.chemistry.transfer.BottleCodes.isSolidJar(stack)
+                    && "sulfuric_acid_concentrated".equals(
+                            com.example.chemistry.transfer.BottleCodes.solidIdOf(stack));
+            return path.equals("iron_catalyst") || path.equals("vanadium_pentoxide_catalyst")
+                    || path.equals("platinum_rhodium_catalyst") || acidSolid;
         }
     }
 }

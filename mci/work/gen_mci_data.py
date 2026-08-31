@@ -6,8 +6,20 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from gen_ores import CHAINS, INTERMEDIATES, METALS, ORES, VANILLA_ORES, hexc
 
-JAVA = Path(__file__).resolve().parent.parent / "src/main/java/com/example/chemistry"
+JAVA = Path(__file__).resolve().parent.parent / "src/main/java/com/example/mci"
 JAVA.mkdir(parents=True, exist_ok=True)
+
+# Reuse the core mod's equation generator (substance formulas come from the
+# core data classes; ore formulas are injected below).
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "chemistry-mod" / "work"))
+import gen_equations as ge
+
+for o in ORES:
+    ge.EXTRA[o[0]] = o[3]
+for v in VANILLA_ORES:
+    ge.EXTRA[v[0]] = v[3]
+for m in INTERMEDIATES + METALS:
+    ge.EXTRA[m[0]] = m[3]
 
 
 def solid_lines():
@@ -34,14 +46,16 @@ def reaction_lines():
             reactants, products, display, speed, temp, catalyst, pressure = chain
             ing = ", ".join(f'new Ingredient("{t}", "{i}", {n})' for t, i, n in reactants)
             prod = ", ".join(f'new Product("{t}", "{i}", {n})' for t, i, n in products)
-            out.append(f'            new Reaction(List.of({ing}), List.of({prod}), "{display}", '
+            eq = ge.build_display(ing, prod, display)
+            out.append(f'            new Reaction(List.of({ing}), List.of({prod}), "{eq}", '
                        f'{speed}, {temp}, "{catalyst}", {pressure}),')
     for v in VANILLA_ORES:
         for chain in v[8]:
             reactants, products, display, speed, temp, catalyst, pressure = chain
             ing = ", ".join(f'new Ingredient("{t}", "{i}", {n})' for t, i, n in reactants)
             prod = ", ".join(f'new Product("{t}", "{i}", {n})' for t, i, n in products)
-            out.append(f'            new Reaction(List.of({ing}), List.of({prod}), "{display}", '
+            eq = ge.build_display(ing, prod, display)
+            out.append(f'            new Reaction(List.of({ing}), List.of({prod}), "{eq}", '
                        f'{speed}, {temp}, "{catalyst}", {pressure}),')
     return out
 
@@ -53,7 +67,7 @@ def write_mci_substances():
     reactions = "\n".join(reaction_lines())
     if reactions.rstrip().endswith(","):
         reactions = reactions.rstrip()[:-1]
-    src = f"""package com.example.chemistry.data;
+    src = f"""package com.example.mci.data;
 
 import java.util.List;
 
@@ -97,7 +111,7 @@ def write_ores():
     joined = "\n".join(lines).rstrip()
     if joined.endswith(","):
         joined = joined[:-1]
-    src = f"""package com.example.chemistry.data;
+    src = f"""package com.example.mci.data;
 
 import java.util.List;
 

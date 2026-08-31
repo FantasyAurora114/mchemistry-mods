@@ -1,0 +1,21 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "liquid": "mchemistry:block/vessel_contents"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "shade": false,
+      "faces": {
+        "north": {"texture": "liquid", "tintindex": 0, "uv": [0, 0, 16, 16]},
+        "south": {"texture": "liquid", "tintindex": 0, "uv": [0, 0, 16, 16]},
+        "east": {"texture": "liquid", "tintindex": 0, "uv": [0, 0, 16, 16]},
+        "west": {"texture": "liquid", "tintindex": 0, "uv": [0, 0, 16, 16]},
+        "up": {"texture": "liquid", "tintindex": 0, "uv": [0, 0, 16, 16]},
+        "down": {"texture": "liquid", "tintindex": 0, "uv": [0, 0, 16, 16]}
+      }
+    }
+  ]
+}

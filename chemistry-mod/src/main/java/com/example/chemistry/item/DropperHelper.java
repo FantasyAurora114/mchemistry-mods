@@ -42,6 +42,11 @@ public final class DropperHelper {
         return getLiquid(stack) == null;
     }
 
+    /** 液体显示颜色。 */
+    public static int liquidColor(String liquidId) {
+        return LIQUID_COLORS.getOrDefault(liquidId, 0xFFFFFF);
+    }
+
     public static String getLiquid(ItemStack stack) {
         CompoundTag tag = tag(stack);
         String liquid = tag.getStringOr(KEY_LIQUID, "");

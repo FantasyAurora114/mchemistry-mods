@@ -218,5 +218,7 @@
   "item.mchemistry.loose_copper_ore": "铜矿石",
   "item.mchemistry.solid_gold_ore": "金矿石（广口瓶）",
   "item.mchemistry.open_solid_gold_ore": "敞口的金矿石（广口瓶）",
-  "item.mchemistry.loose_gold_ore": "金矿石"
+  "item.mchemistry.loose_gold_ore": "金矿石",
+  "itemGroup.mci.ores": "MCI·矿石",
+  "itemGroup.mci.industrial": "MCI·工业"
 }

@@ -43,6 +43,16 @@ public class ModClientEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.WATER_TROUGH.get(), WaterTroughRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.GAS_COLLECTING_BOTTLE.get(),
                 GasCollectingBottleRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.HEATING_MANTLE.get(),
+                HeatingMantleRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.TEST_TUBE_RACK.get(),
+                TestTubeRackRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.ASSEMBLY_FRAME.get(),
+                AssemblyFrameRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.PLACED_GRADUATED_CYLINDER.get(),
+                PlacedGraduatedCylinderRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.MAGNETIC_STIRRER.get(),
+                MagneticStirrerRenderer::new);
         event.registerEntityRenderer(ModEntities.RUBBER_TUBE.get(), RubberTubeRenderer::new);
     }
 
@@ -111,6 +121,7 @@ public class ModClientEvents {
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.IRON_STAND.get(), ChunkSectionLayer.CUTOUT);
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.LAB_TABLE.get(), ChunkSectionLayer.SOLID);
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.ALCOHOL_LAMP.get(), ChunkSectionLayer.CUTOUT);
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.ALCOHOL_BLOWTORCH.get(), ChunkSectionLayer.CUTOUT);
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.WATER_TROUGH.get(), ChunkSectionLayer.TRANSLUCENT);
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.GAS_COLLECTING_BOTTLE.get(), ChunkSectionLayer.CUTOUT);
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.GAS_WASHING_BOTTLE.get(), ChunkSectionLayer.CUTOUT);

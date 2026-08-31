@@ -1,0 +1,183 @@
+{
+  "ambientocclusion": false,
+  "particle": "shell",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
+    }
+  },
+  "textures": {
+    "shell": "mchemistry:block/heating_mantle_shell"
+  },
+  "elements": [
+    {
+      "from": [
+        4,
+        0,
+        4
+      ],
+      "to": [
+        12,
+        5,
+        14
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "shell",
+          "uv": [
+            1,
+            5.5,
+            9,
+            10.5
+          ]
+        },
+        "east": {
+          "texture": "shell",
+          "uv": [
+            0,
+            5.5,
+            10,
+            10.5
+          ]
+        },
+        "south": {
+          "texture": "shell",
+          "uv": [
+            1,
+            0,
+            9,
+            5
+          ]
+        },
+        "west": {
+          "texture": "shell",
+          "uv": [
+            0,
+            5.5,
+            10,
+            10.5
+          ]
+        },
+        "up": {
+          "texture": "shell",
+          "uv": [
+            1,
+            5.5,
+            9,
+            10
+          ]
+        },
+        "down": {
+          "texture": "shell",
+          "uv": [
+            1,
+            5.5,
+            9,
+            10
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        5,
+        5
+      ],
+      "to": [
+        11,
+        6,
+        11
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "shell",
+          "uv": [
+            10.5,
+            1,
+            12.5,
+            1.5
+          ]
+        },
+        "east": {
+          "texture": "shell",
+          "uv": [
+            10.5,
+            1,
+            12.5,
+            1.5
+          ]
+        },
+        "south": {
+          "texture": "shell",
+          "uv": [
+            10.5,
+            1,
+            12.5,
+            1.5
+          ]
+        },
+        "west": {
+          "texture": "shell",
+          "uv": [
+            10.5,
+            1,
+            12.5,
+            1.5
+          ]
+        },
+        "up": {
+          "texture": "shell",
+          "uv": [
+            0,
+            10.5,
+            2,
+            12.5
+          ]
+        },
+        "down": {
+          "texture": "shell",
+          "uv": [
+            0,
+            10.5,
+            2,
+            12.5
+          ]
+        }
+      }
+    }
+  ]
+}

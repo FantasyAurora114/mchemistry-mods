@@ -117,13 +117,22 @@ public class TripodRenderer implements BlockEntityRenderer<TripodBlockEntity, Tr
         if (renderState.vesselType != 0) {
             poseStack.pushPose();
             poseStack.translate((8.0 - 7.5) / 16.0, 11.17F / 16.0F, (8.0 - 8.5) / 16.0);
-            render(ModStandaloneModels.vessel(renderState.vesselType),
-                    poseStack, nodeCollector, renderState, 1.0F, 1.0F, 1.0F);
-            int c = renderState.vesselColor;
-            if (c != 0xFFFFFF) {
-                render(ModStandaloneModels.vesselContents(renderState.vesselType),
-                        poseStack, nodeCollector, renderState,
-                        ((c >> 16) & 0xFF) / 255.0F, ((c >> 8) & 0xFF) / 255.0F, (c & 0xFF) / 255.0F);
+            if (renderState.vesselType == 2) {
+                ErlenmeyerRenderer.draw(poseStack, nodeCollector,
+                        ModStandaloneModels.vessel(2),
+                        ModStandaloneModels.erlenmeyerBodyUnit(),
+                        ModStandaloneModels.erlenmeyerLiquidUnit(),
+                        renderState.vesselColor, renderState.lightCoords);
+            } else {
+                render(ModStandaloneModels.vessel(renderState.vesselType),
+                        poseStack, nodeCollector, renderState, 1.0F, 1.0F, 1.0F);
+                int c = renderState.vesselColor;
+                if (c != 0xFFFFFF) {
+                    render(ModStandaloneModels.vesselContents(renderState.vesselType),
+                            poseStack, nodeCollector, renderState,
+                            ((c >> 16) & 0xFF) / 255.0F, ((c >> 8) & 0xFF) / 255.0F,
+                            (c & 0xFF) / 255.0F);
+                }
             }
             poseStack.popPose();
         }

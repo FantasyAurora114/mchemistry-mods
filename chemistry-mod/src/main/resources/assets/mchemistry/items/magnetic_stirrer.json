@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "mchemistry:item/magnetic_stirrer"
+    "model": "mchemistry:block/magnetic_stirrer"
   }
 }

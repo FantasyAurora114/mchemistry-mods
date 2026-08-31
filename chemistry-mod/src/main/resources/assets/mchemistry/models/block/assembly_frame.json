@@ -1,0 +1,19 @@
+{
+  "ambientocclusion": false,
+  "particle": "frame",
+  "display": {
+    "gui": {"rotation": [30, 225, 0], "translation": [0, 0, 0], "scale": [0.8, 0.8, 0.8]},
+    "fixed": {"rotation": [30, 225, 0], "translation": [0, 0, 0], "scale": [0.6, 0.6, 0.6]}
+  },
+  "textures": {
+    "frame": "mchemistry:block/iron_stand"
+  },
+  "elements": [
+    {"from": [1, 0, 1], "to": [2, 16, 2], "shade": false, "faces": {"all": {"texture": "frame", "uv": [0, 0, 1, 16]}}},
+    {"from": [14, 0, 1], "to": [15, 16, 2], "shade": false, "faces": {"all": {"texture": "frame", "uv": [0, 0, 1, 16]}}},
+    {"from": [1, 0, 14], "to": [2, 16, 15], "shade": false, "faces": {"all": {"texture": "frame", "uv": [0, 0, 1, 16]}}},
+    {"from": [14, 0, 14], "to": [15, 16, 15], "shade": false, "faces": {"all": {"texture": "frame", "uv": [0, 0, 1, 16]}}},
+    {"from": [1, 0, 1], "to": [15, 1, 15], "shade": false, "faces": {"all": {"texture": "frame", "uv": [0, 0, 14, 14]}}},
+    {"from": [1, 15, 1], "to": [15, 16, 15], "shade": false, "faces": {"all": {"texture": "frame", "uv": [0, 0, 14, 14]}}}
+  ]
+}

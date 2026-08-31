@@ -156,6 +156,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,
+            mod_author             : mod_author,
             mod_version            : mod_version,
     ]
     inputs.properties replaceProperties
@@ -192,5 +193,15 @@ idea {
     module {
         downloadSources = true
         downloadJavadoc = true
+    }
+}
+
+// 防伪标识：jar 清单属性，可用 `unzip -p <jar> META-INF/MANIFEST.MF` 校验。
+tasks.named('jar', Jar) {
+    manifest {
+        attributes(
+                'X-Chemistry-Author': 'FantasyAurora114',
+                'X-Chemistry-Signature': 'MCH-AUTH::FantasyAurora114::0.1.0::2026'
+        )
     }
 }

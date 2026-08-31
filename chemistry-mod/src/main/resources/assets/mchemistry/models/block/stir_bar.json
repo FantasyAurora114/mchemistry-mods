@@ -1,0 +1,41 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "bar": "mchemistry:item/stir_bar"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        8,
+        1.2,
+        1.2
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "bar"
+        },
+        "south": {
+          "texture": "bar"
+        },
+        "east": {
+          "texture": "bar"
+        },
+        "west": {
+          "texture": "bar"
+        },
+        "up": {
+          "texture": "bar"
+        },
+        "down": {
+          "texture": "bar"
+        }
+      }
+    }
+  ]
+}

@@ -13,8 +13,8 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 
 /**
  * Item-level fluid handler for reagent bottles and droppers: lets modern fluid
- * pipes (and a future Mekanism) fill and drain our containers. The handler
- * swaps the item variant (sealed/open/empty) and stores partial volumes in NBT.
+ * pipes (and a future Mekanism) fill and drain our containers. The unified
+ * bottles store the liquid id + amount in CUSTOM_DATA.
  */
 public class BottleFluidResourceHandler extends ItemAccessResourceHandler<FluidResource> {
 
@@ -49,7 +49,7 @@ public class BottleFluidResourceHandler extends ItemAccessResourceHandler<FluidR
         if (DropperHelper.isDropper(stack)) {
             return DropperHelper.getMl(stack);
         }
-        return BottleCodes.liquidVolumeOf(stack);
+        return BottleCodes.volumeOf(stack);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class BottleFluidResourceHandler extends ItemAccessResourceHandler<FluidR
             if (liquidId == null || newAmount != ChemUnits.BUCKET_VOLUME) {
                 return ItemResource.EMPTY;
             }
-            return ItemResource.of(ModItems.liquidBucket(liquidId));
+            return ItemResource.of(ModItems.liquidBucketItem(liquidId));
         }
 
         if (newAmount <= 0) {
@@ -88,11 +88,15 @@ public class BottleFluidResourceHandler extends ItemAccessResourceHandler<FluidR
                 DropperHelper.clear(stack);
                 return ItemResource.of(stack);
             }
-            if (path.startsWith("liquid_") || path.startsWith("open_liquid_")) {
-                return ItemResource.of(ModItems.EMPTY_NARROW_BOTTLE.get());
+            if (BottleCodes.isLiquidBottle(stack)) {
+                BottleCodes.setLiquid(stack, null, false, 0);
+                BottleCodes.refreshModel(stack);
+                return ItemResource.of(stack);
             }
-            if (path.startsWith("dropper_bottle_")) {
-                return ItemResource.of(ModItems.EMPTY_DROPPER_BOTTLE.get());
+            if (BottleCodes.isDropperBottle(stack)) {
+                BottleCodes.setLiquid(stack, null, true, 0);
+                BottleCodes.refreshModel(stack);
+                return ItemResource.of(stack);
             }
             return ItemResource.EMPTY;
         }
@@ -105,29 +109,18 @@ public class BottleFluidResourceHandler extends ItemAccessResourceHandler<FluidR
             DropperHelper.fill(stack, liquidId, newAmount);
             return ItemResource.of(stack);
         }
-        if (path.equals("empty_narrow_bottle")) {
-            ItemStack filled = new ItemStack(ModItems.liquidItem(liquidId));
-            if (newAmount < ChemUnits.LIQUID_BOTTLE_VOLUME) {
-                BottleCodes.setVolume(filled, newAmount);
-            }
-            return ItemResource.of(filled);
-        }
-        if (path.equals("empty_dropper_bottle")) {
-            ItemStack filled = new ItemStack(ModItems.dropperBottle(liquidId));
-            if (newAmount < ChemUnits.DROPPER_BOTTLE_VOLUME) {
-                BottleCodes.setVolume(filled, newAmount);
-            }
-            return ItemResource.of(filled);
-        }
-        if (path.startsWith("liquid_") || path.startsWith("open_liquid_")
-                || path.startsWith("dropper_bottle_")) {
-            // Already the correct variant; persist a partial amount.
+        if (BottleCodes.isLiquidBottle(stack)) {
             ItemStack copy = stack.copy();
-            if (newAmount < BottleCodes.bottleCapacityOf(stack)) {
-                BottleCodes.setVolume(copy, newAmount);
-            } else {
-                copy.remove(net.minecraft.core.component.DataComponents.CUSTOM_DATA);
-            }
+            BottleCodes.setLiquid(copy, liquidId, true,
+                    Math.min(newAmount, ChemUnits.LIQUID_BOTTLE_VOLUME));
+            BottleCodes.refreshModel(copy);
+            return ItemResource.of(copy);
+        }
+        if (BottleCodes.isDropperBottle(stack)) {
+            ItemStack copy = stack.copy();
+            BottleCodes.setLiquid(copy, liquidId, true,
+                    Math.min(newAmount, ChemUnits.DROPPER_BOTTLE_VOLUME));
+            BottleCodes.refreshModel(copy);
             return ItemResource.of(copy);
         }
         return ItemResource.EMPTY;

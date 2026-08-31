@@ -63,6 +63,12 @@ public class GasWashingBottleBlock extends Block implements EntityBlock {
         return SHAPE;
     }
 
+    /** 洗气瓶瓶塞/导管口在碰撞体(至 y=10)之上悬空；交互命中框覆盖整个瓶身高度。 */
+    @Override
+    public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+        return box(4.0, 0.0, 4.0, 12.0, 16.0, 12.0);
+    }
+
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         boolean assembled = context.getItemInHand().is(
@@ -82,13 +88,21 @@ public class GasWashingBottleBlock extends Block implements EntityBlock {
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide() && !player.isCreative()) {
-            ItemStack drop = new ItemStack(state.getValue(TUBES) >= 2
+            int tubes = state.getValue(TUBES);
+            ItemStack drop = new ItemStack(tubes >= 2
                     ? com.example.chemistry.registry.ModItems.GAS_WASHING_BOTTLE_ASSEMBLED.get()
                     : com.example.chemistry.registry.ModItems.GAS_WASHING_BOTTLE.get());
             ItemEntity item = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.3,
                     pos.getZ() + 0.5, drop);
             item.setDefaultPickUpDelay();
             level.addFreshEntity(item);
+            if (tubes == 1) {
+                ItemEntity tube = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.4,
+                        pos.getZ() + 0.5,
+                        new ItemStack(ModItems.RIGHT_ANGLE_GLASS_TUBE.get()));
+                tube.setDefaultPickUpDelay();
+                level.addFreshEntity(tube);
+            }
         }
         return super.playerWillDestroy(level, pos, state, player);
     }
@@ -102,15 +116,21 @@ public class GasWashingBottleBlock extends Block implements EntityBlock {
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos,
             Player player, BlockHitResult hitResult) {
         int tubes = state.getValue(TUBES);
-        if (tubes > 0) {
-            if (!level.isClientSide()) {
-                player.displayClientMessage(
-                        Component.translatable("mchemistry.wash_bottle.tubes_first"), true);
-            }
-            return InteractionResult.SUCCESS;
-        }
         if (!level.isClientSide()) {
-            if (state.getValue(STOPPER)) {
+            if (tubes >= 2) {
+                // 后插的长导管先拔，再拔短导管。
+                level.setBlock(pos, state.setValue(TUBES, 1), 3);
+                giveOrDrop(player, new ItemStack(ModItems.RIGHT_ANGLE_GLASS_TUBE_LONG.get()));
+                player.displayClientMessage(
+                        Component.translatable("mchemistry.wash_bottle.tube_long_out"), true);
+                level.playSound(null, pos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            } else if (tubes == 1) {
+                level.setBlock(pos, state.setValue(TUBES, 0), 3);
+                giveOrDrop(player, new ItemStack(ModItems.RIGHT_ANGLE_GLASS_TUBE.get()));
+                player.displayClientMessage(
+                        Component.translatable("mchemistry.wash_bottle.tube_short_out"), true);
+                level.playSound(null, pos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            } else if (state.getValue(STOPPER)) {
                 // Pull the stopper out; the player receives the 2-hole stopper.
                 level.setBlock(pos, state.setValue(STOPPER, false), 3);
                 giveOrDrop(player, new ItemStack(ModItems.RUBBER_STOPPER_2_HOLE.get()));
@@ -222,7 +242,7 @@ public class GasWashingBottleBlock extends Block implements EntityBlock {
                 }
                 return InteractionResult.SUCCESS;
             }
-            String liquidId = liquidIdOf(BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath());
+            String liquidId = com.example.chemistry.transfer.BottleCodes.liquidIdOf(stack);
             if (liquidId != null) {
                 if (!level.isClientSide()) {
                     if (be.addLiquid(liquidId, 25)) {
@@ -238,12 +258,16 @@ public class GasWashingBottleBlock extends Block implements EntityBlock {
         }
         // Stoppered: liquids are rejected (matches other sealed vessels).
         if (stopper && (stack.getItem() instanceof DropperItem
-                || liquidIdOf(BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath()) != null)) {
+                || com.example.chemistry.transfer.BottleCodes.liquidIdOf(stack) != null)) {
             if (!level.isClientSide()) {
                 player.displayClientMessage(
                         Component.translatable("mchemistry.vessel.sealed"), true);
             }
             return InteractionResult.SUCCESS;
+        }
+        // 空手右键：交给 useWithoutItem（先拔导管，再拔/塞瓶塞）。
+        if (stack.isEmpty()) {
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
         return InteractionResult.PASS;
     }
@@ -265,13 +289,4 @@ public class GasWashingBottleBlock extends Block implements EntityBlock {
         }
     }
 
-    private static String liquidIdOf(String path) {
-        if (path.startsWith("liquid_")) {
-            return path.substring("liquid_".length());
-        }
-        if (path.startsWith("open_liquid_")) {
-            return path.substring("open_liquid_".length());
-        }
-        return null;
-    }
 }

@@ -218,5 +218,7 @@
   "item.mchemistry.loose_copper_ore": "Copper Ore",
   "item.mchemistry.solid_gold_ore": "Gold Ore (Wide-Mouth Bottle)",
   "item.mchemistry.open_solid_gold_ore": "Open Gold Ore (Wide-Mouth Bottle)",
-  "item.mchemistry.loose_gold_ore": "Gold Ore"
+  "item.mchemistry.loose_gold_ore": "Gold Ore",
+  "itemGroup.mci.ores": "MCI · Ores",
+  "itemGroup.mci.industrial": "MCI · Industrial"
 }

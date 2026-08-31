@@ -33,10 +33,10 @@ displayName="${mod_name}" #mandatory
 #logoFile="examplemod.png" #optional
 
 # A text field displayed in the mod UI
-#credits="" #optional
+credits="MChemistry（化学时代）· 化学时代模组系列本体"
 
 # The authors of the mod, displayed in the mod UI (optional)
-#authors=""
+authors="${mod_author}"
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''

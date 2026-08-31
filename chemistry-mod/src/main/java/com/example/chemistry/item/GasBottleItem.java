@@ -1,59 +1,102 @@
 package com.example.chemistry.item;
 
-import java.util.function.Supplier;
-
 import com.example.chemistry.PurityHelper;
-import com.example.chemistry.ChemistryMod;
 import com.example.chemistry.block.GasCollectingBottleBlock;
+import com.example.chemistry.block.WaterTroughBlock;
 import com.example.chemistry.blockentity.GasCollectingBottleBlockEntity;
 import com.example.chemistry.data.GasJars;
 import com.example.chemistry.registry.ModBlocks;
+import com.example.chemistry.registry.ModItems;
 import com.example.chemistry.storage.ChemUnits;
+import com.example.chemistry.transfer.BottleCodes;
 
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.material.Fluids;
 
 /**
- * A gas collecting bottle that can be placed on a block (right-click or
- * sneak + right-click). Right-clicking in the air still opens the bottle.
+ * Unified gas collecting bottle (集气瓶). The gas (single or mixture), sealed
+ * state and water-fill live in CUSTOM_DATA. Right-click in air opens the bottle;
+ * right-click on a block places it (or, against water, fills it with water).
  */
-public class GasBottleItem extends GasCollectingBottleItem {
+public class GasBottleItem extends Item {
 
-    private final String gasId;
+    public GasBottleItem(Properties properties) {
+        super(properties);
+    }
 
-    public GasBottleItem(net.minecraft.world.item.Item.Properties properties, String gasId,
-            Supplier<Item> openVariant, Supplier<Item> glassSheet,
-            Supplier<Item> immediateOpenProduct) {
-        super(properties, openVariant, glassSheet, immediateOpenProduct);
-        this.gasId = gasId;
+    @Override
+    public net.minecraft.network.chat.Component getName(ItemStack stack) {
+        net.minecraft.network.chat.Component name = BottleCodes.displayName(stack);
+        return name != null ? name : super.getName(stack);
+    }
+
+    @Override
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
+        }
+        ItemStack held = player.getItemInHand(hand);
+        if (BottleCodes.isWater(held) || !BottleCodes.isSealed(held)) {
+            return InteractionResult.PASS;
+        }
+        String gasId = BottleCodes.gasIdOf(held);
+        // NO oxidises to NO2 the moment the bottle is opened.
+        if ("nitric_oxide".equals(gasId)) {
+            BottleCodes.setGas(held, "nitrogen_dioxide", false);
+        } else {
+            BottleCodes.setSealed(held, false);
+        }
+        BottleCodes.refreshModel(held);
+        if (!player.getInventory().add(new ItemStack(ModItems.GLASS_SHEET.get()))) {
+            player.drop(new ItemStack(ModItems.GLASS_SHEET.get()), false);
+        }
+        return InteractionResult.SUCCESS;
     }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        return place(context, gasId, true);
+        Level level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        var clicked = level.getBlockState(pos);
+        var adj = level.getBlockState(pos.relative(context.getClickedFace()));
+        boolean water = clicked.getFluidState().is(Fluids.WATER)
+                || clicked.getFluidState().is(Fluids.FLOWING_WATER)
+                || adj.getFluidState().is(Fluids.WATER)
+                || adj.getFluidState().is(Fluids.FLOWING_WATER);
+        boolean trough = clicked.is(ModBlocks.WATER_TROUGH.get())
+                && clicked.getValue(WaterTroughBlock.FILLED) == WaterTroughBlock.Fill.WATER;
+        // Empty bottle + water -> water-filled bottle (排水法).
+        if ((water || trough) && BottleCodes.isEmpty(context.getItemInHand())) {
+            if (!level.isClientSide()) {
+                ItemStack held = context.getItemInHand();
+                BottleCodes.setWater(held, true);
+                BottleCodes.setSealed(held, true);
+                BottleCodes.refreshModel(held);
+                level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+            }
+            return InteractionResult.SUCCESS;
+        }
+        return place(context, BottleCodes.gasIdOf(context.getItemInHand()), BottleCodes.isSealed(context.getItemInHand()));
     }
 
-    /**
-     * Shared placement for sealed gas bottles and open gas bottles. Sealed
-     * bottles keep their glass plate; bottles of gases lighter than air are
-     * placed upside down (mouth down). Plain right-click never places on this
-     * mod's own machinery; sneak + right-click forces placement anywhere.
-     */
+    /** Shared placement for gas bottles (empty / water / gas, sealed or open). */
     static InteractionResult place(UseOnContext context, String gasId, boolean hasPlate) {
         Player player = context.getPlayer();
-        if (player == null || !player.isShiftKeyDown()) {
-            ResourceLocation clicked = BuiltInRegistries.BLOCK.getKey(
-                    context.getLevel().getBlockState(context.getClickedPos()).getBlock());
-            if (clicked != null && ChemistryMod.MODID.equals(clicked.getNamespace())) {
-                return InteractionResult.FAIL;
-            }
+        if (player == null) {
+            return InteractionResult.PASS;
         }
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos().relative(context.getClickedFace());
@@ -67,15 +110,20 @@ public class GasBottleItem extends GasCollectingBottleItem {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
-        // A sealed bottle keeps its glass plate; lighter-than-air gases are
-        // collected/stored upside down (mouth down).
         level.setBlock(pos, ModBlocks.GAS_COLLECTING_BOTTLE.get().defaultBlockState()
                 .setValue(GasCollectingBottleBlock.HAS_PLATE, hasPlate)
                 .setValue(GasCollectingBottleBlock.INVERTED, gasIsLighter(gasId)), 3);
         if (level.getBlockEntity(pos) instanceof GasCollectingBottleBlockEntity be) {
-            be.setGasId(gasId);
-            if (!gasId.isEmpty()) {
-                be.setFill(ChemUnits.GAS_JAR_VOLUME, PurityHelper.getPurity(context.getItemInHand()));
+            ItemStack held = context.getItemInHand();
+            be.setGasId(gasId == null ? "" : gasId);
+            if (gasId != null && !gasId.isEmpty()) {
+                be.setFill(BottleCodes.volumeOf(held), PurityHelper.getPurity(held));
+            }
+            be.readFromItem(held);
+            CompoundTag tag = held.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+            String label = tag.getStringOr(LabelItem.KEY_LABEL, "");
+            if (!label.isEmpty()) {
+                be.setLabelName(label);
             }
         }
         context.getItemInHand().shrink(1);
@@ -83,6 +131,9 @@ public class GasBottleItem extends GasCollectingBottleItem {
     }
 
     private static boolean gasIsLighter(String gasId) {
+        if (gasId == null) {
+            return false;
+        }
         for (GasJars.GasJar gas : GasJars.ALL) {
             if (gas.id().equals(gasId)) {
                 return gas.lighter();

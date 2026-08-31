@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=south": {"model": "mchemistry:block/magnetic_stirrer", "y": 0},
+    "facing=west": {"model": "mchemistry:block/magnetic_stirrer", "y": 90},
+    "facing=north": {"model": "mchemistry:block/magnetic_stirrer", "y": 180},
+    "facing=east": {"model": "mchemistry:block/magnetic_stirrer", "y": 270}
+  }
+}

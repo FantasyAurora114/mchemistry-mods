@@ -1,7 +1,7 @@
 package com.example.chemistry.client;
 
 import com.example.chemistry.entity.RubberTubeEntity;
-import com.example.chemistry.entity.RubberTubeEntity.Anchor;
+import com.example.chemistry.entity.RubberTubeEntity.Port;
 import com.example.chemistry.block.GasCollectingBottleBlock;
 import com.example.chemistry.block.IronStandBlock;
 import com.example.chemistry.block.WaterTroughBlock;
@@ -128,14 +128,14 @@ public class RubberTubeRenderer extends EntityRenderer<RubberTubeEntity, RubberT
         }
     }
 
-    private static boolean hasSleeve(RubberTubeEntity.Anchor anchor) {
-        return anchor != null && (anchor.kind() == RubberTubeEntity.Anchor.KIND_STAND
-                || anchor.kind() == RubberTubeEntity.Anchor.KIND_NOZZLE);
+    private static boolean hasSleeve(RubberTubeEntity.Port anchor) {
+        return anchor != null && (anchor.kind() == RubberTubeEntity.Port.KIND_STAND
+                || anchor.kind() == RubberTubeEntity.Port.KIND_NOZZLE);
     }
 
     /** Outward axis of the glass tube / nozzle at a tube head (world unit dir),
      *  or null when it cannot be determined. */
-    private static Vec3 standAxis(Level level, RubberTubeEntity.Anchor anchor) {
+    private static Vec3 standAxis(Level level, RubberTubeEntity.Port anchor) {
         BlockPos pos = anchor.pos();
         BlockState state = level.getBlockState(pos);
         if (state.is(ModBlocks.IRON_STAND.get())
@@ -188,18 +188,18 @@ public class RubberTubeRenderer extends EntityRenderer<RubberTubeEntity, RubberT
         return null;
     }
 
-    private static Vec3 resolveAnchor(Level level, Anchor anchor, float partialTick, Vec3 fallback) {
+    private static Vec3 resolveAnchor(Level level, Port anchor, float partialTick, Vec3 fallback) {
         if (anchor == null) {
             return fallback;
         }
-        if (anchor.kind() == Anchor.KIND_STAND) {
+        if (anchor.kind() == Port.KIND_STAND) {
             Vec3 head = AnchorPositions.standHead(level, anchor);
             return head != null ? head : fallback;
         }
-        if (anchor.kind() == Anchor.KIND_NOZZLE) {
+        if (anchor.kind() == Port.KIND_NOZZLE) {
             return AnchorPositions.nozzleTip(level, anchor);
         }
-        if (anchor.kind() == Anchor.KIND_BLOCK) {
+        if (anchor.kind() == Port.KIND_BLOCK) {
             return com.example.chemistry.item.RubberTubeItem.anchorWorldPos(level, anchor);
         }
         Entity e = level.getEntity(anchor.uuid());

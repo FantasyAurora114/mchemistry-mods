@@ -10,11 +10,11 @@
           "models": [
             {
               "type": "minecraft:model",
-              "model": "mchemistry:block/erlenmeyer_flask"
+              "model": "mchemistry:item/erlenmeyer_flask"
             },
             {
               "type": "minecraft:model",
-              "model": "mchemistry:block/erlenmeyer_flask_contents",
+              "model": "mchemistry:item/erlenmeyer_flask_contents",
               "tints": [
                 {
                   "type": "minecraft:custom_model_data",
@@ -29,7 +29,7 @@
     ],
     "fallback": {
       "type": "minecraft:model",
-      "model": "mchemistry:block/erlenmeyer_flask"
+      "model": "mchemistry:item/erlenmeyer_flask"
     }
   }
 }

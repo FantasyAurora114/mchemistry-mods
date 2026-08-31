@@ -1,0 +1,70 @@
+{
+  "ambientocclusion": false,
+  "particle": "tube",
+  "textures": {
+    "tube": "mchemistry:block/test_tube"
+  },
+  "elements": [
+    {
+      "from": [7, 0, 7],
+      "to": [9, 1, 9],
+      "shade": false,
+      "faces": {
+        "north": {"texture": "tube", "uv": [0, 14, 2, 16]},
+        "south": {"texture": "tube", "uv": [0, 14, 2, 16]},
+        "east": {"texture": "tube", "uv": [0, 14, 2, 16]},
+        "west": {"texture": "tube", "uv": [0, 14, 2, 16]},
+        "up": {"texture": "tube", "uv": [0, 14, 2, 16]},
+        "down": {"texture": "tube", "uv": [0, 14, 2, 16]}
+      }
+    },
+    {
+      "from": [7, 1, 7],
+      "to": [9, 12, 8],
+      "shade": false,
+      "faces": {
+        "north": {"texture": "tube", "uv": [0, 0, 2, 11]},
+        "south": {"texture": "tube", "uv": [2, 0, 4, 11]},
+        "east": {"texture": "tube", "uv": [4, 0, 5, 11]},
+        "west": {"texture": "tube", "uv": [4, 0, 5, 11]},
+        "up": {"texture": "tube", "uv": [0, 0, 2, 1]}
+      }
+    },
+    {
+      "from": [7, 1, 8],
+      "to": [9, 12, 9],
+      "shade": false,
+      "faces": {
+        "north": {"texture": "tube", "uv": [2, 0, 4, 11]},
+        "south": {"texture": "tube", "uv": [0, 0, 2, 11]},
+        "east": {"texture": "tube", "uv": [4, 0, 5, 11]},
+        "west": {"texture": "tube", "uv": [4, 0, 5, 11]},
+        "up": {"texture": "tube", "uv": [0, 0, 2, 1]}
+      }
+    },
+    {
+      "from": [8, 1, 7],
+      "to": [9, 12, 9],
+      "shade": false,
+      "faces": {
+        "north": {"texture": "tube", "uv": [4, 0, 5, 11]},
+        "south": {"texture": "tube", "uv": [4, 0, 5, 11]},
+        "east": {"texture": "tube", "uv": [0, 0, 2, 11]},
+        "west": {"texture": "tube", "uv": [2, 0, 4, 11]},
+        "up": {"texture": "tube", "uv": [0, 0, 1, 1]}
+      }
+    },
+    {
+      "from": [7, 1, 7],
+      "to": [8, 12, 9],
+      "shade": false,
+      "faces": {
+        "north": {"texture": "tube", "uv": [4, 0, 5, 11]},
+        "south": {"texture": "tube", "uv": [4, 0, 5, 11]},
+        "east": {"texture": "tube", "uv": [2, 0, 4, 11]},
+        "west": {"texture": "tube", "uv": [0, 0, 2, 11]},
+        "up": {"texture": "tube", "uv": [0, 0, 1, 1]}
+      }
+    }
+  ]
+}

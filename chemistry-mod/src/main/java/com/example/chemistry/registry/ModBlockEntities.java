@@ -7,8 +7,14 @@ import com.example.chemistry.blockentity.RubberTubeLinkBlockEntity;
 import com.example.chemistry.blockentity.GasCollectingBottleBlockEntity;
 import com.example.chemistry.blockentity.GasWashingBottleBlockEntity;
 import com.example.chemistry.blockentity.TripodBlockEntity;
+import com.example.chemistry.blockentity.HeatingMantleBlockEntity;
+import com.example.chemistry.blockentity.TestTubeRackBlockEntity;
+import com.example.chemistry.blockentity.AssemblyFrameBlockEntity;
+import com.example.chemistry.blockentity.PlacedGraduatedCylinderBlockEntity;
+import com.example.chemistry.blockentity.MagneticStirrerBlockEntity;
 import com.example.chemistry.blockentity.PlacedVesselBlockEntity;
 import com.example.chemistry.blockentity.WaterTroughBlockEntity;
+import com.example.chemistry.blockentity.AlcoholLampBlockEntity;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -41,6 +47,31 @@ public class ModBlockEntities {
             BLOCK_ENTITY_TYPES.register("tripod",
                     () -> new BlockEntityType<>(TripodBlockEntity::new, ModBlocks.TRIPOD.get()));
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HeatingMantleBlockEntity>> HEATING_MANTLE =
+            BLOCK_ENTITY_TYPES.register("heating_mantle",
+                    () -> new BlockEntityType<>(HeatingMantleBlockEntity::new,
+                            ModBlocks.HEATING_MANTLE.get()));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TestTubeRackBlockEntity>> TEST_TUBE_RACK =
+            BLOCK_ENTITY_TYPES.register("test_tube_rack",
+                    () -> new BlockEntityType<>(TestTubeRackBlockEntity::new,
+                            ModBlocks.TEST_TUBE_RACK.get()));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AssemblyFrameBlockEntity>> ASSEMBLY_FRAME =
+            BLOCK_ENTITY_TYPES.register("assembly_frame",
+                    () -> new BlockEntityType<>(AssemblyFrameBlockEntity::new,
+                            ModBlocks.ASSEMBLY_FRAME.get()));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PlacedGraduatedCylinderBlockEntity>> PLACED_GRADUATED_CYLINDER =
+            BLOCK_ENTITY_TYPES.register("placed_graduated_cylinder",
+                    () -> new BlockEntityType<>(PlacedGraduatedCylinderBlockEntity::new,
+                            ModBlocks.PLACED_GRADUATED_CYLINDER.get()));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MagneticStirrerBlockEntity>> MAGNETIC_STIRRER =
+            BLOCK_ENTITY_TYPES.register("magnetic_stirrer",
+                    () -> new BlockEntityType<>(MagneticStirrerBlockEntity::new,
+                            ModBlocks.MAGNETIC_STIRRER.get()));
+
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PlacedVesselBlockEntity>> PLACED_VESSEL =
             BLOCK_ENTITY_TYPES.register("placed_vessel",
                     () -> new BlockEntityType<>(PlacedVesselBlockEntity::new,
@@ -55,6 +86,16 @@ public class ModBlockEntities {
             BLOCK_ENTITY_TYPES.register("water_trough",
                     () -> new BlockEntityType<>(WaterTroughBlockEntity::new,
                             ModBlocks.WATER_TROUGH.get()));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlcoholLampBlockEntity>> ALCOHOL_LAMP =
+            BLOCK_ENTITY_TYPES.register("alcohol_lamp",
+                    () -> new BlockEntityType<>(AlcoholLampBlockEntity::new,
+                            ModBlocks.ALCOHOL_LAMP.get()));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlcoholLampBlockEntity>> ALCOHOL_BLOWTORCH =
+            BLOCK_ENTITY_TYPES.register("alcohol_blowtorch",
+                    () -> new BlockEntityType<>(AlcoholLampBlockEntity::new,
+                            ModBlocks.ALCOHOL_BLOWTORCH.get()));
 
     private ModBlockEntities() {
     }

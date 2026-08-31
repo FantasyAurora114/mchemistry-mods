@@ -42,8 +42,9 @@ public class SolidToolItem extends Item {
         if (off.getItem() instanceof LabVesselItem) {
             return InteractionResult.SUCCESS;
         }
-        String path = BuiltInRegistries.ITEM.getKey(off.getItem()).getPath();
-        return path.startsWith("open_solid_") ? InteractionResult.SUCCESS : InteractionResult.PASS;
+        return com.example.chemistry.transfer.BottleCodes.isSolidJar(off)
+                && !com.example.chemistry.transfer.BottleCodes.isSealed(off)
+                        ? InteractionResult.SUCCESS : InteractionResult.PASS;
     }
 
     public static boolean isEmpty(ItemStack stack) {

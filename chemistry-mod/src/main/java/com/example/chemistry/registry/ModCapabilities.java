@@ -22,21 +22,12 @@ public final class ModCapabilities {
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         List<Item> fluidItems = new ArrayList<>();
-        for (DeferredItem<Item> item : ModItems.LIQUID_ITEMS) {
-            fluidItems.add(item.get());
-        }
-        for (DeferredItem<Item> item : ModItems.OPEN_LIQUID_ITEMS) {
-            fluidItems.add(item.get());
-        }
-        for (DeferredItem<Item> item : ModItems.DROPPER_BOTTLES) {
-            fluidItems.add(item.get());
-        }
+        fluidItems.add(ModItems.LIQUID_BOTTLE.get());
+        fluidItems.add(ModItems.DROPPER_BOTTLE.get());
         for (DeferredItem<? extends Item> item : ModItems.LIQUID_BUCKETS) {
             fluidItems.add(item.get());
         }
         fluidItems.add(net.minecraft.world.item.Items.BUCKET);
-        fluidItems.add(ModItems.EMPTY_NARROW_BOTTLE.get());
-        fluidItems.add(ModItems.EMPTY_DROPPER_BOTTLE.get());
         fluidItems.add(ModItems.DROPPER.get());
         fluidItems.add(ModItems.BROWN_DROPPER.get());
         fluidItems.add(ModItems.DROPPER_BOTTLE_STOPPER.get());

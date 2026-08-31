@@ -1,5 +1,6 @@
 package com.example.chemistry.block;
 
+import com.example.chemistry.StandPorts;
 import com.example.chemistry.blockentity.IronStandBlockEntity;
 import com.example.chemistry.entity.RubberTubeEntity;
 import com.example.chemistry.client.InvisibleBlockClientExtensions;
@@ -7,7 +8,7 @@ import com.example.chemistry.item.DropperHelper;
 import com.example.chemistry.item.DropperItem;
 import com.example.chemistry.item.LabVesselItem;
 import com.example.chemistry.item.RubberTubeItem;
-import com.example.chemistry.item.GasNozzleTubedItem;
+import com.example.chemistry.item.GlassTubeTubedItem;
 import com.example.chemistry.item.TestTubeItem;
 import com.example.chemistry.ReactionEngine;
 import com.example.chemistry.VesselHeating;
@@ -37,7 +38,9 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -129,6 +132,35 @@ public class IronStandBlock extends Block implements EntityBlock {
         };
     }
 
+    /** 碰撞箱 = 铁架台本体 + 架上反应容器的实体碰撞。 */
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, net.minecraft.world.level.BlockGetter level,
+            BlockPos pos, CollisionContext context) {
+        VoxelShape base = getShape(state, level, pos, context);
+        if (state.getValue(HAS_VESSEL)
+                && level.getBlockEntity(pos) instanceof IronStandBlockEntity be
+                && !be.getVessel().isEmpty()) {
+            int vtype = VesselHeating.vesselType(be.getVessel());
+            if (vtype != 0) {
+                VoxelShape vessel = VesselHeating.vesselCollisionShape(pos, vtype,
+                        VESSEL_SCALE, VESSEL_OFF_X, VESSEL_OFF_Y, VESSEL_OFF_Z,
+                        -state.getValue(FACING).toYRot());
+                if (!vessel.isEmpty()) {
+                    base = Shapes.or(base, vessel);
+                }
+            }
+        }
+        return base;
+    }
+
+    /** 铁架台的环形/烧瓶区域没有碰撞体，交互命中框放大到整格中部，
+     *  让瓶口（即使视觉上悬空）也能被射线选中。 */
+    @Override
+    public VoxelShape getInteractionShape(BlockState state, net.minecraft.world.level.BlockGetter level,
+            BlockPos pos) {
+        return box(3.0, 0.0, 3.0, 13.0, 16.0, 13.0);
+    }
+
     /** Server-side tick: a lit lamp keeps the mounted tube at 600 °C. */
     @Override
     @Nullable
@@ -160,8 +192,25 @@ public class IronStandBlock extends Block implements EntityBlock {
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
             Player player, net.minecraft.world.InteractionHand hand, BlockHitResult hitResult) {
         if (stack.getItem() instanceof TestTubeItem) {
+            // 带试管夹的试管自带夹子，不能放上铁架台（铁架台用自己的夹子）。
+            if (stack.getItem() instanceof TestTubeItem tt && tt.isClamped()) {
+                if (!level.isClientSide()) {
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.iron_stand.no_clamped"), true);
+                }
+                return InteractionResult.SUCCESS;
+            }
             if (!level.isClientSide()) {
                 if (level.getBlockEntity(pos) instanceof IronStandBlockEntity be) {
+                    // 原来已有试管时先还给玩家，避免被静默替换丢失
+                    // （带试管夹的试管同样可以放上来）。
+                    if (!be.getTube().isEmpty()) {
+                        ItemStack old = be.getTube();
+                        be.setTube(ItemStack.EMPTY);
+                        if (!player.getInventory().add(old)) {
+                            player.drop(old, false);
+                        }
+                    }
                     be.setTube(stack.copy());
                 }
                 stack.shrink(1);
@@ -175,19 +224,26 @@ public class IronStandBlock extends Block implements EntityBlock {
             }
             return InteractionResult.SUCCESS;
         }
-        // A tubed gas nozzle connects its free end to a glass-tube head.
-        if (stack.getItem() instanceof GasNozzleTubedItem) {
+        // 套着橡胶管的玻璃导管：把自由端连到铁架台的玻璃导管头上。
+        if (stack.getItem() instanceof GlassTubeTubedItem) {
             if (!level.isClientSide() && level.getBlockEntity(pos) instanceof IronStandBlockEntity be) {
+                if (be.hasDistillationHead()) {
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.rubber_tube.head_occupied"), true);
+                    return InteractionResult.SUCCESS;
+                }
                 int slot = pickTubeSlot(level, pos, state, be, hitResult.getLocation());
                 if (slot == 0) {
-                    player.displayClientMessage(Component.translatable("mchemistry.iron_stand.no_head"), true);
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.iron_stand.no_head"), true);
                 } else if (RubberTubeItem.hasTubeAt(level,
-                        RubberTubeEntity.Anchor.stand(pos.immutable(), slot))) {
-                    player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.occupied"), true);
+                        RubberTubeEntity.Port.stand(pos.immutable(), slot))) {
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.rubber_tube.occupied"), true);
                 } else {
                     RubberTubeItem.createTube(level, player, stack,
-                            RubberTubeEntity.Anchor.entity(player.getUUID()),
-                            RubberTubeEntity.Anchor.stand(pos.immutable(), slot));
+                            RubberTubeEntity.Port.entity(player.getUUID()),
+                            RubberTubeEntity.Port.stand(pos.immutable(), slot));
                 }
             }
             return InteractionResult.SUCCESS;
@@ -201,7 +257,8 @@ public class IronStandBlock extends Block implements EntityBlock {
                         || stack.is(ModItems.RIGHT_ANGLE_GLASS_TUBE_LONG.get())
                         || stack.is(ModItems.LONG_STEM_FUNNEL.get())
                         || stack.is(ModItems.SEPARATORY_FUNNEL.get())
-                        || stack.getItem() instanceof DropperItem)) {
+                        || stack.getItem() instanceof DropperItem
+                        || stack.is(ModItems.THERMOMETER.get()))) {
             int holes = be.getTube().getItem() instanceof TestTubeItem tt ? tt.stopperHoles() : 0;
             if (!level.isClientSide()) {
                 if (be.getAttached1().isEmpty()) {
@@ -212,10 +269,12 @@ public class IronStandBlock extends Block implements EntityBlock {
                     be.setAttached2(stack.copy());
                     stack.shrink(1);
                     level.playSound(null, pos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                } else if (holes < 2) {
-                    player.displayClientMessage(Component.translatable("mchemistry.iron_stand.need_two_holes"), true);
+                } else if (holes <= 1) {
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.iron_stand.one_hole_full"), true);
                 } else {
-                    player.displayClientMessage(Component.translatable("mchemistry.iron_stand.no_hole"), true);
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.iron_stand.no_hole"), true);
                 }
             }
             return InteractionResult.SUCCESS;
@@ -241,7 +300,8 @@ public class IronStandBlock extends Block implements EntityBlock {
                         || stack.is(ModItems.RIGHT_ANGLE_GLASS_TUBE_LONG.get())
                         || stack.is(ModItems.LONG_STEM_FUNNEL.get())
                         || stack.is(ModItems.SEPARATORY_FUNNEL.get())
-                        || stack.getItem() instanceof DropperItem)) {
+                        || stack.getItem() instanceof DropperItem
+                        || stack.is(ModItems.THERMOMETER.get()))) {
             int holes = VesselHeating.getStopperHoles(be.getVessel());
             if (!level.isClientSide()) {
                 if (be.getAttached1().isEmpty()) {
@@ -252,10 +312,12 @@ public class IronStandBlock extends Block implements EntityBlock {
                     be.setAttached2(stack.copy());
                     stack.shrink(1);
                     level.playSound(null, pos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                } else if (holes < 2) {
-                    player.displayClientMessage(Component.translatable("mchemistry.iron_stand.need_two_holes"), true);
+                } else if (holes <= 1) {
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.iron_stand.one_hole_full"), true);
                 } else {
-                    player.displayClientMessage(Component.translatable("mchemistry.iron_stand.no_hole"), true);
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.iron_stand.no_hole"), true);
                 }
             }
             return InteractionResult.SUCCESS;
@@ -276,47 +338,164 @@ public class IronStandBlock extends Block implements EntityBlock {
                 return InteractionResult.SUCCESS;
             }
         }
-        // Attach a straight condenser to a round-bottom flask on the ring.
-        if (state.getValue(HAS_VESSEL) && !state.getValue(HAS_CONDENSER)
-                && stack.is(ModItems.STRAIGHT_CONDENSER.get())
-                && level.getBlockEntity(pos) instanceof IronStandBlockEntity be
-                && be.getVessel().is(ModItems.ROUND_BOTTOM_FLASK.get())
-                && !VesselHeating.isSealed(be.getVessel())) {
-            if (!level.isClientSide()) {
-                be.setCondenser(true);
-                stack.shrink(1);
-                level.playSound(null, pos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        // Attach an Erlenmeyer flask as the distillate receiver.
-        if (state.getValue(HAS_CONDENSER) && !state.getValue(HAS_RECEIVER)
-                && stack.is(ModItems.ERLENMEYER_FLASK.get())
-                && level.getBlockEntity(pos) instanceof IronStandBlockEntity be) {
-            if (!level.isClientSide()) {
-                be.setReceiver(stack.copy());
-                stack.shrink(1);
-                level.playSound(null, pos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        // Seal the vessel with a rubber stopper (1 or 2 holes).
+        // 接口/插头装配：先按端口命中盒选中接口，再拿对应部件接上。
         if (state.getValue(HAS_VESSEL)
-                && (stack.is(ModItems.RUBBER_STOPPER_1_HOLE.get())
-                        || stack.is(ModItems.RUBBER_STOPPER_2_HOLE.get()))
                 && level.getBlockEntity(pos) instanceof IronStandBlockEntity be
                 && !be.getVessel().isEmpty()) {
+            int port = StandPorts.pick(level, player, pos, state, be);
+            ItemStack vessel = be.getVessel();
+            if (port != 0) {
+                boolean handled = true;
+                if (port == StandPorts.MOUTH) {
+                    if (stack.is(ModItems.DISTILLATION_HEAD.get())
+                            && !be.hasDistillationHead()
+                            && !state.getValue(HAS_CONDENSER)
+                            && com.example.chemistry.GlassConnector.isOpenMouthVessel(vessel)
+                            && (!VesselHeating.isThreeNeck(vessel)
+                                    || !VesselHeating.neckHasStopper(vessel, 1))
+                            && !VesselHeating.isSealed(vessel)) {
+                        if (!level.isClientSide()) {
+                            be.setDistillationHead(true);
+                            stack.shrink(1);
+                            level.playSound(null, pos, SoundEvents.GLASS_PLACE,
+                                    SoundSource.BLOCKS, 1.0F, 1.0F);
+                        }
+                    } else if (stack.is(ModItems.STRAIGHT_CONDENSER.get())
+                            && !state.getValue(HAS_CONDENSER)
+                            && !be.hasDistillationHead()
+                            && vessel.is(ModItems.ROUND_BOTTOM_FLASK.get())
+                            && !VesselHeating.isSealed(vessel)) {
+                        if (!level.isClientSide()) {
+                            be.setCondenser(true);
+                            stack.shrink(1);
+                            level.playSound(null, pos, SoundEvents.GLASS_PLACE,
+                                    SoundSource.BLOCKS, 1.0F, 1.0F);
+                        }
+                    } else {
+                        handled = false; // 塞橡胶塞/玻璃塞走下面的分支
+                    }
+                } else if (port == StandPorts.HEAD_ARM
+                        && stack.is(ModItems.STRAIGHT_CONDENSER.get())
+                        && !state.getValue(HAS_CONDENSER)
+                        && be.hasDistillationHead()) {
+                    if (!level.isClientSide()) {
+                        be.setCondenser(true);
+                        stack.shrink(1);
+                        level.playSound(null, pos, SoundEvents.GLASS_PLACE,
+                                SoundSource.BLOCKS, 1.0F, 1.0F);
+                    }
+                } else if (port == StandPorts.HEAD
+                        && stack.is(ModItems.THERMOMETER.get())
+                        && be.hasDistillationHead() && !be.hasHeadThermometer()) {
+                    if (!level.isClientSide()) {
+                        be.setHeadThermometer(true);
+                        stack.shrink(1);
+                        level.playSound(null, pos, SoundEvents.GLASS_PLACE,
+                                SoundSource.BLOCKS, 1.0F, 1.0F);
+                    }
+                } else if (port == StandPorts.CONDENSER_END
+                        && state.getValue(HAS_CONDENSER)
+                        && !be.hasReceiverAdapter()
+                        && (stack.is(ModItems.RECEIVER_ADAPTER_BENT.get())
+                                || stack.is(ModItems.RECEIVER_ADAPTER_STRAIGHT.get()))) {
+                    if (!level.isClientSide()) {
+                        be.setReceiverAdapter(stack.copy());
+                        stack.shrink(1);
+                        level.playSound(null, pos, SoundEvents.GLASS_PLACE,
+                                SoundSource.BLOCKS, 1.0F, 1.0F);
+                    }
+                } else if (port == StandPorts.RECEIVER
+                        && state.getValue(HAS_CONDENSER)
+                        && !state.getValue(HAS_RECEIVER)
+                        && stack.is(ModItems.ERLENMEYER_FLASK.get())) {
+                    if (!level.isClientSide()) {
+                        be.setReceiver(stack.copy());
+                        stack.shrink(1);
+                        level.playSound(null, pos, SoundEvents.GLASS_PLACE,
+                                SoundSource.BLOCKS, 1.0F, 1.0F);
+                    }
+                } else {
+                    handled = false;
+                }
+                if (handled) {
+                    return InteractionResult.SUCCESS;
+                }
+                // 对准了接口但部件不匹配：提示（塞子类走下面的分支）。
+                if (stack.is(ModItems.DISTILLATION_HEAD.get())
+                        || stack.is(ModItems.STRAIGHT_CONDENSER.get())
+                        || stack.is(ModItems.THERMOMETER.get())
+                        || stack.is(ModItems.RECEIVER_ADAPTER_BENT.get())
+                        || stack.is(ModItems.RECEIVER_ADAPTER_STRAIGHT.get())
+                        || stack.is(ModItems.ERLENMEYER_FLASK.get())) {
+                    if (!level.isClientSide()) {
+                        player.displayClientMessage(
+                                Component.translatable("mchemistry.iron_stand.aim_port"), true);
+                    }
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        // 三颈烧瓶在铁圈上：把玻璃塞塞进正看着的瓶口。
+        if (state.getValue(HAS_VESSEL) && stack.is(ModItems.GLASS_STOPPER.get())
+                && level.getBlockEntity(pos) instanceof IronStandBlockEntity be
+                && VesselHeating.isThreeNeck(be.getVessel())) {
+            if (!level.isClientSide()) {
+                ItemStack flask = be.getVessel();
+                if (LabInteractions.tryPlugNeck(flask, stack, player, pos,
+                        hitResult.getLocation(), VESSEL_SCALE, VESSEL_OFF_X,
+                        VESSEL_OFF_Y, VESSEL_OFF_Z, -state.getValue(FACING).toYRot())) {
+                    be.setVessel(flask);
+                }
+            }
+            return InteractionResult.SUCCESS;
+        }
+        // 橡胶塞：三颈瓶按点击位置塞进某个瓶口；其它烧瓶整瓶密封。
+        if (state.getValue(HAS_VESSEL)
+                && (stack.is(ModItems.RUBBER_STOPPER_1_HOLE.get())
+                        || stack.is(ModItems.RUBBER_STOPPER_2_HOLE.get())
+                        || stack.is(ModItems.RUBBER_STOPPER_3_HOLE.get()))
+                && level.getBlockEntity(pos) instanceof IronStandBlockEntity be
+                && !be.getVessel().isEmpty()) {
+            // 瓶口端口被占用（如蒸馏头插头）：不能再塞橡胶塞。
+            if (com.example.chemistry.GlassConnector.isMouthPortOccupied(be)) {
+                if (!level.isClientSide()) {
+                    player.displayClientMessage(
+                            Component.translatable("mchemistry.iron_stand.port_blocks_stopper"), true);
+                }
+                return InteractionResult.SUCCESS;
+            }
+            int holes = stack.is(ModItems.RUBBER_STOPPER_3_HOLE.get()) ? 3
+                    : stack.is(ModItems.RUBBER_STOPPER_2_HOLE.get()) ? 2 : 1;
+            if (VesselHeating.isThreeNeck(be.getVessel())) {
+                if (!level.isClientSide()) {
+                    ItemStack v = be.getVessel();
+                    if (LabInteractions.tryPlugRubberNeck(v, stack, player, pos,
+                            hitResult.getLocation(), holes, VESSEL_SCALE, VESSEL_OFF_X,
+                            VESSEL_OFF_Y, VESSEL_OFF_Z, -state.getValue(FACING).toYRot())) {
+                        be.setVessel(v);
+                    }
+                }
+                return InteractionResult.SUCCESS;
+            }
             if (!level.isClientSide()) {
                 if (VesselHeating.isSealed(be.getVessel())) {
                     player.displayClientMessage(
                             Component.translatable("mchemistry.vessel.sealed"), true);
                 } else {
                     ItemStack v = be.getVessel();
-                    int holes = stack.is(ModItems.RUBBER_STOPPER_2_HOLE.get()) ? 2 : 1;
-                    VesselHeating.seal(v, holes);
-                    be.setVessel(v);
-                    stack.shrink(1);
-                    level.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    int vtype = VesselHeating.vesselType(v);
+                    if (vtype != 0 && !VesselHeating.mouthForRay(pos, vtype,
+                            VESSEL_SCALE, VESSEL_OFF_X, VESSEL_OFF_Y, VESSEL_OFF_Z,
+                            -state.getValue(FACING).toYRot(), player)) {
+                        player.displayClientMessage(
+                                Component.translatable("mchemistry.flask.aim_neck"), true);
+                    } else {
+                        VesselHeating.seal(v, holes);
+                        be.setVessel(v);
+                        stack.shrink(1);
+                        level.playSound(null, pos, SoundEvents.WOOL_PLACE,
+                                SoundSource.BLOCKS, 1.0F, 1.0F);
+                    }
                 }
             }
             return InteractionResult.SUCCESS;
@@ -335,14 +514,56 @@ public class IronStandBlock extends Block implements EntityBlock {
             }
             return InteractionResult.SUCCESS;
         }
-        // Place an unlit alcohol lamp on the stand.
-        if (stack.is(ModItems.ALCOHOL_LAMP.get()) && !state.getValue(HAS_LAMP)) {
+        // Place an unlit alcohol lamp / blowtorch on the stand.
+        if (!state.getValue(HAS_LAMP)
+                && (stack.is(ModItems.ALCOHOL_LAMP.get())
+                        || stack.is(ModItems.ALCOHOL_BLOWTORCH.get()))) {
             if (!level.isClientSide()) {
                 level.setBlock(pos, state.setValue(HAS_LAMP, true).setValue(LAMP_LIT, false), 3);
                 level.playSound(null, pos, SoundEvents.GLASS_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                if (level.getBlockEntity(pos) instanceof IronStandBlockEntity standBe) {
+                    standBe.setLampBlowtorch(stack.is(ModItems.ALCOHOL_BLOWTORCH.get()));
+                }
             }
             stack.shrink(1);
             return InteractionResult.SUCCESS;
+        }
+        // 射线命中酒精灯：点燃 / 盖帽（不要求先拆其他部件）。
+        if (hitsLamp(player, pos) && state.getValue(HAS_LAMP)) {
+            if (stack.is(Items.FLINT_AND_STEEL) || stack.is(Items.FIRE_CHARGE)) {
+                if (!state.getValue(LAMP_LIT)) {
+                    if (!level.isClientSide()) {
+                        level.setBlock(pos, state.setValue(LAMP_LIT, true), 3);
+                        level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE,
+                                SoundSource.BLOCKS, 1.0F, 1.0F);
+                        if (stack.is(Items.FIRE_CHARGE)) {
+                            stack.shrink(1);
+                        }
+                    }
+                }
+                return InteractionResult.SUCCESS;
+            }
+            if (stack.is(ModItems.ALCOHOL_LAMP_CAP.get())) {
+                boolean blowtorch = level.getBlockEntity(pos) instanceof IronStandBlockEntity standBe
+                        && standBe.isLampBlowtorch();
+                if (blowtorch) {
+                    if (!level.isClientSide()) {
+                        player.displayClientMessage(
+                                Component.translatable("mchemistry.alcohol_blowtorch.no_cap"), true);
+                    }
+                    return InteractionResult.SUCCESS;
+                }
+                if (!level.isClientSide()) {
+                    // 盖上灯帽：灯熄灭并标记已盖帽（随灯一起取下）。
+                    level.setBlock(pos, state.setValue(LAMP_LIT, false), 3);
+                    if (level.getBlockEntity(pos) instanceof IronStandBlockEntity standBe) {
+                        standBe.setLampCapped(true);
+                    }
+                    stack.shrink(1);
+                    level.playSound(null, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                }
+                return InteractionResult.SUCCESS;
+            }
         }
         // Flint & steel / fire charge light the lamp on the stand.
         if ((stack.is(Items.FLINT_AND_STEEL) || stack.is(Items.FIRE_CHARGE))
@@ -388,21 +609,118 @@ public class IronStandBlock extends Block implements EntityBlock {
             Player player, BlockHitResult hitResult) {
         if (player.isShiftKeyDown()) {
             rotate(level, pos, state, player);
+        } else if (hitsLamp(player, pos) && state.getValue(HAS_LAMP)) {
+            // 射线命中酒精灯：随时取下（即使架上有烧瓶等其他部件）。
+            if (!level.isClientSide()) {
+                boolean blowtorch = level.getBlockEntity(pos) instanceof IronStandBlockEntity standBe
+                        && standBe.isLampBlowtorch();
+                boolean capped = level.getBlockEntity(pos) instanceof IronStandBlockEntity standBe2
+                        && standBe2.isLampCapped();
+                level.setBlock(pos, state.setValue(HAS_LAMP, false).setValue(LAMP_LIT, false), 3);
+                level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 0.8F, 1.0F);
+                ItemStack lamp = new ItemStack(blowtorch
+                        ? ModItems.ALCOHOL_BLOWTORCH.get()
+                        : (capped ? ModItems.ALCOHOL_LAMP_CAPPED.get() : ModItems.ALCOHOL_LAMP.get()));
+                if (!player.getInventory().add(lamp)) {
+                    player.drop(lamp, false);
+                }
+            }
+            return InteractionResult.SUCCESS;
         } else if (!level.isClientSide() && level.getBlockEntity(pos) instanceof IronStandBlockEntity be) {
+            // 右击胶头滴管的红色胶头：挤压给液（替代 K 键）。
+            Vec3 bulb = dropperBulbCenter(level, pos);
+            if (bulb != null && hitResult.getLocation().distanceToSqr(bulb) <= 0.0081) {
+                squeezeAt(level, pos, player);
+                return InteractionResult.SUCCESS;
+            }
+            // 容器上的接口/塞子/附件：射线选中端口命中盒，取下对应部件。
+            if (state.getValue(HAS_VESSEL) && !be.getVessel().isEmpty()) {
+                int port = StandPorts.pick(level, player, pos, state, be);
+                if (port == StandPorts.ATTACHED_1 || port == StandPorts.ATTACHED_2) {
+                    int slot = port == StandPorts.ATTACHED_1 ? 1 : 2;
+                    ItemStack removed = slot == 1 ? be.getAttached1() : be.getAttached2();
+                    if (slot == 1) {
+                        be.setAttached1(ItemStack.EMPTY);
+                    } else {
+                        be.setAttached2(ItemStack.EMPTY);
+                    }
+                    RubberTubeItem.dropTubesConnectedToStand(level, pos.immutable(), slot);
+                    if (!player.getInventory().add(removed)) {
+                        player.drop(removed, false);
+                    }
+                    return InteractionResult.SUCCESS;
+                }
+                if (port == StandPorts.HEAD) {
+                    if (be.hasCondenser()) {
+                        if (!level.isClientSide()) {
+                            player.displayClientMessage(
+                                    Component.translatable("mchemistry.iron_stand.remove_condenser_first"), true);
+                        }
+                        return InteractionResult.SUCCESS;
+                    }
+                    be.setDistillationHead(false);
+                    ItemStack head = new ItemStack(ModItems.DISTILLATION_HEAD.get());
+                    if (!player.getInventory().add(head)) {
+                        player.drop(head, false);
+                    }
+                    if (be.hasHeadThermometer()) {
+                        be.setHeadThermometer(false);
+                        ItemStack thermo = new ItemStack(ModItems.THERMOMETER.get());
+                        if (!player.getInventory().add(thermo)) {
+                            player.drop(thermo, false);
+                        }
+                    }
+                    return InteractionResult.SUCCESS;
+                }
+                boolean three = VesselHeating.isThreeNeck(be.getVessel());
+                if (port == StandPorts.MOUTH || port == StandPorts.NECK_LEFT
+                        || port == StandPorts.NECK_RIGHT) {
+                    if (three) {
+                        int neck = port == StandPorts.NECK_LEFT ? 0
+                                : port == StandPorts.NECK_RIGHT ? 2 : 1;
+                        ItemStack flask = be.getVessel();
+                        if (LabInteractions.tryUnplugRubberNeck(flask, neck, player)
+                                || LabInteractions.tryUnplugNeck(flask, neck, player)) {
+                            be.setVessel(flask);
+                            return InteractionResult.SUCCESS;
+                        }
+                        player.displayClientMessage(
+                                Component.translatable("mchemistry.flask.neck_empty"), true);
+                        return InteractionResult.SUCCESS;
+                    }
+                    // 单口瓶：取下瓶口橡胶塞（有附件时提示先取附件）。
+                    ItemStack v = be.getVessel();
+                    if (VesselHeating.isSealed(v)) {
+                        if (!be.getAttached1().isEmpty() || !be.getAttached2().isEmpty()) {
+                            player.displayClientMessage(
+                                    Component.translatable(
+                                            "mchemistry.iron_stand.remove_instruments_first"), true);
+                        } else {
+                            int holes = VesselHeating.getStopperHoles(v);
+                            VesselHeating.unseal(v);
+                            be.setVessel(v);
+                            ItemStack stopper = new ItemStack(ModItems.stopperForHoles(holes));
+                            if (!player.getInventory().add(stopper)) {
+                                player.drop(stopper, false);
+                            }
+                        }
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+            }
+            // 试管（夹子上）的附件保持固定顺序：先取附件再取试管。
             ItemStack removed = null;
             int removedSlot = 0;
-            if (!be.getAttached2().isEmpty()) {
+            if (state.getValue(HAS_TUBE) && !be.getAttached2().isEmpty()) {
                 removed = be.getAttached2();
                 be.setAttached2(ItemStack.EMPTY);
                 removedSlot = 2;
-            } else if (!be.getAttached1().isEmpty()) {
+            } else if (state.getValue(HAS_TUBE) && !be.getAttached1().isEmpty()) {
                 removed = be.getAttached1();
                 be.setAttached1(ItemStack.EMPTY);
                 removedSlot = 1;
             }
             if (removed != null) {
-                // Taking the instrument off drops the whole rubber tube that
-                // was connected to its head.
                 RubberTubeItem.dropTubesConnectedToStand(level, pos.immutable(), removedSlot);
                 if (!player.getInventory().add(removed)) {
                     player.drop(removed, false);
@@ -421,11 +739,30 @@ public class IronStandBlock extends Block implements EntityBlock {
                 if (!player.getInventory().add(receiver)) {
                     player.drop(receiver, false);
                 }
+            } else if (be.hasReceiverAdapter()) {
+                ItemStack adapter = be.getReceiverAdapter();
+                be.setReceiverAdapter(ItemStack.EMPTY);
+                if (!player.getInventory().add(adapter)) {
+                    player.drop(adapter, false);
+                }
             } else if (state.getValue(HAS_CONDENSER)) {
                 be.setCondenser(false);
                 ItemStack condenser = new ItemStack(ModItems.STRAIGHT_CONDENSER.get());
                 if (!player.getInventory().add(condenser)) {
                     player.drop(condenser, false);
+                }
+            } else if (be.hasDistillationHead()) {
+                be.setDistillationHead(false);
+                ItemStack head = new ItemStack(ModItems.DISTILLATION_HEAD.get());
+                if (!player.getInventory().add(head)) {
+                    player.drop(head, false);
+                }
+                if (be.hasHeadThermometer()) {
+                    be.setHeadThermometer(false);
+                    ItemStack thermo = new ItemStack(ModItems.THERMOMETER.get());
+                    if (!player.getInventory().add(thermo)) {
+                        player.drop(thermo, false);
+                    }
                 }
             } else if (state.getValue(HAS_VESSEL)) {
                 ItemStack vessel = be.getVessel();
@@ -443,9 +780,13 @@ public class IronStandBlock extends Block implements EntityBlock {
                     player.drop(vessel, false);
                 }
             } else if (state.getValue(HAS_LAMP)) {
+                boolean blowtorch = level.getBlockEntity(pos) instanceof IronStandBlockEntity standBe
+                        && standBe.isLampBlowtorch();
                 level.setBlock(pos, state.setValue(HAS_LAMP, false).setValue(LAMP_LIT, false), 3);
                 level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
-                ItemStack lamp = new ItemStack(ModItems.ALCOHOL_LAMP.get());
+                ItemStack lamp = new ItemStack(blowtorch
+                        ? ModItems.ALCOHOL_BLOWTORCH.get()
+                        : ModItems.ALCOHOL_LAMP.get());
                 if (!player.getInventory().add(lamp)) {
                     player.drop(lamp, false);
                 }
@@ -460,6 +801,18 @@ public class IronStandBlock extends Block implements EntityBlock {
             }
         }
         return InteractionResult.SUCCESS;
+    }
+
+    /** 玩家视线是否命中铁架台底座上的酒精灯。 */
+    private static boolean hitsLamp(Player player, BlockPos pos) {
+        if (player == null) {
+            return false;
+        }
+        Vec3 from = player.getEyePosition();
+        Vec3 to = from.add(player.getLookAngle().scale(6.0));
+        AABB box = new AABB(pos.getX() + 0.33, pos.getY() + 0.08, pos.getZ() + 0.33,
+                pos.getX() + 0.70, pos.getY() + 0.38, pos.getZ() + 0.70);
+        return box.clip(from, to).isPresent();
     }
 
     /** Type code for a heating-attachment item (0 = not one). */
@@ -495,17 +848,29 @@ public class IronStandBlock extends Block implements EntityBlock {
         if (!(level.getBlockEntity(pos) instanceof IronStandBlockEntity be)) {
             return;
         }
+        // 蒸馏头已占用瓶口：橡胶管不能接在烧瓶的导气管头上。
+        if (be.hasDistillationHead()) {
+            player.displayClientMessage(
+                    Component.translatable("mchemistry.rubber_tube.head_occupied"), true);
+            return;
+        }
         int slot = pickTubeSlot(level, pos, state, be, click);
         if (slot == 0) {
             player.displayClientMessage(Component.translatable("mchemistry.iron_stand.no_head"), true);
             return;
         }
-        RubberTubeEntity.Anchor head = RubberTubeEntity.Anchor.stand(pos.immutable(), slot);
+        RubberTubeEntity.Port head = RubberTubeEntity.Port.stand(pos.immutable(), slot);
         if (RubberTubeItem.hasTubeAt(level, head)) {
             player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.occupied"), true);
             return;
         }
-        RubberTubeEntity.Anchor pending = RubberTubeItem.readPending(stack);
+        // 副手拿玻璃导管：从手上的导管直接连到这个导管头（一次右键完成）。
+        if (com.example.chemistry.item.GlassTubeItem.isGlassTube(player.getOffhandItem())) {
+            RubberTubeItem.createTube(level, player, stack,
+                    RubberTubeEntity.Port.entity(player.getUUID()), head);
+            return;
+        }
+        RubberTubeEntity.Port pending = RubberTubeItem.readPending(stack);
         if (pending == null) {
             RubberTubeItem.startPending(level, player, stack, head);
             player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.start_stand"), true);
@@ -550,12 +915,12 @@ public class IronStandBlock extends Block implements EntityBlock {
             byClick = Math.abs(lz - z1) <= Math.abs(lz - z2) ? 1 : 2;
         }
         if (!RubberTubeItem.hasTubeAt(level,
-                RubberTubeEntity.Anchor.stand(pos.immutable(), byClick))) {
+                RubberTubeEntity.Port.stand(pos.immutable(), byClick))) {
             return byClick;
         }
         int other = byClick == 1 ? 2 : 1;
         return RubberTubeItem.hasTubeAt(level,
-                RubberTubeEntity.Anchor.stand(pos.immutable(), other)) ? byClick : other;
+                RubberTubeEntity.Port.stand(pos.immutable(), other)) ? byClick : other;
     }
 
     /** Squeeze an inserted dropper (K key): drip 1 mL into the mounted tube. */
@@ -588,6 +953,49 @@ public class IronStandBlock extends Block implements EntityBlock {
             player.displayClientMessage(Component.translatable("mchemistry.iron_stand.tube_full"), true);
         }
         return true;
+    }
+
+    // 铁圈上烧瓶的渲染变换（与 IronStandRenderer.renderVessel 一致）。
+    public static final double VESSEL_SCALE = 0.6;
+    public static final double VESSEL_OFF_X = (8.5 - 8.5 * VESSEL_SCALE) / 16.0;
+    public static final double VESSEL_OFF_Y = 9.5 / 16.0;
+    public static final double VESSEL_OFF_Z = (9.0 - 8.5 * VESSEL_SCALE) / 16.0;
+
+    /** 铁架台上胶头滴管红色胶头的世界坐标（无滴管时返回 null）。 */
+    public static Vec3 dropperBulbCenter(Level level, BlockPos pos) {
+        if (!(level.getBlockEntity(pos) instanceof IronStandBlockEntity be)) {
+            return null;
+        }
+        int slot;
+        if (DropperHelper.isDropper(be.getAttached2())) {
+            slot = 2;
+        } else if (DropperHelper.isDropper(be.getAttached1())) {
+            slot = 1;
+        } else {
+            return null;
+        }
+        int holes = be.getTube().getItem() instanceof TestTubeItem tt ? tt.stopperHoles() : 0;
+        BlockState state = level.getBlockState(pos);
+        double angle = Math.toRadians(state.getValue(ROTATION) * 45.0);
+        double cos = Math.cos(angle);
+        double sin = Math.sin(angle);
+        double hole = slot == 1 ? (holes < 2 ? 0.0 : 0.55) : -0.55;
+        // 与 IronStandRenderer.renderAttached 相同的口部坐标 + 沿口轴向上 2.9 到胶头。
+        double mx = 8.5 + 0.3333 * cos - 2.5 * sin;
+        double my = 9.5 + 0.3333 * sin + 2.5 * cos;
+        double bx = mx - 2.9 * sin;
+        double by = my + 2.9 * cos;
+        double bz = 8.8333 + hole;
+        double lx = bx / 16.0;
+        double ly = by / 16.0;
+        double lz = bz / 16.0;
+        Direction facing = state.getValue(FACING);
+        double yaw = Math.toRadians(-facing.toYRot());
+        double c = Math.cos(yaw);
+        double s2 = Math.sin(yaw);
+        double wx = pos.getX() + 0.5 + (lx - 0.5) * c + (lz - 0.5) * s2;
+        double wz = pos.getZ() + 0.5 - (lx - 0.5) * s2 + (lz - 0.5) * c;
+        return new Vec3(wx, pos.getY() + ly, wz);
     }
 
     private static boolean isGlassTube(ItemStack stack) {
@@ -642,6 +1050,27 @@ public class IronStandBlock extends Block implements EntityBlock {
                 drop.setDefaultPickUpDelay();
                 level.addFreshEntity(drop);
             }
+            if (be.hasReceiverAdapter()) {
+                net.minecraft.world.entity.item.ItemEntity drop = new net.minecraft.world.entity.item.ItemEntity(
+                        level, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
+                        be.getReceiverAdapter().copy());
+                drop.setDefaultPickUpDelay();
+                level.addFreshEntity(drop);
+            }
+            if (be.hasDistillationHead()) {
+                net.minecraft.world.entity.item.ItemEntity drop = new net.minecraft.world.entity.item.ItemEntity(
+                        level, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
+                        new ItemStack(ModItems.DISTILLATION_HEAD.get()));
+                drop.setDefaultPickUpDelay();
+                level.addFreshEntity(drop);
+                if (be.hasHeadThermometer()) {
+                    net.minecraft.world.entity.item.ItemEntity thermoDrop = new net.minecraft.world.entity.item.ItemEntity(
+                            level, pos.getX() + 0.5, pos.getY() + 0.35, pos.getZ() + 0.5,
+                            new ItemStack(ModItems.THERMOMETER.get()));
+                    thermoDrop.setDefaultPickUpDelay();
+                    level.addFreshEntity(thermoDrop);
+                }
+            }
             if (be.hasCondenser()) {
                 net.minecraft.world.entity.item.ItemEntity drop = new net.minecraft.world.entity.item.ItemEntity(
                         level, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
@@ -658,9 +1087,13 @@ public class IronStandBlock extends Block implements EntityBlock {
             }
         }
         if (!level.isClientSide() && state.getValue(HAS_LAMP) && !player.isCreative()) {
+            boolean blowtorch = level.getBlockEntity(pos) instanceof IronStandBlockEntity standBe
+                    && standBe.isLampBlowtorch();
             net.minecraft.world.entity.item.ItemEntity lamp = new net.minecraft.world.entity.item.ItemEntity(
                     level, pos.getX() + 0.5, pos.getY() + 0.4, pos.getZ() + 0.5,
-                    new ItemStack(ModItems.ALCOHOL_LAMP.get()));
+                    new ItemStack(blowtorch
+                            ? ModItems.ALCOHOL_BLOWTORCH.get()
+                            : ModItems.ALCOHOL_LAMP.get()));
             lamp.setDefaultPickUpDelay();
             level.addFreshEntity(lamp);
         }

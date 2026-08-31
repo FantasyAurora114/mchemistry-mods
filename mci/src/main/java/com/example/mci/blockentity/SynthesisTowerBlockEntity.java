@@ -241,13 +241,13 @@ IChemGoggleInfo {
         if (stack.isEmpty()) {
             return;
         }
-        String gasId = BottleCodes.gasIdOfAny((ItemStack)stack);
+        String gasId = BottleCodes.gasIdOf((ItemStack)stack);
         if (gasId == null || this.gasTank.insert(gasId, 1L, true) <= 0L) {
             return;
         }
         long accepted = this.gasTank.addWithPurity(gasId, 250L, PurityHelper.getPurity((ItemStack)stack));
         if (accepted >= 250L) {
-            this.setItem(slot, new ItemStack(ModItems.EMPTY_GAS_JAR.get()));
+            this.setItem(slot, ModItems.emptyGasJar());
         } else if (accepted > 0L) {
             this.setChanged();
         }
@@ -275,9 +275,15 @@ IChemGoggleInfo {
         }
         int accepted = this.fluidTank.addWithPurity(new FluidStack((Fluid)fluid, volume), PurityHelper.getPurity((ItemStack)stack));
         if (accepted >= volume) {
-            String path = BottleCodes.pathOf((ItemStack)stack);
-            Item empty = path.startsWith("dropper_bottle_") ? (Item)ModItems.EMPTY_DROPPER_BOTTLE.get() : (path.endsWith("_bucket") || path.equals("water_bucket") ? Items.BUCKET : (Item)ModItems.EMPTY_NARROW_BOTTLE.get());
-            this.setItem(slot, new ItemStack(empty));
+            ItemStack empty;
+            if (BottleCodes.isDropperBottle(stack)) {
+                empty = ModItems.emptyDropperBottle();
+            } else if (BottleCodes.bucketIdOf(stack) != null) {
+                empty = new ItemStack(Items.BUCKET);
+            } else {
+                empty = ModItems.emptyNarrowBottle();
+            }
+            this.setItem(slot, empty);
         } else if (accepted > 0) {
             this.setChanged();
         }
@@ -293,7 +299,7 @@ IChemGoggleInfo {
                 if (gasId == null || this.gasTank.insert(gasId, 1L, true) <= 0L) continue;
                 long accepted = this.gasTank.addWithPurity(gasId, 250L, PurityHelper.getPurity((ItemStack)stack));
                 if (accepted >= 250L) {
-                    this.setItem(i, new ItemStack(ModItems.EMPTY_GAS_JAR.get()));
+                    this.setItem(i, ModItems.emptyGasJar());
                     continue;
                 }
                 if (accepted <= 0L) continue;
@@ -306,8 +312,8 @@ IChemGoggleInfo {
             if (fluid == null || volume <= 0 || !this.fluidTank.canAccept((Fluid)fluid, 1)) continue;
             int accepted = this.fluidTank.addWithPurity(new FluidStack((Fluid)fluid, volume), PurityHelper.getPurity((ItemStack)stack));
             if (accepted >= volume) {
-                String path = BottleCodes.pathOf((ItemStack)stack);
-                this.setItem(i, new ItemStack(path.startsWith("dropper_bottle_") ? ModItems.EMPTY_DROPPER_BOTTLE.get() : ModItems.EMPTY_NARROW_BOTTLE.get()));
+                this.setItem(i, BottleCodes.isDropperBottle(stack)
+                        ? ModItems.emptyDropperBottle() : ModItems.emptyNarrowBottle());
                 continue;
             }
             if (accepted <= 0) continue;
@@ -317,13 +323,13 @@ IChemGoggleInfo {
 
     private void fillBottleFromGasTank(int slot) {
         ItemStack stack = this.getItem(slot);
-        if (!BottleCodes.isEmptyGasJar((ItemStack)stack) || this.gasTank.isEmpty()) {
+        if (!(BottleCodes.isGasBottle(stack) && BottleCodes.isEmpty(stack)) || this.gasTank.isEmpty()) {
             return;
         }
         String gasId = this.gasTank.getGasId();
         long extracted = this.gasTank.extract(250L, false);
         if (extracted >= 250L) {
-            ItemStack jar = new ItemStack(SynthesisTowerBlockEntity.openGasJarItem(gasId));
+            ItemStack jar = ModItems.gasBottle(gasId, false);
             PurityHelper.setPurity((ItemStack)jar, (double)this.gasTank.getPurity());
             this.setItem(slot, jar);
         } else if (extracted > 0L) {
@@ -334,11 +340,11 @@ IChemGoggleInfo {
 
     private void fillBottleFromFluidTank(int slot) {
         ItemStack stack = this.getItem(slot);
-        if (!BottleCodes.isEmptyLiquidBottle((ItemStack)stack) || this.fluidTank.isEmpty()) {
+        if (!(BottleCodes.isLiquidBottle(stack) || BottleCodes.isDropperBottle(stack))
+                || this.fluidTank.isEmpty()) {
             return;
         }
-        String path = BottleCodes.pathOf((ItemStack)stack);
-        int volume = BottleCodes.isEmptyBucket((ItemStack)stack) ? 1000 : (path.equals("empty_dropper_bottle") ? 100 : 250);
+        int volume = BottleCodes.isDropperBottle(stack) ? 100 : 250;
         if (this.fluidTank.getAmount() < volume) {
             return;
         }
@@ -346,11 +352,14 @@ IChemGoggleInfo {
         FluidStack taken = this.fluidTank.take(fluid, volume);
         if (taken.getAmount() >= volume) {
             String liquidId = ModFluids.liquidIdFor((Fluid)fluid);
-            Item item = Items.AIR;
-            if (liquidId != null) {
-                item = BottleCodes.isEmptyBucket((ItemStack)stack) ? ModItems.liquidBucket((String)liquidId) : (path.equals("empty_dropper_bottle") ? ModItems.dropperBottle((String)liquidId) : ModItems.openLiquidItem((String)liquidId));
+            if (liquidId == null) {
+                this.fluidTank.addWithPurity(taken, this.fluidTank.getPurity());
+                this.setChanged();
+                return;
             }
-            ItemStack bottle = new ItemStack(item);
+            ItemStack bottle = BottleCodes.isDropperBottle(stack)
+                    ? ModItems.dropperBottle(liquidId)
+                    : ModItems.liquidBottle(liquidId, false);
             PurityHelper.setPurity((ItemStack)bottle, (double)this.fluidTank.getPurity());
             this.setItem(slot, bottle);
         } else if (!taken.isEmpty()) {
@@ -552,28 +561,23 @@ IChemGoggleInfo {
         if (stack.isEmpty()) {
             return null;
         }
-        String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
         String id = null;
         String type = null;
-        if (configuredType == 0 && path.startsWith("gas_collecting_bottle_") && !path.startsWith("open_")) {
-            id = path.substring("gas_collecting_bottle_".length());
-            type = "gas";
+        if (configuredType == 0 && BottleCodes.isGasBottle(stack)) {
+            id = BottleCodes.gasIdOf(stack);
+            type = id == null ? null : "gas";
         } else if (configuredType == 1) {
-            if (path.startsWith("liquid_")) {
-                id = path.substring("liquid_".length());
-            } else if (path.startsWith("open_liquid_")) {
-                id = path.substring("open_liquid_".length());
-            } else if (path.startsWith("dropper_bottle_")) {
-                id = path.substring("dropper_bottle_".length());
-            }
-            type = "liquid";
+            id = BottleCodes.liquidIdOf(stack);
+            type = id == null ? null : "liquid";
         } else if (configuredType == 2) {
-            if (path.startsWith("solid_")) {
-                id = path.substring("solid_".length());
-            } else if (path.startsWith("loose_")) {
-                id = path.substring("loose_".length());
+            id = BottleCodes.solidIdOf(stack);
+            if (id == null) {
+                String p = BottleCodes.pathOf(stack);
+                if (p.startsWith("loose_")) {
+                    id = p.substring("loose_".length());
+                }
             }
-            type = "solid";
+            type = id == null ? null : "solid";
         }
         return id == null ? null : new Input(type, id, PurityHelper.getPurity((ItemStack)stack));
     }
@@ -587,7 +591,10 @@ IChemGoggleInfo {
             return false;
         }
         String path = BuiltInRegistries.ITEM.getKey(catalyst.getItem()).getPath();
-        boolean bl = any = path.equals("iron_catalyst") || path.equals("vanadium_pentoxide_catalyst") || path.equals("platinum_rhodium_catalyst") || path.equals("solid_sulfuric_acid_concentrated");
+        boolean acidSolid = BottleCodes.isSolidJar(catalyst)
+                && "sulfuric_acid_concentrated".equals(BottleCodes.solidIdOf(catalyst));
+        boolean bl = any = path.equals("iron_catalyst") || path.equals("vanadium_pentoxide_catalyst")
+                || path.equals("platinum_rhodium_catalyst") || acidSolid;
         if (required.equals("any")) {
             return any;
         }
@@ -595,17 +602,17 @@ IChemGoggleInfo {
             case "iron" -> path.equals("iron_catalyst");
             case "vanadium" -> path.equals("vanadium_pentoxide_catalyst");
             case "platinum" -> path.equals("platinum_rhodium_catalyst");
-            case "acid" -> path.equals("solid_sulfuric_acid_concentrated");
+            case "acid" -> acidSolid;
             default -> false;
         };
     }
 
     private static Item openGasJarItem(String gasId) {
-        return (Item)BuiltInRegistries.ITEM.getValue(ResourceLocation.fromNamespaceAndPath((String)"mchemistry", (String)("open_gas_collecting_bottle_" + gasId)));
+        return ModItems.gasBottle(gasId, false).getItem();
     }
 
     private static Item looseItem(String solidId) {
-        return (Item)BuiltInRegistries.ITEM.getValue(ResourceLocation.fromNamespaceAndPath((String)"mchemistry", (String)("loose_" + solidId)));
+        return ModItems.looseSolid(solidId);
     }
 
     public void applyClientSync(String gasId, long gasAmount, double gasPurity, String fluidId, int fluidAmount, double fluidPurity, double temperature, double pressure) {

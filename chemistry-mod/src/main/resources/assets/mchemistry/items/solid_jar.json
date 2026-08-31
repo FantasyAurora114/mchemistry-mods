@@ -1,0 +1,3876 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "cases": [
+      {
+        "when": "open_solid_acetamide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_acetamide"
+        }
+      },
+      {
+        "when": "open_solid_activated_carbon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_activated_carbon"
+        }
+      },
+      {
+        "when": "open_solid_alum",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_alum"
+        }
+      },
+      {
+        "when": "open_solid_aluminium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_aluminium"
+        }
+      },
+      {
+        "when": "open_solid_aluminium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_aluminium_chloride"
+        }
+      },
+      {
+        "when": "open_solid_aluminium_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_aluminium_hydroxide"
+        }
+      },
+      {
+        "when": "open_solid_aluminium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_aluminium_nitrate"
+        }
+      },
+      {
+        "when": "open_solid_aluminium_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_aluminium_oxide"
+        }
+      },
+      {
+        "when": "open_solid_aluminium_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_aluminium_powder"
+        }
+      },
+      {
+        "when": "open_solid_aluminium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_aluminium_sulfate"
+        }
+      },
+      {
+        "when": "open_solid_ammonium_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_ammonium_acetate"
+        }
+      },
+      {
+        "when": "open_solid_ammonium_bicarbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_ammonium_bicarbonate"
+        }
+      },
+      {
+        "when": "open_solid_ammonium_bromide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_ammonium_bromide"
+        }
+      },
+      {
+        "when": "open_solid_ammonium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_ammonium_chloride"
+        }
+      },
+      {
+        "when": "open_solid_ammonium_cyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_ammonium_cyanate"
+        }
+      },
+      {
+        "when": "open_solid_ammonium_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_ammonium_cyanide"
+        }
+      },
+      {
+        "when": "open_solid_ammonium_formate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_ammonium_formate"
+        }
+      },
+      {
+        "when": "open_solid_ammonium_iodide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_ammonium_iodide"
+        }
+      },
+      {
+        "when": "open_solid_ammonium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_ammonium_nitrate"
+        }
+      },
+      {
+        "when": "open_solid_ammonium_nitrite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_ammonium_nitrite"
+        }
+      },
+      {
+        "when": "open_solid_ammonium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_ammonium_sulfate"
+        }
+      },
+      {
+        "when": "open_solid_ammonium_thiocyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_ammonium_thiocyanate"
+        }
+      },
+      {
+        "when": "open_solid_antimony",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_antimony"
+        }
+      },
+      {
+        "when": "open_solid_antimony_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_antimony_oxide"
+        }
+      },
+      {
+        "when": "open_solid_apatite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_apatite"
+        }
+      },
+      {
+        "when": "open_solid_argentite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_argentite"
+        }
+      },
+      {
+        "when": "open_solid_barite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_barite"
+        }
+      },
+      {
+        "when": "open_solid_barium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_barium"
+        }
+      },
+      {
+        "when": "open_solid_barium_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_barium_carbonate"
+        }
+      },
+      {
+        "when": "open_solid_barium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_barium_chloride"
+        }
+      },
+      {
+        "when": "open_solid_barium_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_barium_hydroxide"
+        }
+      },
+      {
+        "when": "open_solid_barium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_barium_nitrate"
+        }
+      },
+      {
+        "when": "open_solid_barium_nitrite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_barium_nitrite"
+        }
+      },
+      {
+        "when": "open_solid_barium_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_barium_oxide"
+        }
+      },
+      {
+        "when": "open_solid_barium_peroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_barium_peroxide"
+        }
+      },
+      {
+        "when": "open_solid_barium_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_barium_powder"
+        }
+      },
+      {
+        "when": "open_solid_barium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_barium_sulfate"
+        }
+      },
+      {
+        "when": "open_solid_barium_sulfide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_barium_sulfide"
+        }
+      },
+      {
+        "when": "open_solid_basic_copper_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_basic_copper_carbonate"
+        }
+      },
+      {
+        "when": "open_solid_basic_magnesium_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_basic_magnesium_carbonate"
+        }
+      },
+      {
+        "when": "open_solid_bauxite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_bauxite"
+        }
+      },
+      {
+        "when": "open_solid_benzoic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_benzoic_acid"
+        }
+      },
+      {
+        "when": "open_solid_bismuth",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_bismuth"
+        }
+      },
+      {
+        "when": "open_solid_bismuth_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_bismuth_oxide"
+        }
+      },
+      {
+        "when": "open_solid_bismuthinite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_bismuthinite"
+        }
+      },
+      {
+        "when": "open_solid_borax",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_borax"
+        }
+      },
+      {
+        "when": "open_solid_boric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_boric_acid"
+        }
+      },
+      {
+        "when": "open_solid_boron",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_boron"
+        }
+      },
+      {
+        "when": "open_solid_cadmium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_cadmium"
+        }
+      },
+      {
+        "when": "open_solid_cadmium_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_cadmium_oxide"
+        }
+      },
+      {
+        "when": "open_solid_calcium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium"
+        }
+      },
+      {
+        "when": "open_solid_calcium_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_acetate"
+        }
+      },
+      {
+        "when": "open_solid_calcium_bicarbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_bicarbonate"
+        }
+      },
+      {
+        "when": "open_solid_calcium_bisulfite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_bisulfite"
+        }
+      },
+      {
+        "when": "open_solid_calcium_carbide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_carbide"
+        }
+      },
+      {
+        "when": "open_solid_calcium_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_carbonate"
+        }
+      },
+      {
+        "when": "open_solid_calcium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_chloride"
+        }
+      },
+      {
+        "when": "open_solid_calcium_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_cyanide"
+        }
+      },
+      {
+        "when": "open_solid_calcium_fluoride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_fluoride"
+        }
+      },
+      {
+        "when": "open_solid_calcium_formate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_formate"
+        }
+      },
+      {
+        "when": "open_solid_calcium_hydride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_hydride"
+        }
+      },
+      {
+        "when": "open_solid_calcium_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_hydroxide"
+        }
+      },
+      {
+        "when": "open_solid_calcium_hypochlorite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_hypochlorite"
+        }
+      },
+      {
+        "when": "open_solid_calcium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_nitrate"
+        }
+      },
+      {
+        "when": "open_solid_calcium_nitrite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_nitrite"
+        }
+      },
+      {
+        "when": "open_solid_calcium_oxalate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_oxalate"
+        }
+      },
+      {
+        "when": "open_solid_calcium_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_oxide"
+        }
+      },
+      {
+        "when": "open_solid_calcium_peroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_peroxide"
+        }
+      },
+      {
+        "when": "open_solid_calcium_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_phosphate"
+        }
+      },
+      {
+        "when": "open_solid_calcium_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_powder"
+        }
+      },
+      {
+        "when": "open_solid_calcium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_sulfate"
+        }
+      },
+      {
+        "when": "open_solid_calcium_sulfite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_calcium_sulfite"
+        }
+      },
+      {
+        "when": "open_solid_cassiterite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_cassiterite"
+        }
+      },
+      {
+        "when": "open_solid_charcoal",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_charcoal"
+        }
+      },
+      {
+        "when": "open_solid_chromite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_chromite"
+        }
+      },
+      {
+        "when": "open_solid_chromium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_chromium"
+        }
+      },
+      {
+        "when": "open_solid_chromium_iii_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_chromium_iii_sulfate"
+        }
+      },
+      {
+        "when": "open_solid_chromium_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_chromium_oxide"
+        }
+      },
+      {
+        "when": "open_solid_cobalt",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_cobalt"
+        }
+      },
+      {
+        "when": "open_solid_cobalt_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_cobalt_oxide"
+        }
+      },
+      {
+        "when": "open_solid_cobaltite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_cobaltite"
+        }
+      },
+      {
+        "when": "open_solid_copper",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_copper"
+        }
+      },
+      {
+        "when": "open_solid_copper_i_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_copper_i_cyanide"
+        }
+      },
+      {
+        "when": "open_solid_copper_i_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_copper_i_oxide"
+        }
+      },
+      {
+        "when": "open_solid_copper_ii_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_copper_ii_acetate"
+        }
+      },
+      {
+        "when": "open_solid_copper_ii_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_copper_ii_chloride"
+        }
+      },
+      {
+        "when": "open_solid_copper_ii_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_copper_ii_cyanide"
+        }
+      },
+      {
+        "when": "open_solid_copper_ii_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_copper_ii_hydroxide"
+        }
+      },
+      {
+        "when": "open_solid_copper_ii_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_copper_ii_nitrate"
+        }
+      },
+      {
+        "when": "open_solid_copper_ii_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_copper_ii_oxide"
+        }
+      },
+      {
+        "when": "open_solid_copper_ore",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_copper_ore"
+        }
+      },
+      {
+        "when": "open_solid_copper_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_copper_powder"
+        }
+      },
+      {
+        "when": "open_solid_copper_sulfate_anhydrous",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_copper_sulfate_anhydrous"
+        }
+      },
+      {
+        "when": "open_solid_copper_sulfate_pentahydrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_copper_sulfate_pentahydrate"
+        }
+      },
+      {
+        "when": "open_solid_diamond",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_diamond"
+        }
+      },
+      {
+        "when": "open_solid_dipotassium_hydrogen_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_dipotassium_hydrogen_phosphate"
+        }
+      },
+      {
+        "when": "open_solid_disodium_hydrogen_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_disodium_hydrogen_phosphate"
+        }
+      },
+      {
+        "when": "open_solid_fluorite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_fluorite"
+        }
+      },
+      {
+        "when": "open_solid_galena",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_galena"
+        }
+      },
+      {
+        "when": "open_solid_glyceryl_oxalate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_glyceryl_oxalate"
+        }
+      },
+      {
+        "when": "open_solid_gold_ore",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_gold_ore"
+        }
+      },
+      {
+        "when": "open_solid_graphite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_graphite"
+        }
+      },
+      {
+        "when": "open_solid_greenockite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_greenockite"
+        }
+      },
+      {
+        "when": "open_solid_halite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_halite"
+        }
+      },
+      {
+        "when": "open_solid_ilmenite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_ilmenite"
+        }
+      },
+      {
+        "when": "open_solid_iodine",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iodine"
+        }
+      },
+      {
+        "when": "open_solid_iodoform",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iodoform"
+        }
+      },
+      {
+        "when": "open_solid_iron",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron"
+        }
+      },
+      {
+        "when": "open_solid_iron_ii_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_ii_chloride"
+        }
+      },
+      {
+        "when": "open_solid_iron_ii_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_ii_hydroxide"
+        }
+      },
+      {
+        "when": "open_solid_iron_ii_iii_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_ii_iii_oxide"
+        }
+      },
+      {
+        "when": "open_solid_iron_ii_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_ii_nitrate"
+        }
+      },
+      {
+        "when": "open_solid_iron_iii_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_iii_acetate"
+        }
+      },
+      {
+        "when": "open_solid_iron_iii_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_iii_chloride"
+        }
+      },
+      {
+        "when": "open_solid_iron_iii_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_iii_hydroxide"
+        }
+      },
+      {
+        "when": "open_solid_iron_iii_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_iii_nitrate"
+        }
+      },
+      {
+        "when": "open_solid_iron_iii_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_iii_oxide"
+        }
+      },
+      {
+        "when": "open_solid_iron_iii_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_iii_sulfate"
+        }
+      },
+      {
+        "when": "open_solid_iron_iii_thiocyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_iii_thiocyanate"
+        }
+      },
+      {
+        "when": "open_solid_iron_ore",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_ore"
+        }
+      },
+      {
+        "when": "open_solid_iron_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_powder"
+        }
+      },
+      {
+        "when": "open_solid_iron_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_sulfate"
+        }
+      },
+      {
+        "when": "open_solid_iron_sulfate_heptahydrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_sulfate_heptahydrate"
+        }
+      },
+      {
+        "when": "open_solid_iron_sulfide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_iron_sulfide"
+        }
+      },
+      {
+        "when": "open_solid_lead",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_lead"
+        }
+      },
+      {
+        "when": "open_solid_lead_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_lead_oxide"
+        }
+      },
+      {
+        "when": "open_solid_limestone",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_limestone"
+        }
+      },
+      {
+        "when": "open_solid_lithium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_lithium"
+        }
+      },
+      {
+        "when": "open_solid_lithium_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_lithium_powder"
+        }
+      },
+      {
+        "when": "open_solid_magnesite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_magnesite"
+        }
+      },
+      {
+        "when": "open_solid_magnesium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_magnesium"
+        }
+      },
+      {
+        "when": "open_solid_magnesium_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_magnesium_acetate"
+        }
+      },
+      {
+        "when": "open_solid_magnesium_bicarbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_magnesium_bicarbonate"
+        }
+      },
+      {
+        "when": "open_solid_magnesium_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_magnesium_carbonate"
+        }
+      },
+      {
+        "when": "open_solid_magnesium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_magnesium_chloride"
+        }
+      },
+      {
+        "when": "open_solid_magnesium_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_magnesium_hydroxide"
+        }
+      },
+      {
+        "when": "open_solid_magnesium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_magnesium_nitrate"
+        }
+      },
+      {
+        "when": "open_solid_magnesium_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_magnesium_oxide"
+        }
+      },
+      {
+        "when": "open_solid_magnesium_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_magnesium_powder"
+        }
+      },
+      {
+        "when": "open_solid_magnesium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_magnesium_sulfate"
+        }
+      },
+      {
+        "when": "open_solid_manganese",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_manganese"
+        }
+      },
+      {
+        "when": "open_solid_manganese_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_manganese_chloride"
+        }
+      },
+      {
+        "when": "open_solid_manganese_dioxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_manganese_dioxide"
+        }
+      },
+      {
+        "when": "open_solid_manganese_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_manganese_sulfate"
+        }
+      },
+      {
+        "when": "open_solid_marble",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_marble"
+        }
+      },
+      {
+        "when": "open_solid_mercury_i_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_mercury_i_chloride"
+        }
+      },
+      {
+        "when": "open_solid_mercury_ii_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_mercury_ii_chloride"
+        }
+      },
+      {
+        "when": "open_solid_mercury_ii_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_mercury_ii_cyanide"
+        }
+      },
+      {
+        "when": "open_solid_mercury_ii_iodide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_mercury_ii_iodide"
+        }
+      },
+      {
+        "when": "open_solid_mercury_ii_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_mercury_ii_nitrate"
+        }
+      },
+      {
+        "when": "open_solid_mercury_ii_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_mercury_ii_oxide"
+        }
+      },
+      {
+        "when": "open_solid_mercury_ii_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_mercury_ii_sulfate"
+        }
+      },
+      {
+        "when": "open_solid_mercury_ii_sulfide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_mercury_ii_sulfide"
+        }
+      },
+      {
+        "when": "open_solid_molybdenite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_molybdenite"
+        }
+      },
+      {
+        "when": "open_solid_molybdenum",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_molybdenum"
+        }
+      },
+      {
+        "when": "open_solid_molybdenum_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_molybdenum_oxide"
+        }
+      },
+      {
+        "when": "open_solid_nickel",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_nickel"
+        }
+      },
+      {
+        "when": "open_solid_nickel_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_nickel_oxide"
+        }
+      },
+      {
+        "when": "open_solid_oxalic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_oxalic_acid"
+        }
+      },
+      {
+        "when": "open_solid_pentlandite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_pentlandite"
+        }
+      },
+      {
+        "when": "open_solid_phosphorus_pentoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_phosphorus_pentoxide"
+        }
+      },
+      {
+        "when": "open_solid_platinum",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_platinum"
+        }
+      },
+      {
+        "when": "open_solid_potassium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium"
+        }
+      },
+      {
+        "when": "open_solid_potassium_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_acetate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_bicarbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_bicarbonate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_bisulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_bisulfate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_bromate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_bromate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_bromide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_bromide"
+        }
+      },
+      {
+        "when": "open_solid_potassium_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_carbonate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_chlorate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_chlorate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_chloride"
+        }
+      },
+      {
+        "when": "open_solid_potassium_cuprate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_cuprate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_cyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_cyanate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_cyanide"
+        }
+      },
+      {
+        "when": "open_solid_potassium_dichromate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_dichromate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_dihydrogen_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_dihydrogen_phosphate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_ethoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_ethoxide"
+        }
+      },
+      {
+        "when": "open_solid_potassium_ferrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_ferrate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_ferricyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_ferricyanide"
+        }
+      },
+      {
+        "when": "open_solid_potassium_ferrocyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_ferrocyanide"
+        }
+      },
+      {
+        "when": "open_solid_potassium_fluoride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_fluoride"
+        }
+      },
+      {
+        "when": "open_solid_potassium_formate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_formate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_hydride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_hydride"
+        }
+      },
+      {
+        "when": "open_solid_potassium_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_hydroxide"
+        }
+      },
+      {
+        "when": "open_solid_potassium_hypochlorite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_hypochlorite"
+        }
+      },
+      {
+        "when": "open_solid_potassium_iodate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_iodate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_iodide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_iodide"
+        }
+      },
+      {
+        "when": "open_solid_potassium_manganate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_manganate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_methoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_methoxide"
+        }
+      },
+      {
+        "when": "open_solid_potassium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_nitrate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_nitrite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_nitrite"
+        }
+      },
+      {
+        "when": "open_solid_potassium_oxalate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_oxalate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_perbromate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_perbromate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_perchlorate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_perchlorate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_periodate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_periodate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_permanganate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_permanganate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_peroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_peroxide"
+        }
+      },
+      {
+        "when": "open_solid_potassium_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_phosphate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_sulfate"
+        }
+      },
+      {
+        "when": "open_solid_potassium_sulfite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_sulfite"
+        }
+      },
+      {
+        "when": "open_solid_potassium_superoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_superoxide"
+        }
+      },
+      {
+        "when": "open_solid_potassium_thiocyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_potassium_thiocyanate"
+        }
+      },
+      {
+        "when": "open_solid_prussian_blue",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_prussian_blue"
+        }
+      },
+      {
+        "when": "open_solid_pyrolusite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_pyrolusite"
+        }
+      },
+      {
+        "when": "open_solid_red_phosphorus",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_red_phosphorus"
+        }
+      },
+      {
+        "when": "open_solid_silicon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_silicon"
+        }
+      },
+      {
+        "when": "open_solid_silicon_dioxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_silicon_dioxide"
+        }
+      },
+      {
+        "when": "open_solid_silver",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_silver"
+        }
+      },
+      {
+        "when": "open_solid_silver_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_silver_acetate"
+        }
+      },
+      {
+        "when": "open_solid_silver_bromide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_silver_bromide"
+        }
+      },
+      {
+        "when": "open_solid_silver_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_silver_chloride"
+        }
+      },
+      {
+        "when": "open_solid_silver_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_silver_cyanide"
+        }
+      },
+      {
+        "when": "open_solid_silver_iodide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_silver_iodide"
+        }
+      },
+      {
+        "when": "open_solid_silver_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_silver_nitrate"
+        }
+      },
+      {
+        "when": "open_solid_silver_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_silver_powder"
+        }
+      },
+      {
+        "when": "open_solid_silver_thiocyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_silver_thiocyanate"
+        }
+      },
+      {
+        "when": "open_solid_sodium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium"
+        }
+      },
+      {
+        "when": "open_solid_sodium_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_acetate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_bicarbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_bicarbonate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_bisulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_bisulfate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_bisulfite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_bisulfite"
+        }
+      },
+      {
+        "when": "open_solid_sodium_bromate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_bromate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_bromide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_bromide"
+        }
+      },
+      {
+        "when": "open_solid_sodium_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_carbonate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_chlorate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_chlorate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_chloride"
+        }
+      },
+      {
+        "when": "open_solid_sodium_cuprate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_cuprate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_cyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_cyanate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_cyanide"
+        }
+      },
+      {
+        "when": "open_solid_sodium_dihydrogen_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_dihydrogen_phosphate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_ethoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_ethoxide"
+        }
+      },
+      {
+        "when": "open_solid_sodium_ferrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_ferrate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_fluoride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_fluoride"
+        }
+      },
+      {
+        "when": "open_solid_sodium_formate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_formate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_hydride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_hydride"
+        }
+      },
+      {
+        "when": "open_solid_sodium_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_hydroxide"
+        }
+      },
+      {
+        "when": "open_solid_sodium_hypobromite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_hypobromite"
+        }
+      },
+      {
+        "when": "open_solid_sodium_hypochlorite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_hypochlorite"
+        }
+      },
+      {
+        "when": "open_solid_sodium_hypoiodite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_hypoiodite"
+        }
+      },
+      {
+        "when": "open_solid_sodium_iodate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_iodate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_iodide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_iodide"
+        }
+      },
+      {
+        "when": "open_solid_sodium_methoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_methoxide"
+        }
+      },
+      {
+        "when": "open_solid_sodium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_nitrate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_nitrite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_nitrite"
+        }
+      },
+      {
+        "when": "open_solid_sodium_oxalate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_oxalate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_perchlorate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_perchlorate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_periodate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_periodate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_peroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_peroxide"
+        }
+      },
+      {
+        "when": "open_solid_sodium_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_phosphate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_powder"
+        }
+      },
+      {
+        "when": "open_solid_sodium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_sulfate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_sulfite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_sulfite"
+        }
+      },
+      {
+        "when": "open_solid_sodium_tetrathionate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_tetrathionate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_thiocyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_thiocyanate"
+        }
+      },
+      {
+        "when": "open_solid_sodium_thiosulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sodium_thiosulfate"
+        }
+      },
+      {
+        "when": "open_solid_sperrylite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sperrylite"
+        }
+      },
+      {
+        "when": "open_solid_sphalerite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sphalerite"
+        }
+      },
+      {
+        "when": "open_solid_spodumene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_spodumene"
+        }
+      },
+      {
+        "when": "open_solid_stibnite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_stibnite"
+        }
+      },
+      {
+        "when": "open_solid_sulfur",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sulfur"
+        }
+      },
+      {
+        "when": "open_solid_sulfur_ore",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sulfur_ore"
+        }
+      },
+      {
+        "when": "open_solid_sylvite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_sylvite"
+        }
+      },
+      {
+        "when": "open_solid_tin",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_tin"
+        }
+      },
+      {
+        "when": "open_solid_titanium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_titanium"
+        }
+      },
+      {
+        "when": "open_solid_tungsten",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_tungsten"
+        }
+      },
+      {
+        "when": "open_solid_tungsten_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_tungsten_oxide"
+        }
+      },
+      {
+        "when": "open_solid_turnbull_blue",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_turnbull_blue"
+        }
+      },
+      {
+        "when": "open_solid_urea",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_urea"
+        }
+      },
+      {
+        "when": "open_solid_white_phosphorus",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_white_phosphorus"
+        }
+      },
+      {
+        "when": "open_solid_wolframite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_wolframite"
+        }
+      },
+      {
+        "when": "open_solid_zinc",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_zinc"
+        }
+      },
+      {
+        "when": "open_solid_zinc_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_zinc_chloride"
+        }
+      },
+      {
+        "when": "open_solid_zinc_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_zinc_cyanide"
+        }
+      },
+      {
+        "when": "open_solid_zinc_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_zinc_oxide"
+        }
+      },
+      {
+        "when": "open_solid_zinc_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_zinc_powder"
+        }
+      },
+      {
+        "when": "open_solid_zinc_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/open_solid_zinc_sulfate"
+        }
+      },
+      {
+        "when": "solid_acetamide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_acetamide"
+        }
+      },
+      {
+        "when": "solid_activated_carbon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_activated_carbon"
+        }
+      },
+      {
+        "when": "solid_alum",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_alum"
+        }
+      },
+      {
+        "when": "solid_aluminium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_aluminium"
+        }
+      },
+      {
+        "when": "solid_aluminium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_aluminium_chloride"
+        }
+      },
+      {
+        "when": "solid_aluminium_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_aluminium_hydroxide"
+        }
+      },
+      {
+        "when": "solid_aluminium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_aluminium_nitrate"
+        }
+      },
+      {
+        "when": "solid_aluminium_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_aluminium_oxide"
+        }
+      },
+      {
+        "when": "solid_aluminium_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_aluminium_powder"
+        }
+      },
+      {
+        "when": "solid_aluminium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_aluminium_sulfate"
+        }
+      },
+      {
+        "when": "solid_ammonium_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_ammonium_acetate"
+        }
+      },
+      {
+        "when": "solid_ammonium_bicarbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_ammonium_bicarbonate"
+        }
+      },
+      {
+        "when": "solid_ammonium_bromide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_ammonium_bromide"
+        }
+      },
+      {
+        "when": "solid_ammonium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_ammonium_chloride"
+        }
+      },
+      {
+        "when": "solid_ammonium_cyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_ammonium_cyanate"
+        }
+      },
+      {
+        "when": "solid_ammonium_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_ammonium_cyanide"
+        }
+      },
+      {
+        "when": "solid_ammonium_formate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_ammonium_formate"
+        }
+      },
+      {
+        "when": "solid_ammonium_iodide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_ammonium_iodide"
+        }
+      },
+      {
+        "when": "solid_ammonium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_ammonium_nitrate"
+        }
+      },
+      {
+        "when": "solid_ammonium_nitrite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_ammonium_nitrite"
+        }
+      },
+      {
+        "when": "solid_ammonium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_ammonium_sulfate"
+        }
+      },
+      {
+        "when": "solid_ammonium_thiocyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_ammonium_thiocyanate"
+        }
+      },
+      {
+        "when": "solid_antimony",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_antimony"
+        }
+      },
+      {
+        "when": "solid_antimony_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_antimony_oxide"
+        }
+      },
+      {
+        "when": "solid_apatite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_apatite"
+        }
+      },
+      {
+        "when": "solid_argentite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_argentite"
+        }
+      },
+      {
+        "when": "solid_barite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_barite"
+        }
+      },
+      {
+        "when": "solid_barium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_barium"
+        }
+      },
+      {
+        "when": "solid_barium_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_barium_carbonate"
+        }
+      },
+      {
+        "when": "solid_barium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_barium_chloride"
+        }
+      },
+      {
+        "when": "solid_barium_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_barium_hydroxide"
+        }
+      },
+      {
+        "when": "solid_barium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_barium_nitrate"
+        }
+      },
+      {
+        "when": "solid_barium_nitrite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_barium_nitrite"
+        }
+      },
+      {
+        "when": "solid_barium_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_barium_oxide"
+        }
+      },
+      {
+        "when": "solid_barium_peroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_barium_peroxide"
+        }
+      },
+      {
+        "when": "solid_barium_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_barium_powder"
+        }
+      },
+      {
+        "when": "solid_barium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_barium_sulfate"
+        }
+      },
+      {
+        "when": "solid_barium_sulfide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_barium_sulfide"
+        }
+      },
+      {
+        "when": "solid_basic_copper_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_basic_copper_carbonate"
+        }
+      },
+      {
+        "when": "solid_basic_magnesium_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_basic_magnesium_carbonate"
+        }
+      },
+      {
+        "when": "solid_bauxite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_bauxite"
+        }
+      },
+      {
+        "when": "solid_benzoic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_benzoic_acid"
+        }
+      },
+      {
+        "when": "solid_bismuth",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_bismuth"
+        }
+      },
+      {
+        "when": "solid_bismuth_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_bismuth_oxide"
+        }
+      },
+      {
+        "when": "solid_bismuthinite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_bismuthinite"
+        }
+      },
+      {
+        "when": "solid_borax",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_borax"
+        }
+      },
+      {
+        "when": "solid_boric_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_boric_acid"
+        }
+      },
+      {
+        "when": "solid_boron",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_boron"
+        }
+      },
+      {
+        "when": "solid_cadmium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_cadmium"
+        }
+      },
+      {
+        "when": "solid_cadmium_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_cadmium_oxide"
+        }
+      },
+      {
+        "when": "solid_calcium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium"
+        }
+      },
+      {
+        "when": "solid_calcium_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_acetate"
+        }
+      },
+      {
+        "when": "solid_calcium_bicarbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_bicarbonate"
+        }
+      },
+      {
+        "when": "solid_calcium_bisulfite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_bisulfite"
+        }
+      },
+      {
+        "when": "solid_calcium_carbide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_carbide"
+        }
+      },
+      {
+        "when": "solid_calcium_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_carbonate"
+        }
+      },
+      {
+        "when": "solid_calcium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_chloride"
+        }
+      },
+      {
+        "when": "solid_calcium_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_cyanide"
+        }
+      },
+      {
+        "when": "solid_calcium_fluoride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_fluoride"
+        }
+      },
+      {
+        "when": "solid_calcium_formate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_formate"
+        }
+      },
+      {
+        "when": "solid_calcium_hydride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_hydride"
+        }
+      },
+      {
+        "when": "solid_calcium_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_hydroxide"
+        }
+      },
+      {
+        "when": "solid_calcium_hypochlorite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_hypochlorite"
+        }
+      },
+      {
+        "when": "solid_calcium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_nitrate"
+        }
+      },
+      {
+        "when": "solid_calcium_nitrite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_nitrite"
+        }
+      },
+      {
+        "when": "solid_calcium_oxalate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_oxalate"
+        }
+      },
+      {
+        "when": "solid_calcium_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_oxide"
+        }
+      },
+      {
+        "when": "solid_calcium_peroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_peroxide"
+        }
+      },
+      {
+        "when": "solid_calcium_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_phosphate"
+        }
+      },
+      {
+        "when": "solid_calcium_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_powder"
+        }
+      },
+      {
+        "when": "solid_calcium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_sulfate"
+        }
+      },
+      {
+        "when": "solid_calcium_sulfite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_calcium_sulfite"
+        }
+      },
+      {
+        "when": "solid_cassiterite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_cassiterite"
+        }
+      },
+      {
+        "when": "solid_charcoal",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_charcoal"
+        }
+      },
+      {
+        "when": "solid_chromite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_chromite"
+        }
+      },
+      {
+        "when": "solid_chromium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_chromium"
+        }
+      },
+      {
+        "when": "solid_chromium_iii_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_chromium_iii_sulfate"
+        }
+      },
+      {
+        "when": "solid_chromium_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_chromium_oxide"
+        }
+      },
+      {
+        "when": "solid_cobalt",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_cobalt"
+        }
+      },
+      {
+        "when": "solid_cobalt_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_cobalt_oxide"
+        }
+      },
+      {
+        "when": "solid_cobaltite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_cobaltite"
+        }
+      },
+      {
+        "when": "solid_copper",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_copper"
+        }
+      },
+      {
+        "when": "solid_copper_i_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_copper_i_cyanide"
+        }
+      },
+      {
+        "when": "solid_copper_i_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_copper_i_oxide"
+        }
+      },
+      {
+        "when": "solid_copper_ii_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_copper_ii_acetate"
+        }
+      },
+      {
+        "when": "solid_copper_ii_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_copper_ii_chloride"
+        }
+      },
+      {
+        "when": "solid_copper_ii_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_copper_ii_cyanide"
+        }
+      },
+      {
+        "when": "solid_copper_ii_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_copper_ii_hydroxide"
+        }
+      },
+      {
+        "when": "solid_copper_ii_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_copper_ii_nitrate"
+        }
+      },
+      {
+        "when": "solid_copper_ii_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_copper_ii_oxide"
+        }
+      },
+      {
+        "when": "solid_copper_ore",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_copper_ore"
+        }
+      },
+      {
+        "when": "solid_copper_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_copper_powder"
+        }
+      },
+      {
+        "when": "solid_copper_sulfate_anhydrous",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_copper_sulfate_anhydrous"
+        }
+      },
+      {
+        "when": "solid_copper_sulfate_pentahydrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_copper_sulfate_pentahydrate"
+        }
+      },
+      {
+        "when": "solid_diamond",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_diamond"
+        }
+      },
+      {
+        "when": "solid_dipotassium_hydrogen_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_dipotassium_hydrogen_phosphate"
+        }
+      },
+      {
+        "when": "solid_disodium_hydrogen_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_disodium_hydrogen_phosphate"
+        }
+      },
+      {
+        "when": "solid_fluorite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_fluorite"
+        }
+      },
+      {
+        "when": "solid_galena",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_galena"
+        }
+      },
+      {
+        "when": "solid_glyceryl_oxalate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_glyceryl_oxalate"
+        }
+      },
+      {
+        "when": "solid_gold_ore",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_gold_ore"
+        }
+      },
+      {
+        "when": "solid_graphite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_graphite"
+        }
+      },
+      {
+        "when": "solid_greenockite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_greenockite"
+        }
+      },
+      {
+        "when": "solid_halite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_halite"
+        }
+      },
+      {
+        "when": "solid_ilmenite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_ilmenite"
+        }
+      },
+      {
+        "when": "solid_iodine",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iodine"
+        }
+      },
+      {
+        "when": "solid_iodoform",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iodoform"
+        }
+      },
+      {
+        "when": "solid_iron",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron"
+        }
+      },
+      {
+        "when": "solid_iron_ii_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_ii_chloride"
+        }
+      },
+      {
+        "when": "solid_iron_ii_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_ii_hydroxide"
+        }
+      },
+      {
+        "when": "solid_iron_ii_iii_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_ii_iii_oxide"
+        }
+      },
+      {
+        "when": "solid_iron_ii_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_ii_nitrate"
+        }
+      },
+      {
+        "when": "solid_iron_iii_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_iii_acetate"
+        }
+      },
+      {
+        "when": "solid_iron_iii_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_iii_chloride"
+        }
+      },
+      {
+        "when": "solid_iron_iii_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_iii_hydroxide"
+        }
+      },
+      {
+        "when": "solid_iron_iii_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_iii_nitrate"
+        }
+      },
+      {
+        "when": "solid_iron_iii_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_iii_oxide"
+        }
+      },
+      {
+        "when": "solid_iron_iii_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_iii_sulfate"
+        }
+      },
+      {
+        "when": "solid_iron_iii_thiocyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_iii_thiocyanate"
+        }
+      },
+      {
+        "when": "solid_iron_ore",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_ore"
+        }
+      },
+      {
+        "when": "solid_iron_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_powder"
+        }
+      },
+      {
+        "when": "solid_iron_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_sulfate"
+        }
+      },
+      {
+        "when": "solid_iron_sulfate_heptahydrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_sulfate_heptahydrate"
+        }
+      },
+      {
+        "when": "solid_iron_sulfide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_iron_sulfide"
+        }
+      },
+      {
+        "when": "solid_lead",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_lead"
+        }
+      },
+      {
+        "when": "solid_lead_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_lead_oxide"
+        }
+      },
+      {
+        "when": "solid_limestone",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_limestone"
+        }
+      },
+      {
+        "when": "solid_lithium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_lithium"
+        }
+      },
+      {
+        "when": "solid_lithium_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_lithium_powder"
+        }
+      },
+      {
+        "when": "solid_magnesite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_magnesite"
+        }
+      },
+      {
+        "when": "solid_magnesium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_magnesium"
+        }
+      },
+      {
+        "when": "solid_magnesium_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_magnesium_acetate"
+        }
+      },
+      {
+        "when": "solid_magnesium_bicarbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_magnesium_bicarbonate"
+        }
+      },
+      {
+        "when": "solid_magnesium_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_magnesium_carbonate"
+        }
+      },
+      {
+        "when": "solid_magnesium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_magnesium_chloride"
+        }
+      },
+      {
+        "when": "solid_magnesium_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_magnesium_hydroxide"
+        }
+      },
+      {
+        "when": "solid_magnesium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_magnesium_nitrate"
+        }
+      },
+      {
+        "when": "solid_magnesium_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_magnesium_oxide"
+        }
+      },
+      {
+        "when": "solid_magnesium_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_magnesium_powder"
+        }
+      },
+      {
+        "when": "solid_magnesium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_magnesium_sulfate"
+        }
+      },
+      {
+        "when": "solid_manganese",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_manganese"
+        }
+      },
+      {
+        "when": "solid_manganese_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_manganese_chloride"
+        }
+      },
+      {
+        "when": "solid_manganese_dioxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_manganese_dioxide"
+        }
+      },
+      {
+        "when": "solid_manganese_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_manganese_sulfate"
+        }
+      },
+      {
+        "when": "solid_marble",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_marble"
+        }
+      },
+      {
+        "when": "solid_mercury_i_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_mercury_i_chloride"
+        }
+      },
+      {
+        "when": "solid_mercury_ii_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_mercury_ii_chloride"
+        }
+      },
+      {
+        "when": "solid_mercury_ii_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_mercury_ii_cyanide"
+        }
+      },
+      {
+        "when": "solid_mercury_ii_iodide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_mercury_ii_iodide"
+        }
+      },
+      {
+        "when": "solid_mercury_ii_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_mercury_ii_nitrate"
+        }
+      },
+      {
+        "when": "solid_mercury_ii_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_mercury_ii_oxide"
+        }
+      },
+      {
+        "when": "solid_mercury_ii_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_mercury_ii_sulfate"
+        }
+      },
+      {
+        "when": "solid_mercury_ii_sulfide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_mercury_ii_sulfide"
+        }
+      },
+      {
+        "when": "solid_molybdenite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_molybdenite"
+        }
+      },
+      {
+        "when": "solid_molybdenum",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_molybdenum"
+        }
+      },
+      {
+        "when": "solid_molybdenum_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_molybdenum_oxide"
+        }
+      },
+      {
+        "when": "solid_nickel",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_nickel"
+        }
+      },
+      {
+        "when": "solid_nickel_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_nickel_oxide"
+        }
+      },
+      {
+        "when": "solid_oxalic_acid",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_oxalic_acid"
+        }
+      },
+      {
+        "when": "solid_pentlandite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_pentlandite"
+        }
+      },
+      {
+        "when": "solid_phosphorus_pentoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_phosphorus_pentoxide"
+        }
+      },
+      {
+        "when": "solid_platinum",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_platinum"
+        }
+      },
+      {
+        "when": "solid_potassium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium"
+        }
+      },
+      {
+        "when": "solid_potassium_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_acetate"
+        }
+      },
+      {
+        "when": "solid_potassium_bicarbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_bicarbonate"
+        }
+      },
+      {
+        "when": "solid_potassium_bisulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_bisulfate"
+        }
+      },
+      {
+        "when": "solid_potassium_bromate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_bromate"
+        }
+      },
+      {
+        "when": "solid_potassium_bromide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_bromide"
+        }
+      },
+      {
+        "when": "solid_potassium_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_carbonate"
+        }
+      },
+      {
+        "when": "solid_potassium_chlorate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_chlorate"
+        }
+      },
+      {
+        "when": "solid_potassium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_chloride"
+        }
+      },
+      {
+        "when": "solid_potassium_cuprate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_cuprate"
+        }
+      },
+      {
+        "when": "solid_potassium_cyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_cyanate"
+        }
+      },
+      {
+        "when": "solid_potassium_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_cyanide"
+        }
+      },
+      {
+        "when": "solid_potassium_dichromate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_dichromate"
+        }
+      },
+      {
+        "when": "solid_potassium_dihydrogen_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_dihydrogen_phosphate"
+        }
+      },
+      {
+        "when": "solid_potassium_ethoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_ethoxide"
+        }
+      },
+      {
+        "when": "solid_potassium_ferrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_ferrate"
+        }
+      },
+      {
+        "when": "solid_potassium_ferricyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_ferricyanide"
+        }
+      },
+      {
+        "when": "solid_potassium_ferrocyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_ferrocyanide"
+        }
+      },
+      {
+        "when": "solid_potassium_fluoride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_fluoride"
+        }
+      },
+      {
+        "when": "solid_potassium_formate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_formate"
+        }
+      },
+      {
+        "when": "solid_potassium_hydride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_hydride"
+        }
+      },
+      {
+        "when": "solid_potassium_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_hydroxide"
+        }
+      },
+      {
+        "when": "solid_potassium_hypochlorite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_hypochlorite"
+        }
+      },
+      {
+        "when": "solid_potassium_iodate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_iodate"
+        }
+      },
+      {
+        "when": "solid_potassium_iodide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_iodide"
+        }
+      },
+      {
+        "when": "solid_potassium_manganate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_manganate"
+        }
+      },
+      {
+        "when": "solid_potassium_methoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_methoxide"
+        }
+      },
+      {
+        "when": "solid_potassium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_nitrate"
+        }
+      },
+      {
+        "when": "solid_potassium_nitrite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_nitrite"
+        }
+      },
+      {
+        "when": "solid_potassium_oxalate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_oxalate"
+        }
+      },
+      {
+        "when": "solid_potassium_perbromate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_perbromate"
+        }
+      },
+      {
+        "when": "solid_potassium_perchlorate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_perchlorate"
+        }
+      },
+      {
+        "when": "solid_potassium_periodate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_periodate"
+        }
+      },
+      {
+        "when": "solid_potassium_permanganate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_permanganate"
+        }
+      },
+      {
+        "when": "solid_potassium_peroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_peroxide"
+        }
+      },
+      {
+        "when": "solid_potassium_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_phosphate"
+        }
+      },
+      {
+        "when": "solid_potassium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_sulfate"
+        }
+      },
+      {
+        "when": "solid_potassium_sulfite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_sulfite"
+        }
+      },
+      {
+        "when": "solid_potassium_superoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_superoxide"
+        }
+      },
+      {
+        "when": "solid_potassium_thiocyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_potassium_thiocyanate"
+        }
+      },
+      {
+        "when": "solid_prussian_blue",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_prussian_blue"
+        }
+      },
+      {
+        "when": "solid_pyrolusite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_pyrolusite"
+        }
+      },
+      {
+        "when": "solid_red_phosphorus",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_red_phosphorus"
+        }
+      },
+      {
+        "when": "solid_silicon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_silicon"
+        }
+      },
+      {
+        "when": "solid_silicon_dioxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_silicon_dioxide"
+        }
+      },
+      {
+        "when": "solid_silver",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_silver"
+        }
+      },
+      {
+        "when": "solid_silver_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_silver_acetate"
+        }
+      },
+      {
+        "when": "solid_silver_bromide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_silver_bromide"
+        }
+      },
+      {
+        "when": "solid_silver_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_silver_chloride"
+        }
+      },
+      {
+        "when": "solid_silver_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_silver_cyanide"
+        }
+      },
+      {
+        "when": "solid_silver_iodide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_silver_iodide"
+        }
+      },
+      {
+        "when": "solid_silver_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_silver_nitrate"
+        }
+      },
+      {
+        "when": "solid_silver_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_silver_powder"
+        }
+      },
+      {
+        "when": "solid_silver_thiocyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_silver_thiocyanate"
+        }
+      },
+      {
+        "when": "solid_sodium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium"
+        }
+      },
+      {
+        "when": "solid_sodium_acetate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_acetate"
+        }
+      },
+      {
+        "when": "solid_sodium_bicarbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_bicarbonate"
+        }
+      },
+      {
+        "when": "solid_sodium_bisulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_bisulfate"
+        }
+      },
+      {
+        "when": "solid_sodium_bisulfite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_bisulfite"
+        }
+      },
+      {
+        "when": "solid_sodium_bromate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_bromate"
+        }
+      },
+      {
+        "when": "solid_sodium_bromide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_bromide"
+        }
+      },
+      {
+        "when": "solid_sodium_carbonate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_carbonate"
+        }
+      },
+      {
+        "when": "solid_sodium_chlorate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_chlorate"
+        }
+      },
+      {
+        "when": "solid_sodium_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_chloride"
+        }
+      },
+      {
+        "when": "solid_sodium_cuprate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_cuprate"
+        }
+      },
+      {
+        "when": "solid_sodium_cyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_cyanate"
+        }
+      },
+      {
+        "when": "solid_sodium_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_cyanide"
+        }
+      },
+      {
+        "when": "solid_sodium_dihydrogen_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_dihydrogen_phosphate"
+        }
+      },
+      {
+        "when": "solid_sodium_ethoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_ethoxide"
+        }
+      },
+      {
+        "when": "solid_sodium_ferrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_ferrate"
+        }
+      },
+      {
+        "when": "solid_sodium_fluoride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_fluoride"
+        }
+      },
+      {
+        "when": "solid_sodium_formate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_formate"
+        }
+      },
+      {
+        "when": "solid_sodium_hydride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_hydride"
+        }
+      },
+      {
+        "when": "solid_sodium_hydroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_hydroxide"
+        }
+      },
+      {
+        "when": "solid_sodium_hypobromite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_hypobromite"
+        }
+      },
+      {
+        "when": "solid_sodium_hypochlorite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_hypochlorite"
+        }
+      },
+      {
+        "when": "solid_sodium_hypoiodite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_hypoiodite"
+        }
+      },
+      {
+        "when": "solid_sodium_iodate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_iodate"
+        }
+      },
+      {
+        "when": "solid_sodium_iodide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_iodide"
+        }
+      },
+      {
+        "when": "solid_sodium_methoxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_methoxide"
+        }
+      },
+      {
+        "when": "solid_sodium_nitrate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_nitrate"
+        }
+      },
+      {
+        "when": "solid_sodium_nitrite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_nitrite"
+        }
+      },
+      {
+        "when": "solid_sodium_oxalate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_oxalate"
+        }
+      },
+      {
+        "when": "solid_sodium_perchlorate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_perchlorate"
+        }
+      },
+      {
+        "when": "solid_sodium_periodate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_periodate"
+        }
+      },
+      {
+        "when": "solid_sodium_peroxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_peroxide"
+        }
+      },
+      {
+        "when": "solid_sodium_phosphate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_phosphate"
+        }
+      },
+      {
+        "when": "solid_sodium_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_powder"
+        }
+      },
+      {
+        "when": "solid_sodium_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_sulfate"
+        }
+      },
+      {
+        "when": "solid_sodium_sulfite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_sulfite"
+        }
+      },
+      {
+        "when": "solid_sodium_tetrathionate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_tetrathionate"
+        }
+      },
+      {
+        "when": "solid_sodium_thiocyanate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_thiocyanate"
+        }
+      },
+      {
+        "when": "solid_sodium_thiosulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sodium_thiosulfate"
+        }
+      },
+      {
+        "when": "solid_sperrylite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sperrylite"
+        }
+      },
+      {
+        "when": "solid_sphalerite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sphalerite"
+        }
+      },
+      {
+        "when": "solid_spodumene",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_spodumene"
+        }
+      },
+      {
+        "when": "solid_stibnite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_stibnite"
+        }
+      },
+      {
+        "when": "solid_sulfur",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sulfur"
+        }
+      },
+      {
+        "when": "solid_sulfur_ore",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sulfur_ore"
+        }
+      },
+      {
+        "when": "solid_sylvite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_sylvite"
+        }
+      },
+      {
+        "when": "solid_tin",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_tin"
+        }
+      },
+      {
+        "when": "solid_titanium",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_titanium"
+        }
+      },
+      {
+        "when": "solid_tungsten",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_tungsten"
+        }
+      },
+      {
+        "when": "solid_tungsten_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_tungsten_oxide"
+        }
+      },
+      {
+        "when": "solid_turnbull_blue",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_turnbull_blue"
+        }
+      },
+      {
+        "when": "solid_urea",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_urea"
+        }
+      },
+      {
+        "when": "solid_white_phosphorus",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_white_phosphorus"
+        }
+      },
+      {
+        "when": "solid_wolframite",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_wolframite"
+        }
+      },
+      {
+        "when": "solid_zinc",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_zinc"
+        }
+      },
+      {
+        "when": "solid_zinc_chloride",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_zinc_chloride"
+        }
+      },
+      {
+        "when": "solid_zinc_cyanide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_zinc_cyanide"
+        }
+      },
+      {
+        "when": "solid_zinc_oxide",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_zinc_oxide"
+        }
+      },
+      {
+        "when": "solid_zinc_powder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_zinc_powder"
+        }
+      },
+      {
+        "when": "solid_zinc_sulfate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "mchemistry:item/solid_zinc_sulfate"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "mchemistry:item/empty_narrow_bottle"
+    }
+  }
+}

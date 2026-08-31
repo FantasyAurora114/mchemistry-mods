@@ -10,6 +10,7 @@ import com.example.chemistry.data.ChemicalInfoProvider;
 import com.example.chemistry.data.GasJars;
 import com.example.chemistry.data.Solids;
 import com.example.chemistry.data.Liquids;
+import com.example.chemistry.api.goggles.ChemGoggleLines;
 import com.example.chemistry.PurityHelper;
 import com.example.chemistry.CombustionEngine;
 import com.example.chemistry.item.CombustionSpoonItem;
@@ -18,12 +19,13 @@ import com.example.chemistry.item.DropperItem;
 import com.example.chemistry.item.GasBottleItem;
 import com.example.chemistry.item.LabVesselItem;
 import com.example.chemistry.item.RubberTubeItem;
-import com.example.chemistry.entity.RubberTubeEntity.Anchor;
+import com.example.chemistry.entity.RubberTubeEntity.Port;
 import com.example.chemistry.item.SolidToolItem;
 import com.example.chemistry.item.TestTubeItem;
 import com.example.chemistry.TemperatureSystem;
 import com.example.chemistry.registry.ModItems;
 import com.example.chemistry.storage.ChemUnits;
+import com.example.chemistry.transfer.BottleCodes;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -45,6 +47,16 @@ public class ModTooltips {
     @SubscribeEvent
     public static void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
+        // 倒出的散装固体标注克数。
+        if (stack.getOrDefault(net.minecraft.core.component.DataComponents.CUSTOM_DATA,
+                net.minecraft.world.item.component.CustomData.EMPTY).copyTag()
+                .contains("chem_grams")) {
+            double grams = stack.getOrDefault(net.minecraft.core.component.DataComponents.CUSTOM_DATA,
+                    net.minecraft.world.item.component.CustomData.EMPTY).copyTag()
+                    .getDoubleOr("chem_grams", 0.0);
+            event.getToolTip().add(Component.translatable(
+                    "tooltip.mchemistry.solid_grams", String.format("%.1f", grams)));
+        }
         if (stack.getItem() instanceof DropperItem && !DropperHelper.isEmpty(stack)) {
             String liquid = DropperHelper.getLiquid(stack);
             int ml = DropperHelper.getMl(stack);
@@ -53,6 +65,38 @@ public class ModTooltips {
         }
         if (stack.getItem() instanceof GasBottleItem) {
             event.getToolTip().add(Component.translatable("tooltip.mchemistry.gas_bottle_place"));
+            net.minecraft.nbt.ListTag mix = stack.getOrDefault(
+                    net.minecraft.core.component.DataComponents.CUSTOM_DATA,
+                    net.minecraft.world.item.component.CustomData.EMPTY).copyTag()
+                    .getListOrEmpty("chem_gas_mix");
+            if (mix.size() > 1) {
+                int total = 0;
+                for (net.minecraft.nbt.Tag t : mix) {
+                    if (t instanceof net.minecraft.nbt.CompoundTag c) {
+                        total += c.getIntOr("ml", 0);
+                    }
+                }
+                if (total > 0) {
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < mix.size(); i++) {
+                        if (mix.get(i) instanceof net.minecraft.nbt.CompoundTag c) {
+                            String id = c.getStringOr("id", "");
+                            int ml = c.getIntOr("ml", 0);
+                            int pct = (int) Math.round(100.0 * ml / total);
+                            String name = GasJars.ALL.stream()
+                                    .filter(g -> g.id().equals(id))
+                                    .map(GasJars.GasJar::chinese)
+                                    .findFirst().orElse(id);
+                            if (i > 0) {
+                                sb.append(" + ");
+                            }
+                            sb.append(name).append(' ').append(pct).append('%');
+                        }
+                    }
+                    event.getToolTip().add(Component.translatable(
+                            "tooltip.mchemistry.gas_mixture", Component.literal(sb.toString())));
+                }
+            }
         }
         if (stack.is(ModItems.SOLID_MIXTURE.get())) {
             List<LabVesselItem.Entry> contents = LabVesselItem.getContents(stack);
@@ -93,24 +137,50 @@ public class ModTooltips {
                 }).collect(Collectors.joining(", "));
                 event.getToolTip().add(Component.translatable("tooltip.mchemistry.vessel_contents", Component.literal(joined)));
             }
+            List<VesselGasPhase.Part> gas = VesselGasPhase.read(stack);
+            if (!gas.isEmpty()) {
+                String gasJoined = gas.stream()
+                        .map(p -> ChemGoggleLines.gasName(p.id())
+                                + "×" + VesselGasPhase.formatMl(p.ml()) + "mL")
+                        .collect(Collectors.joining(", "));
+                event.getToolTip().add(Component.translatable(
+                        "tooltip.mchemistry.vessel_gas", Component.literal(gasJoined)));
+            }
         }
         if (stack.getItem() instanceof TestTubeItem) {
             double temp = TemperatureSystem.getTemp(stack);
-            event.getToolTip().add(Component.translatable("tooltip.mchemistry.tube_temp",
-                    String.format("%.0f", temp)));
+            net.minecraft.nbt.CompoundTag tag = stack.getOrDefault(
+                    net.minecraft.core.component.DataComponents.CUSTOM_DATA,
+                    net.minecraft.world.item.component.CustomData.EMPTY).copyTag();
+            // 只有插过温度计的试管才能查看温度。
+            if (tag.getBooleanOr("chem_thermometer", false)) {
+                event.getToolTip().add(Component.translatable("tooltip.mchemistry.tube_temp",
+                        String.format("%.0f", temp)));
+            }
         }
         if (stack.getItem() instanceof CombustionSpoonItem) {
             event.getToolTip().add(Component.translatable("tooltip.mchemistry.spoon_state",
                     Component.literal(CombustionEngine.isLit(stack) ? "燃烧中" : "未点燃")));
         }
+        if (stack.is(ModItems.ALCOHOL_LAMP.get()) || stack.is(ModItems.ALCOHOL_LAMP_LIT.get())
+                || stack.is(ModItems.ALCOHOL_LAMP_CAPPED.get())
+                || stack.is(ModItems.ALCOHOL_BLOWTORCH.get())
+                || stack.is(ModItems.ALCOHOL_BLOWTORCH_LIT.get())) {
+            net.minecraft.nbt.CompoundTag tag = stack.getOrDefault(
+                    net.minecraft.core.component.DataComponents.CUSTOM_DATA,
+                    net.minecraft.world.item.component.CustomData.EMPTY).copyTag();
+            double fuel = tag.getDoubleOr("chem_fuel_ml", 0.0);
+            event.getToolTip().add(Component.translatable("tooltip.mchemistry.lamp_fuel",
+                    String.format("%.0f", fuel)));
+        }
         if (stack.getItem() instanceof RubberTubeItem) {
             event.getToolTip().add(Component.translatable(RubberTubeItem.isWet(stack)
                     ? "tooltip.mchemistry.rubber_tube_wet" : "tooltip.mchemistry.rubber_tube_dry"));
-            Anchor start = RubberTubeItem.readPending(stack);
+            Port start = RubberTubeItem.readPending(stack);
             if (start != null) {
-                if (start.kind() == Anchor.KIND_ENTITY) {
+                if (start.kind() == Port.KIND_ENTITY) {
                     event.getToolTip().add(Component.translatable("tooltip.mchemistry.rubber_tube_start_entity"));
-                } else if (start.kind() == Anchor.KIND_STAND) {
+                } else if (start.kind() == Port.KIND_STAND) {
                     event.getToolTip().add(Component.translatable("tooltip.mchemistry.rubber_tube_start_stand"));
                 } else {
                     event.getToolTip().add(Component.translatable("tooltip.mchemistry.rubber_tube_start",
@@ -118,7 +188,7 @@ public class ModTooltips {
                 }
             }
         }
-        String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
+        String path = BottleCodes.substanceKeyOf(stack);
         appendAddonSubstanceInfo(event, path);
         ChemicalInfoProvider.ChemicalInfo info = ChemicalInfoProvider.forItem(path);
         if (info == null) {

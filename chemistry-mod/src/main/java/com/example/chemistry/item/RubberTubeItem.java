@@ -8,7 +8,7 @@ import com.example.chemistry.block.IronStandBlock;
 import com.example.chemistry.block.WaterTroughBlock;
 import com.example.chemistry.entity.AnchorPositions;
 import com.example.chemistry.entity.RubberTubeEntity;
-import com.example.chemistry.entity.RubberTubeEntity.Anchor;
+import com.example.chemistry.entity.RubberTubeEntity.Port;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -103,8 +103,14 @@ public class RubberTubeItem extends Item {
             player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.need_wet"), true);
             return InteractionResult.SUCCESS;
         }
-        Anchor point = Anchor.block(context.getClickedPos(), context.getClickedFace());
-        Anchor pending = readPending(stack);
+        Port point = Port.block(context.getClickedPos(), context.getClickedFace());
+        // 副手拿玻璃导管时：橡胶管从手上的玻璃导管直接连到目标（一次右键
+        // 完成，原“套着橡胶管的导气嘴”逻辑由玻璃导管继承）。
+        if (GlassTubeItem.isGlassTube(player.getOffhandItem())) {
+            createTube(level, player, stack, Port.entity(player.getUUID()), point);
+            return InteractionResult.SUCCESS;
+        }
+        Port pending = readPending(stack);
         if (pending == null) {
             startPending(level, player, stack, point);
             player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.start_block",
@@ -131,8 +137,12 @@ public class RubberTubeItem extends Item {
             player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.need_wet"), true);
             return;
         }
-        Anchor point = Anchor.entity(target.getUUID());
-        Anchor pending = readPending(stack);
+        Port point = Port.entity(target.getUUID());
+        if (GlassTubeItem.isGlassTube(player.getOffhandItem())) {
+            createTube(level, player, stack, Port.entity(player.getUUID()), point);
+            return;
+        }
+        Port pending = readPending(stack);
         if (pending == null) {
             startPending(level, player, stack, point);
             player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.start_entity"), true);
@@ -143,7 +153,7 @@ public class RubberTubeItem extends Item {
         }
     }
 
-    public static void createTube(Level level, Player player, ItemStack stack, Anchor a, Anchor b) {
+    public static void createTube(Level level, Player player, ItemStack stack, Port a, Port b) {
         discardTempTube(level, stack);
         Vec3 spawn = anchorWorldPos(level, a);
         if (spawn == null) {
@@ -155,6 +165,9 @@ public class RubberTubeItem extends Item {
             return;
         }
         RubberTubeEntity tube = RubberTubeEntity.create(level, a, b, spawn);
+        if (!level.isClientSide()) {
+            tube.initAir();
+        }
         level.addFreshEntity(tube);
         clearPending(stack);
         // A real rubber tube is only consumed once BOTH endpoints are set.
@@ -165,7 +178,7 @@ public class RubberTubeItem extends Item {
     }
 
     /** Set the pending start and show a temporary tube from it to the player. */
-    public static void startPending(Level level, Player player, ItemStack stack, Anchor anchor) {
+    public static void startPending(Level level, Player player, ItemStack stack, Port anchor) {
         setPending(stack, anchor);
         if (level.isClientSide()) {
             return;
@@ -175,7 +188,7 @@ public class RubberTubeItem extends Item {
             spawn = player.position();
         }
         RubberTubeEntity temp = RubberTubeEntity.create(level, anchor,
-                Anchor.entity(player.getUUID()), spawn);
+                Port.entity(player.getUUID()), spawn);
         level.addFreshEntity(temp);
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         tag.putInt("tube_temp_id", temp.getId());
@@ -197,28 +210,9 @@ public class RubberTubeItem extends Item {
     }
 
     /** World position of an anchor (face centre for blocks, entity position otherwise). */
-    public static Vec3 anchorWorldPos(Level level, Anchor a) {
-        if (a == null) {
-            return null;
-        }
-        if (a.kind() == Anchor.KIND_BLOCK) {
-            BlockPos p = a.pos();
-            Direction f = a.face();
-            return new Vec3(p.getX() + 0.5 + f.getStepX() * 0.5,
-                    p.getY() + 0.5 + f.getStepY() * 0.5,
-                    p.getZ() + 0.5 + f.getStepZ() * 0.5);
-        }
-        if (a.kind() == Anchor.KIND_STAND) {
-            // Exact glass-tube head, shared with the renderer — the tube must
-            // start/end at the tube mouth, not at the block centre.
-            return AnchorPositions.standHead(level, a);
-        }
-        if (a.kind() == Anchor.KIND_NOZZLE) {
-            // Exact nozzle / bottle-mouth tip, shared with the renderer.
-            return AnchorPositions.nozzleTip(level, a);
-        }
-        Entity e = level.getEntity(a.uuid());
-        return e != null ? e.position() : null;
+    public static Vec3 anchorWorldPos(Level level, Port a) {
+        // 端点世界坐标已收敛到 Port.worldPos。
+        return a == null ? null : a.worldPos(level);
     }
 
     /** A generous picking box spanning the whole tube, so shears can cut any
@@ -238,8 +232,8 @@ public class RubberTubeItem extends Item {
 
     /** True if a catheter endpoint (glass-tube head or gas nozzle) already has a
      *  rubber tube connected to it. */
-    public static boolean hasTubeAt(Level level, Anchor anchor) {
-        if (anchor == null || (anchor.kind() != Anchor.KIND_STAND && anchor.kind() != Anchor.KIND_NOZZLE)) {
+    public static boolean hasTubeAt(Level level, Port anchor) {
+        if (anchor == null || (anchor.kind() != Port.KIND_STAND && anchor.kind() != Port.KIND_NOZZLE)) {
             return false;
         }
         for (RubberTubeEntity tube : level.getEntitiesOfClass(RubberTubeEntity.class,
@@ -254,7 +248,7 @@ public class RubberTubeItem extends Item {
     /** Empty-hand right-click on a nozzle: complete a pending tube that is
      *  anchored to the player, or block removal while the nozzle is occupied.
      *  Returns true when the click is consumed without removing the nozzle. */
-    public static boolean handleNozzleEmptyClick(Level level, Player player, Anchor nozzle) {
+    public static boolean handleNozzleEmptyClick(Level level, Player player, Port nozzle) {
         if (level.isClientSide()) {
             return true;
         }
@@ -265,9 +259,9 @@ public class RubberTubeItem extends Item {
         java.util.UUID playerId = player.getUUID();
         for (RubberTubeEntity tube : level.getEntitiesOfClass(RubberTubeEntity.class,
                 new AABB(player.blockPosition()).inflate(64.0))) {
-            Anchor a = tube.getAnchorA();
-            Anchor b = tube.getAnchorB();
-            Anchor other = isPlayerAnchor(a, playerId) ? b
+            Port a = tube.getAnchorA();
+            Port b = tube.getAnchorB();
+            Port other = isPlayerAnchor(a, playerId) ? b
                     : isPlayerAnchor(b, playerId) ? a : null;
             if (other == null || other.pos() == null) {
                 continue;
@@ -281,7 +275,9 @@ public class RubberTubeItem extends Item {
                 spawn = player.position();
             }
             tube.discard();
-            level.addFreshEntity(RubberTubeEntity.create(level, other, nozzle, spawn));
+            RubberTubeEntity fresh = RubberTubeEntity.create(level, other, nozzle, spawn);
+            fresh.initAir();
+            level.addFreshEntity(fresh);
             consumeOneTube(player);
             player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.placed"), true);
             return true;
@@ -302,13 +298,13 @@ public class RubberTubeItem extends Item {
         }
     }
 
-    private static boolean isPlayerAnchor(Anchor anchor, java.util.UUID playerId) {
-        return anchor != null && anchor.kind() == Anchor.KIND_ENTITY
+    private static boolean isPlayerAnchor(Port anchor, java.util.UUID playerId) {
+        return anchor != null && anchor.kind() == Port.KIND_ENTITY
                 && playerId.equals(anchor.uuid());
     }
 
     /** Every rubber tube connected to the given anchor (stand head / nozzle). */
-    public static java.util.List<RubberTubeEntity> findTubesAt(Level level, Anchor anchor) {
+    public static java.util.List<RubberTubeEntity> findTubesAt(Level level, Port anchor) {
         if (anchor == null || anchor.pos() == null) {
             return java.util.List.of();
         }
@@ -321,12 +317,12 @@ public class RubberTubeItem extends Item {
     /** Detach one end of every tube from the given head/nozzle. The tube stays
      *  connected at its other end and dangles from the old position instead of
      *  dropping as an item. */
-    public static void detachTubesAt(Level level, Anchor anchor) {
+    public static void detachTubesAt(Level level, Port anchor) {
         if (level.isClientSide() || anchor == null) {
             return;
         }
         for (RubberTubeEntity tube : findTubesAt(level, anchor)) {
-            Anchor free = Anchor.block(anchor.pos(), net.minecraft.core.Direction.UP);
+            Port free = Port.block(anchor.pos(), net.minecraft.core.Direction.UP);
             if (tube.getAnchorA() != null && tube.getAnchorA().equals(anchor)) {
                 tube.setAnchorA(free);
             }
@@ -350,48 +346,47 @@ public class RubberTubeItem extends Item {
                 new CustomModelData(List.of(), List.of(), List.of("wet"), List.of()));
     }
 
-    /** Let the client send the use packet so the server can attach a gas nozzle. */
+    /** 副手拿玻璃导管时右键（对空）发送使用数据包，服务端执行“合成套管导管”。 */
     @Override
     public InteractionResult use(Level level, Player player, net.minecraft.world.InteractionHand hand) {
-        if (player.getOffhandItem().getItem()
-                == com.example.chemistry.registry.ModItems.GAS_NOZZLE.get()) {
+        if (GlassTubeItem.isGlassTube(player.getOffhandItem())) {
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
     }
 
-    public static Anchor readPending(ItemStack stack) {
+    public static Port readPending(ItemStack stack) {
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         if (!tag.contains("tube_anchor_type")) {
             return null;
         }
         String type = tag.getStringOr("tube_anchor_type", "");
         if (type.equals("entity")) {
-            return Anchor.entity(new java.util.UUID(
+            return Port.entity(new java.util.UUID(
                     tag.getLongOr("tube_anchor_uuid_most", 0L),
                     tag.getLongOr("tube_anchor_uuid_least", 0L)));
         }
         if (type.equals("stand")) {
-            return Anchor.stand(
+            return Port.stand(
                     new BlockPos(tag.getIntOr("tube_anchor_x", 0),
                             tag.getIntOr("tube_anchor_y", 0),
                             tag.getIntOr("tube_anchor_z", 0)),
                     tag.getIntOr("tube_anchor_slot", 1));
         }
-        return Anchor.block(
+        return Port.block(
                 new BlockPos(tag.getIntOr("tube_anchor_x", 0),
                         tag.getIntOr("tube_anchor_y", 0),
                         tag.getIntOr("tube_anchor_z", 0)),
                 Direction.byName(tag.getStringOr("tube_anchor_face", "up")));
     }
 
-    public static void setPending(ItemStack stack, Anchor a) {
+    public static void setPending(ItemStack stack, Port a) {
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        if (a.kind() == Anchor.KIND_ENTITY) {
+        if (a.kind() == Port.KIND_ENTITY) {
             tag.putString("tube_anchor_type", "entity");
             tag.putLong("tube_anchor_uuid_most", a.uuid().getMostSignificantBits());
             tag.putLong("tube_anchor_uuid_least", a.uuid().getLeastSignificantBits());
-        } else if (a.kind() == Anchor.KIND_STAND) {
+        } else if (a.kind() == Port.KIND_STAND) {
             tag.putString("tube_anchor_type", "stand");
             tag.putInt("tube_anchor_x", a.pos().getX());
             tag.putInt("tube_anchor_y", a.pos().getY());
@@ -461,28 +456,53 @@ public class RubberTubeItem extends Item {
         }
     }
 
-    private static boolean isStandAnchor(Anchor a, BlockPos pos, int slot) {
-        return a != null && a.kind() == Anchor.KIND_STAND
+    /** Remove every rubber tube anchored at the given position (any anchor
+     *  kind). The tube entity is always discarded; the rubber-tube item drops
+     *  only when dropItem is true. Used when the anchor block is destroyed. */
+    public static void dropTubesAtBlockPos(Level level, BlockPos pos, boolean dropItem) {
+        if (level.isClientSide()) {
+            return;
+        }
+        for (RubberTubeEntity tube : level.getEntitiesOfClass(RubberTubeEntity.class,
+                new AABB(pos).inflate(64.0))) {
+            if (anchorAt(tube.getAnchorA(), pos) || anchorAt(tube.getAnchorB(), pos)) {
+                GasFlowEngine.rupture(level, tube);
+                tube.discard();
+                if (dropItem) {
+                    level.addFreshEntity(new ItemEntity(level, tube.getX(), tube.getY(),
+                            tube.getZ(),
+                            new ItemStack(com.example.chemistry.registry.ModItems.RUBBER_TUBE.get())));
+                }
+            }
+        }
+    }
+
+    private static boolean anchorAt(Port a, BlockPos pos) {
+        return a != null && a.pos() != null && pos.equals(a.pos());
+    }
+
+    private static boolean isStandAnchor(Port a, BlockPos pos, int slot) {
+        return a != null && a.kind() == Port.KIND_STAND
                 && pos.equals(a.pos()) && a.slot() == slot;
     }
 
-    private static boolean isBlockAnchor(Anchor a, BlockPos pos, Direction face) {
-        return a != null && a.kind() == Anchor.KIND_BLOCK
+    private static boolean isBlockAnchor(Port a, BlockPos pos, Direction face) {
+        return a != null && a.kind() == Port.KIND_BLOCK
                 && pos.equals(a.pos()) && a.face() == face;
     }
 
-    private static boolean isNozzleAnchor(Anchor a, BlockPos pos) {
-        return a != null && a.kind() == Anchor.KIND_NOZZLE && pos.equals(a.pos());
+    private static boolean isNozzleAnchor(Port a, BlockPos pos) {
+        return a != null && a.kind() == Port.KIND_NOZZLE && pos.equals(a.pos());
     }
 
-    public static boolean sameAnchor(Anchor a, Anchor b) {
+    public static boolean sameAnchor(Port a, Port b) {
         if (a.kind() != b.kind()) {
             return false;
         }
-        if (a.kind() == Anchor.KIND_ENTITY) {
+        if (a.kind() == Port.KIND_ENTITY) {
             return a.uuid().equals(b.uuid());
         }
-        if (a.kind() == Anchor.KIND_STAND) {
+        if (a.kind() == Port.KIND_STAND) {
             return a.pos().equals(b.pos()) && a.slot() == b.slot();
         }
         return a.pos().equals(b.pos()) && a.face() == b.face();

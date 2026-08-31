@@ -1,19 +1,19 @@
 {
   "variants": {
     "stopper=false,tubes=0": {
-      "model": "mchemistry:block/wash_bottle"
+      "model": "mchemistry:block/wash_bottle_open"
     },
     "stopper=true,tubes=0": {
       "model": "mchemistry:block/wash_bottle"
     },
     "stopper=false,tubes=1": {
-      "model": "mchemistry:block/wash_bottle"
+      "model": "mchemistry:block/wash_bottle_open"
     },
     "stopper=true,tubes=1": {
       "model": "mchemistry:block/wash_bottle"
     },
     "stopper=false,tubes=2": {
-      "model": "mchemistry:block/wash_bottle_full"
+      "model": "mchemistry:block/wash_bottle_full_open"
     },
     "stopper=true,tubes=2": {
       "model": "mchemistry:block/wash_bottle_full"

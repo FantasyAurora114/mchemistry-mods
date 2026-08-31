@@ -25,9 +25,7 @@ public class SplintItem extends Item {
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        String offPath = BuiltInRegistries.ITEM.getKey(player.getOffhandItem().getItem()).getPath();
-        if (offPath.startsWith("gas_collecting_bottle_")
-                || offPath.startsWith("open_gas_collecting_bottle_")) {
+        if (com.example.chemistry.transfer.BottleCodes.isGasBottle(player.getOffhandItem())) {
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;

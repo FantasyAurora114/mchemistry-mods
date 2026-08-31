@@ -62,8 +62,8 @@ public final class ReactionPhenomena {
                 .anyMatch(p -> p.type().equals("gas") && FUMING_GASES.contains(p.id()));
         if (fuming || reaction.display().contains("白雾")
                 || reaction.display().contains("红棕色")
-                || reaction.display().contains("二氧化氮")
-                || reaction.display().contains("一氧化氮")) {
+                || reaction.display().contains("NO₂↑")
+                || reaction.display().contains("NO↑")) {
             out.add(new Phenomenon(Type.SMOKE, 0xFFFFFF, amount));
         }
         // Exothermic / violent reactions -> steam + a brief flame flash.

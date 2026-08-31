@@ -1,5 +1,6 @@
 package com.example.chemistry.client;
 
+import com.example.chemistry.VesselHeating;
 import com.example.chemistry.blockentity.WaterTroughBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -37,32 +38,77 @@ public class WaterTroughRenderer
         renderState.hasBottle = blockEntity.hasBottle();
         renderState.waterFill = blockEntity.hasBottle()
                 ? blockEntity.getWaterMl() / (float) WaterTroughBlockEntity.CAPACITY_ML : 0.0F;
+        net.minecraft.world.item.ItemStack flask = blockEntity.getFlask();
+        renderState.vesselType = vesselType(flask);
+        renderState.color = com.example.chemistry.item.LabVesselItem.contentsColor(flask);
     }
 
     @Override
     public void submit(WaterTroughRenderState renderState, PoseStack poseStack,
             SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         if (!renderState.hasBottle) {
-            return;
-        }
-        BlockStateModel bottle = ModStandaloneModels.gasBottleInverted();
-        if (bottle == null) {
-            return;
-        }
-        poseStack.pushPose();
-        poseStack.translate(0.0F, MOUTH_Y, 0.0F);
-        nodeCollector.submitBlockModel(poseStack, RenderType.cutout(), bottle,
-                1.0F, 1.0F, 1.0F, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
-        if (renderState.waterFill > 0.001F) {
-            BlockStateModel water = ModStandaloneModels.bottleWater();
-            if (water != null) {
+            if (renderState.vesselType == 0) {
+                return;
+            }
+        } else {
+            BlockStateModel bottle = ModStandaloneModels.gasBottleInverted();
+            if (bottle != null) {
                 poseStack.pushPose();
-                poseStack.scale(1.0F, renderState.waterFill, 1.0F);
-                nodeCollector.submitBlockModel(poseStack, RenderType.translucentMovingBlock(), water,
-                        0.55F, 0.78F, 1.0F, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+                poseStack.translate(0.0F, MOUTH_Y, 0.0F);
+                nodeCollector.submitBlockModel(poseStack, RenderType.cutout(), bottle,
+                        1.0F, 1.0F, 1.0F, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+                if (renderState.waterFill > 0.001F) {
+                    BlockStateModel water = ModStandaloneModels.bottleWater();
+                    if (water != null) {
+                        poseStack.pushPose();
+                        poseStack.scale(1.0F, renderState.waterFill, 1.0F);
+                        nodeCollector.submitBlockModel(poseStack, RenderType.translucentMovingBlock(), water,
+                                0.55F, 0.78F, 1.0F, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+                        poseStack.popPose();
+                    }
+                }
                 poseStack.popPose();
             }
         }
-        poseStack.popPose();
+        // 冰浴中浸泡的烧瓶/锥形瓶：用半透明渲染层，避免被半透明冰块盖住。
+        if (renderState.vesselType != 0) {
+            poseStack.pushPose();
+            double s = 0.7;
+            poseStack.translate((8.5 - 8.5 * s) / 16.0, 1.0 / 16.0,
+                    (8.5 - 8.5 * s) / 16.0);
+            poseStack.scale((float) s, (float) s, (float) s);
+            if (renderState.vesselType == 2) {
+                ErlenmeyerRenderer.draw(poseStack, nodeCollector,
+                        ModStandaloneModels.vessel(2),
+                        ModStandaloneModels.erlenmeyerBodyUnit(),
+                        ModStandaloneModels.erlenmeyerLiquidUnit(),
+                        renderState.color, renderState.lightCoords,
+                        RenderType.translucentMovingBlock());
+            } else {
+                BlockStateModel flask = ModStandaloneModels.vessel(renderState.vesselType);
+                if (flask != null) {
+                    nodeCollector.submitBlockModel(poseStack,
+                            RenderType.translucentMovingBlock(), flask,
+                            1.0F, 1.0F, 1.0F, renderState.lightCoords,
+                            OverlayTexture.NO_OVERLAY, 0);
+                }
+                int c = renderState.color;
+                if (c != 0xFFFFFF) {
+                    BlockStateModel contents = ModStandaloneModels.vesselContents(renderState.vesselType);
+                    if (contents != null) {
+                        nodeCollector.submitBlockModel(poseStack,
+                                RenderType.translucentMovingBlock(), contents,
+                                ((c >> 16) & 0xFF) / 255.0F, ((c >> 8) & 0xFF) / 255.0F,
+                                (c & 0xFF) / 255.0F, renderState.lightCoords,
+                                OverlayTexture.NO_OVERLAY, 0);
+                    }
+                }
+            }
+            poseStack.popPose();
+        }
+    }
+
+    private static int vesselType(net.minecraft.world.item.ItemStack stack) {
+        return VesselHeating.vesselType(stack);
     }
 }

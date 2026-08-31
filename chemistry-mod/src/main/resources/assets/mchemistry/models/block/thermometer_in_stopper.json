@@ -1,0 +1,21 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "thermometer": "mchemistry:item/thermometer"
+  },
+  "elements": [
+    {
+      "from": [-0.2, 0, -0.2],
+      "to": [0.2, 7, 0.2],
+      "shade": false,
+      "faces": {
+        "north": {"texture": "thermometer", "uv": [0, 0, 3, 16]},
+        "south": {"texture": "thermometer", "uv": [0, 0, 3, 16]},
+        "east": {"texture": "thermometer", "uv": [0, 0, 3, 16]},
+        "west": {"texture": "thermometer", "uv": [0, 0, 3, 16]},
+        "up": {"texture": "thermometer", "uv": [0, 0, 3, 3]},
+        "down": {"texture": "thermometer", "uv": [0, 0, 3, 3]}
+      }
+    }
+  ]
+}

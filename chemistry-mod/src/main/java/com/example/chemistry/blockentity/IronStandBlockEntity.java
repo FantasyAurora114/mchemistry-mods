@@ -3,6 +3,7 @@ package com.example.chemistry.blockentity;
 import java.util.List;
 
 import com.example.chemistry.block.IronStandBlock;
+import com.example.chemistry.VesselGasPhase;
 import com.example.chemistry.TemperatureSystem;
 import com.example.chemistry.VesselHeating;
 import com.example.chemistry.GasFlowEngine;
@@ -40,8 +41,18 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
     /** Vessel (烧瓶/锥形瓶/坩埚/蒸发皿) sitting on the ring / gauze attachment. */
     private ItemStack vessel = ItemStack.EMPTY;
     private boolean hasCondenser;
+    /** 蒸馏头（接在圆底烧瓶瓶口上，导气管连冷凝管）。 */
+    private boolean hasDistillationHead;
+    /** 温度计插在蒸馏头顶端接口里。 */
+    private boolean headThermometer;
     /** Receiver flask collecting the distillate. */
     private ItemStack receiver = ItemStack.EMPTY;
+    /** 牛角管（接在冷凝管远端，通向接收瓶）。 */
+    private ItemStack receiverAdapter = ItemStack.EMPTY;
+    /** The mounted lamp is an alcohol blowtorch (1200 C) instead of a lamp. */
+    private boolean lampBlowtorch;
+    /** 酒精灯已盖上灯帽（随灯一起取下）。 */
+    private boolean lampCapped;
 
     public IronStandBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.IRON_STAND.get(), pos, state);
@@ -67,8 +78,56 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
         return hasCondenser;
     }
 
+    public boolean hasDistillationHead() {
+        return hasDistillationHead;
+    }
+
+    public boolean hasHeadThermometer() {
+        return headThermometer;
+    }
+
+    public boolean isLampBlowtorch() {
+        return lampBlowtorch;
+    }
+
+    public boolean isLampCapped() {
+        return lampCapped;
+    }
+
+    public void setLampCapped(boolean capped) {
+        this.lampCapped = capped;
+        setChanged();
+        if (level != null) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        }
+    }
+
+    public void setLampBlowtorch(boolean lampBlowtorch) {
+        this.lampBlowtorch = lampBlowtorch;
+        setChanged();
+        if (level != null) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        }
+    }
+
     public ItemStack getReceiver() {
         return receiver;
+    }
+
+    public ItemStack getReceiverAdapter() {
+        return receiverAdapter;
+    }
+
+    public boolean hasReceiverAdapter() {
+        return !receiverAdapter.isEmpty();
+    }
+
+    public void setReceiverAdapter(ItemStack stack) {
+        this.receiverAdapter = stack.copy();
+        setChanged();
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        }
     }
 
     public void setVessel(ItemStack stack) {
@@ -103,6 +162,22 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
         }
     }
 
+    public void setDistillationHead(boolean value) {
+        this.hasDistillationHead = value;
+        setChanged();
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        }
+    }
+
+    public void setHeadThermometer(boolean value) {
+        this.headThermometer = value;
+        setChanged();
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        }
+    }
+
     public void setReceiver(ItemStack stack) {
         this.receiver = stack.copy();
         setChanged();
@@ -119,6 +194,7 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
         if (level != null) {
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
         }
+        syncTubeThermometerFlag();
     }
 
     public void setAttached2(ItemStack stack) {
@@ -127,6 +203,26 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
         if (level != null) {
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
         }
+        syncTubeThermometerFlag();
+    }
+
+    /** 试管装上/取下温度计后，把标志写回试管物品（拾取后仍能查看温度）。 */
+    private void syncTubeThermometerFlag() {
+        if (tube.isEmpty()) {
+            return;
+        }
+        boolean has = com.example.chemistry.registry.ModItems.hasThermometer(attached1, attached2);
+        net.minecraft.nbt.CompoundTag tag = tube.getOrDefault(
+                net.minecraft.core.component.DataComponents.CUSTOM_DATA,
+                net.minecraft.world.item.component.CustomData.EMPTY).copyTag();
+        if (has) {
+            tag.putBoolean("chem_thermometer", true);
+        } else {
+            tag.remove("chem_thermometer");
+        }
+        tube.set(net.minecraft.core.component.DataComponents.CUSTOM_DATA,
+                net.minecraft.world.item.component.CustomData.of(tag));
+        setChanged();
     }
 
     /** Lit lamp heats the mounted tube (600 C) or the vessel on the ring. */
@@ -137,11 +233,12 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
         BlockState state = getBlockState();
         boolean lamp = state.getValue(IronStandBlock.HAS_LAMP)
                 && state.getValue(IronStandBlock.LAMP_LIT);
+        boolean blowtorch = lamp && lampBlowtorch;
         Player nearest = level.getNearestPlayer(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5,
                 worldPosition.getZ() + 0.5, 8.0, false);
         if (state.getValue(IronStandBlock.HAS_TUBE) && tube.getItem() instanceof TestTubeItem) {
             if (lamp) {
-                TemperatureSystem.setTemp(tube, 600.0);
+                TemperatureSystem.setTemp(tube, blowtorch ? 1200.0 : 600.0);
             } else if (TemperatureSystem.getTemp(tube) != TemperatureSystem.ROOM_TEMP) {
                 // The mounted tube cools back to room temperature when the
                 // lamp is out, so heat-required reactions stop too.
@@ -154,6 +251,7 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
             ReactionEngine.checkAndStart(tube, nearest);
             Reactions.Reaction completed = ReactionEngine.tick(tube, nearest);
             if (completed != null) {
+                ReactionEngine.applyReactionHeat(tube, completed);
                 ReactionPhenomena.spawn(level,
                         new net.minecraft.world.phys.Vec3(worldPosition.getX() + 0.5,
                                 worldPosition.getY() + 0.8, worldPosition.getZ() + 0.5),
@@ -163,15 +261,24 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
             // Gas produced in the mounted tube also flows along a connected
             // rubber tube (glass tube in the stopper -> collector).
             GasFlowEngine.pump(level, worldPosition, tube);
+            // 敞口试管里比空气轻的气体慢慢逸出。
+            VesselGasPhase.tickLeak(tube);
         }
         if (state.getValue(IronStandBlock.HAS_VESSEL) && !vessel.isEmpty()) {
-            if (lamp) {
-                VesselHeating.heat(vessel, 600.0);
+            if (VesselHeating.isTempLocked(vessel)) {
+                // Temperature pinned by the I key: neither heat nor cool.
+            } else if (lamp) {
+                if (blowtorch) {
+                    VesselHeating.heatFast(vessel, VesselHeating.BLOWTORCH_TEMP);
+                } else {
+                    VesselHeating.heatSlow(vessel, 600.0);
+                }
             } else {
-                VesselHeating.cool(vessel);
+                VesselHeating.coolGradual(vessel);
             }
             VesselHeating.Outcome outcome = VesselHeating.tick(
-                    vessel, level, worldPosition, receiver, hasCondenser, nearest);
+                    vessel, level, worldPosition, receiver, hasCondenser,
+                    !attached1.isEmpty() || !attached2.isEmpty(), nearest);
             handleOutcome(outcome, level);
             setChanged();
         }
@@ -185,8 +292,7 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
             int holes = VesselHeating.getStopperHoles(vessel);
             net.minecraft.world.entity.item.ItemEntity stopper = new net.minecraft.world.entity.item.ItemEntity(
                     level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.6, worldPosition.getZ() + 0.5,
-                    new ItemStack(holes >= 2 ? ModItems.RUBBER_STOPPER_2_HOLE.get()
-                            : ModItems.RUBBER_STOPPER_1_HOLE.get()));
+                    new ItemStack(ModItems.stopperForHoles(holes)));
             stopper.setDefaultPickUpDelay();
             level.addFreshEntity(stopper);
             for (ItemStack attached : new ItemStack[] {getAttached2(), getAttached1()}) {
@@ -240,7 +346,11 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
         BlockState state = getBlockState();
         if (!tube.isEmpty()) {
             tooltip.add(Component.literal("铁架台试管"));
-            tooltip.add(ChemGoggleLines.temp(TemperatureSystem.getTemp(tube)));
+            if (ModItems.hasThermometer(attached1, attached2)) {
+                tooltip.add(ChemGoggleLines.temp(TemperatureSystem.getTemp(tube)));
+            } else {
+                tooltip.add(Component.literal("温度：无法查看（未插温度计）"));
+            }
             ChemGoggleLines.appendContents(tooltip, tube);
             if (tube.getItem() instanceof TestTubeItem tt) {
                 if (tt.stopperHoles() > 0) {
@@ -264,7 +374,12 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
                 tooltip.add(Component.empty());
             }
             tooltip.add(vessel.getHoverName().copy());
-            tooltip.add(ChemGoggleLines.temp(TemperatureSystem.getTemp(vessel)));
+            if (ModItems.hasThermometer(attached1, attached2)) {
+                tooltip.add(ChemGoggleLines.temp(TemperatureSystem.getTemp(vessel),
+                        VesselHeating.isTempLocked(vessel)));
+            } else {
+                tooltip.add(Component.literal("温度：无法查看（未插温度计）"));
+            }
             ChemGoggleLines.appendContents(tooltip, vessel);
             ChemGoggleLines.appendPressure(tooltip, vessel);
             if (hasCondenser) {
@@ -286,7 +401,12 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
         output.store("attached2", ItemStack.OPTIONAL_CODEC, attached2);
         output.store("vessel", ItemStack.OPTIONAL_CODEC, vessel);
         output.store("receiver", ItemStack.OPTIONAL_CODEC, receiver);
+        output.store("receiver_adapter", ItemStack.OPTIONAL_CODEC, receiverAdapter);
         output.putBoolean("has_condenser", hasCondenser);
+        output.putBoolean("has_distillation_head", hasDistillationHead);
+        output.putBoolean("head_thermometer", headThermometer);
+        output.putBoolean("lamp_blowtorch", lampBlowtorch);
+        output.putBoolean("lamp_capped", lampCapped);
     }
 
     @Override
@@ -297,7 +417,12 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
         attached2 = input.read("attached2", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
         vessel = input.read("vessel", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
         receiver = input.read("receiver", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
+        receiverAdapter = input.read("receiver_adapter", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
         hasCondenser = input.getBooleanOr("has_condenser", false);
+        hasDistillationHead = input.getBooleanOr("has_distillation_head", false);
+        headThermometer = input.getBooleanOr("head_thermometer", false);
+        lampBlowtorch = input.getBooleanOr("lamp_blowtorch", false);
+        lampCapped = input.getBooleanOr("lamp_capped", false);
     }
 
     /** Sync the attached instruments (dropper contents matter client-side). */

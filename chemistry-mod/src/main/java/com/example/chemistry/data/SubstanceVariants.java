@@ -44,7 +44,10 @@ public final class SubstanceVariants {
         Map.entry("barium", "barium"),
         Map.entry("barium_powder", "barium"),
         Map.entry("lithium", "lithium"),
-        Map.entry("lithium_powder", "lithium")
+        Map.entry("lithium_powder", "lithium"),
+        Map.entry("ethanol", "ethanol"),
+        Map.entry("ethanol_95", "ethanol"),
+        Map.entry("ethanol_75", "ethanol")
     );
 
     public static final Map<String, Double> SPEED = Map.ofEntries(
@@ -83,11 +86,24 @@ public final class SubstanceVariants {
         Map.entry("barium", 1.0),
         Map.entry("barium_powder", 4.0),
         Map.entry("lithium", 1.0),
-        Map.entry("lithium_powder", 4.0)
+        Map.entry("lithium_powder", 4.0),
+        Map.entry("ethanol", 1.0),
+        Map.entry("ethanol_95", 0.85),
+        Map.entry("ethanol_75", 0.7)
     );
 
     public static String canonicalOf(String id) {
         return CANONICAL.getOrDefault(id, id);
+    }
+
+    /** Whether this canonical liquid has a concentrated variant (浓/稀酸).
+     *  Used to decide if a reaction's concentration requirement applies to it —
+     *  e.g. 高锰酸钾溶液 has no concentrated variant, so a "concentrated"
+     *  requirement must NOT reject it. */
+    public static boolean hasConcentratedVariant(String canonicalId) {
+        return CANONICAL.entrySet().stream()
+                .anyMatch(e -> e.getKey().endsWith("_concentrated")
+                        && e.getValue().equals(canonicalId));
     }
 
     public static double speedOf(String id) {

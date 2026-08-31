@@ -108,50 +108,12 @@ public class TestTubeItem extends LabVesselItem {
         return InteractionResult.SUCCESS;
     }
 
-    /** 清空试管里的全部固体；含液体的试管不响应。 */
-    private static void dumpSolids(Level level, Player player, ItemStack tube) {
-        List<LabVesselItem.Entry> contents = LabVesselItem.getContents(tube);
-        if (contents.isEmpty()) {
-            return;
-        }
-        List<LabVesselItem.Entry> solids = contents.stream()
-                .filter(e -> e.type().equals("solid")).toList();
-        if (solids.size() != contents.size()) {
-            // 含有液体时不能直接倒出（液体先被倒掉/反应）。
-            return;
-        }
-        ItemStack dump;
-        if (solids.size() == 1) {
-            dump = new ItemStack(ModItems.looseSolid(solids.get(0).id()));
-        } else {
-            dump = new ItemStack(ModItems.SOLID_MIXTURE.get());
-            CompoundTag tag = new CompoundTag();
-            ListTag list = new ListTag();
-            for (LabVesselItem.Entry e : solids) {
-                CompoundTag c = new CompoundTag();
-                c.putString("type", e.type());
-                c.putString("id", e.id());
-                c.putDouble("amount", e.amount());
-                list.add(c);
-            }
-            tag.put("chem_contents", list);
-            dump.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
-        }
-        LabVesselItem.clearContents(tube);
-        if (!player.getInventory().add(dump)) {
-            player.drop(dump, false);
-        }
-        player.displayClientMessage(
-                Component.translatable("mchemistry.tube.dump_solids"), true);
-    }
-
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        // 副手试管 + 主手空手：把试管里的固体全部倒出。单一固体倒出对应
-        // 散装物品；多种固体倒出"固体混合物"（物品上记录组成，tooltip 显示）。
+        // 副手反应容器 + 主手空手：倒出全部物质（腐蚀液体受伤、固体以物品归还）。
         if (hand == InteractionHand.OFF_HAND && player.getMainHandItem().isEmpty()) {
             if (!level.isClientSide()) {
-                dumpSolids(level, player, player.getOffhandItem());
+                LabVesselItem.pourOutAll(player, player.getOffhandItem());
             }
             return InteractionResult.SUCCESS;
         }
