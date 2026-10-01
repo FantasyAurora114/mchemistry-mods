@@ -11,7 +11,18 @@ public final class Liquids {
     public record Liquid(String id, String formula, String english, String chinese, int color, String openProduct) {
     }
 
-    public static final List<Liquid> ALL = List.of(
+    public static final List<Liquid> ALL = java.util.stream.Stream.concat(FutureChemicals.ALL.stream().filter(c->c.phase().equals("LIQUID")||(c.phase().equals("SOLID")&&c.ceiling()>0)).map(c->new Liquid(c.id()+(c.phase().equals("SOLID")?"_solution":""),c.formula(),c.english()+(c.phase().equals("SOLID")?" Solution":""),c.chinese()+(c.phase().equals("SOLID")?"溶液":""),c.color(),"")), java.util.stream.Stream.concat(BatchChemicals.ALL.stream().filter(c -> c.ceiling()>0).map(c -> new Liquid(c.id()+"_solution",c.formula(),c.english()+" Solution",c.chinese()+"溶液",c.color(),"")), java.util.stream.Stream.concat(EdtaCompounds.ALL.stream().map(c -> new Liquid(c.id() + "_solution", c.formula(), c.english() + " solution", c.chinese() + "溶液", c.color(), "")), List.of(
+            new Liquid("chromium_chloride_solution","CrCl3","Chromium Chloride Solution","氯化铬溶液",0x688C75,""),
+            new Liquid("chromium_sulfate_solution","Cr2(SO4)3","Chromium Sulfate Solution","硫酸铬溶液",0x688C75,""),
+            new Liquid("potassium_dichromate_solution","K2Cr2O7","Potassium Dichromate Solution","重铬酸钾溶液",0xB8752E,""),
+            new Liquid("zinc_chloride_solution","ZnCl2","Zinc Chloride Solution","氯化锌溶液",0xC4DCE2,""),
+            new Liquid("magnesium_sulfate_solution","MgSO4","Magnesium Sulfate Solution","硫酸镁溶液",0xC4DCE2,""),
+            new Liquid("calcium_sulfate_solution","CaSO4","Calcium Sulfate Solution","硫酸钙溶液",0xC4DCE2,""),
+            new Liquid("potassium_iodide_solution","KI","Potassium Iodide Solution","碘化钾溶液",0xC4DCE2,""),
+            new Liquid("sodium_silicate_solution", "Na2SiO3(aq)", "Sodium Silicate Solution", "硅酸钠溶液", 0xC4DCE2, ""),
+            new Liquid("zinc_sulfate_solution", "ZnSO4(aq)", "Zinc Sulfate Solution", "硫酸锌溶液", 0xC4DCE2, ""),
+            new Liquid("zinc_nitrate_solution", "Zn(NO3)2(aq)", "Zinc Nitrate Solution", "硝酸锌溶液", 0xC4DCE2, ""),
+            new Liquid("crude_saltwater", "mixture", "Crude Saltwater", "粗盐水", 0xA6AC94, ""),
             new Liquid("water", "H2O", "Water", "水", 0x8FC8E8, ""),
             new Liquid("hydrogen_peroxide", "H2O2", "Hydrogen Peroxide Solution", "过氧化氢溶液", 0xD8E8F0, ""),
             new Liquid("sulfuric_acid_dilute", "H2SO4", "Dilute Sulfuric Acid", "稀硫酸", 0xE8F0E0, ""),
@@ -93,11 +104,10 @@ public final class Liquids {
             new Liquid("methyl_formate", "HCOOCH3", "Methyl Formate", "甲酸甲酯", 0xE8E8E8, ""),
             new Liquid("ethyl_formate", "HCOOC2H5", "Ethyl Formate", "甲酸乙酯", 0xE8E8E8, ""),
             new Liquid("methyl_acetate", "CH3COOCH3", "Methyl Acetate", "乙酸甲酯", 0xE8E8E8, ""),
-            new Liquid("ethyl_benzoate", "C6H5COOC2H5", "Ethyl Benzoate", "苯甲酸乙酯", 0xE8E8E8, ""),
             new Liquid("ethyl_hydrogen_sulfate", "C2H5HSO4", "Ethyl Hydrogen Sulfate", "硫酸氢乙酯", 0xE8E8E0, ""),
             new Liquid("acetaldehyde", "CH3CHO", "Acetaldehyde", "乙醛", 0xE8E8E8, ""),
             new Liquid("glycerol", "C3H8O3", "Glycerol", "甘油", 0xE8F0F0, "")
-    );
+    ).stream()))).toList();
 
     private Liquids() {
     }

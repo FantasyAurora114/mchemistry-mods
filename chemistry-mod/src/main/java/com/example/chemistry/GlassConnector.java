@@ -39,36 +39,39 @@ public final class GlassConnector {
 
     static {
         // 烧瓶：瓶口是接口。
-        PORTS.put("round_bottom_flask", List.of(new GlassPort(ConnectorType.SOCKET, 8.5, 10, 8.5)));
+        PORTS.put("round_bottom_flask", List.of(new GlassPort(ConnectorType.SOCKET, 8.5, 10.05, 8.5)));
         PORTS.put("erlenmeyer_flask", List.of(new GlassPort(ConnectorType.SOCKET, 8.5, 9, 8.5)));
         for (String beaker : new String[] {"beaker_50ml", "beaker_100ml", "beaker_500ml", "beaker_1000ml"}) {
-            PORTS.put(beaker, List.of(new GlassPort(ConnectorType.SOCKET, 8.5, 6, 8.5)));
+            PORTS.put(beaker, List.of(new GlassPort(ConnectorType.SOCKET, 8.5, 7.8, 8.5)));
         }
+        PORTS.put("beaker_medium", List.of(new GlassPort(ConnectorType.SOCKET,8.5,10.5,8.5)));
+        PORTS.put("beaker_tall", List.of(new GlassPort(ConnectorType.SOCKET,8.5,14,8.5)));
         // 磨口烧瓶 / 磨口锥形瓶 / 磨口平底烧瓶：磨口接口，可与玻璃仪器相连。
-        PORTS.put("ground_glass_flask", List.of(new GlassPort(ConnectorType.SOCKET, 8.5, 10, 8.5)));
+        PORTS.put("ground_glass_flask", List.of(new GlassPort(ConnectorType.SOCKET, 8.5, 10.05, 8.5)));
         PORTS.put("ground_glass_erlenmeyer", List.of(new GlassPort(ConnectorType.SOCKET, 8.5, 10, 8.5)));
         PORTS.put("flat_bottom_flask", List.of(new GlassPort(ConnectorType.SOCKET, 8.5, 10, 8.5)));
         PORTS.put("ground_glass_flat_bottom_flask", List.of(new GlassPort(ConnectorType.SOCKET, 8.5, 10, 8.5)));
         // 三颈烧瓶：三个瓶口都是接口（中间 + 两侧）。
         PORTS.put("three_neck_flask", List.of(
-                new GlassPort(ConnectorType.SOCKET, 8.5, 10.0, 8.5),
-                new GlassPort(ConnectorType.SOCKET, 5.0, 8.9, 8.5),
-                new GlassPort(ConnectorType.SOCKET, 12.0, 8.94, 8.5)));
+                new GlassPort(ConnectorType.SOCKET, ThreeNeckGeometry.PORTS[1][0], ThreeNeckGeometry.PORTS[1][1], 8.5),
+                new GlassPort(ConnectorType.SOCKET, ThreeNeckGeometry.PORTS[0][0], ThreeNeckGeometry.PORTS[0][1], 8.5),
+                new GlassPort(ConnectorType.SOCKET, ThreeNeckGeometry.PORTS[2][0], ThreeNeckGeometry.PORTS[2][1], 8.5)));
+        PORTS.put("thermometer_sleeve", List.of(new GlassPort(ConnectorType.PLUG, 0, 0, 0)));
         // 蒸馏头：顶端接口、底部插头、侧管插头。
         PORTS.put("distillation_head", List.of(
-                new GlassPort(ConnectorType.SOCKET, 9.0, 6.0, 9.0),
-                new GlassPort(ConnectorType.PLUG, 9.0, 0.0, 9.0),
-                new GlassPort(ConnectorType.PLUG, 11.0, 4.5, 9.0)));
-        // 冷凝管：两端接口。
+                new GlassPort(ConnectorType.SOCKET, 7.0, 15.25, 8.0),
+                new GlassPort(ConnectorType.PLUG, 7.0, 0.75, 8.0),
+                new GlassPort(ConnectorType.PLUG, 12.73, 4.77, 8.0)));
+        // 新模型：靠蒸馏头的一端为宽口接口，远端为细磨口接头。
         PORTS.put("straight_condenser", List.of(
-                new GlassPort(ConnectorType.SOCKET, 0.0, 8.0, 8.5),
-                new GlassPort(ConnectorType.SOCKET, 16.0, 8.0, 8.5)));
-        // 牛角管：一端插头（接冷凝管远端接口），另一端接口（接接收瓶）。
+                new GlassPort(ConnectorType.SOCKET, 8.0, 16.0, 8.0),
+                new GlassPort(ConnectorType.PLUG, 8.0, 0.0, 8.0)));
+        // 牛角管：入口接远端细磨口，出口面向接收瓶。
         PORTS.put("receiver_adapter_bent", List.of(
-                new GlassPort(ConnectorType.PLUG, 8.5, 8.0, 0.0),
-                new GlassPort(ConnectorType.SOCKET, 8.5, 8.0, 9.0)));
+                new GlassPort(ConnectorType.SOCKET, 5.414214, 13.863961, 8.0),
+                new GlassPort(ConnectorType.SOCKET, 9.5, 0.75, 8.0)));
         PORTS.put("receiver_adapter_straight", List.of(
-                new GlassPort(ConnectorType.PLUG, 8.5, 8.0, 0.0),
+                new GlassPort(ConnectorType.SOCKET, 8.5, 8.0, 0.0),
                 new GlassPort(ConnectorType.SOCKET, 8.5, 8.0, 9.0)));
     }
 
@@ -90,9 +93,9 @@ public final class GlassConnector {
             return false;
         }
         String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
-        return path.equals("round_bottom_flask") || path.equals("three_neck_flask")
+        return path.equals("three_neck_flask")
                 || path.equals("ground_glass_flask") || path.equals("ground_glass_erlenmeyer")
-                || path.equals("flat_bottom_flask") || path.equals("ground_glass_flat_bottom_flask");
+                || path.equals("ground_glass_flat_bottom_flask");
     }
 
     /** 仪器是否带某种类型的连接点。 */

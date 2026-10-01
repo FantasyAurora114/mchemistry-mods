@@ -1,0 +1,495 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "cases": [
+      {
+        "when": "filled_005",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_1",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_010",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_2",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_015",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_3",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_020",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_4",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_025",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_5",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_030",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_6",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_035",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_7",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_040",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_8",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_045",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_9",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_050",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_10",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_055",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_11",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_060",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_12",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_065",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_13",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_070",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_14",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_075",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_15",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_080",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_16",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_085",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_17",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_090",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_18",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_095",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_19",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_100",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_20",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/dewar_test_tube_new_fill_20",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 16777215
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "mchemistry:item/dewar_test_tube_new_stoppered"
+    }
+  }
+}

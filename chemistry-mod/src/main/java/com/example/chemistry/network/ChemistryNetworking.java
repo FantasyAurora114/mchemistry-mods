@@ -15,6 +15,7 @@ import com.example.chemistry.blockentity.HeatingMantleBlockEntity;
 import com.example.chemistry.blockentity.IronStandBlockEntity;
 import com.example.chemistry.blockentity.PlacedVesselBlockEntity;
 import com.example.chemistry.blockentity.TripodBlockEntity;
+import com.example.chemistry.entity.PlacedVesselEntity;
 import com.example.chemistry.item.LabVesselItem;
 import com.example.chemistry.registry.ModBlocks;
 import com.example.chemistry.TemperatureSystem;
@@ -197,6 +198,12 @@ public final class ChemistryNetworking {
             vessel = ibe.getVessel();
         } else if (be instanceof TripodBlockEntity tbe) {
             vessel = tbe.getVessel();
+        } else {
+            for (PlacedVesselEntity pve : level.getEntitiesOfClass(PlacedVesselEntity.class,
+                    new net.minecraft.world.phys.AABB(pos))) {
+                vessel = pve.getVessel();
+                break;
+            }
         }
         if (vessel == null || vessel.isEmpty() || !(vessel.getItem() instanceof LabVesselItem)) {
             return;

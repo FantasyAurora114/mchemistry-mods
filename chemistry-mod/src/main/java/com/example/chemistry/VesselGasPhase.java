@@ -30,15 +30,13 @@ public final class VesselGasPhase {
     private static final String KEY = "chem_gas_phase";
     /** 轻气体逸出速率：每个轻气体组分每 tick 最多逸出 0.05mL（约 1mL/s）。 */
     private static final double LEAK_PER_TICK = 0.05;
-    /** 固体体积估算：默认 5g/mL（金属更密、粉末更松，取中间值）。 */
-    private static final double SOLID_G_PER_ML = 5.0;
     /** 空气平均摩尔质量（g/mol），作为“比空气轻”的判据。 */
     private static final double AIR_MOLAR = 28.96;
     /** 未知气体按较重气体处理（排在空气后面才被挤出、不逸出）。 */
     private static final double DEFAULT_MOLAR = 44.0;
 
-    private static final Map<String, Double> MOLAR = Map.ofEntries(
-            Map.entry("hydrogen", 2.02),
+    private static final Map<String, Double> MOLAR = Map.ofEntries(Map.entry("radon",222.0),
+            Map.entry("hydrogen", 2.02),Map.entry("tungsten_hexafluoride",297.830418),Map.entry("phosgene",98.91000000000001),Map.entry("ozone",47.997),Map.entry("dinitrogen_tetroxide",92.01),Map.entry("hydrogen_fluoride",20.006403),Map.entry("hydrogen_bromide",80.91199999999999),Map.entry("hydrogen_iodide",127.91247),Map.entry("boron_trifluoride",67.805209),Map.entry("silane",32.117000000000004),
             Map.entry("helium", 4.00),
             Map.entry("methane", 16.04),
             Map.entry("ammonia", 17.03),
@@ -99,23 +97,13 @@ public final class VesselGasPhase {
         if (!(stack.getItem() instanceof LabVesselItem vessel)) {
             return 0;
         }
-        double liquidMl = 0;
-        double solidMl = 0;
-        for (LabVesselItem.Entry e : LabVesselItem.getContents(stack)) {
-            if (e.type().equals("liquid")) {
-                double d = ChemicalInfoProvider.densityOfLiquid(e.id());
-                liquidMl += e.amount() / (d > 0 ? d : 1.0);
-            } else if (e.type().equals("solid")) {
-                solidMl += e.amount() / SOLID_G_PER_ML;
-            }
-        }
-        return Math.max(0, vessel.capacity() - liquidMl - solidMl);
+        return Math.max(0, vessel.capacity() - LabVesselItem.usedVolume(stack));
     }
 
     /** 当前气相（默认：全空气填满自由容积），只读不持久化。 */
     public static List<Part> read(ItemStack stack) {
         List<Part> parts = mergeDuplicates(stored(stack));
-        if (parts.isEmpty()) {
+        if (parts.isEmpty() && !com.example.chemistry.utility.VacuumState.enabled(stack)) {
             double target = freeVolumeMl(stack);
             if (target > 0.01) {
                 return List.of(new Part(AIR, target));
@@ -127,6 +115,7 @@ public final class VesselGasPhase {
     /** 让气相总量重新等于自由容积：超出部分从最轻的气体开始挤掉，不足用空气补齐。 */
     public static void normalize(ItemStack stack) {
         double target = freeVolumeMl(stack);
+        if(com.example.chemistry.utility.VacuumState.enabled(stack)){write(stack,mergeDuplicates(stored(stack)));return;}
         // 先合并同种气体的重复条目（旧存档/多次补齐可能留下多条 air），
         // 否则补齐时又会追加一条新的 air，显示成“air 200mL, air 50mL”重复行。
         List<Part> parts = mergeDuplicates(stored(stack));
@@ -161,7 +150,7 @@ public final class VesselGasPhase {
             return;
         }
         List<Part> parts = mergeDuplicates(stored(stack));
-        parts = trimLightest(parts, ml);
+        if(!com.example.chemistry.utility.VacuumState.enabled(stack))parts = trimLightest(parts, ml);
         parts = merge(parts, gasId, ml);
         write(stack, parts);
         normalize(stack);
@@ -177,7 +166,7 @@ public final class VesselGasPhase {
         for (Part p : parts) {
             if (p.id().equals(id)) {
                 double left = p.ml() - ml;
-                if (left > 0.01) {
+                if (left > (com.example.chemistry.utility.VacuumState.enabled(stack)?1e-12:.01)) {
                     out.add(new Part(id, left));
                 }
             } else {

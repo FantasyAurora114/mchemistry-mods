@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.AABB;
 
 /**
  * World positions of rubber-tube anchors, shared by the server (spawn points,
@@ -46,7 +47,7 @@ public final class AnchorPositions {
             case Port.KIND_NOZZLE -> nozzleTip(level, anchor);
             default -> {
                 Entity e = level.getEntity(anchor.uuid());
-                yield e != null ? e.position() : null;
+                yield e instanceof GasCollectingBottleEntity bottle ? bottle.nozzleTip() : e != null ? e.position() : null;
             }
         };
     }
@@ -79,6 +80,17 @@ public final class AnchorPositions {
             return new Vec3(pos.getX() + 7.8 / 16.0, pos.getY() + 8.5 / 16.0,
                     pos.getZ() + 7.8 / 16.0);
         }
+        // 集气瓶技术性实体：导管头位置与方块版一致。
+        for (GasCollectingBottleEntity be : level.getEntitiesOfClass(
+                GasCollectingBottleEntity.class, new AABB(pos))) {
+            if (be.hasNozzle()) {
+                return be.isInverted()
+                        ? new Vec3(pos.getX() + 7.8 / 16.0, pos.getY() - 1.4 / 16.0,
+                                pos.getZ() + 7.8 / 16.0)
+                        : new Vec3(pos.getX() + 7.8 / 16.0, pos.getY() + 8.5 / 16.0,
+                                pos.getZ() + 7.8 / 16.0);
+            }
+        }
         if (state.getBlock() instanceof WaterTroughBlock && anchor.face() == Direction.UP
                 && level.getBlockEntity(pos) instanceof WaterTroughBlockEntity be
                 && be.hasBottle()) {
@@ -107,11 +119,36 @@ public final class AnchorPositions {
     /** World position of a glass-tube delivery head on an iron stand (tube or
      *  vessel stopper) or on a vessel placed on the ground. */
     public static Vec3 standHead(Level level, Port anchor) {
+        if(anchor.slot()==3 || anchor.slot()==4) {
+            for(var device:level.getEntitiesOfClass(com.example.chemistry.electrical.ElectroDeviceEntity.class,new AABB(anchor.pos())))
+                if(!device.isPower())return device.outlet(anchor.slot()-3);
+            return null;
+        }
+        BlockPos at=anchor.pos();
+        for(var stand:level.getEntitiesOfClass(IronStandEntity.class,new AABB(at).inflate(.5))){
+            if(!stand.blockPosition().equals(at))continue;
+            var source=stand.findMountedVessel();
+            if(source!=null){
+                ItemStack tube=anchor.slot()==1?source.getAttached1():source.getAttached2();int kind=attachedType(tube);if(kind==0)return null;
+                Vec3 mouth=VesselHeating.mouthWorldPosition(source.geometryOrigin(),VesselHeating.vesselType(source.getVessel()),source.getMountScale(),source.getMountOffX(),source.getMountOffY(),source.getMountOffZ(),source.getMountYaw());
+                double length=kind==8?12:kind==1?4:1.375,dx=kind==1||kind==8?0:-2;
+                double yaw=Math.toRadians(source.getMountYaw()),scale=source.getMountScale()/16.0;
+                return mouth.add(dx*scale*Math.cos(yaw),length*scale,-dx*scale*Math.sin(yaw));
+            }
+            if(stand.hasTube()){
+                ItemStack tube=anchor.slot()==1?stand.getAttached1():stand.getAttached2();int kind=attachedType(tube);if(kind==0)return null;
+                double angle=Math.toRadians(stand.getRotation()*45),len=kind==8?12:kind==1?4:1.375;
+                double x=8.5+.3333*Math.cos(angle)-2.5*Math.sin(angle)-Math.sin(angle)*len;
+                double y=9.5+.3333*Math.sin(angle)+2.5*Math.cos(angle)+Math.cos(angle)*len+stand.clampLift()*16;
+                double yaw=Math.toRadians(-stand.getFacing().toYRot());return stand.position().add((x-8)/16*Math.cos(yaw)+.052*Math.sin(yaw),y/16,-(x-8)/16*Math.sin(yaw)+.052*Math.cos(yaw));
+            }
+        }
         BlockPos standPos = anchor.pos();
         BlockState state = level.getBlockState(standPos);
         int type = 0;
         int holes = 0;
         boolean vesselCase = false;
+        double vesselScale = 1.0;
         double mouthX = 0;
         double mouthY = 0;
         double mouthZ = 0;
@@ -148,19 +185,34 @@ public final class AnchorPositions {
                 mouthY = 9.0;
                 mouthZ = 8.5;
             }
+        } else {
+            for (PlacedVesselEntity be : level.getEntitiesOfClass(PlacedVesselEntity.class,
+                    new AABB(standPos).inflate(3))) {
+                if(!be.geometryOrigin().equals(standPos))continue;
+                ItemStack s = anchor.slot() == 1 ? be.getAttached1() : be.getAttached2();
+                type = attachedType(s);
+                vesselCase = true;
+                holes = VesselHeating.getStopperHoles(be.getVessel());
+                vesselScale = be.getMountScale();
+                // 挂载锥形瓶的导管头要按挂载偏移/缩放算（落地时 scale=1、offset=0）。
+                mouthX = be.getMountOffX() * 16.0 + vesselScale * 8.5;
+                mouthY = be.getMountOffY() * 16.0 + vesselScale * 9.0;
+                mouthZ = be.getMountOffZ() * 16.0 + vesselScale * 8.5;
+                break;
+            }
         }
         if (type == 0) {
             return null;
         }
         if (vesselCase) {
-            double hole = anchor.slot() == 1 ? (holes < 2 ? 0.0 : -0.55) : 0.55;
+            double hole = (anchor.slot() == 1 ? (holes < 2 ? 0.0 : -0.55) : 0.55) * vesselScale;
             double hx = mouthX;
-            double hy = mouthY + 4.0;
-            if (type != 1) {
+            double hy = mouthY + vesselScale * (type==8?12.0:4.0);
+            if (type != 1 && type != 8) {
                 // Right-angle / long tube: the head is the outer arm tip
                 // (arm 2.0 long, lifted 1.375 above the mouth).
-                hx = mouthX - 2.0;
-                hy = mouthY + 1.375;
+                hx = mouthX - vesselScale * 2.0;
+                hy = mouthY + vesselScale * 1.375;
             }
             double hz = mouthZ + hole;
             double lx = hx / 16.0;
@@ -191,9 +243,10 @@ public final class AnchorPositions {
         double hx;
         double hy;
         double hz = mz;
-        if (type == 1) {
-            hx = mx - sin * 4.0;
-            hy = my + cos * 4.0;
+        if (type == 1 || type == 8) {
+            double length=type==8?12.0:4.0;
+            hx = mx - sin * length;
+            hy = my + cos * length;
         } else {
             double dx = sin >= 0 ? -cos : cos;
             double dy = sin >= 0 ? -sin : sin;
@@ -224,6 +277,9 @@ public final class AnchorPositions {
             return 3;
         }
         String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
+        if (path.equals("straight_glass_tube_long")) {
+            return 8;
+        }
         if (path.equals("straight_glass_tube")) {
             return 1;
         }

@@ -1,21 +1,49 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "contents": "mchemistry:block/vessel_contents"
+    "contents": "mchemistry:block/lab_water",
+    "water_body": "mchemistry:block/lab_water_body"
   },
   "elements": [
     {
-      "from": [7.7, 1.2, 7.7],
-      "to": [8.3, 11.0, 8.3],
+      "from": [
+        7.7,
+        1.2,
+        7.7
+      ],
+      "to": [
+        8.3,
+        11.0,
+        8.3
+      ],
       "shade": false,
       "faces": {
-        "north": {"texture": "contents", "tintindex": 0},
-        "south": {"texture": "contents", "tintindex": 0},
-        "east": {"texture": "contents", "tintindex": 0},
-        "west": {"texture": "contents", "tintindex": 0},
-        "up": {"texture": "contents", "tintindex": 0},
-        "down": {"texture": "contents", "tintindex": 0}
+        "north": {
+          "texture": "#water_body",
+          "tintindex": 0
+        },
+        "south": {
+          "texture": "#water_body",
+          "tintindex": 0
+        },
+        "east": {
+          "texture": "#water_body",
+          "tintindex": 0
+        },
+        "west": {
+          "texture": "#water_body",
+          "tintindex": 0
+        },
+        "up": {
+          "texture": "#contents",
+          "tintindex": 0
+        },
+        "down": {
+          "texture": "#water_body",
+          "tintindex": 0
+        }
       }
     }
-  ]
+  ],
+  "render_type": "mchemistry:lab_glass"
 }

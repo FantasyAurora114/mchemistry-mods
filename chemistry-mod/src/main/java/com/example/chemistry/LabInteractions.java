@@ -8,7 +8,6 @@ import com.example.chemistry.block.GasCollectingBottleBlock;
 import com.example.chemistry.blockentity.GasCollectingBottleBlockEntity;
 import com.example.chemistry.blockentity.PlacedGraduatedCylinderBlockEntity;
 import com.example.chemistry.blockentity.IronStandBlockEntity;
-import com.example.chemistry.blockentity.PlacedTestTubeBlockEntity;
 import com.example.chemistry.item.CombustionSpoonItem;
 import com.example.chemistry.item.DropperHelper;
 import com.example.chemistry.item.DropperItem;
@@ -73,6 +72,8 @@ public class LabInteractions {
         Player player = event.getEntity();
         ItemStack main = event.getItemStack();
         ItemStack off = player.getOffhandItem();
+        if(com.example.chemistry.transfer.BottleQuantities.refill(main,off)){event.setCancellationResult(InteractionResult.SUCCESS);return;}
+        if(GlassRodSampling.test(player,main,off)){event.setCancellationResult(InteractionResult.SUCCESS);return;}
 
         // 点燃手持玻璃导管喷出的气体（副手玻璃导管 + 主手打火石等）。
         if (GlassTubeIgnition.tryIgnite(player.level(), player)) {
@@ -112,7 +113,10 @@ public class LabInteractions {
                     }
                     player.displayClientMessage(
                             Component.translatable("mchemistry.gas.co2_extinguish"), true);
-                    player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.SPLINT.get()));
+                    var extinguished=new ItemStack(ModItems.SPLINT.get());
+                    main.shrink(1);
+                    if(main.isEmpty())player.setItemInHand(InteractionHand.MAIN_HAND,extinguished);
+                    else if(!player.getInventory().add(extinguished))player.drop(extinguished,false);
                     event.setCancellationResult(InteractionResult.SUCCESS);
                     return;
                 }
@@ -147,6 +151,17 @@ public class LabInteractions {
             }
         }
 
+        if (main.getItem() instanceof com.example.chemistry.organic.PhasePipetteItem
+                && off.getItem() instanceof LabVesselItem) {
+            com.example.chemistry.organic.PhasePipetteItem.interact(player,main,off);
+            event.setCanceled(true);event.setCancellationResult(InteractionResult.SUCCESS);return;
+        }
+        if (off.getItem() instanceof com.example.chemistry.organic.PhasePipetteItem
+                && main.getItem() instanceof LabVesselItem) {
+            com.example.chemistry.organic.PhasePipetteItem.interact(player,off,main);
+            event.setCanceled(true);event.setCancellationResult(InteractionResult.SUCCESS);return;
+        }
+
         // The vessel can be held in either hand: if the main hand is a vessel
         // and the offhand is a transfer tool / bottle, swap the roles.
         if (!(off.getItem() instanceof LabVesselItem)
@@ -164,24 +179,6 @@ public class LabInteractions {
             return;
         }
 
-        // 副手玻璃导管 + 主手湿橡胶管 → 合成“套着橡胶管的玻璃导管”。
-        if (off.getItem() instanceof GlassTubeItem && main.getItem() instanceof RubberTubeItem) {
-            if (RubberTubeItem.isWet(main)) {
-                RubberTubeItem.discardTempTube(player.level(), main);
-                player.setItemInHand(InteractionHand.MAIN_HAND,
-                        new ItemStack(ModItems.tubedVariantFor(off)));
-                off.shrink(1);
-                player.displayClientMessage(
-                        Component.translatable("mchemistry.rubber_tube.tubed"), true);
-                event.setCancellationResult(InteractionResult.SUCCESS);
-            } else {
-                player.displayClientMessage(
-                        Component.translatable("mchemistry.rubber_tube.need_wet"), true);
-                event.setCancellationResult(InteractionResult.FAIL);
-            }
-            return;
-        }
-
         // 用温度计右键副手反应容器：读出当前温度。
         if (main.is(ModItems.THERMOMETER.get()) && off.getItem() instanceof LabVesselItem) {
             player.displayClientMessage(
@@ -193,7 +190,7 @@ public class LabInteractions {
 
         // 玻璃棒搅拌副手反应容器。
         if (main.is(ModItems.GLASS_ROD.get()) && off.getItem() instanceof LabVesselItem) {
-            stir(player, off);
+            if(player.isShiftKeyDown())GlassRodSampling.dip(player,main,off);else stir(player, off);
             event.setCancellationResult(InteractionResult.SUCCESS);
             return;
         }
@@ -201,7 +198,8 @@ public class LabInteractions {
         // 主手细口瓶 + 副手量筒：倒 5mL 液体进量筒。
         String bottleLiquid = liquidIdOf(main);
         if (bottleLiquid != null && off.is(ModItems.GRADUATED_CYLINDER.get())) {
-            GraduatedCylinderItem.add(off, bottleLiquid, 5);
+            int amount=Math.min(Math.min(5,BottleCodes.volumeOf(main)),(int)Math.floor(GraduatedCylinderItem.CAPACITY-GraduatedCylinderItem.getMl(off)));
+            if(amount>0){int accepted=(int)GraduatedCylinderItem.add(off,bottleLiquid,amount);BottleCodes.setVolume(main,BottleCodes.volumeOf(main)-accepted);}
             player.displayClientMessage(
                     Component.translatable("mchemistry.cylinder.pour5"), true);
             event.setCancellationResult(InteractionResult.SUCCESS);
@@ -297,7 +295,7 @@ public class LabInteractions {
                     event.setCancellationResult(InteractionResult.FAIL);
                     return;
                 }
-                if (LabVesselItem.addSolid(off, SolidToolItem.getHeldSolid(main))) {
+                if (com.example.chemistry.transfer.BottleQuantities.putTool(main,off)) {
                     SolidToolItem.clear(main);
                     ReactionEngine.checkAndStart(off, player);
                     event.setCancellationResult(InteractionResult.SUCCESS);
@@ -309,14 +307,14 @@ public class LabInteractions {
                 return;
             }
             if (main.getItem() instanceof DropperItem && !DropperHelper.isEmpty(main)) {
+                event.setCanceled(true);
                 if (sealed) {
                     event.getEntity().displayClientMessage(
                             Component.translatable("mchemistry.vessel.sealed"), true);
                     event.setCancellationResult(InteractionResult.FAIL);
                     return;
                 }
-                if (LabVesselItem.addLiquid(off, DropperHelper.getLiquid(main), 5)) {
-                    DropperHelper.setMl(main, DropperHelper.getMl(main) - 5);
+                if (DropperHelper.pour(main,off,player.isShiftKeyDown())) {
                     ReactionEngine.checkAndStart(off, player);
                     event.setCancellationResult(InteractionResult.SUCCESS);
                 } else {
@@ -334,7 +332,7 @@ public class LabInteractions {
                     event.setCancellationResult(InteractionResult.FAIL);
                     return;
                 }
-                if (LabVesselItem.addLiquid(off, liquidId, 25)) {
+                if (com.example.chemistry.transfer.BottleQuantities.pour(main,off,25)) {
                     ReactionEngine.checkAndStart(off, player);
                     event.setCancellationResult(InteractionResult.SUCCESS);
                 } else {
@@ -354,7 +352,7 @@ public class LabInteractions {
                     .map(s -> s.form() == Solids.SolidForm.LUMP)
                     .findFirst().orElse(false);
             if (tool.holdsLumps() == lumps) {
-                SolidToolItem.pickUp(main, solidId);
+                com.example.chemistry.transfer.BottleQuantities.takeSolid(off,main);
                 event.setCancellationResult(InteractionResult.SUCCESS);
             } else {
                 event.setCancellationResult(InteractionResult.FAIL);
@@ -411,7 +409,10 @@ public class LabInteractions {
             boolean lamp = clicked.is(ModBlocks.ALCOHOL_LAMP.get())
                     && clicked.getValue(AlcoholLampBlock.LIT);
             if (fire || lamp) {
-                player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.GLOWING_SPLINT.get()));
+                var lit=new ItemStack(ModItems.GLOWING_SPLINT.get());
+                main.shrink(1);
+                if(main.isEmpty())player.setItemInHand(InteractionHand.MAIN_HAND,lit);
+                else if(!player.getInventory().add(lit))player.drop(lit,false);
                 event.getLevel().playSound(null, event.getPos(), SoundEvents.FLINTANDSTEEL_USE,
                         SoundSource.BLOCKS, 1.0F, 1.0F);
                 event.setCanceled(true);
@@ -480,32 +481,19 @@ public class LabInteractions {
             return;
         }
         BlockEntity be = event.getLevel().getBlockEntity(event.getPos());
-        ItemStack placedTube = null;
-        if (be instanceof PlacedTestTubeBlockEntity pbe) {
-            placedTube = pbe.getTube();
-        } else if (be instanceof IronStandBlockEntity ibe) {
-            placedTube = ibe.getTube();
-        }
-        // 敞口集气瓶右键放下的/铁架台上的试管：倒一部分气体进去。
+        ItemStack placedTube = be instanceof IronStandBlockEntity ibe ? ibe.getTube() : null;
+        // 敞口集气瓶右键铁架台上的试管：倒一部分气体进去。
         if (placedTube != null && !placedTube.isEmpty() && openGasIdOf(main) != null) {
             pourGas(main, placedTube, player);
-            if (be instanceof PlacedTestTubeBlockEntity pbe) {
-                pbe.setTube(placedTube);
-            } else {
-                ((IronStandBlockEntity) be).setTube(placedTube);
-            }
+            ((IronStandBlockEntity) be).setTube(placedTube);
             event.setCanceled(true);
             event.setCancellationResult(InteractionResult.SUCCESS);
             return;
         }
-        // Right-click a placed test tube with a medicine tool to fill it.
+        // Right-click the iron-stand tube with a medicine tool to fill it.
         if (placedTube != null && !placedTube.isEmpty() && isMedicineTool(main)) {
             if (tryFill(placedTube, main, player)) {
-                if (be instanceof PlacedTestTubeBlockEntity pbe) {
-                    pbe.setTube(placedTube);
-                } else {
-                    ((IronStandBlockEntity) be).setTube(placedTube);
-                }
+                ((IronStandBlockEntity) be).setTube(placedTube);
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
             } else {
@@ -582,14 +570,15 @@ public class LabInteractions {
      *  kick the reaction engine. Shared by held-vessel transfers (above) and
      *  placed vessels on the iron stand / tripod. */
     public static boolean addToVessel(ItemStack main, ItemStack vessel, Player player) {
+        if(main.getItem() instanceof com.example.chemistry.organic.PhasePipetteItem)return com.example.chemistry.organic.PhasePipetteItem.interact(player,main,vessel);
         if (!(vessel.getItem() instanceof LabVesselItem)) {
             return false;
         }
         if (main.getItem() instanceof SolidToolItem && !SolidToolItem.isEmpty(main)) {
-            if (LabVesselItem.addSolid(vessel, SolidToolItem.getHeldSolid(main))) {
+            if (com.example.chemistry.transfer.BottleQuantities.putTool(main,vessel)) {
                 SolidToolItem.clear(main);
                 if (!ReactionEngine.checkAndStart(vessel, player)) {
-                    player.displayClientMessage(Component.translatable("mchemistry.no_reaction"), true);
+                    ExperimentFeedback.send(player,Component.translatable("mchemistry.no_reaction"));
                 }
                 return true;
             }
@@ -602,7 +591,7 @@ public class LabInteractions {
             if (LabVesselItem.addSolid(vessel, looseId)) {
                 main.shrink(1);
                 if (!ReactionEngine.checkAndStart(vessel, player)) {
-                    player.displayClientMessage(Component.translatable("mchemistry.no_reaction"), true);
+                    ExperimentFeedback.send(player,Component.translatable("mchemistry.no_reaction"));
                 }
                 return true;
             }
@@ -610,10 +599,9 @@ public class LabInteractions {
             return false;
         }
         if (main.getItem() instanceof DropperItem && !DropperHelper.isEmpty(main)) {
-            if (LabVesselItem.addLiquid(vessel, DropperHelper.getLiquid(main), 5)) {
-                DropperHelper.setMl(main, DropperHelper.getMl(main) - 5);
+            if (DropperHelper.pour(main,vessel,player.isShiftKeyDown())) {
                 if (!ReactionEngine.checkAndStart(vessel, player)) {
-                    player.displayClientMessage(Component.translatable("mchemistry.no_reaction"), true);
+                    ExperimentFeedback.send(player,Component.translatable("mchemistry.no_reaction"));
                 }
                 return true;
             }
@@ -622,9 +610,9 @@ public class LabInteractions {
         }
         String liquidId = liquidIdOf(main);
         if (liquidId != null) {
-            if (LabVesselItem.addLiquid(vessel, liquidId, 25)) {
+            if (com.example.chemistry.transfer.BottleQuantities.pour(main,vessel,25)) {
                 if (!ReactionEngine.checkAndStart(vessel, player)) {
-                    player.displayClientMessage(Component.translatable("mchemistry.no_reaction"), true);
+                    ExperimentFeedback.send(player,Component.translatable("mchemistry.no_reaction"));
                 }
                 return true;
             }
@@ -636,6 +624,7 @@ public class LabInteractions {
 
     /** Whether the held item is a transfer tool / dropper / liquid bottle. */
     public static boolean isTransferTool(ItemStack main) {
+        if(main.getItem() instanceof com.example.chemistry.organic.PhasePipetteItem)return true;
         if (openGasIdOf(main) != null) {
             return true;
         }
@@ -671,6 +660,7 @@ public class LabInteractions {
         if (!(vessel.getItem() instanceof LabVesselItem)) {
             return false;
         }
+        if(main.getItem() instanceof com.example.chemistry.organic.PhasePipetteItem)return com.example.chemistry.organic.PhasePipetteItem.interact(player,main,vessel);
         // 烧杯右键敞口放置容器：把烧杯里的液体倒进去。
         if (isBeaker(main)) {
             pourBeaker(main, vessel, player);
@@ -678,7 +668,7 @@ public class LabInteractions {
         }
         // 玻璃棒右键敞口放置容器：搅拌。
         if (main.is(ModItems.GLASS_ROD.get())) {
-            stir(player, vessel);
+            if(player.isShiftKeyDown())GlassRodSampling.dip(player,main,vessel);else stir(player, vessel);
             return true;
         }
         // 用温度计右键敞口容器：直接读出当前温度（密封容器在方块处理器里
@@ -704,8 +694,7 @@ public class LabInteractions {
                 || (!attached2.isEmpty() && attached2.is(ModItems.LONG_STEM_FUNNEL.get()));
         if (main.getItem() instanceof DropperItem && !DropperHelper.isEmpty(main)) {
             if (hasDropper) {
-                if (LabVesselItem.addLiquid(vessel, DropperHelper.getLiquid(main), 5)) {
-                    DropperHelper.setMl(main, DropperHelper.getMl(main) - 5);
+                if (DropperHelper.pour(main,vessel,player.isShiftKeyDown())) {
                     ReactionEngine.checkAndStart(vessel, player);
                 }
                 return true;
@@ -716,7 +705,7 @@ public class LabInteractions {
         String liquidId = liquidIdOf(main);
         if (liquidId != null) {
             if (hasFunnel) {
-                if (LabVesselItem.addLiquid(vessel, liquidId, 25)) {
+                if (com.example.chemistry.transfer.BottleQuantities.pour(main,vessel,25)) {
                     ReactionEngine.checkAndStart(vessel, player);
                 }
                 return true;
@@ -755,6 +744,7 @@ public class LabInteractions {
     }
 
     private static boolean isMedicineTool(ItemStack main) {
+        if(main.getItem() instanceof com.example.chemistry.organic.PhasePipetteItem)return true;
         if (main.getItem() instanceof SolidToolItem tool) {
             return !SolidToolItem.isEmpty(main);
         }
@@ -766,8 +756,9 @@ public class LabInteractions {
 
     /** Fills a held/placed tube with the main-hand medicine tool. */
     private static boolean tryFill(ItemStack tube, ItemStack main, Player player) {
+        if(main.getItem() instanceof com.example.chemistry.organic.PhasePipetteItem)return com.example.chemistry.organic.PhasePipetteItem.interact(player,main,tube);
         if (main.getItem() instanceof SolidToolItem tool && !SolidToolItem.isEmpty(main)) {
-            if (LabVesselItem.addSolid(tube, SolidToolItem.getHeldSolid(main))) {
+            if (com.example.chemistry.transfer.BottleQuantities.putTool(main,tube)) {
                 SolidToolItem.clear(main);
                 ReactionEngine.checkAndStart(tube, player);
                 return true;
@@ -775,15 +766,14 @@ public class LabInteractions {
             return false;
         }
         if (main.getItem() instanceof DropperItem && !DropperHelper.isEmpty(main)) {
-            if (LabVesselItem.addLiquid(tube, DropperHelper.getLiquid(main), 5)) {
-                DropperHelper.setMl(main, DropperHelper.getMl(main) - 5);
+            if (DropperHelper.pour(main,tube,player.isShiftKeyDown())) {
                 ReactionEngine.checkAndStart(tube, player);
                 return true;
             }
             return false;
         }
         String liquidId = liquidIdOf(main);
-        if (liquidId != null && LabVesselItem.addLiquid(tube, liquidId, 25)) {
+        if (liquidId != null && com.example.chemistry.transfer.BottleQuantities.pour(main,tube,25)) {
             ReactionEngine.checkAndStart(tube, player);
             return true;
         }
@@ -828,6 +818,7 @@ public class LabInteractions {
         data.putLong("chem_last_stir", now);
         player.displayClientMessage(
                 Component.translatable("mchemistry.stir"), true);
+        PhaseSystem.dissolveAndCrystallize(vessel,true);
         ReactionEngine.checkAndStart(vessel, player);
         ReactionEngine.tick(vessel, player);
     }
@@ -843,25 +834,15 @@ public class LabInteractions {
 
     /** 烧杯里的液体倒入目标容器（倒空烧杯）。 */
     private static void pourBeaker(ItemStack beaker, ItemStack target, Player player) {
-        for (LabVesselItem.Entry e : LabVesselItem.getContents(beaker)) {
-            if (e.type().equals("liquid")) {
-                double density = com.example.chemistry.data.ChemicalInfoProvider
-                        .densityOfLiquid(e.id());
-                int ml = (int) Math.round(e.amount() / (density > 0 ? density : 1.0));
-                if (LabVesselItem.addLiquid(target, e.id(), ml)) {
-                    LabVesselItem.consumeMass(beaker, "liquid", e.id(), e.amount());
-                    player.displayClientMessage(
-                            Component.translatable("mchemistry.cylinder.pour_all"), true);
-                    ReactionEngine.checkAndStart(target, player);
-                } else {
-                    player.displayClientMessage(
-                            Component.translatable("mchemistry.vessel.full"), true);
-                }
-                return;
-            }
+        if (LabVesselItem.transferLiquids(beaker, target)) {
+            player.displayClientMessage(Component.translatable("mchemistry.cylinder.pour_all"), true);
+            ReactionEngine.checkAndStart(target, player);
+        } else {
+            boolean hasLiquid = LabVesselItem.getContents(beaker).stream()
+                    .anyMatch(e -> e.type().equals("liquid") && e.amount() > 0);
+            player.displayClientMessage(Component.translatable(hasLiquid
+                    ? "mchemistry.vessel.full" : "mchemistry.beaker.empty"), true);
         }
-        player.displayClientMessage(
-                Component.translatable("mchemistry.beaker.empty"), true);
     }
 
     /** 玻璃塞连接（直接逐个塞满 3 个瓶口后密封，无需磨口）。 */

@@ -1,6 +1,1 @@
-{
-  "model": {
-    "type": "minecraft:model",
-    "model": "mchemistry:item/test_tube_clamp"
-  }
-}
+{"model": {"type": "minecraft:model", "model": "mchemistry:item/test_tube_clamp"}}

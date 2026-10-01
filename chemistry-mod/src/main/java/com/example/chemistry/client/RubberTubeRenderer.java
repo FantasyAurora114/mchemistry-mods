@@ -8,6 +8,8 @@ import com.example.chemistry.block.WaterTroughBlock;
 import com.example.chemistry.blockentity.WaterTroughBlockEntity;
 import com.example.chemistry.blockentity.IronStandBlockEntity;
 import com.example.chemistry.entity.AnchorPositions;
+import com.example.chemistry.entity.GasCollectingBottleEntity;
+import com.example.chemistry.entity.PlacedVesselEntity;
 import com.example.chemistry.item.DropperItem;
 import com.example.chemistry.registry.ModBlocks;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -32,20 +34,14 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Draws a rubber tube as a sagging quadratic curve between its two anchors.
+ * Draws a rubber tube as an octagonal hose following a cubic curve between its two anchors.
  * Block anchors stay fixed; entity anchors are re-resolved every frame, so the
  * tube follows mobs/players and droops naturally between them.
  */
 public class RubberTubeRenderer extends EntityRenderer<RubberTubeEntity, RubberTubeRenderState> {
 
-    private static final float TUBE_WIDTH = 1.0F / 16.0F; // 1 pixel
-    private static final int SEGMENTS = 12;
-
-    private final BlockRenderDispatcher blockRenderer;
-
     public RubberTubeRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.blockRenderer = context.getBlockRenderDispatcher();
     }
 
     @Override
@@ -69,6 +65,27 @@ public class RubberTubeRenderer extends EntityRenderer<RubberTubeEntity, RubberT
         rs.sleeveB = hasSleeve(entity.getAnchorB());
         rs.axisA = rs.sleeveA ? standAxis(level, entity.getAnchorA()) : null;
         rs.axisB = rs.sleeveB ? standAxis(level, entity.getAnchorB()) : null;
+        rs.supply = entity.supplyLine();
+        if (!rs.validA || !rs.validB) { rs.curve = java.util.List.of(); return; }
+        Vec3 axisA = applianceAxis(level, entity.getAnchorA(), rs.axisA);
+        Vec3 axisB = applianceAxis(level, entity.getAnchorB(), rs.axisB);
+        Vec3 delta = rs.b.subtract(rs.a); double length = delta.length();
+        Vec3 dir = delta.normalize(); double k = Math.max(.15, Math.min(.9, length * .25));
+        double sag = Math.min(.65, length * .12);
+        Vec3 p1 = rs.a.add((axisA == null ? dir : axisA).scale(k)).subtract(0, sag, 0);
+        Vec3 p2 = rs.b.add((axisB == null ? dir.scale(-1) : axisB).scale(k)).subtract(0, sag, 0);
+        java.util.List<Vec3> curve = new java.util.ArrayList<>();
+        for (int i = 0; i <= 32; i++) {
+            double t = i / 32.0; Vec3 point = bezierCubic(rs.a, p1, p2, rs.b, t);
+            Vec3 upper = rs.a.lerp(rs.b, t).add(0, .02, 0);
+            if (point.y < upper.y && i > 1 && i < 31) {
+                var hit = level.clip(new net.minecraft.world.level.ClipContext(upper, point.subtract(0, .045, 0),
+                        net.minecraft.world.level.ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, entity));
+                if (hit.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK) point = new Vec3(point.x, Math.max(point.y, hit.getLocation().y + .045), point.z);
+            }
+            curve.add(point);
+        }
+        rs.curve = java.util.List.copyOf(curve);
     }
 
     @Override
@@ -77,55 +94,44 @@ public class RubberTubeRenderer extends EntityRenderer<RubberTubeEntity, RubberT
         if (!rs.validA || !rs.validB) {
             return;
         }
-        Vec3 delta = rs.b.subtract(rs.a);
-        double len = delta.length();
-        if (len < 1.0e-4) {
-            return;
-        }
+        if (rs.curve.size() < 2) return;
+        var texture = net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("mchemistry",
+                rs.supply ? "textures/block/gas_supply_tube.png" : "textures/block/rubber_tube_side.png");
+        double radius = rs.supply ? .035 : .027;
         Vec3 origin = new Vec3(rs.x, rs.y, rs.z);
-        BlockStateModel model = blockRenderer.getBlockModel(
-                ModBlocks.RUBBER_TUBE_LINK.get().defaultBlockState());
-        Vec3 dir = delta.scale(1.0 / len);
-
-        // The tube leaves each glass-tube head / nozzle along that tube's axis.
-        Vec3 axisA = rs.axisA != null ? rs.axisA : dir;
-        Vec3 axisB = rs.axisB != null ? rs.axisB : dir.scale(-1.0);
-        Vec3 a = rs.a;
-        Vec3 b = rs.b;
-
-        // Cubic bezier: leaves each head along the glass-tube axis, sags in the middle.
-        Vec3 delta2 = b.subtract(a);
-        double len2 = delta2.length();
-        if (len2 < 1.0e-4) {
-            return;
-        }
-        double k = Math.max(0.35, Math.min(1.5, len2 * 0.4));
-        double sag = Math.min(1.8, len2 * 0.2);
-        Vec3 p1 = a.add(axisA.scale(k)).subtract(0, sag, 0);
-        Vec3 p2 = b.add(axisB.scale(k)).subtract(0, sag, 0);
-
-        for (int i = 0; i < SEGMENTS; i++) {
-            double t0 = (double) i / SEGMENTS;
-            double t1 = (double) (i + 1) / SEGMENTS;
-            Vec3 s = bezierCubic(a, p1, p2, b, t0);
-            Vec3 e = bezierCubic(a, p1, p2, b, t1);
-            Vec3 d = e.subtract(s);
-            double l = d.length();
-            if (l < 1.0e-5) {
-                continue;
+        collector.submitCustomGeometry(poseStack, RenderType.entityCutoutNoCull(texture), (pose, out) -> {
+            for (int i = 0; i < rs.curve.size() - 1; i++) {
+                Vec3 a = rs.curve.get(i), b = rs.curve.get(i + 1);
+                Vec3 tangent = b.subtract(a).normalize();
+                Vec3 normal = tangent.cross(new Vec3(0, 1, 0));
+                if (normal.lengthSqr() < 1e-6) normal = new Vec3(1, 0, 0);
+                normal = normal.normalize();
+                Vec3 side = tangent.cross(normal).normalize();
+                for (int j = 0; j < 8; j++) {
+                    double angle0 = j * Math.PI / 4, angle1 = (j + 1) * Math.PI / 4;
+                    Vec3 n0 = normal.scale(Math.cos(angle0)).add(side.scale(Math.sin(angle0)));
+                    Vec3 n1 = normal.scale(Math.cos(angle1)).add(side.scale(Math.sin(angle1)));
+                    Vec3[] positions = {a.add(n0.scale(radius)), a.add(n1.scale(radius)),
+                            b.add(n1.scale(radius)), b.add(n0.scale(radius))};
+                    Vec3[] normals = {n0, n1, n1, n0};
+                    for (int v = 0; v < 4; v++) {
+                        Vec3 point = positions[v].subtract(origin), n = normals[v];
+                        out.addVertex(pose, (float) point.x, (float) point.y, (float) point.z)
+                                .setColor(255, 255, 255, 255).setUv(v == 0 || v == 3 ? j / 8f : (j + 1) / 8f, v < 2 ? 0 : 1)
+                                .setOverlay(OverlayTexture.NO_OVERLAY).setLight(rs.lightCoords)
+                                .setNormal(pose, (float) n.x, (float) n.y, (float) n.z);
+                    }
+                }
             }
-            poseStack.pushPose();
-            poseStack.translate((float) (s.x - origin.x), (float) (s.y - origin.y), (float) (s.z - origin.z));
-            double ndx = d.x / l;
-            double ndy = d.y / l;
-            double ndz = d.z / l;
-            poseStack.mulPose(Axis.YP.rotationDegrees((float) Math.toDegrees(Math.atan2(ndx, ndz))));
-            poseStack.mulPose(Axis.XP.rotationDegrees((float) Math.toDegrees(Math.acos(Math.max(-1.0, Math.min(1.0, ndy))))));
-            poseStack.scale(TUBE_WIDTH, (float) l, TUBE_WIDTH);
-            collector.submitBlockModel(poseStack, RenderType.cutout(), model,
-                    1.0F, 1.0F, 1.0F, rs.lightCoords, OverlayTexture.NO_OVERLAY, 0);
-            poseStack.popPose();
+        });
+    }
+
+    private static Vec3 applianceAxis(Level level, Port port, Vec3 fallback) {
+        if (port != null && port.kind() == Port.KIND_BLOCK && port.pos() != null) {
+            var be = com.example.chemistry.block.GasApplianceBlock.device(level, port.pos());
+            if (be != null) { double angle = Math.toRadians(be.rotation()); return new Vec3(Math.cos(angle), 0, -Math.sin(angle)); }
         }
+        return fallback;
     }
 
     private static boolean hasSleeve(RubberTubeEntity.Port anchor) {
@@ -155,7 +161,7 @@ public class RubberTubeRenderer extends EntityRenderer<RubberTubeEntity, RubberT
             double sin = Math.sin(angle);
             double ax;
             double ay;
-            if (type == 1) {
+            if (type == 1 || type == 8) {
                 ax = -sin;
                 ay = cos;
             } else {
@@ -172,8 +178,16 @@ public class RubberTubeRenderer extends EntityRenderer<RubberTubeEntity, RubberT
         if (state.is(ModBlocks.PLACED_VESSEL.get())) {
             return new Vec3(0, 1, 0);
         }
+        for (PlacedVesselEntity e : level.getEntitiesOfClass(PlacedVesselEntity.class,
+                new AABB(pos))) {
+            return new Vec3(0, 1, 0);
+        }
         if (state.is(ModBlocks.GAS_COLLECTING_BOTTLE.get())) {
             return new Vec3(0, state.getValue(GasCollectingBottleBlock.INVERTED) ? -1 : 1, 0);
+        }
+        for (GasCollectingBottleEntity e : level.getEntitiesOfClass(GasCollectingBottleEntity.class,
+                new AABB(pos))) {
+            return new Vec3(0, e.isInverted() ? -1 : 1, 0);
         }
         if (state.getBlock() instanceof WaterTroughBlock && anchor.face() != null) {
             if (anchor.face() == Direction.UP
@@ -206,6 +220,7 @@ public class RubberTubeRenderer extends EntityRenderer<RubberTubeEntity, RubberT
         if (e == null) {
             return fallback;
         }
+        if (e instanceof GasCollectingBottleEntity bottle) return bottle.nozzleTip();
         return e.getPosition(partialTick).add(0, e.getEyeHeight() * 0.7, 0);
     }
 
@@ -217,6 +232,9 @@ public class RubberTubeRenderer extends EntityRenderer<RubberTubeEntity, RubberT
             return 3;
         }
         String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
+        if (path.equals("straight_glass_tube_long")) {
+            return 8;
+        }
         if (path.equals("straight_glass_tube")) {
             return 1;
         }
@@ -229,7 +247,7 @@ public class RubberTubeRenderer extends EntityRenderer<RubberTubeEntity, RubberT
         return 0;
     }
 
-    /** 1 = flask, 2 = erlenmeyer, 3 = crucible, 4 = evaporating dish. */
+    /** Smooth centerline with independent outlet directions at both ends. */
     private static Vec3 bezierCubic(Vec3 p0, Vec3 p1, Vec3 p2, Vec3 p3, double t) {
         double u = 1.0 - t;
         return p0.scale(u * u * u)

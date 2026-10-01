@@ -1,6 +1,7 @@
 package com.example.chemistry.client;
 
 import com.example.chemistry.ChemistryMod;
+import com.example.chemistry.DistillationAssembly;
 import com.example.chemistry.StandPorts;
 import com.example.chemistry.VesselHeating;
 import com.example.chemistry.block.WaterTroughBlock;
@@ -10,6 +11,12 @@ import com.example.chemistry.blockentity.MagneticStirrerBlockEntity;
 import com.example.chemistry.blockentity.PlacedVesselBlockEntity;
 import com.example.chemistry.blockentity.TripodBlockEntity;
 import com.example.chemistry.blockentity.WaterTroughBlockEntity;
+import com.example.chemistry.entity.GraduatedCylinderEntity;
+import com.example.chemistry.entity.GasCollectingBottleEntity;
+import com.example.chemistry.entity.DistillationPartEntity;
+import com.example.chemistry.entity.IronStandEntity;
+import com.example.chemistry.entity.MagneticStirrerEntity;
+import com.example.chemistry.entity.PlacedVesselEntity;
 import com.example.chemistry.registry.ModBlocks;
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -96,6 +103,64 @@ public final class PortBoxOverlay {
                 }
             }
         }
+        // 技术性实体（磁力搅拌机 / 量筒）：方块循环扫不到，单独画命中框。
+        for (net.minecraft.world.entity.Entity e : mc.level.entitiesForRendering()) {
+            if(e instanceof com.example.chemistry.electrical.ElectroDeviceEntity device) {
+                for(int port=0;port<(device.isPower()?4:2);port++) {
+                    boolean used=com.example.chemistry.electrical.ElectricConnections.occupied(device,port);
+                    draw(poseStack,buffer,box(device.terminal(port),(device.isPower()?.045:.10)*com.example.chemistry.electrical.ElectroDeviceEntity.MODEL_SCALE),used?1F:.25F,used?.2F:1F,.2F,.85F);
+                }
+                if(!device.isPower())for(int side=0;side<2;side++)draw(poseStack,buffer,box(device.outlet(side),.18*com.example.chemistry.electrical.ElectroDeviceEntity.MODEL_SCALE),.25F,.7F,1F,.85F);
+            } else if (e instanceof IronStandEntity stand) {
+                drawAssemblyPort(poseStack, buffer, DistillationAssembly.mouth(stand),
+                        DistillationAssembly.part(stand, DistillationPartEntity.HEAD) != null);
+                if (DistillationAssembly.part(stand, DistillationPartEntity.HEAD) != null) {
+                    drawAssemblyPort(poseStack, buffer, DistillationAssembly.headArm(stand),
+                            DistillationAssembly.part(stand, DistillationPartEntity.CONDENSER) != null);
+                    drawAssemblyPort(poseStack, buffer, DistillationAssembly.headTop(stand),
+                            DistillationAssembly.part(stand, DistillationPartEntity.THERMOMETER) != null
+                                    || com.example.chemistry.ThermometerSleeves.occupied(DistillationAssembly.part(stand, DistillationPartEntity.HEAD),0));
+                }
+                if (DistillationAssembly.part(stand, DistillationPartEntity.CONDENSER) != null) {
+                    drawAssemblyPort(poseStack, buffer, DistillationAssembly.condenserEnd(stand),
+                            DistillationAssembly.adapter(stand) != null);
+                }
+                if (DistillationAssembly.adapter(stand) != null) {
+                    drawAssemblyPort(poseStack, buffer, DistillationAssembly.adapterOutlet(stand),
+                            DistillationAssembly.receiver(stand) != null
+                                    || com.example.chemistry.ThermometerSleeves.occupied(DistillationAssembly.adapter(stand),0));
+                }
+            } else if (e instanceof com.example.chemistry.entity.ThermometerSleeveEntity sleeve) {
+                draw(poseStack, buffer, sleeve.virtualHitbox(), sleeve.thermometer().isEmpty()?0.25F:1F,
+                        sleeve.thermometer().isEmpty()?1F:0.2F, 0.2F, 0.85F);
+            } else if (e instanceof MagneticStirrerEntity stirrer) {
+                draw(poseStack, buffer, stirrer.virtualHitbox(),
+                        stirrer.getFlask().isEmpty() ? 0.25F : 1.0F,
+                        stirrer.getFlask().isEmpty() ? 1.0F : 0.2F, 0.2F, 0.85F);
+                if (!stirrer.getFlask().isEmpty()) {
+                    double off = (8.5 - 8.5 * 0.5) / 16.0;
+                    drawGeneric(poseStack, buffer, stirrer.blockPosition(), stirrer.getFlask(),
+                            0.5, off, 5.8 / 16.0, off, 0.0, ItemStack.EMPTY, ItemStack.EMPTY);
+                }
+            } else if (e instanceof GraduatedCylinderEntity cyl) {
+                draw(poseStack, buffer, cyl.virtualHitbox(), 0.25F, 1.0F, 0.2F, 0.85F);
+            } else if (e instanceof PlacedVesselEntity vessel) {
+                draw(poseStack, buffer, vessel.virtualHitbox(), 0.25F, 1.0F, 0.2F, 0.85F);
+                if (!vessel.isReceiver() && !vessel.getVessel().isEmpty()) {
+                    ItemStack visualVessel = vessel.getVessel().copy();
+                    for(var sleeve:com.example.chemistry.ThermometerSleeves.attached(vessel)) {
+                        if(VesselHeating.isThreeNeck(visualVessel)) VesselHeating.setNeckStopper(visualVessel,sleeve.port(),true);
+                        else VesselHeating.seal(visualVessel,0);
+                    }
+                    drawGeneric(poseStack, buffer, vessel.blockPosition(), visualVessel,
+                            vessel.getMountScale(), vessel.getMountOffX(), vessel.getMountOffY(),
+                            vessel.getMountOffZ(), vessel.getMountYaw(),
+                            vessel.getAttached1(), vessel.getAttached2());
+                }
+            } else if (e instanceof GasCollectingBottleEntity bottle) {
+                draw(poseStack, buffer, bottle.virtualHitbox(), 0.25F, 1.0F, 0.2F, 0.85F);
+            }
+        }
         buffer.endBatch();
         poseStack.popPose();
     }
@@ -130,6 +195,14 @@ public final class PortBoxOverlay {
             if (b != null) {
                 draw(poseStack, buffer, b, 0.3F, 0.5F, 1.0F, 0.9F);
             }
+        }
+    }
+
+    private static void drawAssemblyPort(PoseStack poseStack, MultiBufferSource buffer,
+            Vec3 center, boolean occupied) {
+        if (center != null) {
+            draw(poseStack, buffer, box(center, 0.3), occupied ? 1.0F : 0.25F,
+                    occupied ? 0.2F : 1.0F, 0.2F, 0.85F);
         }
     }
 

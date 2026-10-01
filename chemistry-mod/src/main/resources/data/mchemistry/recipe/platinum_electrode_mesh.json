@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "P P",
+    " P ",
+    "P P"
+  ],
+  "key": {
+    "P": "mchemistry:element_platinum_ingot"
+  },
+  "result": {
+    "id": "mchemistry:platinum_electrode_mesh",
+    "count": 1
+  }
+}

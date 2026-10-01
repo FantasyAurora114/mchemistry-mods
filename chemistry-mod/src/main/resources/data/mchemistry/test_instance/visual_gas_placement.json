@@ -1,0 +1,1 @@
+{"type": "minecraft:function", "function": "mchemistry:visual_gas_placement", "environment": "minecraft:default", "structure": "mchemistry:empty", "max_ticks": 50}

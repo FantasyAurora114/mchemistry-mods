@@ -10,4 +10,6 @@ public class GasCollectingBottleRenderState extends BlockEntityRenderState {
     public int gasColor = 0xFFFFFF;
     /** True when the bottle mouth points down (向下排空气法). */
     public boolean inverted;
+    public boolean hasNozzle;
+    public int tubeType;
 }

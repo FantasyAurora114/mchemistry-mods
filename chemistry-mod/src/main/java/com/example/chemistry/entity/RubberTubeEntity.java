@@ -30,6 +30,15 @@ import org.jetbrains.annotations.Nullable;
  * clients so the renderer can draw the curve every frame.
  */
 public class RubberTubeEntity extends Entity {
+    private static final EntityDataAccessor<Boolean> DATA_SUPPLY = SynchedEntityData.defineId(RubberTubeEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_PREVIEW = SynchedEntityData.defineId(RubberTubeEntity.class, EntityDataSerializers.BOOLEAN);
+    public boolean supplyLine() { return entityData.get(DATA_SUPPLY); }
+    public void setSupplyLine(boolean value) { entityData.set(DATA_SUPPLY, value); }
+    public boolean preview() { return entityData.get(DATA_PREVIEW); }
+    public void setPreview(boolean value) { entityData.set(DATA_PREVIEW, value); }
+    public net.minecraft.world.item.ItemStack dropItem() {
+        return new net.minecraft.world.item.ItemStack(supplyLine() ? com.example.chemistry.registry.ModItems.GAS_SUPPLY_TUBE.get() : com.example.chemistry.registry.ModItems.RUBBER_TUBE.get());
+    }
 
     /** 一根橡胶管的一个端点（Port）：位置 + 朝向 + 类型，橡胶管锚点即 Port。 */
     public record Port(int kind, @Nullable BlockPos pos, @Nullable Direction face,
@@ -64,6 +73,8 @@ public class RubberTubeEntity extends Entity {
             }
             if (kind() == KIND_BLOCK) {
                 BlockPos p = pos();
+                var appliance = com.example.chemistry.block.GasApplianceBlock.device(level, p);
+                if (appliance != null) return appliance.portPosition();
                 Direction f = face();
                 return new Vec3(p.getX() + 0.5 + f.getStepX() * 0.5,
                         p.getY() + 0.5 + f.getStepY() * 0.5,
@@ -76,7 +87,7 @@ public class RubberTubeEntity extends Entity {
                 return AnchorPositions.nozzleTip(level, this);
             }
             Entity e = level.getEntity(uuid());
-            return e != null ? e.position() : null;
+            return e instanceof GasCollectingBottleEntity bottle ? bottle.nozzleTip() : e != null ? e.position() : null;
         }
 
         /** 朝向（插头/接口对接时用）；实体/铁架台默认朝上。 */
@@ -154,6 +165,8 @@ public class RubberTubeEntity extends Entity {
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_SUPPLY, false);
+        builder.define(DATA_PREVIEW, false);
         builder.define(DATA_A_KIND, 0);
         builder.define(DATA_A_POS, Optional.empty());
         builder.define(DATA_A_FACE, Direction.UP);
@@ -321,6 +334,8 @@ public class RubberTubeEntity extends Entity {
 
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
+        output.putBoolean("supply_line", supplyLine());
+        output.putBoolean("preview", preview());
         saveAnchor(output, "a", getAnchorA());
         saveAnchor(output, "b", getAnchorB());
         output.putString("transit_gas", transitGas);
@@ -330,6 +345,8 @@ public class RubberTubeEntity extends Entity {
 
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
+        setSupplyLine(input.getBooleanOr("supply_line", false));
+        setPreview(input.getBooleanOr("preview", false));
         setAnchorA(readAnchor(input, "a"));
         setAnchorB(readAnchor(input, "b"));
         transitGas = input.getStringOr("transit_gas", "");

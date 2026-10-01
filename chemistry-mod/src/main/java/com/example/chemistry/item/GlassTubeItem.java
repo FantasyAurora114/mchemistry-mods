@@ -24,6 +24,7 @@ public class GlassTubeItem extends Item {
         return switch (path) {
             case "right_angle_glass_tube" -> 2;
             case "right_angle_glass_tube_long" -> 3;
+            case "straight_glass_tube_long" -> 4;
             default -> 1;
         };
     }
@@ -35,6 +36,7 @@ public class GlassTubeItem extends Item {
         }
         String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
         return path.equals("straight_glass_tube")
+                || path.equals("straight_glass_tube_long")
                 || path.equals("right_angle_glass_tube")
                 || path.equals("right_angle_glass_tube_long");
     }
@@ -46,6 +48,7 @@ public class GlassTubeItem extends Item {
         }
         String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
         return path.equals("straight_glass_tube_tubed")
+                || path.equals("straight_glass_tube_long_tubed")
                 || path.equals("right_angle_glass_tube_tubed")
                 || path.equals("right_angle_glass_tube_long_tubed");
     }

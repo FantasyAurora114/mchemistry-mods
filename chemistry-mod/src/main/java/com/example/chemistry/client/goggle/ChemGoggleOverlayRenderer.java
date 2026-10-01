@@ -20,6 +20,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.GuiLayer;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
@@ -34,6 +36,8 @@ public class ChemGoggleOverlayRenderer {
 
     public static final GuiLayer OVERLAY = ChemGoggleOverlayRenderer::renderOverlay;
 
+    private static final float PANEL_SCALE = .75F;
+    private static int stableTextWidth;
     private static int hoverTicks = 0;
     private static BlockPos lastHovered = null;
 
@@ -48,7 +52,8 @@ public class ChemGoggleOverlayRenderer {
         if (mc.options.hideGui || mc.gameMode.getPlayerMode() == GameType.SPECTATOR) {
             return;
         }
-        if (!(mc.hitResult instanceof BlockHitResult result) || mc.level == null || mc.player == null) {
+        HitResult hit = mc.hitResult;
+        if (hit == null || mc.level == null || mc.player == null) {
             reset();
             return;
         }
@@ -56,8 +61,21 @@ public class ChemGoggleOverlayRenderer {
             reset();
             return;
         }
-        BlockEntity be = mc.level.getBlockEntity(result.getBlockPos());
-        if (!(be instanceof IChemGoggleInfo info)) {
+        IChemGoggleInfo info = null;
+        BlockPos hovered = null;
+        if (hit instanceof BlockHitResult blockHit) {
+            BlockEntity be = mc.level.getBlockEntity(blockHit.getBlockPos());
+            if (be == null) be = com.example.chemistry.block.GasApplianceBlock.device(mc.level, blockHit.getBlockPos());
+            if (be instanceof IChemGoggleInfo g) {
+                info = g;
+                hovered = blockHit.getBlockPos();
+            }
+        } else if (hit instanceof EntityHitResult entityHit
+                && entityHit.getEntity() instanceof IChemGoggleInfo g) {
+            info = g;
+            hovered = entityHit.getEntity().blockPosition();
+        }
+        if (info == null) {
             reset();
             return;
         }
@@ -66,10 +84,11 @@ public class ChemGoggleOverlayRenderer {
             reset();
             return;
         }
-        if (!result.getBlockPos().equals(lastHovered)) {
+        if (!hovered.equals(lastHovered)) {
             hoverTicks = 0;
+            stableTextWidth = 0;
         }
-        lastHovered = result.getBlockPos();
+        lastHovered = hovered;
         hoverTicks++;
         drawPanel(guiGraphics, deltaTracker, tooltip);
     }
@@ -77,6 +96,7 @@ public class ChemGoggleOverlayRenderer {
     private static void reset() {
         hoverTicks = 0;
         lastHovered = null;
+        stableTextWidth = 0;
     }
 
     private static void drawPanel(GuiGraphics guiGraphics, DeltaTracker deltaTracker, List<Component> tooltip) {
@@ -87,14 +107,16 @@ public class ChemGoggleOverlayRenderer {
         for (Component line : tooltip) {
             textWidth = Math.max(textWidth, font.width(line));
         }
+        stableTextWidth = Math.max(stableTextWidth, textWidth);
+        textWidth = stableTextWidth;
         int textHeight = 8;
         if (tooltip.size() > 1) {
             textHeight += 2;
             textHeight += (tooltip.size() - 1) * 10;
         }
 
-        int width = guiGraphics.guiWidth();
-        int height = guiGraphics.guiHeight();
+        int width = (int)(guiGraphics.guiWidth() / PANEL_SCALE);
+        int height = (int)(guiGraphics.guiHeight() / PANEL_SCALE);
         int posX = width / 2 + 4;
         int posY = height / 2 - 12;
         posX = Math.min(posX, width - textWidth - 24);
@@ -117,6 +139,8 @@ public class ChemGoggleOverlayRenderer {
         int borderTop = ((int) (0x50 * fade) << 24) | 0x0000FF;
         int borderBot = ((int) (0x50 * fade) << 24) | 0x28007F;
 
+        guiGraphics.pose().pushMatrix();
+        guiGraphics.pose().scale(PANEL_SCALE, PANEL_SCALE);
         guiGraphics.fill(boxX, boxY, boxX + boxW, boxY + boxH, bg);
         guiGraphics.fill(boxX, boxY, boxX + boxW, boxY + 1, borderTop);
         guiGraphics.fill(boxX, boxY + boxH - 1, boxX + boxW, boxY + boxH, borderBot);
@@ -129,5 +153,6 @@ public class ChemGoggleOverlayRenderer {
             int color = i == 0 ? 0xFFFFFFFF : 0xFFD0D0D0;
             guiGraphics.drawString(font, tooltip.get(i), posX, posY + i * 10, color, true);
         }
+        guiGraphics.pose().popMatrix();
     }
 }

@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","category":"misc","pattern":[" I "," I ","INI"],"key":{"I":"minecraft:iron_ingot","N":"minecraft:iron_nugget"},"result":{"id":"mchemistry:bunsen_burner","count":1}}

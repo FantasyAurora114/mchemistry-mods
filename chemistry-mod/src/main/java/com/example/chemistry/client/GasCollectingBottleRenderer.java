@@ -49,11 +49,14 @@ public class GasCollectingBottleRenderer
         }
         renderState.inverted = blockEntity.getBlockState()
                 .getValue(GasCollectingBottleBlock.INVERTED);
+        renderState.hasNozzle = blockEntity.getBlockState().getValue(GasCollectingBottleBlock.HAS_NOZZLE);
+        renderState.tubeType = blockEntity.getTubeType();
     }
 
     @Override
     public void submit(GasCollectingBottleRenderState renderState, PoseStack poseStack,
             SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
+        if(renderState.hasNozzle)drawTube(poseStack,nodeCollector,renderState.lightCoords,renderState.tubeType,renderState.inverted);
         float fill = renderState.fill;
         if (fill <= 0.001F) {
             return;
@@ -75,8 +78,18 @@ public class GasCollectingBottleRenderer
             poseStack.translate(0.0F, 0.2F / 16.0F, 0.0F);
         }
         poseStack.scale(1.0F, fill, 1.0F);
-        nodeCollector.submitBlockModel(poseStack, RenderType.translucentMovingBlock(),
+        nodeCollector.submitBlockModel(poseStack, CabinetGlassLayer.TYPE,
                 fillModel, r, g, b, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();
+    }
+    public static void drawTube(PoseStack pose,SubmitNodeCollector collector,int light,int type,boolean inverted){
+        int modelType=switch(type){case 2->2;case 3->4;case 4->8;default->1;};
+        var model=ModStandaloneModels.attachedModel(modelType);if(model==null)return;
+        pose.pushPose();
+        double base=inverted?(type==4?10.5:2.5):(type==4?1.0:type==2||type==3?6.75:4.5);
+        pose.translate(7.8/16.0,base/16.0,7.8/16.0);
+        if(inverted)pose.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(180));
+        collector.submitBlockModel(pose,CabinetGlassLayer.TYPE,model,1,1,1,light,OverlayTexture.NO_OVERLAY,0);
+        pose.popPose();
     }
 }

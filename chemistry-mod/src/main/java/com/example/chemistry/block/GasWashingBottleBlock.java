@@ -231,7 +231,7 @@ public class GasWashingBottleBlock extends Block implements EntityBlock {
             if (stack.getItem() instanceof DropperItem && !DropperHelper.isEmpty(stack)) {
                 if (!level.isClientSide()) {
                     String liquid = DropperHelper.getLiquid(stack);
-                    if (be.addLiquid(liquid, 5)) {
+                    if (be.addLiquid(liquid, Math.min(5,DropperHelper.getMl(stack)))) {
                         DropperHelper.setMl(stack, DropperHelper.getMl(stack) - 5);
                         player.displayClientMessage(
                                 Component.translatable("mchemistry.wash_bottle.poured"), true);
@@ -243,9 +243,11 @@ public class GasWashingBottleBlock extends Block implements EntityBlock {
                 return InteractionResult.SUCCESS;
             }
             String liquidId = com.example.chemistry.transfer.BottleCodes.liquidIdOf(stack);
-            if (liquidId != null) {
+            if (liquidId != null && !com.example.chemistry.transfer.BottleCodes.isSealed(stack)) {
                 if (!level.isClientSide()) {
-                    if (be.addLiquid(liquidId, 25)) {
+                    int amount=Math.min(25,com.example.chemistry.transfer.BottleCodes.volumeOf(stack));
+                    if (amount>0 && be.addLiquid(liquidId, amount)) {
+                        com.example.chemistry.transfer.BottleCodes.setVolume(stack,com.example.chemistry.transfer.BottleCodes.volumeOf(stack)-amount);
                         player.displayClientMessage(
                                 Component.translatable("mchemistry.wash_bottle.poured"), true);
                     } else {

@@ -310,6 +310,7 @@ public class GasCollectingBottleBlock extends Block implements EntityBlock {
         return switch (type) {
             case 2 -> ModItems.RIGHT_ANGLE_GLASS_TUBE.get();
             case 3 -> ModItems.RIGHT_ANGLE_GLASS_TUBE_LONG.get();
+            case 4 -> ModItems.STRAIGHT_GLASS_TUBE_LONG.get();
             default -> ModItems.STRAIGHT_GLASS_TUBE.get();
         };
     }

@@ -1,6 +1,1 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "mchemistry:item/glowing_splint"
-  }
-}
+{"parent": "minecraft:item/generated", "textures": {"layer0": "mchemistry:item/glowing_splint"}}

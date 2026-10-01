@@ -1,6 +1,44 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "mchemistry:item/beaker_100ml"
-  }
+  "parent": "mchemistry:block/beaker",
+  "display": {
+    "gui": {
+      "rotation": [
+        25,
+        225,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "ground": {
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ],
+      "translation": [
+        0,
+        2,
+        0
+      ]
+    },
+    "firstperson_righthand": {
+      "scale": [
+        0.65,
+        0.65,
+        0.65
+      ]
+    },
+    "thirdperson_righthand": {
+      "scale": [
+        0.45,
+        0.45,
+        0.45
+      ]
+    }
+  },
+  "render_type": "mchemistry:lab_glass"
 }

@@ -8,7 +8,7 @@ import java.util.List;
  */
 public final class Elements {
 
-    public static final List<Element> ALL = List.of(
+    public static final List<Element> ALL = java.util.stream.Stream.concat(RadioElements.ALL.stream(),java.util.stream.Stream.concat(List.of(
             new Element("hydrogen", "H", "hydrogen", 1, ElementCategory.NONMETAL, ElementState.GAS, true, 0xB8E0F8),
             new Element("helium", "He", "helium", 2, ElementCategory.NONMETAL, ElementState.GAS, true, 0xF8E0A8),
             new Element("lithium", "Li", "lithium", 3, ElementCategory.METAL, ElementState.SOLID, true, 0xE8E0D8),
@@ -59,7 +59,7 @@ public final class Elements {
             new Element("bismuth", "Bi", "bismuth", 83, ElementCategory.METAL, ElementState.SOLID, true, 0xC8A8C0),
             new Element("radon", "Rn", "radon", 86, ElementCategory.NONMETAL, ElementState.GAS, false, 0xC0C8D8),
             new Element("uranium", "U", "uranium", 92, ElementCategory.METAL, ElementState.SOLID, false, 0xA8B8A0)
-    );
+    ).stream(),FutureElements.ALL.stream()).toList().stream()).toList();
 
     private Elements() {
     }

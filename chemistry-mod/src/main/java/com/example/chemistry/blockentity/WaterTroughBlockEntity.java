@@ -39,6 +39,9 @@ public class WaterTroughBlockEntity extends BlockEntity implements IChemGoggleIn
             "chlorine", "carbon_dioxide", "sulfur_dioxide", "nitrogen_dioxide",
             "ammonia", "hydrogen_chloride", "hydrogen_sulfide");
 
+    private int bathMl=-1;
+    public int bathMl(){return bathMl<0?(getBlockState().getValue(com.example.chemistry.block.WaterTroughBlock.FILLED)==com.example.chemistry.block.WaterTroughBlock.Fill.WATER?500:0):bathMl;}
+    public void bathMl(int ml){bathMl=Math.clamp(ml,0,500);setChanged();sync();}
     private boolean hasBottle;
     private String gasId = "";
     private int fillMl;
@@ -80,7 +83,7 @@ public class WaterTroughBlockEntity extends BlockEntity implements IChemGoggleIn
     }
 
     public void setTubeType(int type) {
-        this.tubeType = type >= 1 && type <= 3 ? type : 1;
+        this.tubeType = type >= 1 && type <= 4 ? type : 1;
         setChanged();
         sync();
     }
@@ -136,6 +139,7 @@ public class WaterTroughBlockEntity extends BlockEntity implements IChemGoggleIn
 
     @Override
     public boolean addGoggleInfo(List<Component> tooltip, boolean isPlayerSneaking) {
+        tooltip.add(Component.literal("浅型水槽："+bathMl()+" / 500 mL"));
         tooltip.add(Component.literal("水槽"));
         var fill = level != null ? level.getBlockState(worldPosition)
                 .getValue(com.example.chemistry.block.WaterTroughBlock.FILLED) : null;
@@ -166,7 +170,9 @@ public class WaterTroughBlockEntity extends BlockEntity implements IChemGoggleIn
     }
 
     /** Place an empty inverted bottle into the trough: it fills with water. */
-    public void placeBottle() {
+    public void placeBottle(){placeBottle(false);}
+    public void placeBottle(boolean prefilled) {
+        if(!prefilled)bathMl(Math.max(0,bathMl()-CAPACITY_ML));
         hasBottle = true;
         gasId = "";
         fillMl = 0;
@@ -178,6 +184,7 @@ public class WaterTroughBlockEntity extends BlockEntity implements IChemGoggleIn
 
     /** Take the bottle out; returns whether it held any collected gas. */
     public boolean takeBottle() {
+        bathMl(Math.min(500,bathMl()+waterMl));
         boolean hadGas = hasBottle && fillMl > 0 && !gasId.isEmpty();
         hasBottle = false;
         gasId = "";
@@ -225,6 +232,7 @@ public class WaterTroughBlockEntity extends BlockEntity implements IChemGoggleIn
         }
         int displaced = Math.min(accepted, waterMl);
         waterMl -= displaced;
+        bathMl(Math.min(500,bathMl()+displaced));
         fillMl += accepted;
         gasId = id;
         purity = Math.min(purity, newPurity);
@@ -248,6 +256,7 @@ public class WaterTroughBlockEntity extends BlockEntity implements IChemGoggleIn
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
+        output.putInt("bath_ml",bathMl());
         output.putBoolean("has_bottle", hasBottle);
         output.putString("gas_id", gasId);
         output.putInt("fill_ml", fillMl);
@@ -260,6 +269,7 @@ public class WaterTroughBlockEntity extends BlockEntity implements IChemGoggleIn
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
+        bathMl=input.getIntOr("bath_ml",-1);
         hasBottle = input.getBooleanOr("has_bottle", false);
         gasId = input.getStringOr("gas_id", "");
         fillMl = input.getIntOr("fill_ml", 0);

@@ -42,7 +42,8 @@ public final class DiscoveryEvents {
         if (stack.isEmpty()) {
             return;
         }
-        String key = normalize(BottleCodes.substanceKeyOf(stack));
+        String key = stack.getItem() instanceof com.example.chemistry.item.GasCylinderItem cylinder
+                ? "gas_collecting_bottle_" + cylinder.gas(stack) : normalize(BottleCodes.substanceKeyOf(stack));
         if (key != null) {
             ReactionUnlocks.discoverSubstance(player, key);
         }

@@ -57,9 +57,12 @@ public class SolidToolItem extends Item {
         return solid.isEmpty() ? null : solid;
     }
 
-    public static void pickUp(ItemStack stack, String solidId) {
+    public static double heldGrams(ItemStack stack){return isEmpty(stack)?0:stack.getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag().getDoubleOr("chem_tool_g",5);}
+    public static void pickUp(ItemStack stack,String solidId){pickUp(stack,solidId,5);}
+    public static void pickUp(ItemStack stack, String solidId,double grams) {
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         tag.putString(KEY_SOLID, solidId);
+        tag.putDouble("chem_tool_g",grams);
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
         stack.set(DataComponents.CUSTOM_MODEL_DATA,
                 new CustomModelData(List.of(), List.of(), List.of("filled"), List.of()));

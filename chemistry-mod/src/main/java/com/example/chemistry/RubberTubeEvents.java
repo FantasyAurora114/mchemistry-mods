@@ -1,6 +1,8 @@
 package com.example.chemistry;
 
 import com.example.chemistry.entity.RubberTubeEntity;
+import com.example.chemistry.entity.GasCollectingBottleEntity;
+import com.example.chemistry.entity.PlacedVesselEntity;
 import com.example.chemistry.item.RubberTubeItem;
 import com.example.chemistry.item.GlassTubeTubedItem;
 import com.example.chemistry.entity.RubberTubeEntity.Port;
@@ -36,10 +38,10 @@ public class RubberTubeEvents {
         Entity target = event.getTarget();
 
         if (target instanceof RubberTubeEntity tube) {
-            if (main.isEmpty() || main.is(Items.SHEARS)) {
+            if (!tube.preview() && (main.isEmpty() || main.is(Items.SHEARS))) {
                 GasFlowEngine.rupture(event.getLevel(), tube);
                 tube.discard();
-                ItemStack item = new ItemStack(ModItems.RUBBER_TUBE.get());
+                ItemStack item = tube.dropItem();
                 if (!player.getInventory().add(item)) {
                     player.drop(item, false);
                 }
@@ -50,7 +52,17 @@ public class RubberTubeEvents {
         }
 
         if (main.getItem() instanceof RubberTubeItem) {
-            RubberTubeItem.onEntityClicked(event.getLevel(), player, main, target);
+            // 瓶口附件优先：落地容器 / 集气瓶的玻璃导管头是橡胶管锚点，
+            // 而不是"实体锚点"（否则会连到玩家自己手上）。
+            if (target instanceof com.example.chemistry.electrical.ElectroDeviceEntity device) {
+                device.handleGasTube(player,main);
+            } else if (target instanceof PlacedVesselEntity vessel) {
+                vessel.handleTubeHead(player, main);
+            } else if (target instanceof GasCollectingBottleEntity bottle) {
+                bottle.handleTubeNozzle(player, main);
+            } else {
+                RubberTubeItem.onEntityClicked(event.getLevel(), player, main, target);
+            }
             event.setCanceled(true);
             event.setCancellationResult(InteractionResult.SUCCESS);
         } else if (main.getItem() instanceof GlassTubeTubedItem) {
@@ -122,6 +134,7 @@ public class RubberTubeEvents {
         RubberTubeEntity found = null;
         for (RubberTubeEntity tube : level.getEntitiesOfClass(RubberTubeEntity.class,
                 new AABB(eye, end).inflate(1.0))) {
+            if (tube.preview()) continue;
             java.util.Optional<Vec3> hit = RubberTubeItem.tubePickBox(level, tube).clip(eye, end);
             if (hit.isPresent()) {
                 double d = eye.distanceToSqr(hit.get());
@@ -135,7 +148,7 @@ public class RubberTubeEvents {
             GasFlowEngine.rupture(level, found);
             found.discard();
             ItemEntity drop = new ItemEntity(level, found.getX(), found.getY(), found.getZ(),
-                    new ItemStack(ModItems.RUBBER_TUBE.get()));
+                    found.dropItem());
             drop.setDefaultPickUpDelay();
             level.addFreshEntity(drop);
             return true;

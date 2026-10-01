@@ -6,6 +6,7 @@ import com.example.chemistry.item.DropperItem;
 import com.example.chemistry.item.LabVesselItem;
 import com.example.chemistry.item.TestTubeItem;
 import com.example.chemistry.VesselHeating;
+import com.example.chemistry.DistillationAssembly;
 import com.example.chemistry.registry.ModBlocks;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -55,6 +56,7 @@ public class IronStandRenderer implements BlockEntityRenderer<IronStandBlockEnti
         renderState.facing = state.getValue(IronStandBlock.FACING);
         renderState.rotation = state.getValue(IronStandBlock.ROTATION);
         renderState.hasTube = state.getValue(IronStandBlock.HAS_TUBE);
+        renderState.dewar=blockEntity.getTube().getItem() instanceof TestTubeItem t&&t.isDewar();
         renderState.hasContents = state.getValue(IronStandBlock.HAS_CONTENTS);
         renderState.hasStopper = state.getValue(IronStandBlock.HAS_STOPPER);
         renderState.hasLamp = state.getValue(IronStandBlock.HAS_LAMP);
@@ -69,6 +71,7 @@ public class IronStandRenderer implements BlockEntityRenderer<IronStandBlockEnti
         renderState.attachment = state.getValue(IronStandBlock.ATTACHMENT);
         renderState.vesselType = vesselType(blockEntity.getVessel());
         renderState.vesselColor = LabVesselItem.contentsColor(blockEntity.getVessel());
+        renderState.vesselVisual = VesselVisualState.of(blockEntity.getVessel());
         renderState.hasCondenser = blockEntity.hasCondenser();
         renderState.hasDistillationHead = blockEntity.hasDistillationHead();
         renderState.headThermometer = blockEntity.hasHeadThermometer();
@@ -118,12 +121,12 @@ public class IronStandRenderer implements BlockEntityRenderer<IronStandBlockEnti
             }
         }
         if (renderState.hasTube) {
-            render(ModStandaloneModels.part(renderState.rotation, ModStandaloneModels.PART_TUBE),
+            renderGlass(ModStandaloneModels.testTube(renderState.rotation,renderState.dewar),
                     poseStack, nodeCollector, renderState, 1.0F, 1.0F, 1.0F);
         }
         if (renderState.hasContents) {
             int c = renderState.contentsColor;
-            render(ModStandaloneModels.part(renderState.rotation, ModStandaloneModels.PART_CONTENTS),
+            renderGlass(ModStandaloneModels.part(renderState.rotation, ModStandaloneModels.PART_CONTENTS),
                     poseStack, nodeCollector, renderState,
                     ((c >> 16) & 0xFF) / 255.0F, ((c >> 8) & 0xFF) / 255.0F, (c & 0xFF) / 255.0F);
         }
@@ -200,9 +203,9 @@ public class IronStandRenderer implements BlockEntityRenderer<IronStandBlockEnti
                 double y = (9.5 + s * neck[1]) / 16.0;
                 poseStack.translate((float) x, (float) y, 9.0F / 16.0F);
                 if (n == 0) {
-                    poseStack.mulPose(Axis.ZP.rotationDegrees(22.5F));
+                    poseStack.mulPose(Axis.ZP.rotationDegrees(com.example.chemistry.ThreeNeckGeometry.SIDE_ANGLE));
                 } else if (n == 2) {
-                    poseStack.mulPose(Axis.ZP.rotationDegrees(-22.5F));
+                    poseStack.mulPose(Axis.ZP.rotationDegrees(-com.example.chemistry.ThreeNeckGeometry.SIDE_ANGLE));
                 }
                 renderStopper(rs, poseStack, nodeCollector, n == instrumentNeck);
                 poseStack.popPose();
@@ -211,11 +214,13 @@ public class IronStandRenderer implements BlockEntityRenderer<IronStandBlockEnti
             poseStack.pushPose();
             double baseY = 0.0;
             double topY = switch (rs.vesselType) {
-                case 1 -> 9.0;   // round-bottom flask
+                case 1 -> 10.05;   // round-bottom flask
                 case 2 -> 9.0;   // erlenmeyer flask
                 case 3 -> 6.0;   // crucible
-                case 5 -> 6.0;   // beaker
-                case 6 -> 10.0;  // three-neck flask centre neck
+                case 5 -> 7.8;
+                case 8 -> 10.5;
+                case 9 -> 14.0;   // beaker
+                case 6 -> 10.4;  // three-neck flask centre neck
                 case 7 -> 10.0;  // flat-bottom flask
                 default -> 2.0;  // evaporating dish
             };
@@ -262,26 +267,19 @@ public class IronStandRenderer implements BlockEntityRenderer<IronStandBlockEnti
         poseStack.translate((8.5 - cx * s) / 16.0, (9.5 - baseY * s) / 16.0,
                 (9.0 - cz * s) / 16.0);
         poseStack.scale((float) s, (float) s, (float) s);
-        if (rs.vesselType == 2) {
+        if (rs.vesselType == 1) {
+                SingleNeckRenderer.draw(poseStack, nodeCollector, rs.vesselVisual, rs.lightCoords);
+            } else if (rs.vesselType == 2) {
             ErlenmeyerRenderer.draw(poseStack, nodeCollector,
-                    ModStandaloneModels.vessel(2),
-                    ModStandaloneModels.erlenmeyerBodyUnit(),
-                    ModStandaloneModels.erlenmeyerLiquidUnit(),
-                    rs.vesselColor, rs.lightCoords);
+                    rs.vesselVisual, rs.lightCoords);
         } else {
-            render(ModStandaloneModels.vessel(rs.vesselType), poseStack, nodeCollector,
+            if (rs.vesselType == 6 || rs.vesselType == 5 || rs.vesselType >= 8) {
+                nodeCollector.submitBlockModel(poseStack, CabinetGlassLayer.TYPE,
+                        ModStandaloneModels.vessel(rs.vesselType), 1, 1, 1, rs.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+            } else render(ModStandaloneModels.vessel(rs.vesselType), poseStack, nodeCollector,
                     rs, 1.0F, 1.0F, 1.0F);
-            int c = rs.vesselColor;
-            if (c != 0xFFFFFF) {
-                BlockStateModel contents = ModStandaloneModels.vesselContents(rs.vesselType);
-                if (contents != null) {
-                    nodeCollector.submitBlockModel(poseStack,
-                            RenderType.translucentMovingBlock(), contents,
-                            ((c >> 16) & 0xFF) / 255.0F, ((c >> 8) & 0xFF) / 255.0F,
-                            (c & 0xFF) / 255.0F, rs.lightCoords,
-                            OverlayTexture.NO_OVERLAY, 0);
-                }
-            }
+            VesselContentRenderer.draw(poseStack, nodeCollector, rs.vesselType,
+                    rs.vesselVisual, rs.lightCoords);
             PlacedVesselRenderer.drawNeckStoppers(rs.vesselStoppers, poseStack,
                     nodeCollector, rs.lightCoords);
         }
@@ -321,31 +319,22 @@ public class IronStandRenderer implements BlockEntityRenderer<IronStandBlockEnti
             SubmitNodeCollector nodeCollector) {
         double baseY = 0.0;
         // 三颈瓶中心瓶口在模型 y=10，平底烧瓶瓶口在 y=10，圆底烧瓶瓶口在 y=9。
-        double topY = switch (rs.vesselType) {
-            case 6 -> 10.0;   // three-neck flask centre neck
-            case 7 -> 10.0;   // flat-bottom flask
-            default -> 9.0;   // round-bottom / ground-glass / erlenmeyer
-        };
+        double topY = com.example.chemistry.VesselHeating.mouthTopY(rs.vesselType);
         double mouthY = 9.5 + (topY - baseY) * 0.6;
         poseStack.pushPose();
-        // 模型底口中心在 (9, 0, 9)，缩放 0.5 后是 (4.5, 0, 4.5)，把它平移到烧瓶口 (8.5, mouthY, 9)。
-        poseStack.translate(4.0F / 16.0F, (float) (mouthY / 16.0), 4.5F / 16.0F);
-        // 蒸馏头体积缩小 2 倍，与烧瓶比例协调。
-        poseStack.scale(0.5F, 0.5F, 0.5F);
+        // 新模型底口中心 (7, 0.75, 8) 与烧瓶口对齐。
+        float headScale = DistillationAssembly.HEAD_SCALE;
+        poseStack.translate((float) ((8.5 - 7.0 * headScale) / 16.0),
+                (float) ((mouthY - 0.75 * headScale) / 16.0),
+                (float) ((9.0 - 8.0 * headScale) / 16.0));
+        poseStack.scale(headScale, headScale, headScale);
         render(ModStandaloneModels.distillationHead(), poseStack, nodeCollector,
                 rs, 1.0F, 1.0F, 1.0F);
-        // 侧管带 115° 角（bbmodel 原值），方块元素不支持任意角度，用 PoseStack 绕其原点旋转。
-        poseStack.pushPose();
-        poseStack.translate(9.14154F / 16.0F, 2.36155F / 16.0F, 8.0F / 16.0F);
-        poseStack.mulPose(Axis.ZP.rotationDegrees(115.0F));
-        poseStack.translate(-9.14154F / 16.0F, -2.36155F / 16.0F, -8.0F / 16.0F);
-        render(ModStandaloneModels.distillationHeadArm(), poseStack, nodeCollector,
-                rs, 1.0F, 1.0F, 1.0F);
-        poseStack.popPose();
-        // 温度计插在蒸馏头顶端接口里（模型帧 (9,6,9) 向上伸出）。
+        // 新模型已包含侧管，旧版单独绘制侧管会重复。
+        // 温度计插在新模型顶端接口。
         if (rs.headThermometer) {
             poseStack.pushPose();
-            poseStack.translate(9.0F / 16.0F, 6.0F / 16.0F, 9.0F / 16.0F);
+            poseStack.translate(7.0F / 16.0F, 15.25F / 16.0F, 8.0F / 16.0F);
             render(ModStandaloneModels.attachedModel(7), poseStack, nodeCollector,
                     rs, 1.0F, 1.0F, 1.0F);
             poseStack.popPose();
@@ -378,6 +367,9 @@ public class IronStandRenderer implements BlockEntityRenderer<IronStandBlockEnti
         String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
         if (path.equals("thermometer")) {
             return 7;
+        }
+        if (path.equals("straight_glass_tube_long")) {
+            return 8;
         }
         if (path.equals("straight_glass_tube")) {
             return 1;
@@ -421,11 +413,25 @@ public class IronStandRenderer implements BlockEntityRenderer<IronStandBlockEnti
         // direction; the right-angle arm runs along -X so the same Z-rotation
         // maps it to the downward perpendicular of the mouth.
         poseStack.mulPose(Axis.ZP.rotationDegrees((float) Math.toDegrees(angle)));
-        render(ModStandaloneModels.attachedModel(type),
-                poseStack, nodeCollector, rs, 1.0F, 1.0F, 1.0F);
+        if (type == 3) {
+            renderGlass(ModStandaloneModels.attachedModel(type),
+                    poseStack, nodeCollector, rs, 1.0F, 1.0F, 1.0F);
+        } else {
+            render(ModStandaloneModels.attachedModel(type),
+                    poseStack, nodeCollector, rs, 1.0F, 1.0F, 1.0F);
+        }
         poseStack.popPose();
     }
 
+    private static void renderGlass(BlockStateModel model, PoseStack poseStack,
+            SubmitNodeCollector nodeCollector, IronStandRenderState renderState,
+            float r, float g, float b) {
+        if (model == null) {
+            return;
+        }
+        nodeCollector.submitBlockModel(poseStack, CabinetGlassLayer.TYPE, model,
+                r, g, b, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+    }
     private static void render(BlockStateModel model, PoseStack poseStack,
             SubmitNodeCollector nodeCollector, IronStandRenderState renderState,
             float r, float g, float b) {

@@ -81,7 +81,7 @@ public class WaterTroughBlock extends Block implements EntityBlock {
     }
     public static final EnumProperty<NozzleDir> NOZZLE = EnumProperty.create("nozzle", NozzleDir.class);
 
-    private static final VoxelShape SHAPE = box(3.0, 0.0, 3.0, 14.0, 4.0, 14.0);
+    private static final VoxelShape SHAPE = box(3, 0, 3, 14, 4, 14);
 
     public WaterTroughBlock(Properties properties) {
         super(properties);
@@ -123,7 +123,7 @@ public class WaterTroughBlock extends Block implements EntityBlock {
     @Override
     public VoxelShape getCollisionShape(BlockState state, net.minecraft.world.level.BlockGetter level,
             BlockPos pos, CollisionContext context) {
-        VoxelShape base = getShape(state, level, pos, context);
+        VoxelShape base = SHAPE;
         if (state.getValue(FILLED) == Fill.ICE
                 && level.getBlockEntity(pos) instanceof WaterTroughBlockEntity be
                 && !be.getFlask().isEmpty()) {
@@ -138,6 +138,18 @@ public class WaterTroughBlock extends Block implements EntityBlock {
             }
         }
         return base;
+    }
+
+    /** A stable solid footprint in all fill states; contents cannot remove support. */
+    @Override
+    protected VoxelShape getBlockSupportShape(BlockState state, net.minecraft.world.level.BlockGetter level,
+            BlockPos pos) {
+        return SHAPE;
+    }
+
+    @Override
+    protected boolean isPathfindable(BlockState state, net.minecraft.world.level.pathfinder.PathComputationType type) {
+        return false;
     }
 
     /** 冰浴里烧瓶的瓶口悬空在槽沿上方；交互命中框放到整格高度，让瓶口可点。 */
@@ -200,7 +212,8 @@ public class WaterTroughBlock extends Block implements EntityBlock {
                 && level.getBlockEntity(pos) instanceof WaterTroughBlockEntity be
                 && !be.hasBottle()) {
             if (!level.isClientSide()) {
-                be.placeBottle();
+                if(!com.example.chemistry.transfer.BottleCodes.isWater(stack)&&be.bathMl()<WaterTroughBlockEntity.CAPACITY_ML){player.displayClientMessage(Component.literal("水量不足，倒扣空瓶需要250 mL水"),true);return InteractionResult.SUCCESS;}
+                be.placeBottle(com.example.chemistry.transfer.BottleCodes.isWater(stack));
                 stack.shrink(1);
                 level.playSound(null, pos, SoundEvents.BUBBLE_COLUMN_UPWARDS_AMBIENT,
                         SoundSource.BLOCKS, 0.8F, 1.0F);
@@ -233,21 +246,21 @@ public class WaterTroughBlock extends Block implements EntityBlock {
             }
             return InteractionResult.SUCCESS;
         }
+        if(stack.getItem() instanceof com.example.chemistry.item.LabVesselItem && state.getValue(FILLED)!=Fill.ICE){
+            return transferBath(level,pos,player,stack);
+        }
         boolean waterBucket = stack.is(Items.WATER_BUCKET) || stack.is(ModItems.CHEMICAL_WATER_BUCKET.get());
         if (state.getValue(FILLED) == Fill.EMPTY && waterBucket) {
             if (!level.isClientSide()) {
                 level.setBlock(pos, state.setValue(FILLED, Fill.WATER), 3);
+                if(level.getBlockEntity(pos) instanceof WaterTroughBlockEntity bath)bath.bathMl(500);
                 level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                 player.setItemInHand(hand, new ItemStack(Items.BUCKET));
             }
             return InteractionResult.SUCCESS;
         }
         if (state.getValue(FILLED) == Fill.WATER && stack.is(Items.BUCKET)) {
-            if (!level.isClientSide()) {
-                level.setBlock(pos, state.setValue(FILLED, Fill.EMPTY), 3);
-                level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
-                player.setItemInHand(hand, new ItemStack(Items.WATER_BUCKET));
-            }
+            if(!level.isClientSide())player.displayClientMessage(Component.literal("浅水槽最多500 mL，不能装满一桶；请用烧杯或烧瓶取水"),true);
             return InteractionResult.SUCCESS;
         }
         // Ice block fills the trough (on empty or water).
@@ -288,6 +301,22 @@ public class WaterTroughBlock extends Block implements EntityBlock {
             return InteractionResult.SUCCESS;
         }
         return stack.isEmpty() ? InteractionResult.TRY_WITH_EMPTY_HAND : InteractionResult.PASS;
+    }
+
+    public static InteractionResult transferBath(Level level,BlockPos pos,Player p,ItemStack vessel){
+        if(level.isClientSide())return InteractionResult.SUCCESS;
+        if(!(level.getBlockEntity(pos) instanceof WaterTroughBlockEntity bath))return InteractionResult.PASS;
+        int current=bath.bathMl();
+        if(p.isShiftKeyDown()){
+            int amount=Math.min(25,current);if(amount>0&&com.example.chemistry.item.LabVesselItem.addLiquid(vessel,"water",amount))bath.bathMl(current-amount);
+        }else{
+            var contents=com.example.chemistry.item.LabVesselItem.getContents(vessel);
+            if(contents.stream().anyMatch(e->!e.type().equals("liquid")||!e.id().equals("water"))){p.displayClientMessage(Component.literal("浅型槽只接收水；电解溶液请使用高型槽"),true);return InteractionResult.SUCCESS;}
+            double water=contents.stream().mapToDouble(com.example.chemistry.item.LabVesselItem.Entry::amount).sum();int amount=(int)Math.min(25,Math.min(water,500-current));
+            if(amount>0){com.example.chemistry.item.LabVesselItem.consumeMass(vessel,"liquid","water",amount);bath.bathMl(current+amount);}
+        }
+        level.setBlock(pos,level.getBlockState(pos).setValue(FILLED,bath.bathMl()>0?Fill.WATER:Fill.EMPTY),3);
+        return InteractionResult.SUCCESS;
     }
 
     /**
@@ -367,6 +396,7 @@ public class WaterTroughBlock extends Block implements EntityBlock {
                 ItemStack out = fillMl > 0 && !gasId.isEmpty()
                         ? ModItems.gasBottle(gasId, false)
                         : ModItems.emptyGasJar();
+                var quantity=out.getOrDefault(net.minecraft.core.component.DataComponents.CUSTOM_DATA,net.minecraft.world.item.component.CustomData.EMPTY).copyTag();quantity.putLong(com.example.chemistry.transfer.BottleCodes.KEY_ML,fillMl);out.set(net.minecraft.core.component.DataComponents.CUSTOM_DATA,net.minecraft.world.item.component.CustomData.of(quantity));com.example.chemistry.transfer.BottleCodes.refreshModel(out);
                 PurityHelper.setPurity(out, purity);
                 RubberTubeItem.dropTubesAtBlockPos(level, pos.immutable(), true);
                 be.takeBottle();
@@ -493,6 +523,7 @@ public class WaterTroughBlock extends Block implements EntityBlock {
         return switch (type) {
             case 2 -> ModItems.RIGHT_ANGLE_GLASS_TUBE.get();
             case 3 -> ModItems.RIGHT_ANGLE_GLASS_TUBE_LONG.get();
+            case 4 -> ModItems.STRAIGHT_GLASS_TUBE_LONG.get();
             default -> ModItems.STRAIGHT_GLASS_TUBE.get();
         };
     }

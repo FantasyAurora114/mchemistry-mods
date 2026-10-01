@@ -115,7 +115,7 @@ public class GasCollectingBottleBlockEntity extends BlockEntity implements IChem
     }
 
     public void setTubeType(int type) {
-        this.tubeType = type >= 1 && type <= 3 ? type : 1;
+        this.tubeType = type >= 1 && type <= 4 ? type : 1;
         setChanged();
         sync();
     }

@@ -5,6 +5,8 @@ import com.example.chemistry.block.GasCollectingBottleBlock;
 import com.example.chemistry.block.WaterTroughBlock;
 import com.example.chemistry.blockentity.GasCollectingBottleBlockEntity;
 import com.example.chemistry.data.GasJars;
+import com.example.chemistry.entity.GasCollectingBottleEntity;
+import com.example.chemistry.registry.ModEntities;
 import com.example.chemistry.registry.ModBlocks;
 import com.example.chemistry.registry.ModItems;
 import com.example.chemistry.storage.ChemUnits;
@@ -99,38 +101,35 @@ public class GasBottleItem extends Item {
             return InteractionResult.PASS;
         }
         Level level = context.getLevel();
-        BlockPos pos = context.getClickedPos().relative(context.getClickedFace());
-        BlockState target = level.getBlockState(pos);
-        if (!target.isAir() && !target.canBeReplaced()) {
-            if (!level.getBlockState(context.getClickedPos()).canBeReplaced()) {
-                return InteractionResult.PASS;
-            }
-            pos = context.getClickedPos();
+        if(context.getClickedFace()!=net.minecraft.core.Direction.UP)return InteractionResult.PASS;
+        var click=context.getClickLocation();
+        GasCollectingBottleEntity entity =
+                new GasCollectingBottleEntity(ModEntities.GAS_COLLECTING_BOTTLE.get(), level);
+        entity.setPos(click.x,click.y,click.z);
+        entity.setYRot(player.getYRot());
+        entity.setBoundingBox(entity.virtualHitbox());
+        if(!level.noCollision(entity,entity.virtualHitbox().deflate(.002))
+                ||!level.getEntities(entity,entity.virtualHitbox(),e->e instanceof com.example.chemistry.entity.TechnicalEntity).isEmpty())return InteractionResult.FAIL;
+        if(level.isClientSide())return InteractionResult.SUCCESS;
+        entity.setHasPlate(hasPlate);
+        entity.setInverted(BottleCodes.isWater(context.getItemInHand())||gasIsLighter(gasId));
+        ItemStack held = context.getItemInHand();
+        entity.setGasId(gasId == null ? "" : gasId);
+        if (gasId != null && !gasId.isEmpty()) {
+            entity.setFill(Math.max(0,BottleCodes.volumeOf(held)-held.getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag().getIntOr("chem_water_ml",0)), PurityHelper.getPurity(held));
         }
-        if (level.isClientSide()) {
-            return InteractionResult.SUCCESS;
+        entity.readFromItem(held);
+        CompoundTag tag = held.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        String label = tag.getStringOr(LabelItem.KEY_LABEL, "");
+        if (!label.isEmpty()) {
+            entity.setLabelName(label);
         }
-        level.setBlock(pos, ModBlocks.GAS_COLLECTING_BOTTLE.get().defaultBlockState()
-                .setValue(GasCollectingBottleBlock.HAS_PLATE, hasPlate)
-                .setValue(GasCollectingBottleBlock.INVERTED, gasIsLighter(gasId)), 3);
-        if (level.getBlockEntity(pos) instanceof GasCollectingBottleBlockEntity be) {
-            ItemStack held = context.getItemInHand();
-            be.setGasId(gasId == null ? "" : gasId);
-            if (gasId != null && !gasId.isEmpty()) {
-                be.setFill(BottleCodes.volumeOf(held), PurityHelper.getPurity(held));
-            }
-            be.readFromItem(held);
-            CompoundTag tag = held.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-            String label = tag.getStringOr(LabelItem.KEY_LABEL, "");
-            if (!label.isEmpty()) {
-                be.setLabelName(label);
-            }
-        }
-        context.getItemInHand().shrink(1);
+        level.addFreshEntity(entity);
+        if(!player.isCreative())context.getItemInHand().shrink(1);
         return InteractionResult.SUCCESS;
     }
 
-    private static boolean gasIsLighter(String gasId) {
+    public static boolean gasIsLighter(String gasId) {
         if (gasId == null) {
             return false;
         }

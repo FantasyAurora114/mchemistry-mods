@@ -1,6 +1,1 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "mchemistry:item/straight_glass_tube"
-  }
-}
+{"parent":"mchemistry:block/glass_tube_straight","display":{"gui":{"rotation":[25,225,0],"translation":[8,6,8],"scale":[2.1,2.1,2.1]},"ground":{"translation":[8,6,8],"scale":[0.75,0.75,0.75]},"fixed":{"translation":[8,6,8],"scale":[1.4,1.4,1.4]},"firstperson_righthand":{"rotation":[0,45,0],"translation":[8,6,8],"scale":[1.25,1.25,1.25]}}}

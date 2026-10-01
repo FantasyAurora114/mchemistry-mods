@@ -2,7 +2,6 @@ package com.example.chemistry.client;
 
 import com.example.chemistry.ChemistryMod;
 import com.example.chemistry.blockentity.IronStandBlockEntity;
-import com.example.chemistry.blockentity.PlacedTestTubeBlockEntity;
 import com.example.chemistry.client.goggle.ChemGoggleOverlayRenderer;
 import com.example.chemistry.data.Liquids;
 import com.example.chemistry.item.LabVesselItem;
@@ -28,6 +27,18 @@ import net.minecraft.resources.ResourceLocation;
 
 @EventBusSubscriber(modid = ChemistryMod.MODID, value = Dist.CLIENT)
 public class ModClientEvents {
+    @SubscribeEvent
+    public static void glassBuffers(net.neoforged.neoforge.client.event.RegisterRenderBuffersEvent event) {
+        // Deferred transparent batches flush after opaque benches/items have written their depth.
+        event.registerRenderBuffer(CabinetGlassLayer.TYPE);
+        event.registerRenderBuffer(CabinetGlassLayer.ITEM);
+    }
+    @SubscribeEvent
+    public static void glassTypes(net.neoforged.neoforge.client.event.RegisterNamedRenderTypesEvent event) {
+        event.register(ResourceLocation.fromNamespaceAndPath("mchemistry","lab_glass"),
+                ChunkSectionLayer.TRANSLUCENT,CabinetGlassLayer.ITEM);
+    }
+
 
     @SubscribeEvent
     public static void registerStandaloneModels(ModelEvent.RegisterStandalone event) {
@@ -36,6 +47,17 @@ public class ModClientEvents {
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ModEntities.SALT_BRIDGE.get(),SaltBridgeRenderer::new);
+        event.registerEntityRenderer(ModEntities.WATER_MACHINE.get(),WaterMachineRenderer::new);
+        event.registerEntityRenderer(ModEntities.UTILITY_LINE.get(),ElectricWireRenderer::new);
+        event.registerEntityRenderer(ModEntities.IEC_PLUG.get(),IECPlugRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.GAS_APPLIANCE.get(), GasApplianceRenderer::new);
+        event.registerEntityRenderer(ModEntities.PLACED_REAGENT_BOTTLE.get(), PlacedReagentBottleRenderer::new);
+        event.registerEntityRenderer(ModEntities.FILTER_FUNNEL.get(), FilterFunnelRenderer::new);
+        event.registerEntityRenderer(ModEntities.BURETTE.get(),BuretteRenderer::new);
+        event.registerEntityRenderer(ModEntities.SEPARATORY_FUNNEL.get(),SeparatoryFunnelRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.REAGENT_CABINET.get(), ReagentCabinetRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.LABORATORY_BENCH.get(),LaboratoryBenchRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.RUBBER_TUBE_LINK.get(), RubberTubeLinkRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.IRON_STAND.get(), IronStandRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TRIPOD.get(), TripodRenderer::new);
@@ -54,10 +76,29 @@ public class ModClientEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.MAGNETIC_STIRRER.get(),
                 MagneticStirrerRenderer::new);
         event.registerEntityRenderer(ModEntities.RUBBER_TUBE.get(), RubberTubeRenderer::new);
+        event.registerEntityRenderer(ModEntities.GRADUATED_CYLINDER.get(),
+                GraduatedCylinderEntityRenderer::new);
+        event.registerEntityRenderer(ModEntities.MAGNETIC_STIRRER.get(),
+                MagneticStirrerEntityRenderer::new);
+        event.registerEntityRenderer(ModEntities.PLACED_VESSEL.get(),
+                PlacedVesselEntityRenderer::new);
+        event.registerEntityRenderer(ModEntities.GAS_COLLECTING_BOTTLE.get(),
+                GasCollectingBottleEntityRenderer::new);
+        event.registerEntityRenderer(ModEntities.IRON_STAND.get(),
+                IronStandEntityRenderer::new);
+        event.registerEntityRenderer(ModEntities.ELECTRO_DEVICE.get(), ElectroDeviceRenderer::new);
+        event.registerEntityRenderer(ModEntities.ELECTRIC_WIRE.get(), ElectricWireRenderer::new);
+        event.registerEntityRenderer(ModEntities.THERMOMETER_SLEEVE.get(), ThermometerSleeveRenderer::new);
+        event.registerEntityRenderer(ModEntities.DISTILLATION_PART.get(),
+                DistillationPartEntityRenderer::new);
+        event.registerEntityRenderer(ModEntities.ALCOHOL_LAMP.get(),
+                AlcoholLampEntityRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
+        event.register(com.example.chemistry.registry.ModMenus.TALL_CABINET.get(),ReagentCabinetScreen::new);
+        event.register(com.example.chemistry.registry.ModMenus.BASE_CABINET.get(),ReagentCabinetScreen::new);
     }
 
     @SubscribeEvent
@@ -96,15 +137,6 @@ public class ModClientEvents {
             if (tintIndex != 0 || level == null || pos == null) {
                 return 0xFFFFFF;
             }
-            if (level.getBlockEntity(pos) instanceof PlacedTestTubeBlockEntity be) {
-                return LabVesselItem.contentsColor(be.getTube());
-            }
-            return 0xFFFFFF;
-        }, ModBlocks.PLACED_TEST_TUBE.get());
-        event.register((state, level, pos, tintIndex) -> {
-            if (tintIndex != 0 || level == null || pos == null) {
-                return 0xFFFFFF;
-            }
             if (level.getBlockEntity(pos) instanceof IronStandBlockEntity be) {
                 return LabVesselItem.contentsColor(be.getTube());
             }
@@ -117,7 +149,6 @@ public class ModClientEvents {
         event.enqueueWork(() -> {
             ItemBlockRenderTypes.setRenderLayer(ModFluids.CHEMICAL_WATER.get(), ChunkSectionLayer.TRANSLUCENT);
             ItemBlockRenderTypes.setRenderLayer(ModFluids.CHEMICAL_WATER_FLOWING.get(), ChunkSectionLayer.TRANSLUCENT);
-            ItemBlockRenderTypes.setRenderLayer(ModBlocks.PLACED_TEST_TUBE.get(), ChunkSectionLayer.CUTOUT);
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.IRON_STAND.get(), ChunkSectionLayer.CUTOUT);
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.LAB_TABLE.get(), ChunkSectionLayer.SOLID);
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.ALCOHOL_LAMP.get(), ChunkSectionLayer.CUTOUT);

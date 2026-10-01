@@ -1,0 +1,42 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "part": "mchemistry:item/bench_power_supply",
+    "particle": "mchemistry:item/bench_power_supply"
+  },
+  "elements": [
+    {
+      "from": [
+        -3.05,
+        -3.0000000000000004,
+        -0.040000000000000924
+      ],
+      "to": [
+        3.05,
+        3.0,
+        0.03999999999999915
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "#part",
+          "uv": [
+            6.0,
+            12.0,
+            10.0,
+            16.0
+          ]
+        },
+        "south": {
+          "texture": "#part",
+          "uv": [
+            6.0,
+            12.0,
+            10.0,
+            16.0
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=true": {
+      "model": "mchemistry:block/lab_ceiling_light"
+    },
+    "lit=false": {
+      "model": "mchemistry:block/lab_ceiling_light_off"
+    }
+  }
+}

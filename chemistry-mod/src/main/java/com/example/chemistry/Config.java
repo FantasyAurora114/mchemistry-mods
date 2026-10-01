@@ -10,6 +10,7 @@ public class Config {
             .comment("Whether to log loaded chemistry data (elements, compounds, synthesis recipes) on server start")
             .define("logDataOnStart", true);
 
+    public static final ModConfigSpec.DoubleValue RADIO_DECAY_MULTIPLIER=BUILDER.comment("Radioactive decay time multiplier; 1 uses real half-lives in loaded game time. Dose rates do not multiply.").defineInRange("radioDecayMultiplier",1.0,0.0,1000000.0);
     static final ModConfigSpec SPEC = BUILDER.build();
 
     private Config() {

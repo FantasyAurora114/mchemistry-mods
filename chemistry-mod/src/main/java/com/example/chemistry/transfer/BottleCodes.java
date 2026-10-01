@@ -178,7 +178,7 @@ public final class BottleCodes {
     public static void refreshModel(ItemStack stack) {
         String key = modelKey(stack);
         stack.set(DataComponents.CUSTOM_MODEL_DATA,
-                new CustomModelData(java.util.List.of(), java.util.List.of(),
+                new CustomModelData(java.util.List.of((float)fillFraction(stack)), java.util.List.of(),
                         key.isEmpty() ? java.util.List.of() : java.util.List.of(key),
                         java.util.List.of()));
     }
@@ -194,26 +194,32 @@ public final class BottleCodes {
         }
         if (isGasBottle(stack)) {
             if (isWater(stack)) {
-                return "gas_collecting_bottle_water";
+                return isSealed(stack)?"gas_collecting_bottle_water":"open_gas_collecting_bottle_water";
             }
             String id = gasIdOf(stack);
             if (id == null) {
-                return "empty_gas_collecting_bottle";
+                return isSealed(stack)?"sealed_empty_gas_collecting_bottle":"empty_gas_collecting_bottle";
             }
             return (isSealed(stack) ? "gas_collecting_bottle_" : "open_gas_collecting_bottle_") + id;
         }
         if (isDropperBottle(stack)) {
             String id = liquidIdOf(stack);
-            return id == null ? "empty_dropper_bottle" : "dropper_bottle_" + id;
+            String prefix = isSealed(stack) ? "" : "open_";
+            return prefix + (id == null ? "empty_dropper_bottle" : "dropper_bottle_" + id);
         }
         return "";
     }
 
+    public static double solidGrams(ItemStack stack){return solidIdOf(stack)==null?0:Math.clamp(tag(stack).getDoubleOr("chem_solid_g",100),0,100);}
+    public static void setSolidGrams(ItemStack stack,double grams){var t=tag(stack);grams=Math.clamp(grams,0,100);t.putDouble("chem_solid_g",grams);if(grams<=1e-9)t.remove(KEY_SOLID);stack.set(DataComponents.CUSTOM_DATA,CustomData.of(t));refreshModel(stack);}
+    public static double fillFraction(ItemStack stack){return isGasBottle(stack)&&isWater(stack)?tag(stack).getIntOr("chem_water_ml",ChemUnits.GAS_JAR_VOLUME)/(double)ChemUnits.GAS_JAR_VOLUME:isSolidJar(stack)?solidGrams(stack)/100:(isLiquidBottle(stack)||isDropperBottle(stack))?volumeOf(stack)/(double)Math.max(1,bottleCapacityOf(stack)):0;}
+
     // --- Volume ---
 
     public static int volumeOf(ItemStack stack) {
+        if((isLiquidBottle(stack)||isDropperBottle(stack))&&liquidIdOf(stack)==null)return 0;
         int fallback = bottleCapacityOf(stack);
-        return (int) tag(stack).getLongOr(KEY_ML, fallback);
+        return (int)Math.clamp(tag(stack).getLongOr(KEY_ML, fallback),0,Math.max(fallback,0));
     }
 
     /** Liquid volume in mB for fluid-pipe transfer: buckets, narrow bottles and
@@ -223,18 +229,21 @@ public final class BottleCodes {
             return ChemUnits.BUCKET_VOLUME;
         }
         if (isLiquidBottle(stack)) {
-            return (int) tag(stack).getLongOr(KEY_ML, ChemUnits.LIQUID_BOTTLE_VOLUME);
+            return volumeOf(stack);
         }
         if (isDropperBottle(stack)) {
-            return (int) tag(stack).getLongOr(KEY_ML, ChemUnits.DROPPER_BOTTLE_VOLUME);
+            return volumeOf(stack);
         }
         return 0;
     }
 
     public static void setVolume(ItemStack stack, int volume) {
         CompoundTag t = tag(stack);
+        volume=Math.clamp(volume,0,bottleCapacityOf(stack));
         t.putLong(KEY_ML, volume);
+        if(volume==0&&(isLiquidBottle(stack)||isDropperBottle(stack)))t.remove(KEY_LIQUID);
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(t));
+        refreshModel(stack);
     }
 
     /** Fixed capacity of a bottle item in mB (0 for non-bottles). */
@@ -261,16 +270,20 @@ public final class BottleCodes {
             t.putString(KEY_LIQUID, liquidId);
         }
         t.putBoolean(KEY_SEALED, sealed);
-        t.putLong(KEY_ML, ml);
+        t.putLong(KEY_ML, Math.clamp(ml,0,bottleCapacityOf(stack)));
+        if(ml<=0)t.remove(KEY_LIQUID);
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(t));
     }
 
     public static void setSolid(ItemStack stack, String solidId, boolean sealed) {
+        double remaining=solidId!=null&&solidId.equals(solidIdOf(stack))?solidGrams(stack):100;
         CompoundTag t = tag(stack);
         if (solidId == null || solidId.isEmpty()) {
             t.remove(KEY_SOLID);
+            t.putDouble("chem_solid_g",0);
         } else {
             t.putString(KEY_SOLID, solidId);
+            t.putDouble("chem_solid_g",remaining);
         }
         t.putBoolean(KEY_SEALED, sealed);
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(t));

@@ -1,0 +1,78 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "part": "mchemistry:item/bench_power_supply",
+    "particle": "mchemistry:item/bench_power_supply"
+  },
+  "elements": [
+    {
+      "from": [
+        -0.6999999999999993,
+        -0.3,
+        -0.6999999999999993
+      ],
+      "to": [
+        0.7000000000000011,
+        0.3,
+        0.7000000000000011
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "#part",
+          "uv": [
+            6.0,
+            10.0,
+            8.0,
+            12.0
+          ]
+        },
+        "south": {
+          "texture": "#part",
+          "uv": [
+            6.0,
+            10.0,
+            8.0,
+            12.0
+          ]
+        },
+        "east": {
+          "texture": "#part",
+          "uv": [
+            6.0,
+            10.0,
+            8.0,
+            12.0
+          ]
+        },
+        "west": {
+          "texture": "#part",
+          "uv": [
+            6.0,
+            10.0,
+            8.0,
+            12.0
+          ]
+        },
+        "up": {
+          "texture": "#part",
+          "uv": [
+            6.0,
+            10.0,
+            8.0,
+            12.0
+          ]
+        },
+        "down": {
+          "texture": "#part",
+          "uv": [
+            6.0,
+            10.0,
+            8.0,
+            12.0
+          ]
+        }
+      }
+    }
+  ]
+}

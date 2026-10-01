@@ -1,6 +1,1 @@
-{
-  "model": {
-    "type": "minecraft:model",
-    "model": "mchemistry:item/right_angle_glass_tube_long_tubed"
-  }
-}
+{"model":{"type":"minecraft:model","model":"mchemistry:item/right_angle_glass_tube_long_tubed"}}

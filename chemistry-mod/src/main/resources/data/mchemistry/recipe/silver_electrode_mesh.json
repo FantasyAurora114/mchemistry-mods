@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "S S",
+    " S ",
+    "S S"
+  ],
+  "key": {
+    "S": "mchemistry:element_silver_ingot"
+  },
+  "result": {
+    "id": "mchemistry:silver_electrode_mesh",
+    "count": 1
+  }
+}

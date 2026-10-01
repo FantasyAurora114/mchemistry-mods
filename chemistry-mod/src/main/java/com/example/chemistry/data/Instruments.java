@@ -8,7 +8,6 @@ import java.util.List;
 public final class Instruments {
 
     public static final List<String> ALL = List.of(
-            "beaker",
             "ptfe_beaker",
             "distillation_flask",
             "centrifuge_tube",
@@ -72,7 +71,6 @@ public final class Instruments {
             "ultrasonic_cleaner",
             "fractionating_column",
             "chromatography_column",
-            "filter_paper",
             "ph_test_paper",
             "litmus_paper",
             "starch_iodide_paper",

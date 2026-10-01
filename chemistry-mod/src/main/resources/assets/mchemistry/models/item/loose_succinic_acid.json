@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mchemistry:item/loose_succinic_acid"
+  }
+}

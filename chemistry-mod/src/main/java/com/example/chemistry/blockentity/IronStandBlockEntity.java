@@ -237,25 +237,26 @@ public class IronStandBlockEntity extends BlockEntity implements IChemGoggleInfo
         Player nearest = level.getNearestPlayer(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5,
                 worldPosition.getZ() + 0.5, 8.0, false);
         if (state.getValue(IronStandBlock.HAS_TUBE) && tube.getItem() instanceof TestTubeItem) {
+            com.example.chemistry.GasBurners.heat(level, worldPosition, tube);
             if (lamp) {
-                TemperatureSystem.setTemp(tube, blowtorch ? 1200.0 : 600.0);
+                if(blowtorch)VesselHeating.heatFast(tube,1200);
+                    else VesselHeating.heatSlow(tube,600);
             } else if (TemperatureSystem.getTemp(tube) != TemperatureSystem.ROOM_TEMP) {
                 // The mounted tube cools back to room temperature when the
                 // lamp is out, so heat-required reactions stop too.
-                TemperatureSystem.setTemp(tube, TemperatureSystem.ROOM_TEMP);
+                VesselHeating.coolGradual(tube);
             }
         }
         // The mounted tube also runs its reactions (heat-required ones start
         // once the lit lamp raises the temperature).
         if (state.getValue(IronStandBlock.HAS_TUBE) && !tube.isEmpty()) {
             ReactionEngine.checkAndStart(tube, nearest);
-            Reactions.Reaction completed = ReactionEngine.tick(tube, nearest);
+            ReactionEngine.Completion completed = ReactionEngine.tickResult(tube, nearest);
             if (completed != null) {
-                ReactionEngine.applyReactionHeat(tube, completed);
                 ReactionPhenomena.spawn(level,
                         new net.minecraft.world.phys.Vec3(worldPosition.getX() + 0.5,
                                 worldPosition.getY() + 0.8, worldPosition.getZ() + 0.5),
-                        ReactionPhenomena.detect(completed, tube));
+                        ReactionPhenomena.detect(completed.reaction(), tube));
                 GasFlowEngine.enqueue(level, worldPosition, tube, completed);
             }
             // Gas produced in the mounted tube also flows along a connected

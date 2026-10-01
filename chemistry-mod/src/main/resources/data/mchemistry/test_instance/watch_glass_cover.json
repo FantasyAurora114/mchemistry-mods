@@ -1,0 +1,1 @@
+{"type": "minecraft:function", "function": "mchemistry:watch_glass_cover", "environment": "minecraft:default", "structure": "mchemistry:empty", "max_ticks": 40}

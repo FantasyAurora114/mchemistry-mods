@@ -1,0 +1,78 @@
+{
+  "render_type": "mchemistry:lab_glass",
+  "textures": {
+    "all": "mchemistry:block/lab_water",
+    "particle": "mchemistry:block/lab_water",
+    "water_body": "mchemistry:block/lab_water_body"
+  },
+  "elements": [
+    {
+      "from": [
+        5.8,
+        0,
+        5.8
+      ],
+      "to": [
+        11.2,
+        5,
+        11.2
+      ],
+      "faces": {
+        "up": {
+          "texture": "#particle",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#water_body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#water_body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#water_body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#water_body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#water_body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

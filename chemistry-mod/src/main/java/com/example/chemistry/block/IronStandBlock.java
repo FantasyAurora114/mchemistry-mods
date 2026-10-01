@@ -252,7 +252,7 @@ public class IronStandBlock extends Block implements EntityBlock {
         // The 2-hole stopper holds two instruments; the 1-hole holds one.
         if (state.getValue(HAS_TUBE) && state.getValue(HAS_STOPPER)
                 && level.getBlockEntity(pos) instanceof IronStandBlockEntity be
-                && (stack.is(ModItems.STRAIGHT_GLASS_TUBE.get())
+                && ((stack.is(ModItems.STRAIGHT_GLASS_TUBE.get()) || stack.is(ModItems.STRAIGHT_GLASS_TUBE_LONG.get()))
                         || stack.is(ModItems.RIGHT_ANGLE_GLASS_TUBE.get())
                         || stack.is(ModItems.RIGHT_ANGLE_GLASS_TUBE_LONG.get())
                         || stack.is(ModItems.LONG_STEM_FUNNEL.get())
@@ -283,7 +283,8 @@ public class IronStandBlock extends Block implements EntityBlock {
         if (state.getValue(ATTACHMENT) != 0 && !state.getValue(HAS_TUBE)
                 && !state.getValue(HAS_VESSEL)
                 && stack.getItem() instanceof LabVesselItem
-                && !(stack.getItem() instanceof TestTubeItem)) {
+                && !(stack.getItem() instanceof TestTubeItem)
+                && !(stack.getItem() instanceof com.example.chemistry.organic.PhasePipetteItem)) {
             if (!level.isClientSide() && level.getBlockEntity(pos) instanceof IronStandBlockEntity be) {
                 be.setVessel(stack.copy());
                 stack.shrink(1);
@@ -295,7 +296,7 @@ public class IronStandBlock extends Block implements EntityBlock {
         if (state.getValue(HAS_VESSEL) && level.getBlockEntity(pos) instanceof IronStandBlockEntity be
                 && !be.getVessel().isEmpty() && VesselHeating.isSealed(be.getVessel())
                 && VesselHeating.getStopperHoles(be.getVessel()) > 0
-                && (stack.is(ModItems.STRAIGHT_GLASS_TUBE.get())
+                && ((stack.is(ModItems.STRAIGHT_GLASS_TUBE.get()) || stack.is(ModItems.STRAIGHT_GLASS_TUBE_LONG.get()))
                         || stack.is(ModItems.RIGHT_ANGLE_GLASS_TUBE.get())
                         || stack.is(ModItems.RIGHT_ANGLE_GLASS_TUBE_LONG.get())
                         || stack.is(ModItems.LONG_STEM_FUNNEL.get())
@@ -356,17 +357,6 @@ public class IronStandBlock extends Block implements EntityBlock {
                             && !VesselHeating.isSealed(vessel)) {
                         if (!level.isClientSide()) {
                             be.setDistillationHead(true);
-                            stack.shrink(1);
-                            level.playSound(null, pos, SoundEvents.GLASS_PLACE,
-                                    SoundSource.BLOCKS, 1.0F, 1.0F);
-                        }
-                    } else if (stack.is(ModItems.STRAIGHT_CONDENSER.get())
-                            && !state.getValue(HAS_CONDENSER)
-                            && !be.hasDistillationHead()
-                            && vessel.is(ModItems.ROUND_BOTTOM_FLASK.get())
-                            && !VesselHeating.isSealed(vessel)) {
-                        if (!level.isClientSide()) {
-                            be.setCondenser(true);
                             stack.shrink(1);
                             level.playSound(null, pos, SoundEvents.GLASS_PLACE,
                                     SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -943,8 +933,7 @@ public class IronStandBlock extends Block implements EntityBlock {
             return false;
         }
         String liquid = DropperHelper.getLiquid(dropper);
-        if (LabVesselItem.addLiquid(tube, liquid, 5)) {
-            DropperHelper.setMl(dropper, DropperHelper.getMl(dropper) - 5);
+        if (DropperHelper.pour(dropper,tube,player.isShiftKeyDown())) {
             ReactionEngine.checkAndStart(tube, player);
             be.setTube(tube);
             be.setChanged();
@@ -999,7 +988,7 @@ public class IronStandBlock extends Block implements EntityBlock {
     }
 
     private static boolean isGlassTube(ItemStack stack) {
-        return stack.is(ModItems.STRAIGHT_GLASS_TUBE.get())
+        return (stack.is(ModItems.STRAIGHT_GLASS_TUBE.get()) || stack.is(ModItems.STRAIGHT_GLASS_TUBE_LONG.get()))
                 || stack.is(ModItems.RIGHT_ANGLE_GLASS_TUBE.get())
                 || stack.is(ModItems.RIGHT_ANGLE_GLASS_TUBE_LONG.get());
     }

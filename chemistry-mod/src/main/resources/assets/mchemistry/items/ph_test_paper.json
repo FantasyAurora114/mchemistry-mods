@@ -1,6 +1,1 @@
-{
-  "model": {
-    "type": "minecraft:model",
-    "model": "mchemistry:item/ph_test_paper"
-  }
-}
+{"model": {"type": "minecraft:model", "model": "mchemistry:item/ph_test_paper"}}

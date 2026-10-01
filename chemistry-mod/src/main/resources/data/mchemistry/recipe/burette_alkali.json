@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "category": "misc", "pattern": [" G ", " G ", " NG"], "key": {"G": "minecraft:glass", "N": "minecraft:slime_ball"}, "result": {"id": "mchemistry:burette_alkali", "count": 1}}

@@ -3,6 +3,7 @@ package com.example.chemistry.client;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 
 public class TripodRenderState extends BlockEntityRenderState {
+    public VesselVisualState vesselVisual = VesselVisualState.EMPTY;
 
     public boolean hasClayTriangle;
     public boolean hasLamp;

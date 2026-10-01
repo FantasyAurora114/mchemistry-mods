@@ -31,8 +31,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * 橡胶管：右键水（水槽/水方块）沾湿后才能使用。右键两个锚点（方块面、
- * 实体或铁架台上玻璃导管的出口）铺一条自然下垂的橡胶管。
+ * 橡胶管：右键水（水槽/水方块）沾湿后才能使用。右键两个已安装的管口（玻璃导管出口或仪器接口）铺一条自然下垂的橡胶管。
  */
 public class RubberTubeItem extends Item {
 
@@ -68,6 +67,10 @@ public class RubberTubeItem extends Item {
         // block underneath; check both the clicked block and the face-adjacent one.
         BlockPos clicked = context.getClickedPos();
         var clickedState = level.getBlockState(clicked);
+        if (clickedState.getBlock() instanceof com.example.chemistry.block.GasApplianceBlock) {
+            com.example.chemistry.block.GasApplianceBlock.connect(level, player, stack, clicked);
+            return InteractionResult.SUCCESS;
+        }
         var adjacentState = level.getBlockState(clicked.relative(context.getClickedFace()));
         // Tube endpoints get the HIGHEST priority: a glass-tube head on an iron
         // stand, a nozzle in a water trough, or a nozzle in a gas bottle.
@@ -103,26 +106,7 @@ public class RubberTubeItem extends Item {
             player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.need_wet"), true);
             return InteractionResult.SUCCESS;
         }
-        Port point = Port.block(context.getClickedPos(), context.getClickedFace());
-        // 副手拿玻璃导管时：橡胶管从手上的玻璃导管直接连到目标（一次右键
-        // 完成，原“套着橡胶管的导气嘴”逻辑由玻璃导管继承）。
-        if (GlassTubeItem.isGlassTube(player.getOffhandItem())) {
-            createTube(level, player, stack, Port.entity(player.getUUID()), point);
-            return InteractionResult.SUCCESS;
-        }
-        Port pending = readPending(stack);
-        if (pending == null) {
-            startPending(level, player, stack, point);
-            player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.start_block",
-                    context.getClickedPos().getX(), context.getClickedPos().getY(),
-                    context.getClickedPos().getZ()), true);
-            return InteractionResult.SUCCESS;
-        }
-        if (sameAnchor(pending, point)) {
-            player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.same"), true);
-            return InteractionResult.SUCCESS;
-        }
-        createTube(level, player, stack, pending, point);
+        player.displayClientMessage(Component.literal("橡胶管只能连接已安装的玻璃导管或仪器管口"), true);
         return InteractionResult.SUCCESS;
     }
 
@@ -137,23 +121,49 @@ public class RubberTubeItem extends Item {
             player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.need_wet"), true);
             return;
         }
-        Port point = Port.entity(target.getUUID());
-        if (GlassTubeItem.isGlassTube(player.getOffhandItem())) {
-            createTube(level, player, stack, Port.entity(player.getUUID()), point);
-            return;
+        if (target instanceof com.example.chemistry.entity.IronStandEntity stand) {
+            var vessel=stand.findMountedVessel();
+            if(vessel!=null){vessel.handleTubeHead(player,stack);return;}
+            Port best=null; double distance=Double.MAX_VALUE;
+            for(int slot=1;slot<=2;slot++){
+                var tube=slot==1?stand.getAttached1():stand.getAttached2();
+                if(!GlassTubeItem.isGlassTube(tube))continue;
+                var point=Port.stand(stand.blockPosition(),slot);
+                var world=point.worldPos(level);if(world==null)continue;
+                double d=world.distanceTo(player.getEyePosition().add(player.getLookAngle().scale(world.distanceTo(player.getEyePosition()))));
+                if(d<distance&&!hasTubeAt(level,point)){best=point;distance=d;}
+            }
+            if(best!=null){var pending=readPending(stack);if(pending==null)startPending(level,player,stack,best);else createTube(level,player,stack,pending,best);return;}
         }
-        Port pending = readPending(stack);
-        if (pending == null) {
-            startPending(level, player, stack, point);
-            player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.start_entity"), true);
-        } else if (sameAnchor(pending, point)) {
-            player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.same"), true);
-        } else {
-            createTube(level, player, stack, pending, point);
+        player.displayClientMessage(Component.literal("请连接已安装的玻璃导管管口"), true);
+    }
+
+    /** Reject ordinary blocks, players and removed attachments before consuming a hose. */
+    public static boolean validPort(Level level, Port port) {
+        if(port==null)return false;
+        if(port.kind()==Port.KIND_STAND)return port.worldPos(level)!=null;
+        if(port.kind()==Port.KIND_ENTITY)return level.getEntity(port.uuid()) instanceof com.example.chemistry.entity.GasCollectingBottleEntity bottle&&bottle.hasNozzle();
+        var state=level.getBlockState(port.pos());
+        if(port.kind()==Port.KIND_BLOCK)return state.getBlock() instanceof com.example.chemistry.block.GasApplianceBlock;
+        if(port.kind()==Port.KIND_NOZZLE){
+            if(state.getBlock() instanceof GasCollectingBottleBlock)return state.getValue(GasCollectingBottleBlock.HAS_NOZZLE);
+            if(state.getBlock() instanceof WaterTroughBlock)return state.getValue(WaterTroughBlock.NOZZLE)!=WaterTroughBlock.NozzleDir.NONE
+                    ||port.face()==Direction.UP&&level.getBlockEntity(port.pos()) instanceof com.example.chemistry.blockentity.WaterTroughBlockEntity trough&&trough.hasBottle();
+            return level.getEntitiesOfClass(com.example.chemistry.entity.GasCollectingBottleEntity.class,new AABB(port.pos()))
+                    .stream().anyMatch(com.example.chemistry.entity.GasCollectingBottleEntity::hasNozzle);
         }
+        return false;
     }
 
     public static void createTube(Level level, Player player, ItemStack stack, Port a, Port b) {
+        if (!validPort(level,a)||!validPort(level,b)||sameAnchor(a,b)) {
+            player.displayClientMessage(Component.literal("两端都必须连接有效且不同的管口"),true);
+            return;
+        }
+        if(hasTubeAt(level,a)||hasTubeAt(level,b)){
+            player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.occupied"),true);
+            return;
+        }
         discardTempTube(level, stack);
         Vec3 spawn = anchorWorldPos(level, a);
         if (spawn == null) {
@@ -165,6 +175,7 @@ public class RubberTubeItem extends Item {
             return;
         }
         RubberTubeEntity tube = RubberTubeEntity.create(level, a, b, spawn);
+        tube.setSupplyLine(stack.getItem() instanceof GasSupplyTubeItem);
         if (!level.isClientSide()) {
             tube.initAir();
         }
@@ -179,6 +190,8 @@ public class RubberTubeItem extends Item {
 
     /** Set the pending start and show a temporary tube from it to the player. */
     public static void startPending(Level level, Player player, ItemStack stack, Port anchor) {
+        if(!validPort(level,anchor))return;
+        discardTempTube(level,stack);
         setPending(stack, anchor);
         if (level.isClientSide()) {
             return;
@@ -189,6 +202,8 @@ public class RubberTubeItem extends Item {
         }
         RubberTubeEntity temp = RubberTubeEntity.create(level, anchor,
                 Port.entity(player.getUUID()), spawn);
+        temp.setSupplyLine(stack.getItem() instanceof GasSupplyTubeItem);
+        temp.setPreview(true);
         level.addFreshEntity(temp);
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         tag.putInt("tube_temp_id", temp.getId());
@@ -233,16 +248,7 @@ public class RubberTubeItem extends Item {
     /** True if a catheter endpoint (glass-tube head or gas nozzle) already has a
      *  rubber tube connected to it. */
     public static boolean hasTubeAt(Level level, Port anchor) {
-        if (anchor == null || (anchor.kind() != Port.KIND_STAND && anchor.kind() != Port.KIND_NOZZLE)) {
-            return false;
-        }
-        for (RubberTubeEntity tube : level.getEntitiesOfClass(RubberTubeEntity.class,
-                new AABB(anchor.pos()).inflate(64.0))) {
-            if (sameAnchor(tube.getAnchorA(), anchor) || sameAnchor(tube.getAnchorB(), anchor)) {
-                return true;
-            }
-        }
-        return false;
+        return anchor!=null&&!findTubesAt(level,anchor).isEmpty();
     }
 
     /** Empty-hand right-click on a nozzle: complete a pending tube that is
@@ -254,32 +260,6 @@ public class RubberTubeItem extends Item {
         }
         if (hasTubeAt(level, nozzle)) {
             player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.occupied"), true);
-            return true;
-        }
-        java.util.UUID playerId = player.getUUID();
-        for (RubberTubeEntity tube : level.getEntitiesOfClass(RubberTubeEntity.class,
-                new AABB(player.blockPosition()).inflate(64.0))) {
-            Port a = tube.getAnchorA();
-            Port b = tube.getAnchorB();
-            Port other = isPlayerAnchor(a, playerId) ? b
-                    : isPlayerAnchor(b, playerId) ? a : null;
-            if (other == null || other.pos() == null) {
-                continue;
-            }
-            if (sameAnchor(other, nozzle)) {
-                player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.same"), true);
-                return true;
-            }
-            Vec3 spawn = anchorWorldPos(level, other);
-            if (spawn == null) {
-                spawn = player.position();
-            }
-            tube.discard();
-            RubberTubeEntity fresh = RubberTubeEntity.create(level, other, nozzle, spawn);
-            fresh.initAir();
-            level.addFreshEntity(fresh);
-            consumeOneTube(player);
-            player.displayClientMessage(Component.translatable("mchemistry.rubber_tube.placed"), true);
             return true;
         }
         return false;
@@ -305,35 +285,33 @@ public class RubberTubeItem extends Item {
 
     /** Every rubber tube connected to the given anchor (stand head / nozzle). */
     public static java.util.List<RubberTubeEntity> findTubesAt(Level level, Port anchor) {
-        if (anchor == null || anchor.pos() == null) {
+        if (anchor == null) {
             return java.util.List.of();
         }
+        var point=anchor.worldPos(level);
+        if(point==null)return java.util.List.of();
         return level.getEntitiesOfClass(RubberTubeEntity.class,
-                new AABB(anchor.pos()).inflate(64.0)).stream()
+                new AABB(point,point).inflate(64.0)).stream()
+                .filter(t -> !t.preview())
                 .filter(t -> sameAnchor(t.getAnchorA(), anchor) || sameAnchor(t.getAnchorB(), anchor))
                 .toList();
     }
 
-    /** Detach one end of every tube from the given head/nozzle. The tube stays
-     *  connected at its other end and dangles from the old position instead of
-     *  dropping as an item. */
+    /** Removing an attached head/nozzle drops its hoses; never create free block anchors. */
     public static void detachTubesAt(Level level, Port anchor) {
         if (level.isClientSide() || anchor == null) {
             return;
         }
         for (RubberTubeEntity tube : findTubesAt(level, anchor)) {
-            Port free = Port.block(anchor.pos(), net.minecraft.core.Direction.UP);
-            if (tube.getAnchorA() != null && tube.getAnchorA().equals(anchor)) {
-                tube.setAnchorA(free);
-            }
-            if (tube.getAnchorB() != null && tube.getAnchorB().equals(anchor)) {
-                tube.setAnchorB(free);
-            }
+            GasFlowEngine.rupture(level,tube);
+            level.addFreshEntity(new ItemEntity(level,tube.getX(),tube.getY(),tube.getZ(),tube.dropItem()));
+            tube.discard();
         }
     }
 
     /** Wet / dry state. */
     public static boolean isWet(ItemStack stack) {
+        if (stack.getItem() instanceof GasSupplyTubeItem) return true;
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         return tag.getBooleanOr(KEY_WET, false);
     }
@@ -373,11 +351,10 @@ public class RubberTubeItem extends Item {
                             tag.getIntOr("tube_anchor_z", 0)),
                     tag.getIntOr("tube_anchor_slot", 1));
         }
-        return Port.block(
-                new BlockPos(tag.getIntOr("tube_anchor_x", 0),
-                        tag.getIntOr("tube_anchor_y", 0),
-                        tag.getIntOr("tube_anchor_z", 0)),
-                Direction.byName(tag.getStringOr("tube_anchor_face", "up")));
+        BlockPos pos=new BlockPos(tag.getIntOr("tube_anchor_x",0),tag.getIntOr("tube_anchor_y",0),tag.getIntOr("tube_anchor_z",0));
+        Direction face=Direction.byName(tag.getStringOr("tube_anchor_face","up"));
+        if(face==null)face=Direction.UP;
+        return type.equals("nozzle")?Port.nozzle(pos,face):Port.block(pos,face);
     }
 
     public static void setPending(ItemStack stack, Port a) {
@@ -393,7 +370,7 @@ public class RubberTubeItem extends Item {
             tag.putInt("tube_anchor_z", a.pos().getZ());
             tag.putInt("tube_anchor_slot", a.slot());
         } else {
-            tag.putString("tube_anchor_type", "block");
+            tag.putString("tube_anchor_type", a.kind()==Port.KIND_NOZZLE?"nozzle":"block");
             tag.putInt("tube_anchor_x", a.pos().getX());
             tag.putInt("tube_anchor_y", a.pos().getY());
             tag.putInt("tube_anchor_z", a.pos().getZ());
@@ -403,7 +380,9 @@ public class RubberTubeItem extends Item {
     }
 
     public static void clearPending(ItemStack stack) {
-        stack.remove(DataComponents.CUSTOM_DATA);
+        CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        for (String key : java.util.List.copyOf(tag.keySet())) if (key.startsWith("tube_anchor_") || key.equals("tube_temp_id")) tag.remove(key);
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
     }
 
     /** Drop every tube connected to a stand's glass-tube slot (e.g. when removed). */
@@ -417,8 +396,8 @@ public class RubberTubeItem extends Item {
                     || isStandAnchor(tube.getAnchorB(), standPos, slot)) {
                 GasFlowEngine.rupture(level, tube);
                 tube.discard();
-                level.addFreshEntity(new ItemEntity(level, tube.getX(), tube.getY(), tube.getZ(),
-                        new ItemStack(com.example.chemistry.registry.ModItems.RUBBER_TUBE.get())));
+                if (!tube.preview()) level.addFreshEntity(new ItemEntity(level, tube.getX(), tube.getY(), tube.getZ(),
+                        tube.dropItem()));
             }
         }
     }
@@ -434,8 +413,8 @@ public class RubberTubeItem extends Item {
                     || isBlockAnchor(tube.getAnchorB(), pos, face)) {
                 GasFlowEngine.rupture(level, tube);
                 tube.discard();
-                level.addFreshEntity(new ItemEntity(level, tube.getX(), tube.getY(), tube.getZ(),
-                        new ItemStack(com.example.chemistry.registry.ModItems.RUBBER_TUBE.get())));
+                if (!tube.preview()) level.addFreshEntity(new ItemEntity(level, tube.getX(), tube.getY(), tube.getZ(),
+                        tube.dropItem()));
             }
         }
     }
@@ -450,8 +429,8 @@ public class RubberTubeItem extends Item {
             if (isNozzleAnchor(tube.getAnchorA(), pos) || isNozzleAnchor(tube.getAnchorB(), pos)) {
                 GasFlowEngine.rupture(level, tube);
                 tube.discard();
-                level.addFreshEntity(new ItemEntity(level, tube.getX(), tube.getY(), tube.getZ(),
-                        new ItemStack(com.example.chemistry.registry.ModItems.RUBBER_TUBE.get())));
+                if (!tube.preview()) level.addFreshEntity(new ItemEntity(level, tube.getX(), tube.getY(), tube.getZ(),
+                        tube.dropItem()));
             }
         }
     }
@@ -468,10 +447,10 @@ public class RubberTubeItem extends Item {
             if (anchorAt(tube.getAnchorA(), pos) || anchorAt(tube.getAnchorB(), pos)) {
                 GasFlowEngine.rupture(level, tube);
                 tube.discard();
-                if (dropItem) {
+                if (dropItem && !tube.preview()) {
                     level.addFreshEntity(new ItemEntity(level, tube.getX(), tube.getY(),
                             tube.getZ(),
-                            new ItemStack(com.example.chemistry.registry.ModItems.RUBBER_TUBE.get())));
+                            tube.dropItem()));
                 }
             }
         }
@@ -496,7 +475,7 @@ public class RubberTubeItem extends Item {
     }
 
     public static boolean sameAnchor(Port a, Port b) {
-        if (a.kind() != b.kind()) {
+        if (a==null||b==null||a.kind() != b.kind()) {
             return false;
         }
         if (a.kind() == Port.KIND_ENTITY) {

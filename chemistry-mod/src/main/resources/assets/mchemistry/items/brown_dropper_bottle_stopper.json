@@ -10,7 +10,7 @@
           "models": [
             {
               "type": "minecraft:model",
-              "model": "mchemistry:item/brown_dropper"
+              "model": "mchemistry:item/brown_dropper_bottle_stopper"
             },
             {
               "type": "minecraft:model",
@@ -29,7 +29,7 @@
     ],
     "fallback": {
       "type": "minecraft:model",
-      "model": "mchemistry:item/brown_dropper"
+      "model": "mchemistry:item/brown_dropper_bottle_stopper"
     }
   }
 }

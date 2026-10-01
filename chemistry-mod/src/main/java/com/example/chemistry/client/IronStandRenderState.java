@@ -4,9 +4,11 @@ import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.core.Direction;
 
 public class IronStandRenderState extends BlockEntityRenderState {
+    public VesselVisualState vesselVisual = VesselVisualState.EMPTY;
 
     public Direction facing = Direction.SOUTH;
     public int rotation;
+    public boolean dewar;
     public boolean hasTube;
     public boolean hasContents;
     public boolean hasStopper;

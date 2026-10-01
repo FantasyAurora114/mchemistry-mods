@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CCC",
+    "C C",
+    "CCC"
+  ],
+  "key": {
+    "C": "minecraft:copper_ingot"
+  },
+  "result": {
+    "id": "mchemistry:copper_electrode_mesh",
+    "count": 1
+  }
+}

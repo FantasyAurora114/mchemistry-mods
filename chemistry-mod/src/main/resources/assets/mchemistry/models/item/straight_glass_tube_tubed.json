@@ -1,6 +1,1 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "mchemistry:item/straight_glass_tube_tubed"
-  }
-}
+{"ambientocclusion": false, "render_type": "mchemistry:lab_glass", "textures": {"tube": "mchemistry:block/new_glass_tube_straight", "particle": "mchemistry:block/new_glass_tube_straight", "sleeve": "mchemistry:block/rubber_tube_side"}, "elements": [{"from": [-0.5, 0, -0.5], "to": [0.5, 4, 0.5], "shade": false, "faces": {"north": {"uv": [0, 4, 3, 10], "texture": "#tube"}, "east": {"uv": [0, 4, 3, 10], "texture": "#tube"}, "south": {"uv": [0, 4, 3, 10], "texture": "#tube"}, "west": {"uv": [12, 7, 15, 16], "texture": "#tube"}, "up": {"uv": [3, 4, 6, 7], "texture": "#tube"}, "down": {"uv": [3, 4, 6, 7], "texture": "#tube"}}}, {"from": [-0.7, 0, -0.7], "to": [0.7, 1, 0.7], "shade": false, "faces": {"north": {"texture": "#sleeve"}, "east": {"texture": "#sleeve"}, "south": {"texture": "#sleeve"}, "west": {"texture": "#sleeve"}, "up": {"texture": "#sleeve"}, "down": {"texture": "#sleeve"}}}], "display": {"gui": {"rotation": [25, 225, 0], "translation": [8, 6, 8], "scale": [2.1, 2.1, 2.1]}, "ground": {"translation": [8, 6, 8], "scale": [0.75, 0.75, 0.75]}, "fixed": {"translation": [8, 6, 8], "scale": [1.4, 1.4, 1.4]}, "firstperson_righthand": {"rotation": [0, 45, 0], "translation": [8, 6, 8], "scale": [1.25, 1.25, 1.25]}}}

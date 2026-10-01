@@ -1,0 +1,124 @@
+{
+  "textures": {
+    "all": "mchemistry:block/lab_water",
+    "particle": "mchemistry:block/lab_water",
+    "water_body": "mchemistry:block/lab_water_body"
+  },
+  "elements": [
+    {
+      "from": [
+        4.1,
+        0.78,
+        4.1
+      ],
+      "to": [
+        12.9,
+        5.465000000000001,
+        12.9
+      ],
+      "faces": {
+        "up": {
+          "texture": "#particle",
+          "tintindex": 0,
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#water_body",
+          "tintindex": 0,
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#water_body",
+          "tintindex": 0,
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#water_body",
+          "tintindex": 0,
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#water_body",
+          "tintindex": 0,
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#water_body",
+          "tintindex": 0,
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        25,
+        225,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "ground": {
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ],
+      "translation": [
+        0,
+        2,
+        0
+      ]
+    },
+    "firstperson_righthand": {
+      "scale": [
+        0.65,
+        0.65,
+        0.65
+      ]
+    },
+    "thirdperson_righthand": {
+      "scale": [
+        0.45,
+        0.45,
+        0.45
+      ]
+    }
+  },
+  "render_type": "mchemistry:lab_glass"
+}

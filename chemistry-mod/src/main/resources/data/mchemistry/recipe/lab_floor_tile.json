@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "QQ",
+    "QQ"
+  ],
+  "key": {
+    "Q": "minecraft:smooth_stone"
+  },
+  "result": {
+    "id": "mchemistry:lab_floor_tile",
+    "count": 4
+  }
+}

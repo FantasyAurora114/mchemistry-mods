@@ -1,0 +1,4 @@
+{
+  "parent": "mchemistry:block/erlenmeyer_liquid_050",
+  "render_type": "mchemistry:lab_glass"
+}

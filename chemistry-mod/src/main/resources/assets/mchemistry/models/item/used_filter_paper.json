@@ -1,0 +1,17 @@
+{
+  "parent": "mchemistry:block/filter_funnel_paper",
+  "display": {
+    "gui": {
+      "rotation": [
+        25,
+        225,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}

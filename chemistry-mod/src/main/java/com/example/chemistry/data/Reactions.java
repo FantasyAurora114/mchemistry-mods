@@ -25,7 +25,7 @@ public final class Reactions {
         }
     }
 
-    public static final List<Reaction> ALL = List.of(
+    public static final List<Reaction> ALL = java.util.stream.Stream.concat(java.util.stream.Stream.concat(List.of(
             // Passivation: concentrated oxidizing acids make Fe/Al inert at room
             // temperature (no consumption; heating above 150 C clears it).
             new Reaction(List.of(new Ingredient("solid", "iron", 1), new Ingredient("liquid", "sulfuric_acid_dilute", 1)),
@@ -65,7 +65,7 @@ public final class Reactions {
             new Reaction(List.of(new Ingredient("solid", "iron_iii_oxide", 1), new Ingredient("liquid", "hydrochloric_acid", 6)), List.of(new Product("solid", "iron_iii_chloride", 2), new Product("liquid", "water", 3)), "Fe₂O₃ + 6HCl → 2FeCl₃ + 3H₂O", 1.0, 20, "", 0),
             new Reaction(List.of(new Ingredient("liquid", "hydrogen_peroxide", 2), new Ingredient("solid", "manganese_dioxide", 1)), List.of(new Product("liquid", "water", 2), new Product("vent", "", 1)), "2H₂O₂ + MnO₂ → 2H₂O + O₂↑（二氧化锰催化）", 4.0, 20, "manganese_dioxide", 0),
             new Reaction(List.of(new Ingredient("liquid", "hydrogen_peroxide", 2)), List.of(new Product("liquid", "water", 2), new Product("vent", "", 1)), "2H₂O₂ → 2H₂O + O₂↑（缓慢分解）", 1.0, 20, "any", 0),
-            new Reaction(List.of(new Ingredient("solid", "silver", 3), new Ingredient("liquid", "nitric_acid", 4)), List.of(new Product("solid", "silver_nitrate", 3), new Product("liquid", "water", 2), new Product("vent", "", 1)), "3Ag + 4HNO₃（稀） → 3AgNO₃ + 2H₂O + NO↑", 1.0, 20, "", 0),
+            new Reaction(List.of(new Ingredient("solid", "silver", 3), new Ingredient("liquid", "nitric_acid", 4)), List.of(new Product("solid", "silver_nitrate", 3), new Product("liquid", "water", 2), new Product("vent", "", 1)), "3Ag + 4HNO₃（稀） → 3AgNO₃ + 2H₂O + NO↑", 1.0, 20, "", 0, "dilute"),
             new Reaction(List.of(new Ingredient("solid", "silver", 1), new Ingredient("liquid", "nitric_acid", 2)), List.of(new Product("solid", "silver_nitrate", 1), new Product("vent", "", 1), new Product("liquid", "water", 1)), "Ag + 2HNO₃（浓） → AgNO₃ + NO₂↑ + H₂O", 1.0, 20, "", 0, "concentrated"),
             new Reaction(List.of(new Ingredient("solid", "sodium", 2), new Ingredient("liquid", "water", 2)), List.of(new Product("liquid", "sodium_hydroxide_solution", 2), new Product("vent", "", 1)), "2Na + 2H₂O → 2NaOH溶液 + H₂↑（剧烈反应）", 8.0, 20, "", 0),
             new Reaction(List.of(new Ingredient("solid", "potassium", 2), new Ingredient("liquid", "water", 2)), List.of(new Product("liquid", "potassium_hydroxide_solution", 2), new Product("vent", "", 1)), "2K + 2H₂O → 2KOH溶液 + H₂↑（剧烈反应）", 8.0, 20, "", 0),
@@ -179,7 +179,6 @@ public final class Reactions {
             new Reaction(List.of(new Ingredient("liquid", "thiocyanic_acid", 1), new Ingredient("solid", "sodium_hydroxide", 1)), List.of(new Product("solid", "sodium_thiocyanate", 1), new Product("liquid", "water", 1)), "HSCN + NaOH → NaSCN + H₂O", 1.0, 20, "", 0),
             new Reaction(List.of(new Ingredient("liquid", "thiocyanic_acid", 1), new Ingredient("solid", "potassium_hydroxide", 1)), List.of(new Product("solid", "potassium_thiocyanate", 1), new Product("liquid", "water", 1)), "HSCN + KOH → KSCN + H₂O", 1.0, 20, "", 0),
             new Reaction(List.of(new Ingredient("liquid", "thiocyanic_acid", 1), new Ingredient("gas", "ammonia", 1)), List.of(new Product("solid", "ammonium_thiocyanate", 1)), "HSCN + NH₃ → NH₄SCN", 1.0, 20, "", 0),
-            new Reaction(List.of(new Ingredient("solid", "iron_iii_chloride", 1), new Ingredient("solid", "potassium_thiocyanate", 3)), List.of(new Product("solid", "iron_iii_thiocyanate", 1), new Product("solid", "potassium_chloride", 3)), "FeCl₃ + 3KSCN → Fe(SCN)₃ + 3KCl（血红色）", 1.0, 20, "", 0),
             new Reaction(List.of(new Ingredient("solid", "silver_nitrate", 1), new Ingredient("solid", "potassium_thiocyanate", 1)), List.of(new Product("solid", "silver_thiocyanate", 1), new Product("solid", "potassium_nitrate", 1)), "AgNO₃ + KSCN → AgSCN↓ + KNO₃", 1.0, 20, "", 0),
             new Reaction(List.of(new Ingredient("solid", "potassium_carbonate", 1), new Ingredient("liquid", "sulfuric_acid_dilute", 1)), List.of(new Product("solid", "potassium_sulfate", 1), new Product("vent", "", 1), new Product("liquid", "water", 1)), "K₂CO₃ + H₂SO₄ → K₂SO₄ + CO₂↑ + H₂O", 1.0, 20, "", 0),
             new Reaction(List.of(new Ingredient("solid", "potassium_hydroxide", 2), new Ingredient("liquid", "sulfuric_acid_dilute", 1)), List.of(new Product("solid", "potassium_sulfate", 1), new Product("liquid", "water", 2)), "2KOH + H₂SO₄ → K₂SO₄ + 2H₂O", 1.0, 20, "", 0),
@@ -308,7 +307,6 @@ public final class Reactions {
             new Reaction(List.of(new Ingredient("liquid", "acetone", 1), new Ingredient("gas", "oxygen", 4)), List.of(new Product("vent", "", 3), new Product("liquid", "water", 3)), "CH₃COCH₃ + 4O₂ → 3CO₂↑ + 3H₂O（点燃）", 1.0, 20, "", 0),
             new Reaction(List.of(new Ingredient("liquid", "ethanol", 2)), List.of(new Product("liquid", "diethyl_ether", 1), new Product("liquid", "water", 1)), "2C₂H₅OH → C₂H₅OC₂H₅ + H₂O（浓硫酸，140°C）", 0.7, 140, "", 0),
             new Reaction(List.of(new Ingredient("liquid", "diethyl_ether", 1), new Ingredient("gas", "oxygen", 6)), List.of(new Product("vent", "", 4), new Product("liquid", "water", 5)), "C₂H₅OC₂H₅ + 6O₂ → 4CO₂↑ + 5H₂O（点燃）", 1.0, 20, "", 0),
-            new Reaction(List.of(new Ingredient("liquid", "acetic_acid", 1), new Ingredient("liquid", "ethanol", 1)), List.of(new Product("liquid", "ethyl_acetate", 1), new Product("liquid", "water", 1)), "CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O（浓硫酸，加热）", 0.7, 100, "", 0),
             new Reaction(List.of(new Ingredient("liquid", "ethyl_acetate", 1), new Ingredient("gas", "oxygen", 5)), List.of(new Product("vent", "", 4), new Product("liquid", "water", 4)), "CH₃COOC₂H₅ + 5O₂ → 4CO₂↑ + 4H₂O（点燃）", 1.0, 20, "", 0),
             new Reaction(List.of(new Ingredient("liquid", "benzene", 2), new Ingredient("gas", "oxygen", 15)), List.of(new Product("vent", "", 12), new Product("liquid", "water", 6)), "2C₆H₆ + 15O₂ → 12CO₂↑ + 6H₂O（点燃）", 1.0, 20, "", 0),
             new Reaction(List.of(new Ingredient("liquid", "toluene", 1), new Ingredient("gas", "oxygen", 9)), List.of(new Product("vent", "", 7), new Product("liquid", "water", 4)), "C₆H₅CH₃ + 9O₂ → 7CO₂↑ + 4H₂O（点燃）", 1.0, 20, "", 0),
@@ -460,6 +458,13 @@ public final class Reactions {
             new Reaction(List.of(new Ingredient("solid", "calcium_chloride", 1), new Ingredient("solid", "sodium_nitrite", 2)), List.of(new Product("solid", "calcium_nitrite", 1), new Product("solid", "sodium_chloride", 2)), "CaCl₂ + 2NaNO₂ → Ca(NO₂)₂ + 2NaCl", 1.0, 20, "", 0),
             new Reaction(List.of(new Ingredient("solid", "barium_chloride", 1), new Ingredient("solid", "sodium_nitrite", 2)), List.of(new Product("solid", "barium_nitrite", 1), new Product("solid", "sodium_chloride", 2)), "BaCl₂ + 2NaNO₂ → Ba(NO₂)₂ + 2NaCl", 1.0, 20, "", 0),
             // 次卤酸及盐
+            new Reaction(List.of(new Ingredient("solid", "copper", 3), new Ingredient("liquid", "nitric_acid", 8)), List.of(new Product("solid", "copper_ii_nitrate", 3), new Product("vent", "", 2), new Product("liquid", "water", 4)), "3Cu + 8HNO₃（稀） → 硝酸盐 + 2NO↑ + 4H₂O", 1.0, 20, "", 0, "dilute"),
+            new Reaction(List.of(new Ingredient("solid", "iron", 1), new Ingredient("liquid", "nitric_acid", 4)), List.of(new Product("solid", "iron_iii_nitrate", 1), new Product("vent", "", 1), new Product("liquid", "water", 2)), "1Fe + 4HNO₃（稀） → 硝酸盐 + 1NO↑ + 2H₂O", 1.0, 20, "", 0, "dilute"),
+            new Reaction(List.of(new Ingredient("solid", "aluminium", 1), new Ingredient("liquid", "nitric_acid", 4)), List.of(new Product("solid", "aluminium_nitrate", 1), new Product("vent", "", 1), new Product("liquid", "water", 2)), "1Al + 4HNO₃（稀） → 硝酸盐 + 1NO↑ + 2H₂O", 1.0, 20, "", 0, "dilute"),
+            new Reaction(List.of(new Ingredient("gas", "chlorine", 3), new Ingredient("liquid", "sodium_hydroxide_solution", 6)), List.of(new Product("solid", "sodium_chloride", 5), new Product("solid", "sodium_chlorate", 1), new Product("liquid", "water", 3)), "3Cl₂ + 6NaOH溶液 → 5NaCl + NaClO₃ + 3H₂O（热浓碱）", 1.0, 80, "", 0, ""),
+            new Reaction(List.of(new Ingredient("gas", "chlorine", 1), new Ingredient("liquid", "sodium_hydroxide_solution", 2)), List.of(new Product("solid", "sodium_chloride", 1), new Product("solid", "sodium_hypochlorite", 1), new Product("liquid", "water", 1)), "Cl₂ + 2NaOH溶液 → NaCl + NaClO + H₂O（冷碱）", 1.0, 20, "", 0, ""),
+            new Reaction(List.of(new Ingredient("gas", "chlorine", 3), new Ingredient("liquid", "potassium_hydroxide_solution", 6)), List.of(new Product("solid", "potassium_chloride", 5), new Product("solid", "potassium_chlorate", 1), new Product("liquid", "water", 3)), "3Cl₂ + 6KOH溶液 → 5KCl + KClO₃ + 3H₂O（热浓碱）", 1.0, 80, "", 0, ""),
+            new Reaction(List.of(new Ingredient("gas", "chlorine", 1), new Ingredient("liquid", "potassium_hydroxide_solution", 2)), List.of(new Product("solid", "potassium_chloride", 1), new Product("solid", "potassium_hypochlorite", 1), new Product("liquid", "water", 1)), "Cl₂ + 2KOH溶液 → KCl + KClO + H₂O（冷碱）", 1.0, 20, "", 0, ""),
             new Reaction(List.of(new Ingredient("gas", "chlorine", 1), new Ingredient("solid", "sodium_hydroxide", 2)), List.of(new Product("solid", "sodium_chloride", 1), new Product("solid", "sodium_hypochlorite", 1), new Product("liquid", "water", 1)), "Cl₂ + 2NaOH → NaCl + NaClO + H₂O", 1.0, 20, "", 0),
             new Reaction(List.of(new Ingredient("gas", "chlorine", 1), new Ingredient("solid", "potassium_hydroxide", 2)), List.of(new Product("solid", "potassium_chloride", 1), new Product("solid", "potassium_hypochlorite", 1), new Product("liquid", "water", 1)), "Cl₂ + 2KOH → KCl + KClO + H₂O", 1.0, 20, "", 0),
             new Reaction(List.of(new Ingredient("gas", "chlorine", 2), new Ingredient("solid", "calcium_hydroxide", 2)), List.of(new Product("solid", "calcium_chloride", 1), new Product("solid", "calcium_hypochlorite", 1), new Product("liquid", "water", 2)), "2Cl₂ + 2Ca(OH)₂ → CaCl₂ + Ca(ClO)₂ + 2H₂O（漂白粉）", 1.0, 20, "", 0),
@@ -737,7 +742,41 @@ public final class Reactions {
                     "2K₂FeO₄ + 16HCl（浓） → 2FeCl₃ + 3Cl₂↑ + 4KCl + 8H₂O", 1.0, 20, "", 0, "concentrated"),
             new Reaction(List.of(new Ingredient("solid", "sodium_ferrate", 2), new Ingredient("liquid", "hydrochloric_acid", 16)),
                     List.of(new Product("solid", "iron_iii_chloride", 2), new Product("vent", "", 3), new Product("solid", "sodium_chloride", 4), new Product("liquid", "water", 8)),
-                    "2Na₂FeO₄ + 16HCl（浓） → 2FeCl₃ + 3Cl₂↑ + 4NaCl + 8H₂O", 1.0, 20, "", 0, "concentrated")
+                    "2Na₂FeO₄ + 16HCl（浓） → 2FeCl₃ + 3Cl₂↑ + 4NaCl + 8H₂O", 1.0, 20, "", 0, "concentrated"),
+
+            // 危险化学品：遇水水解 / 氧化
+            new Reaction(List.of(new Ingredient("solid", "phosphorus_pentachloride", 1), new Ingredient("liquid", "water", 4)),
+                    List.of(new Product("liquid", "phosphoric_acid", 1), new Product("vent", "", 5)),
+                    "PCl₅ + 4H₂O → H₃PO₄ + 5HCl↑（剧烈水解）", 6.0, 20, "", 0),
+            new Reaction(List.of(new Ingredient("solid", "sodium_hydride", 1), new Ingredient("liquid", "water", 1)),
+                    List.of(new Product("liquid", "sodium_hydroxide_solution", 1), new Product("vent", "", 1)),
+                    "NaH + H₂O → NaOH溶液 + H₂↑（爆炸性反应）", 8.0, 20, "", 0),
+            new Reaction(List.of(new Ingredient("solid", "calcium_hydride", 1), new Ingredient("liquid", "water", 2)),
+                    List.of(new Product("solid", "calcium_hydroxide", 1), new Product("vent", "", 2)),
+                    "CaH₂ + 2H₂O → Ca(OH)₂ + 2H₂↑", 5.0, 20, "", 0),
+            new Reaction(List.of(new Ingredient("solid", "lithium_aluminium_hydride", 1), new Ingredient("liquid", "water", 4)),
+                    List.of(new Product("solid", "lithium_hydroxide", 1), new Product("solid", "aluminium_hydroxide", 1), new Product("vent", "", 4)),
+                    "LiAlH₄ + 4H₂O → LiOH + Al(OH)₃ + 4H₂↑（剧烈）", 8.0, 20, "", 0),
+            new Reaction(List.of(new Ingredient("solid", "sodium_borohydride", 1), new Ingredient("liquid", "hydrochloric_acid", 3)),
+                    List.of(new Product("solid", "boric_acid", 1), new Product("solid", "sodium_chloride", 1), new Product("vent", "", 4)),
+                    "NaBH₄ + 3HCl → H₃BO₃ + NaCl + 4H₂↑", 3.0, 20, "", 0),
+            new Reaction(List.of(new Ingredient("solid", "potassium_permanganate", 2), new Ingredient("liquid", "hydrochloric_acid", 16)),
+                    List.of(new Product("solid", "potassium_chloride", 2), new Product("liquid", "water", 8), new Product("vent", "", 5)),
+                    "2KMnO₄ + 16HCl（浓） → 2KCl + 2MnCl₂ + 8H₂O + 5Cl₂↑", 1.0, 20, "", 0, "concentrated"),
+            new Reaction(List.of(new Ingredient("solid", "potassium_dichromate", 1), new Ingredient("liquid", "hydrochloric_acid", 14)),
+                    List.of(new Product("solid", "potassium_chloride", 2), new Product("solid", "chromium_iii_chloride", 2), new Product("liquid", "water", 7), new Product("vent", "", 3)),
+                    "K₂Cr₂O₇ + 14HCl（浓） → 2KCl + 2CrCl₃ + 7H₂O + 3Cl₂↑", 1.0, 20, "", 0, "concentrated"),
+
+            // 有机酸：与碳酸盐/金属反应
+            new Reaction(List.of(new Ingredient("solid", "citric_acid", 1), new Ingredient("solid", "sodium_bicarbonate", 3)),
+                    List.of(new Product("solid", "sodium_citrate", 1), new Product("liquid", "water", 3), new Product("vent", "", 3)),
+                    "C₆H₈O₇ + 3NaHCO₃ → Na₃C₆H₅O₇ + 3H₂O + 3CO₂↑（冒泡）", 2.0, 20, "", 0),
+            new Reaction(List.of(new Ingredient("solid", "tartaric_acid", 1), new Ingredient("solid", "sodium_bicarbonate", 2)),
+                    List.of(new Product("solid", "sodium_tartrate", 1), new Product("liquid", "water", 2), new Product("vent", "", 2)),
+                    "C₄H₆O₆ + 2NaHCO₃ → Na₂C₄H₄O₆ + 2H₂O + 2CO₂↑", 2.0, 20, "", 0),
+            new Reaction(List.of(new Ingredient("solid", "citric_acid", 2), new Ingredient("solid", "magnesium", 3)),
+                    List.of(new Product("solid", "magnesium_citrate", 1), new Product("vent", "", 3)),
+                    "2C₆H₈O₇ + 3Mg → Mg₃(C₆H₅O₇)₂ + 3H₂↑", 2.0, 20, "", 0)
 
 
 
@@ -745,7 +784,7 @@ public final class Reactions {
 
 
 
-    );
+    ).stream(),BatchReactions.ALL.stream()),FutureReactions.ALL.stream()).toList();
 
     private Reactions() {
     }

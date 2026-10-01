@@ -76,6 +76,19 @@ public final class DropperHelper {
         }
     }
 
+    /** Fine addition is 1 mL; normal addition is 5 mL, bounded by actual remainder. */
+    public static boolean pour(ItemStack dropper,ItemStack vessel,boolean fine) {
+        if(com.example.chemistry.organic.OrganicApparatus.covered(vessel))return false;
+        int amount=Math.min(fine?1:5,getMl(dropper));
+        String liquid=getLiquid(dropper);
+        if (liquid==null || amount<=0) return false;
+        var before=vessel.copy();
+        if(!LabVesselItem.addLiquid(vessel,liquid,amount))return false;
+        com.example.chemistry.radiation.RadioLedger.inherit(dropper,before,vessel);
+        setMl(dropper,getMl(dropper)-amount);
+        return true;
+    }
+
     public static void clear(ItemStack stack) {
         stack.remove(DataComponents.CUSTOM_DATA);
         stack.remove(DataComponents.CUSTOM_MODEL_DATA);

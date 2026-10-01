@@ -1,0 +1,136 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "fill": "mchemistry:block/lab_water",
+    "particle": "mchemistry:block/lab_water",
+    "water_body": "mchemistry:block/lab_water_body"
+  },
+  "elements": [
+    {
+      "from": [
+        5.18,
+        0.18,
+        5.18
+      ],
+      "to": [
+        11.82,
+        0.792,
+        11.82
+      ],
+      "shade": false,
+      "faces": {
+        "up": {
+          "texture": "#fill",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "down": {
+          "texture": "#water_body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "north": {
+          "texture": "#water_body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "south": {
+          "texture": "#water_body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "east": {
+          "texture": "#water_body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "west": {
+          "texture": "#water_body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        25,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2,
+        0
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        1.2
+      ]
+    },
+    "ground": {
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
+    }
+  },
+  "render_type": "mchemistry:lab_glass"
+}

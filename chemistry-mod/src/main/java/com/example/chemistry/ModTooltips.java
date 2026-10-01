@@ -47,6 +47,34 @@ public class ModTooltips {
     @SubscribeEvent
     public static void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
+        if(stack.is(ModItems.SALT_BRIDGE.get())){
+            event.getToolTip().add(Component.literal(String.format(java.util.Locale.ROOT,"盐桥KNO₃余量：%.6f / 1 g",com.example.chemistry.electrical.SaltBridgeItem.grams(stack))));
+            event.getToolTip().add(Component.literal("依次点击两只半电池杯；最长3格，潜行取消；剪刀拆卸保留余量"));
+        }
+        if(stack.is(ModItems.GALVANIC_HALF_CELL.get()))event.getToolTip().add(Component.literal("500 mL；装入锌/铜电极网及对应盐溶液，接盐桥和电线"));
+        if(stack.is(ModItems.LAB_RESISTOR.get()))event.getToolTip().add(Component.literal("原电池测试负载：100 Ω；电线连接红黑接线柱"));
+        if(stack.is(ModItems.LAB_VOLTMETER.get()))event.getToolTip().add(Component.literal("原电池高阻测量；红端接铜、黑端接锌，不消耗反应物"));
+        if(stack.is(ModItems.ZINC_ELECTRODE_MESH.get()))event.getToolTip().add(Component.literal(String.format(java.util.Locale.ROOT,"锌余量 %.6f g；用于锌铜原电池",com.example.chemistry.electrical.ElectrodePartItem.grams(stack))));
+        if (stack.getItem() instanceof com.example.chemistry.item.GasCylinderItem cylinder) {
+            event.getToolTip().add(Component.literal(String.format(java.util.Locale.ROOT, "剩余气体：%.3f L（25°C参考体积）", cylinder.remaining(stack) / 1000.0)));
+            event.getToolTip().add(Component.literal("接管后空手点击开关阀门；关闭阀门可接收同种气体补充"));
+        }
+        if (stack.is(ModItems.GAS_SUPPLY_TUBE.get())) event.getToolTip().add(Component.literal("依次点击两个气口连接；潜行右键取消，剪刀拆除"));
+        if (stack.is(ModItems.BUNSEN_BURNER.get())) event.getToolTip().add(Component.literal("甲烷供气；点底部燃气旋钮开阀，用打火石点燃；点进气环切换火焰"));
+        if(stack.is(ModItems.SEPARATORY_FUNNEL.get())){
+            event.getToolTip().add(Component.literal("安装于空铁架台；点顶端取塞，点旋塞排下层"));
+            event.getToolTip().add(Component.literal("潜行点旋塞排 1 mL；潜行点顶端摇匀，点管身拆卸"));
+        }
+        if(stack.is(ModItems.PHASE_PIPETTE.get())){
+            event.getToolTip().add(Component.literal("空管：右键取上层，潜行右键取下层（最多 25 mL）"));
+            event.getToolTip().add(Component.literal("有液：右键转入 5 mL，潜行转入 1 mL"));
+        }
+
+        if(stack.getItem() instanceof TestTubeItem tube&&tube.isDewar())
+            event.getToolTip().add(Component.literal("真空双层保温：环境热交换速度为普通试管的 1/8"));
+
+        if(BottleCodes.isLiquidBottle(stack)||BottleCodes.isDropperBottle(stack))event.getToolTip().add(Component.literal("余量："+BottleCodes.volumeOf(stack)+" / "+BottleCodes.bottleCapacityOf(stack)+" mL"));
+        if(BottleCodes.isSolidJar(stack))event.getToolTip().add(Component.literal(String.format(java.util.Locale.ROOT,"余量：%.2f / 100 g",BottleCodes.solidGrams(stack))));
         // 倒出的散装固体标注克数。
         if (stack.getOrDefault(net.minecraft.core.component.DataComponents.CUSTOM_DATA,
                 net.minecraft.world.item.component.CustomData.EMPTY).copyTag()
@@ -58,6 +86,7 @@ public class ModTooltips {
                     "tooltip.mchemistry.solid_grams", String.format("%.1f", grams)));
         }
         if (stack.getItem() instanceof DropperItem && !DropperHelper.isEmpty(stack)) {
+            event.getToolTip().add(Component.literal("添加：普通右键最多 5 mL；潜行右键最多 1 mL"));
             String liquid = DropperHelper.getLiquid(stack);
             int ml = DropperHelper.getMl(stack);
             event.getToolTip().add(Component.translatable("tooltip.mchemistry.dropper_contents",

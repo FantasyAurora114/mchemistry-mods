@@ -32,6 +32,7 @@ public class TestTubeRackBlockEntity extends BlockEntity implements IChemGoggleI
     private static final double[] SLOT_X = {3.0, 5.5, 8.0, 10.5, 13.0};
     private final ItemStack[] tubes = new ItemStack[SLOTS];
     private final boolean[] inverted = new boolean[SLOTS];
+    private boolean contentsNeedSync;
 
     public TestTubeRackBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.TEST_TUBE_RACK.get(), pos, state);
@@ -52,6 +53,19 @@ public class TestTubeRackBlockEntity extends BlockEntity implements IChemGoggleI
         inverted[slot] = inv;
         setChanged();
         sync();
+    }
+
+    public void tickContents() {
+        if(level==null||level.isClientSide())return;
+        boolean changed=false;
+        for(var tube:tubes)if(!tube.isEmpty()){
+            var before=tube.get(net.minecraft.core.component.DataComponents.CUSTOM_DATA);
+            com.example.chemistry.VesselHeating.coolGradual(tube);
+            com.example.chemistry.PhaseSystem.tick(tube,com.example.chemistry.TemperatureSystem.getTemp(tube));
+            changed|=!java.util.Objects.equals(before,tube.get(net.minecraft.core.component.DataComponents.CUSTOM_DATA));
+        }
+        if(changed){setChanged();contentsNeedSync=true;}
+        if(contentsNeedSync&&level.getGameTime()%20==0){sync();contentsNeedSync=false;}
     }
 
     public boolean isInverted(int slot) {

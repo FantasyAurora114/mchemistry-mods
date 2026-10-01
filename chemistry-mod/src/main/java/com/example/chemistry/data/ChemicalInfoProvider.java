@@ -333,6 +333,29 @@ public final class ChemicalInfoProvider {
         CHEMICALS.put("solid_manganese_sulfate", new ChemicalInfo("MnSO₄", "151.00", "medium", "weak", "none", "5.0|acid", "3.25 g/cm³", "淡粉色结晶粉末", "无味", "710°C", "850°C"));
         CHEMICALS.put("solid_iodoform", new ChemicalInfo("CHI₃", "393.73", "medium", "none", "none", "n/a|neutral", "4.01 g/cm³", "黄色结晶", "特殊气味", "119°C", "218°C"));
         CHEMICALS.put("solid_benzoic_acid", new ChemicalInfo("C₆H₅COOH", "122.12", "medium", "weak", "none", "3.0|acid", "1.27 g/cm³", "白色结晶（易升华）", "微有苯甲醛味", "122°C", "249°C"));
+        CHEMICALS.put("solid_citric_acid", new ChemicalInfo("C₆H₈O₇", "192.12", "low", "weak", "none", "2.2|acid", "1.665 g/cm³", "白色结晶粉末", "无味", "153°C", "175°C（分解）"));
+        CHEMICALS.put("solid_salicylic_acid", new ChemicalInfo("C₇H₆O₃", "138.12", "medium", "moderate", "none", "2.4|acid", "1.44 g/cm³", "白色针状结晶", "微有苯酚味", "159°C", "211°C（升华）"));
+        CHEMICALS.put("solid_phosphorus_pentachloride", new ChemicalInfo("PCl₅", "208.24", "high", "strong", "none", "1.0|acid", "2.11 g/cm³", "白色至淡黄色晶体（遇水剧烈反应）", "刺鼻", "160°C（升华）", "160°C"));
+        CHEMICALS.put("solid_lithium_aluminium_hydride", new ChemicalInfo("LiAlH₄", "37.95", "high", "strong", "none", "7.0|neutral", "0.917 g/cm³", "白色粉末（遇水剧烈反应）", "无味", "125°C（分解）", "125°C"));
+        CHEMICALS.put("solid_tartaric_acid", new ChemicalInfo("C₄H₆O₆", "150.09", "low", "weak", "none", "3.0|acid", "1.79 g/cm³", "白色结晶粉末", "无味", "171°C", "分解"));
+        CHEMICALS.put("solid_malic_acid", new ChemicalInfo("C₄H₆O₅", "134.09", "low", "weak", "none", "2.2|acid", "1.61 g/cm³", "白色结晶粉末", "无味", "130°C", "分解"));
+        CHEMICALS.put("solid_succinic_acid", new ChemicalInfo("C₄H₆O₄", "118.09", "low", "weak", "none", "2.7|acid", "1.56 g/cm³", "白色结晶粉末", "无味", "185°C", "235°C"));
+        CHEMICALS.put("solid_ascorbic_acid", new ChemicalInfo("C₆H₈O₆", "176.12", "low", "weak", "none", "2.2|acid", "1.65 g/cm³", "白色结晶粉末", "无味", "190°C", "分解"));
+        CHEMICALS.put("solid_gallic_acid", new ChemicalInfo("C₇H₆O₅", "170.12", "medium", "weak", "none", "3.0|acid", "1.69 g/cm³", "白色至淡黄色粉末", "无味", "250°C", "分解"));
+        CHEMICALS.put("solid_stearic_acid", new ChemicalInfo("C₁₈H₃₆O₂", "284.48", "low", "none", "none", "n/a|neutral", "0.94 g/cm³", "白色蜡状固体", "微有油脂味", "69°C", "361°C"));
+        CHEMICALS.put("solid_palmitic_acid", new ChemicalInfo("C₁₆H₃₂O₂", "256.42", "low", "none", "none", "n/a|neutral", "0.85 g/cm³", "白色鳞片状结晶", "微有油脂味", "63°C", "351°C"));
+        CHEMICALS.put("solid_adipic_acid", new ChemicalInfo("C₆H₁₀O₄", "146.14", "low", "weak", "none", "3.0|acid", "1.36 g/cm³", "白色结晶粉末", "无味", "152°C", "337°C"));
+        CHEMICALS.put("solid_sodium_borohydride", new ChemicalInfo("NaBH₄", "37.83", "high", "strong", "none", "10.0|alkaline", "1.07 g/cm³", "白色结晶粉末（遇水放氢）", "无味", "400°C", "分解"));
+        CHEMICALS.put("solid_sodium_azide", new ChemicalInfo("NaN₃", "65.01", "high", "none", "explosive", "8.0|alkaline", "1.85 g/cm³", "白色结晶粉末（剧毒）", "无味", "275°C", "分解"));
+        CHEMICALS.put("solid_benzoyl_peroxide", new ChemicalInfo("C₁₄H₁₀O₄", "242.23", "high", "weak", "explosive", "n/a|neutral", "1.33 g/cm³", "白色结晶粉末（强氧化）", "微有杏仁味", "105°C", "分解"));
+        CHEMICALS.put("solid_picric_acid", new ChemicalInfo("C₆H₃N₃O₇", "229.10", "high", "strong", "explosive", "1.0|acid", "1.76 g/cm³", "黄色结晶（易爆）", "苦味", "122°C", "分解"));
+        CHEMICALS.put("solid_sodium_citrate", new ChemicalInfo("Na₃C₆H₅O₇", "258.07", "low", "weak", "none", "8.0|alkaline", "1.70 g/cm³", "白色结晶粉末", "无味", "300°C", "分解"));
+        CHEMICALS.put("solid_sodium_tartrate", new ChemicalInfo("Na₂C₄H₄O₆", "194.05", "low", "weak", "none", "8.0|alkaline", "1.82 g/cm³", "白色结晶粉末", "无味", "150°C", "分解"));
+        CHEMICALS.put("solid_sodium_salicylate", new ChemicalInfo("NaC₇H₅O₃", "160.10", "medium", "weak", "none", "7.0|neutral", "1.27 g/cm³", "白色结晶粉末", "无味", "200°C", "分解"));
+        CHEMICALS.put("solid_lithium_hydroxide", new ChemicalInfo("LiOH", "23.95", "high", "strong", "none", "12.0|alkaline", "1.46 g/cm³", "白色粉末", "无味", "462°C", "924°C"));
+        CHEMICALS.put("solid_chromium_iii_chloride", new ChemicalInfo("CrCl₃", "158.36", "medium", "moderate", "none", "3.0|acid", "2.87 g/cm³", "紫色结晶", "无味", "1152°C", "1300°C"));
+        CHEMICALS.put("solid_magnesium_citrate", new ChemicalInfo("Mg₃(C₆H₅O₇)₂", "451.11", "low", "none", "none", "n/a|neutral", "1.50 g/cm³", "白色粉末", "无味", "分解", "分解"));
+        CHEMICALS.put("solid_acetylsalicylic_acid", new ChemicalInfo("C₉H₈O₄", "180.16", "low", "weak", "none", "3.5|acid", "1.40 g/cm³", "白色结晶粉末", "微有醋酸味", "135°C", "140°C（分解）"));
         CHEMICALS.put("solid_sodium_peroxide", new ChemicalInfo("Na₂O₂", "77.98", "high", "strong", "oxidizer", "11.0|alkaline", "2.80 g/cm³", "淡黄色粉末", "无味", "460°C", "657°C"));
         CHEMICALS.put("solid_potassium_peroxide", new ChemicalInfo("K₂O₂", "110.20", "high", "strong", "oxidizer", "11.0|alkaline", "2.14 g/cm³", "淡黄色粉末", "无味", "490°C", "531°C"));
         CHEMICALS.put("solid_calcium_peroxide", new ChemicalInfo("CaO₂", "72.08", "medium", "moderate", "oxidizer", "n/a|neutral", "2.92 g/cm³", "白色粉末", "无味", "200°C", "300°C"));
@@ -922,6 +945,52 @@ public final class ChemicalInfoProvider {
         BOILING_POINT.put("solid_iodoform", 218);
         MOLAR_MASS.put("solid_benzoic_acid", 122.12);
         BOILING_POINT.put("solid_benzoic_acid", 249);
+        MOLAR_MASS.put("solid_citric_acid", 192.12);
+        BOILING_POINT.put("solid_citric_acid", 175);
+        MOLAR_MASS.put("solid_salicylic_acid", 138.12);
+        BOILING_POINT.put("solid_salicylic_acid", 211);
+        MOLAR_MASS.put("solid_phosphorus_pentachloride", 208.24);
+        BOILING_POINT.put("solid_phosphorus_pentachloride", 160);
+        MOLAR_MASS.put("solid_lithium_aluminium_hydride", 37.95);
+        BOILING_POINT.put("solid_lithium_aluminium_hydride", 125);
+        MOLAR_MASS.put("solid_tartaric_acid", 150.09);
+        BOILING_POINT.put("solid_tartaric_acid", 240);
+        MOLAR_MASS.put("solid_malic_acid", 134.09);
+        BOILING_POINT.put("solid_malic_acid", 220);
+        MOLAR_MASS.put("solid_succinic_acid", 118.09);
+        BOILING_POINT.put("solid_succinic_acid", 235);
+        MOLAR_MASS.put("solid_ascorbic_acid", 176.12);
+        BOILING_POINT.put("solid_ascorbic_acid", 190);
+        MOLAR_MASS.put("solid_gallic_acid", 170.12);
+        BOILING_POINT.put("solid_gallic_acid", 250);
+        MOLAR_MASS.put("solid_stearic_acid", 284.48);
+        BOILING_POINT.put("solid_stearic_acid", 361);
+        MOLAR_MASS.put("solid_palmitic_acid", 256.42);
+        BOILING_POINT.put("solid_palmitic_acid", 351);
+        MOLAR_MASS.put("solid_adipic_acid", 146.14);
+        BOILING_POINT.put("solid_adipic_acid", 337);
+        MOLAR_MASS.put("solid_sodium_borohydride", 37.83);
+        BOILING_POINT.put("solid_sodium_borohydride", 400);
+        MOLAR_MASS.put("solid_sodium_azide", 65.01);
+        BOILING_POINT.put("solid_sodium_azide", 275);
+        MOLAR_MASS.put("solid_benzoyl_peroxide", 242.23);
+        BOILING_POINT.put("solid_benzoyl_peroxide", 105);
+        MOLAR_MASS.put("solid_picric_acid", 229.10);
+        BOILING_POINT.put("solid_picric_acid", 122);
+        MOLAR_MASS.put("solid_sodium_citrate", 258.07);
+        BOILING_POINT.put("solid_sodium_citrate", 300);
+        MOLAR_MASS.put("solid_sodium_tartrate", 194.05);
+        BOILING_POINT.put("solid_sodium_tartrate", 150);
+        MOLAR_MASS.put("solid_sodium_salicylate", 160.10);
+        BOILING_POINT.put("solid_sodium_salicylate", 200);
+        MOLAR_MASS.put("solid_lithium_hydroxide", 23.95);
+        BOILING_POINT.put("solid_lithium_hydroxide", 924);
+        MOLAR_MASS.put("solid_chromium_iii_chloride", 158.36);
+        BOILING_POINT.put("solid_chromium_iii_chloride", 1300);
+        MOLAR_MASS.put("solid_magnesium_citrate", 451.11);
+        BOILING_POINT.put("solid_magnesium_citrate", 300);
+        MOLAR_MASS.put("solid_acetylsalicylic_acid", 180.16);
+        BOILING_POINT.put("solid_acetylsalicylic_acid", 140);
         MOLAR_MASS.put("solid_sodium_peroxide", 77.98);
         BOILING_POINT.put("solid_sodium_peroxide", 657);
         MOLAR_MASS.put("solid_potassium_peroxide", 110.20);
@@ -1156,6 +1225,85 @@ public final class ChemicalInfoProvider {
 
 
     }
+
+    static {
+        for (var c : BatchChemicals.ALL) {
+            for(String prefix:batchPrefixes()) {
+                boolean solution=prefix.equals("liquid_")||prefix.equals("dropper_bottle_");
+                String key=prefix+c.id()+(solution?"_solution":"");
+                MOLAR_MASS.put(key,c.mass());
+                CHEMICALS.put(key,new ChemicalInfo(c.formula(),Double.toString(c.mass()),"未标定","未标定","未标定","n/a",solution?"1.00 g/cm³（体积近似）":"未标定",solution?"溶液":"固体试剂","未标定","未标定","未标定"));
+                if(solution){DENSITY.put(key,1.0);BOILING_POINT.put(key,100);}
+            }
+        }
+        MOLAR_MASS.put("liquid_chromium_chloride_solution",158.3461);DENSITY.put("liquid_chromium_chloride_solution",1.0);BOILING_POINT.put("liquid_chromium_chloride_solution",100);
+        MOLAR_MASS.put("liquid_chromium_sulfate_solution",392.16020000000003);DENSITY.put("liquid_chromium_sulfate_solution",1.0);BOILING_POINT.put("liquid_chromium_sulfate_solution",100);
+        MOLAR_MASS.put("liquid_potassium_dichromate_solution",294.1818);DENSITY.put("liquid_potassium_dichromate_solution",1.0);BOILING_POINT.put("liquid_potassium_dichromate_solution",100);
+        MOLAR_MASS.put("liquid_zinc_chloride_solution",136.28);DENSITY.put("liquid_zinc_chloride_solution",1.0);BOILING_POINT.put("liquid_zinc_chloride_solution",100);
+        MOLAR_MASS.put("liquid_magnesium_sulfate_solution",120.361);DENSITY.put("liquid_magnesium_sulfate_solution",1.0);BOILING_POINT.put("liquid_magnesium_sulfate_solution",100);
+        MOLAR_MASS.put("liquid_calcium_sulfate_solution",136.13400000000001);DENSITY.put("liquid_calcium_sulfate_solution",1.0);BOILING_POINT.put("liquid_calcium_sulfate_solution",100);
+        MOLAR_MASS.put("liquid_potassium_iodide_solution",166.00277);DENSITY.put("liquid_potassium_iodide_solution",1.0);BOILING_POINT.put("liquid_potassium_iodide_solution",100);
+        for(var r:FutureChemicals.ALL){
+            String prefix=r.phase().equals("LIQUID")?"liquid_":"solid_";
+            for(String key:java.util.List.of(prefix+r.id(),"loose_"+r.id(),"element_"+r.id())){
+                MOLAR_MASS.put(key,r.mass());CHEMICALS.put(key,new ChemicalInfo(r.formula(),Double.toString(r.mass()),"未标定","未标定","未标定","n/a",r.phase().equals("LIQUID")?r.density()+" g/mL（近似）":"未标定",r.chinese(),"未标定",r.melting()>-1000?r.melting()+"°C":"未标定",r.boiling()<9999?r.boiling()+"°C":"未标定"));
+                BOILING_POINT.put(key,r.boiling());
+            }
+            if(r.phase().equals("LIQUID")){DENSITY.put("liquid_"+r.id(),r.density());}
+            else if(r.ceiling()>0){String key="liquid_"+r.id()+"_solution";MOLAR_MASS.put(key,r.mass());DENSITY.put(key,1.0);BOILING_POINT.put(key,100);CHEMICALS.put(key,new ChemicalInfo(r.formula(),Double.toString(r.mass()),"未标定","未标定","未标定","n/a","1 g/mL（近似）",r.chinese()+"溶液","未标定","未标定","按水相处理"));}
+        }
+        for(var r:AdvancedChemicals.ALL){
+            String prefix=r.phase().equals("LIQUID")?"liquid_":"solid_";
+            String density=java.util.Set.of("benzil","cinnamic_acid","tungsten_trioxide","sodium_benzoate").contains(r.id())?"未标定":r.density()+" g/cm³（PubChem）";
+            String melt=r.id().equals("paracetamol")?"168–172°C（PubChem）":r.melting()>-1000?r.melting()+"°C（PubChem）":"未标定";
+            var info=new ChemicalInfo(r.formula(),Double.toString(r.mass()),"未标定","未标定","未标定","n/a",density,r.chinese(),"未标定",melt,r.boiling()<9999?r.boiling()+"°C（PubChem）":"未标定");
+            CHEMICALS.put(prefix+r.id(),info);CHEMICALS.put("loose_"+r.id(),info);
+        }
+        MOLAR_MASS.put("gas_collecting_bottle_tungsten_hexafluoride",297.830418);
+        CHEMICALS.put("gas_collecting_bottle_tungsten_hexafluoride",new ChemicalInfo("WF₆","297.830418","extreme","strong","none","n/a","按气相体积换算","六氟化钨","未标定","1.9°C（PubChem）","17.1°C（PubChem）"));
+        MOLAR_MASS.put("gas_collecting_bottle_phosgene",98.91000000000001);
+        CHEMICALS.put("gas_collecting_bottle_phosgene",new ChemicalInfo("COCl2","98.91000000000001","extreme","未标定","none","n/a","气相密度按25°C标准体积计算","光气","未标定","未标定","8.3°C"));
+        MOLAR_MASS.put("gas_collecting_bottle_ozone",47.997);
+        CHEMICALS.put("gas_collecting_bottle_ozone",new ChemicalInfo("O3","47.997","未标定","未标定","未标定","n/a","气相密度按25°C标准体积计算","臭氧","未标定","未标定","未标定"));
+        MOLAR_MASS.put("gas_collecting_bottle_dinitrogen_tetroxide",92.01);
+        CHEMICALS.put("gas_collecting_bottle_dinitrogen_tetroxide",new ChemicalInfo("N2O4","92.01","未标定","未标定","未标定","n/a","气相密度按25°C标准体积计算","四氧化二氮","未标定","未标定","未标定"));
+        MOLAR_MASS.put("gas_collecting_bottle_hydrogen_fluoride",20.006403);
+        CHEMICALS.put("gas_collecting_bottle_hydrogen_fluoride",new ChemicalInfo("HF","20.006403","未标定","未标定","未标定","n/a","气相密度按25°C标准体积计算","氟化氢","未标定","未标定","未标定"));
+        MOLAR_MASS.put("gas_collecting_bottle_hydrogen_bromide",80.91199999999999);
+        CHEMICALS.put("gas_collecting_bottle_hydrogen_bromide",new ChemicalInfo("HBr","80.91199999999999","未标定","未标定","未标定","n/a","气相密度按25°C标准体积计算","溴化氢","未标定","未标定","未标定"));
+        MOLAR_MASS.put("gas_collecting_bottle_hydrogen_iodide",127.91247);
+        CHEMICALS.put("gas_collecting_bottle_hydrogen_iodide",new ChemicalInfo("HI","127.91247","未标定","未标定","未标定","n/a","气相密度按25°C标准体积计算","碘化氢","未标定","未标定","未标定"));
+        MOLAR_MASS.put("gas_collecting_bottle_boron_trifluoride",67.805209);
+        CHEMICALS.put("gas_collecting_bottle_boron_trifluoride",new ChemicalInfo("BF3","67.805209","未标定","未标定","未标定","n/a","气相密度按25°C标准体积计算","三氟化硼","未标定","未标定","未标定"));
+        MOLAR_MASS.put("gas_collecting_bottle_silane",32.117000000000004);
+        CHEMICALS.put("gas_collecting_bottle_silane",new ChemicalInfo("SiH4","32.117000000000004","未标定","未标定","未标定","n/a","气相密度按25°C标准体积计算","硅烷","未标定","未标定","未标定"));
+        MOLAR_MASS.put("liquid_iodine_n_hexane",253.80894);MOLAR_MASS.put("liquid_iodine_cyclohexane",253.80894);
+        for (var c : ExpansionCompounds.ALL) {
+            for(String prefix:java.util.List.of("solid_","loose_","liquid_","dropper_bottle_")) {
+                String id=prefix+c.id()+((prefix.equals("liquid_")||prefix.equals("dropper_bottle_"))?"_solution":"");
+                MOLAR_MASS.put(id,c.mass());CHEMICALS.put(id,new ChemicalInfo(c.formula(),Double.toString(c.mass()),"low","weak","none","n/a","未标定","无水试剂","无味","未标定","未标定"));
+                if(id.endsWith("_solution")){DENSITY.put(id,1.0);BOILING_POINT.put(id,100);}
+            }
+        }
+        MOLAR_MASS.put("liquid_zinc_sulfate_solution",161.436);DENSITY.put("liquid_zinc_sulfate_solution",1.0);BOILING_POINT.put("liquid_zinc_sulfate_solution",100);
+        for(String id:java.util.List.of("iodine_toluene","iodine_carbon_tetrachloride","iodine_ethyl_acetate")) {MOLAR_MASS.put("liquid_"+id,253.80894);DENSITY.put("liquid_"+id,4.93);}
+        for (var c : EdtaCompounds.ALL) {
+            for (String prefix : java.util.List.of("solid_", "loose_", "liquid_", "dropper_bottle_")) {
+                String key = prefix + c.id() + ((prefix.equals("liquid_") || prefix.equals("dropper_bottle_")) ? "_solution" : "");
+                boolean solution = key.endsWith("_solution");
+                CHEMICALS.put(key, new ChemicalInfo(c.formula(), String.format(java.util.Locale.ROOT,"%.2f",c.molarMass()), "low", "weak", "none", "n/a", solution ? "1.00 g/cm³（近似）" : "未标定", "EDTA螯合试剂", "无味", "受热分解（未标定）", "水相按水沸腾"));
+                MOLAR_MASS.put(key,c.molarMass());
+                if (solution) { DENSITY.put(key,1.0); BOILING_POINT.put(key,100); }
+            }
+        }
+    }
+
+    static {
+        MOLAR_MASS.put("gas_collecting_bottle_radon",222.0);
+        CHEMICALS.put("gas_collecting_bottle_radon",new ChemicalInfo("Rn","222","high","none","none","n/a","气相","无色气体","无味","未标定","未标定"));
+        CHEMICALS.replaceAll(HazardProfiles::enrich);
+    }
+    private static java.util.List<String> batchPrefixes(){return java.util.List.of("solid_","loose_","liquid_","dropper_bottle_");}
 
     public static double molarMassOf(String itemPath) {
         return MOLAR_MASS.getOrDefault(itemPath, 0.0);

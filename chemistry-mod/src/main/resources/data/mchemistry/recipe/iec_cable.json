@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shapeless", "category": "misc", "ingredients": ["mchemistry:electrical_wire", "minecraft:iron_nugget"], "result": {"id": "mchemistry:iec_cable", "count": 1}}

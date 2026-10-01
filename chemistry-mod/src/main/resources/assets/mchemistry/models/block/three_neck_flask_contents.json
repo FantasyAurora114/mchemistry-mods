@@ -1,44 +1,45 @@
 {
   "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
   "textures": {
     "contents": "mchemistry:block/vessel_contents"
   },
   "elements": [
     {
       "from": [
-        6.4,
-        0.5,
-        6.4
+        5.227203791469194,
+        0.17744075829383885,
+        5.227203791469194
       ],
       "to": [
-        10.6,
-        4.5,
-        10.6
+        11.772796208530806,
+        6.604739336492891,
+        11.772796208530806
       ],
       "shade": false,
       "faces": {
         "north": {
-          "texture": "contents",
+          "texture": "#contents",
           "tintindex": 0
         },
         "south": {
-          "texture": "contents",
+          "texture": "#contents",
           "tintindex": 0
         },
         "east": {
-          "texture": "contents",
+          "texture": "#contents",
           "tintindex": 0
         },
         "west": {
-          "texture": "contents",
+          "texture": "#contents",
           "tintindex": 0
         },
         "up": {
-          "texture": "contents",
+          "texture": "#contents",
           "tintindex": 0
         },
         "down": {
-          "texture": "contents",
+          "texture": "#contents",
           "tintindex": 0
         }
       }

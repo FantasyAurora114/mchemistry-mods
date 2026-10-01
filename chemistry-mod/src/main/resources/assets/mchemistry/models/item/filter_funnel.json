@@ -1,0 +1,25 @@
+{
+  "parent": "mchemistry:block/filter_funnel_glass",
+  "display": {
+    "gui": {
+      "rotation": [
+        25,
+        225,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ]
+    },
+    "ground": {
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
+  },
+  "render_type": "mchemistry:lab_glass"
+}

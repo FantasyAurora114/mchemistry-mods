@@ -1,1 +1,77 @@
-{"ambientocclusion": false, "particle": "bottle_water", "textures": {"bottle_water": "mchemistry:block/bottle_water"}, "elements": [{"from": [6.3, 0, 6.3], "to": [10.7, 5, 10.7], "shade": false, "faces": {"north": {"texture": "bottle_water", "uv": [0, 0, 16, 16]}, "south": {"texture": "bottle_water", "uv": [0, 0, 16, 16]}, "east": {"texture": "bottle_water", "uv": [0, 0, 16, 16]}, "west": {"texture": "bottle_water", "uv": [0, 0, 16, 16]}, "up": {"texture": "bottle_water", "uv": [0, 0, 16, 16]}, "down": {"texture": "bottle_water", "uv": [0, 0, 16, 16]}}}]}
+{
+  "render_type": "mchemistry:lab_glass",
+  "textures": {
+    "all": "mchemistry:block/lab_gas",
+    "particle": "mchemistry:block/lab_gas"
+  },
+  "elements": [
+    {
+      "from": [
+        5.8,
+        0,
+        5.8
+      ],
+      "to": [
+        11.2,
+        5,
+        11.2
+      ],
+      "faces": {
+        "up": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

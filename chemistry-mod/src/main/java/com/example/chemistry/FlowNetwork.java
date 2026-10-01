@@ -3,6 +3,7 @@ package com.example.chemistry;
 import com.example.chemistry.block.GasCollectingBottleBlock;
 import com.example.chemistry.blockentity.GasCollectingBottleBlockEntity;
 import com.example.chemistry.blockentity.WaterTroughBlockEntity;
+import com.example.chemistry.entity.GasCollectingBottleEntity;
 import com.example.chemistry.entity.RubberTubeEntity;
 import com.example.chemistry.entity.RubberTubeEntity.Port;
 import com.example.chemistry.item.RubberTubeItem;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.AABB;
 
 /**
  * 流体网络（FlowNetwork）：气/液共用的运输核心。
@@ -75,9 +77,14 @@ public final class FlowNetwork {
             }
             return ml;
         }
+        if (far.kind() == Port.KIND_BLOCK && far.pos() != null) {
+            var device = com.example.chemistry.block.GasApplianceBlock.device(level, far.pos());
+            return device == null ? 0 : device.receive(id, ml);
+        }
         if (far.kind() == Port.KIND_ENTITY) {
             // 手持导气嘴 / 实体端：气体在此排入空气，流动不中断。
             Entity e = level.getEntity(far.uuid());
+            if(e instanceof GasCollectingBottleEntity bottle)return bottle.hasNozzle()?bottle.addGas(id,ml,purity):0;
             if (e == null) {
                 return 0;
             }
@@ -101,6 +108,12 @@ public final class FlowNetwork {
                 && state.getValue(GasCollectingBottleBlock.HAS_NOZZLE)
                 && level.getBlockEntity(pos) instanceof GasCollectingBottleBlockEntity be) {
             return be.addGas(id, ml, purity);
+        }
+        for (GasCollectingBottleEntity be : level.getEntitiesOfClass(
+                GasCollectingBottleEntity.class, new AABB(pos))) {
+            if (be.hasNozzle()) {
+                return be.addGas(id, ml, purity);
+            }
         }
         if (state.is(ModBlocks.WATER_TROUGH.get())
                 && level.getBlockEntity(pos) instanceof WaterTroughBlockEntity wbe) {

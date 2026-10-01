@@ -61,9 +61,11 @@ public class ChemistryMod {
         ModFluids.FLUIDS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
+        com.example.chemistry.registry.ModMenus.MENUS.register(modEventBus);
         ModEntities.ENTITY_TYPES.register(modEventBus);
         ModBlockEntities.BLOCK_ENTITY_TYPES.register(modEventBus);
         ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
+        ReactionGameTests.TEST_FUNCTIONS.register(modEventBus);
         modEventBus.addListener(ModCapabilities::registerCapabilities);
         modEventBus.addListener(ChemistryNetworking::register);
 

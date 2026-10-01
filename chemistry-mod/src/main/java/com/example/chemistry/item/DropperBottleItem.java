@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 
 /**
  * Unified dropper bottle (滴瓶). The liquid id lives in CUSTOM_DATA. Right-click
- * pulls out a filled dropper stopper and leaves the empty bottle; with a filled
+ * pulls out at most 25 mL in a dropper stopper and debits the bottle; with a filled
  * stopper in the offhand it inserts it back.
  */
 public class DropperBottleItem extends Item {
@@ -40,28 +40,25 @@ public class DropperBottleItem extends Item {
         }
         ItemStack held = player.getItemInHand(hand);
         String liquidId = BottleCodes.liquidIdOf(held);
-        if (liquidId != null) {
-            // Pull out a filled dropper stopper, leave the empty bottle.
-            ItemStack stopperStack = new ItemStack(isBrown(liquidId) ? brownStopper.get() : stopper.get());
-            DropperHelper.fill(stopperStack, liquidId, DropperHelper.CAPACITY);
-            BottleCodes.setLiquid(held, null, true, 0);
-            BottleCodes.refreshModel(held);
-            if (!player.getInventory().add(stopperStack)) {
-                player.drop(stopperStack, false);
-            }
-            return InteractionResult.SUCCESS;
+        ItemStack offhand=player.getOffhandItem();
+        if(DropperHelper.isStopper(offhand)&&!BottleCodes.isSealed(held)){
+            String sample=DropperHelper.getLiquid(offhand);int amount=DropperHelper.getMl(offhand);
+            if(sample!=null&&(liquidId!=null&&!sample.equals(liquidId)||amount+BottleCodes.volumeOf(held)>BottleCodes.bottleCapacityOf(held)))return InteractionResult.FAIL;
+            if(sample!=null)BottleCodes.setLiquid(held,sample,true,BottleCodes.volumeOf(held)+amount);else BottleCodes.setSealed(held,true);
+            BottleCodes.refreshModel(held);offhand.shrink(1);return InteractionResult.SUCCESS;
         }
-        // Empty bottle + filled stopper in offhand -> restore the full bottle.
-        ItemStack offhand = player.getOffhandItem();
-        if (DropperHelper.isStopper(offhand) && !DropperHelper.isEmpty(offhand)) {
-            BottleCodes.setLiquid(held, DropperHelper.getLiquid(offhand), true,
-                    BottleCodes.bottleCapacityOf(held));
-            BottleCodes.refreshModel(held);
-            offhand.shrink(1);
-            return InteractionResult.SUCCESS;
+        if(BottleCodes.isSealed(held)){
+            ItemStack stopperStack=new ItemStack(liquidId!=null&&isBrown(liquidId)?brownStopper.get():stopper.get());
+            int amount=Math.min(DropperHelper.CAPACITY,BottleCodes.volumeOf(held));
+            if(liquidId!=null&&amount>0)DropperHelper.fill(stopperStack,liquidId,amount);
+            BottleCodes.setVolume(held,BottleCodes.volumeOf(held)-amount);BottleCodes.setSealed(held,false);BottleCodes.refreshModel(held);
+            if(!player.getInventory().add(stopperStack))player.drop(stopperStack,false);return InteractionResult.SUCCESS;
         }
+        if(DropperHelper.isDropper(offhand)&&DropperHelper.isEmpty(offhand)&&com.example.chemistry.transfer.BottleQuantities.fillDropper(held,offhand))return InteractionResult.SUCCESS;
         return InteractionResult.PASS;
     }
+
+    @Override public void inventoryTick(ItemStack stack,net.minecraft.server.level.ServerLevel level,net.minecraft.world.entity.Entity entity,net.minecraft.world.entity.EquipmentSlot slot){BottleCodes.refreshModel(stack);}
 
     private static boolean isBrown(String liquidId) {
         return com.example.chemistry.registry.ModItems.BROWN_LIQUIDS.contains(liquidId);

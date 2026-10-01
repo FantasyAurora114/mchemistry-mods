@@ -1,0 +1,133 @@
+{
+  "textures": {
+    "surface": "mchemistry:block/lab_water",
+    "body": "mchemistry:block/lab_water_body"
+  },
+  "elements": [
+    {
+      "from": [
+        7.2,
+        8.25,
+        7.2
+      ],
+      "to": [
+        8.8,
+        17.9025,
+        8.8
+      ],
+      "faces": {
+        "up": {
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "down": {
+          "texture": "#body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "north": {
+          "texture": "#body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "south": {
+          "texture": "#body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "east": {
+          "texture": "#body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "west": {
+          "texture": "#body",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        0,
+        0,
+        20
+      ],
+      "translation": [
+        0,
+        -6,
+        0
+      ],
+      "scale": [
+        0.43,
+        0.43,
+        0.43
+      ]
+    },
+    "ground": {
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "translation": [
+        0,
+        2,
+        0
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        0,
+        8
+      ],
+      "scale": [
+        0.36,
+        0.36,
+        0.36
+      ]
+    },
+    "thirdperson_righthand": {
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    }
+  },
+  "render_type": "minecraft:translucent"
+}

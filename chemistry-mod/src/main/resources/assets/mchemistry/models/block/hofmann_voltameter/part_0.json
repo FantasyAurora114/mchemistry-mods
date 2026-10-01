@@ -1,0 +1,60 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "part": "mchemistry:item/hofmann_voltameter",
+    "particle": "mchemistry:item/hofmann_voltameter"
+  },
+  "elements": [
+    {
+      "from": [
+        -0.8999999999999999,
+        -8.5,
+        -0.9000000000000004
+      ],
+      "to": [
+        0.8999999999999999,
+        8.5,
+        0.9000000000000004
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "#part",
+          "uv": [
+            2.0,
+            0.0,
+            4.0,
+            10.0
+          ]
+        },
+        "south": {
+          "texture": "#part",
+          "uv": [
+            0.0,
+            0.0,
+            2.0,
+            10.0
+          ]
+        },
+        "east": {
+          "texture": "#part",
+          "uv": [
+            0.0,
+            0.0,
+            2.0,
+            10.0
+          ]
+        },
+        "west": {
+          "texture": "#part",
+          "uv": [
+            0.0,
+            0.0,
+            2.0,
+            10.0
+          ]
+        }
+      }
+    }
+  ]
+}

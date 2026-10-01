@@ -8,6 +8,7 @@ import com.example.chemistry.data.SubstanceVariants;
 import com.example.chemistry.block.AlcoholLampBlock;
 import com.example.chemistry.item.CombustionSpoonItem;
 import com.example.chemistry.item.LabVesselItem;
+import com.example.chemistry.item.TestTubeItem;
 import com.example.chemistry.registry.ModBlocks;
 
 import net.minecraft.core.BlockPos;
@@ -51,6 +52,7 @@ public final class VesselHeating {
     public static final double LAMP_TEMP = 500.0;
     /** Alcohol blowtorch: reaches 1200 C. */
     public static final double BLOWTORCH_TEMP = 1200.0;
+    public static final double AMBIENT_PRESSURE_KPA = 101.325;
     /** Air cooling: 1 C per 2 seconds (40 ticks). */
     private static final double AIR_COOL_PER_TICK = 1.0 / 40.0;
 
@@ -60,7 +62,7 @@ public final class VesselHeating {
             return;
         }
         double current = TemperatureSystem.getTemp(vessel);
-        double next = current + (target - current) * 0.08;
+        double next = current + (target - current) * 0.08 * TestTubeItem.exchangeFactor(vessel);
         if (Math.abs(next - current) < 0.5) {
             next = target;
         }
@@ -78,6 +80,14 @@ public final class VesselHeating {
         }
         return vessel.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag()
                 .getBooleanOr(KEY_TEMP_LOCKED, false);
+    }
+
+    /** The existing sealed-vessel pressure counter represents gauge kPa. */
+    public static double pressureKpa(ItemStack vessel) {
+        CompoundTag tag = vessel.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        if(com.example.chemistry.utility.VacuumState.enabled(vessel)&&isSealed(vessel))return com.example.chemistry.utility.VacuumState.pressure(vessel);
+        return AMBIENT_PRESSURE_KPA + (tag.getBooleanOr("chem_sealed", false)
+                ? Math.max(0, tag.getIntOr("chem_pressure", 0)) : 0);
     }
 
     public static void setTempLocked(ItemStack vessel, boolean locked) {
@@ -99,7 +109,7 @@ public final class VesselHeating {
         if (current >= target) {
             return;
         }
-        TemperatureSystem.setTemp(vessel, Math.min(target, current + 5.0 / 20.0));
+        TemperatureSystem.setTemp(vessel, Math.min(target, current + 5.0 / 20.0 * TestTubeItem.exchangeFactor(vessel)));
     }
 
     /** Blowtorch heating: twice as fast (10 C per second). */
@@ -111,7 +121,7 @@ public final class VesselHeating {
         if (current >= target) {
             return;
         }
-        TemperatureSystem.setTemp(vessel, Math.min(target, current + 10.0 / 20.0));
+        TemperatureSystem.setTemp(vessel, Math.min(target, current + 10.0 / 20.0 * TestTubeItem.exchangeFactor(vessel)));
     }
 
     /** Cool in air by 1 C every 2 seconds until room temperature (20 C). */
@@ -120,11 +130,11 @@ public final class VesselHeating {
             return;
         }
         double current = TemperatureSystem.getTemp(vessel);
-        if (current <= TemperatureSystem.ROOM_TEMP) {
-            return;
-        }
-        TemperatureSystem.setTemp(vessel,
-                Math.max(TemperatureSystem.ROOM_TEMP, current - AIR_COOL_PER_TICK));
+        double step=AIR_COOL_PER_TICK*TestTubeItem.exchangeFactor(vessel);
+        double delta=TemperatureSystem.ROOM_TEMP-current;
+        if(Math.abs(delta)<1e-9)return;
+        if(Math.abs(delta)<=step)TemperatureSystem.setTemp(vessel,TemperatureSystem.ROOM_TEMP);
+        else TemperatureSystem.setTemp(vessel,current+Math.copySign(step,delta));
     }
 
     /** True when a lit standalone alcohol lamp sits directly below the vessel. */
@@ -147,21 +157,27 @@ public final class VesselHeating {
         if (vessel.isEmpty() || !(vessel.getItem() instanceof LabVesselItem)) {
             return Outcome.NONE;
         }
+        LabVesselItem.normalizeSolutions(vessel);
+        GasBurners.heat(level, pos, vessel);
         // 敞口容器里比空气轻的气体慢慢逸出（被空气取代）。
         if (!isSealed(vessel)) {
             VesselGasPhase.tickLeak(vessel);
         }
+        if(com.example.chemistry.utility.VacuumState.enabled(vessel)&&!isSealed(vessel))com.example.chemistry.utility.VacuumState.release(vessel);
         double temp = TemperatureSystem.getTemp(vessel);
-        PhaseSystem.tick(vessel, temp);
+        com.example.chemistry.organic.OrganicChemistry.tick(vessel);
+        PhaseSystem.tick(vessel, temp,
+                hasCondenser && distillateTarget != null && !distillateTarget.isEmpty());
+        com.example.chemistry.solution.BatchChemistry.unlock(vessel,player);
         ReactionEngine.checkAndStart(vessel, player);
-        Reactions.Reaction completed = ReactionEngine.tick(vessel, player);
+        ReactionEngine.Completion completed = ReactionEngine.tickResult(vessel, player);
         if (completed != null) {
-            ReactionEngine.applyReactionHeat(vessel, completed);
             ReactionPhenomena.spawn(level,
                     new net.minecraft.world.phys.Vec3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5),
-                    ReactionPhenomena.detect(completed, vessel));
+                    ReactionPhenomena.detect(completed.reaction(), vessel));
             GasFlowEngine.enqueue(level, pos, vessel, completed);
         }
+        if(ContainerHazards.discharge(vessel,level,new net.minecraft.world.phys.Vec3(pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5)))return Outcome.CRACKED;
         // NB-style gas flow: queue gas first, then pump it along the rubber
         // tube at a visible speed (bubbles run along the tube, the water level
         // in a 排水法 trough drops live, cutting the tube stops the flow).
@@ -175,6 +191,7 @@ public final class VesselHeating {
         // 气体时瓶塞不会被崩飞).
         CompoundTag tag = vessel.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         boolean sealed = tag.getBooleanOr("chem_sealed", false);
+        temp = TemperatureSystem.getTemp(vessel);
         int pressure = tag.getIntOr("chem_pressure", 0);
         Outcome outcome = Outcome.NONE;
         if (sealed && !gasOutlet) {
@@ -189,39 +206,33 @@ public final class VesselHeating {
                     outcome = Outcome.POPPED;
                 }
             }
-        } else if (pressure > 0) {
-            pressure -= 1;
+        } else {
+            // 有气体出口（插导管）或敞口：压力直接归零，不再缓慢衰减，
+            // 避免"插导管前累积的压力"残留触发崩塞。
+            pressure = 0;
         }
         tag.putInt("chem_pressure", Math.max(0, pressure));
         vessel.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
 
+        temp=TemperatureSystem.getTemp(vessel);
         boolean boiling = false;
         for (LabVesselItem.Entry entry : LabVesselItem.getContents(vessel)) {
             if (entry.type().equals("liquid")) {
                 String solute = Solutions.soluteOf(entry.id());
-                if (solute != null) {
-                    // Solutions lose their water above 100 C; solute crystallises.
-                    if (temp > 100) {
-                        if (entry.amount() <= 0.05) {
-                            LabVesselItem.consumeMass(vessel, "liquid", entry.id(), entry.amount());
-                            LabVesselItem.addMass(vessel, "solid", solute, 1.0);
-                        } else {
-                            LabVesselItem.consumeMass(vessel, "liquid", entry.id(), 0.05);
-                        }
-                        boiling = true;
+                // Nonvolatile dissolved mass is never distilled; PhaseSystem handles residue.
+                if (solute != null) continue;
+                double bp = com.example.chemistry.utility.VacuumState.boilingPoint(vessel,entry.id());
+                if (temp >= bp && entry.amount() > 0) {
+                    double transfer = ThermalSystem.vaporizationLimit(vessel,entry.id(),Math.min(entry.amount(),0.2),bp);
+                    if (hasCondenser && distillateTarget != null && !distillateTarget.isEmpty()) {
+                        if(isSealed(distillateTarget))continue;
+                        transfer=com.example.chemistry.utility.UtilityConnections.condensationBudget(level,pos,entry.id(),transfer,bp);
+                        transfer=LabVesselItem.addLiquidMassUpToCapacity(distillateTarget,entry.id(),transfer);
+                        com.example.chemistry.utility.UtilityConnections.condensed(level,pos,entry.id(),transfer);
                     }
-                    continue;
-                }
-                double bp = ChemicalInfoProvider.boilingPointOf("liquid_" + entry.id());
-                if (temp > bp) {
-                    double transfer = Math.min(entry.amount(), 0.2);
-                    if (hasCondenser && distillateTarget != null && !distillateTarget.isEmpty()
-                            && distillateTarget.getItem() instanceof LabVesselItem
-                            && LabVesselItem.addMass(distillateTarget, "liquid", entry.id(), transfer)) {
-                        LabVesselItem.consumeMass(vessel, "liquid", entry.id(), transfer);
-                    } else {
-                        LabVesselItem.consumeMass(vessel, "liquid", entry.id(), transfer);
-                    }
+                    if(transfer<=1e-12)continue;
+                    LabVesselItem.consumeMass(vessel,"liquid",entry.id(),transfer);
+                    ThermalSystem.vaporized(vessel,entry.id(),transfer,bp);
                     boiling = true;
                 }
             } else if (entry.type().equals("solid")
@@ -239,6 +250,7 @@ public final class VesselHeating {
         // Thermal expansion: gas in an OPEN heated vessel escapes gradually.
         if (!sealed && temp > GAS_ESCAPE_TEMP && level instanceof ServerLevel server) {
             boolean escaped = false;
+            boolean visibleGas = false;
             for (LabVesselItem.Entry entry : LabVesselItem.getContents(vessel)) {
                 if (!entry.type().equals("gas") || entry.amount() <= 0) {
                     continue;
@@ -250,13 +262,17 @@ public final class VesselHeating {
                 }
                 LabVesselItem.consumeMass(vessel, "gas", entry.id(), escape);
                 escaped = true;
+                if (!"air".equals(entry.id())) {
+                    visibleGas = true;
+                }
             }
             if (escaped) {
                 double x = pos.getX() + 0.5;
                 double y = pos.getY() + 1.0;
                 double z = pos.getZ() + 0.5;
                 server.sendParticles(ParticleTypes.BUBBLE, x, y, z, 2, 0.15, 0.05, 0.15, 0.01);
-                if (server.getGameTime() % 8 == 0) {
+                // 空气逸出只冒气泡，不冒白雾；只有非空气气体逸出才冒白雾。
+                if (visibleGas && server.getGameTime() % 8 == 0) {
                     server.sendParticles(ParticleTypes.CLOUD, x, y + 0.12, z,
                             1, 0.1, 0.05, 0.1, 0.01);
                 }
@@ -301,7 +317,7 @@ public final class VesselHeating {
             tag.putString(KEY_AIR_FUEL, canonical);
             vessel.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
             if (player != null) {
-                player.displayClientMessage(Component.literal(burn.airMessage()), true);
+                ExperimentFeedback.send(player,Component.literal(burn.airMessage()));
             }
         }
         double consumed = Math.min(AIR_BURN_RATE, fuel.amount());
@@ -384,6 +400,7 @@ public final class VesselHeating {
 
     /** Clear the seal (stopper popped off). */
     public static void unseal(ItemStack vessel) {
+        com.example.chemistry.utility.VacuumState.release(vessel);
         CompoundTag tag = vessel.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         tag.remove("chem_sealed");
         tag.remove("chem_stopper_holes");
@@ -469,8 +486,8 @@ public final class VesselHeating {
     }
 
     /** Neck (x, y) positions in block-model units; z is always 8.5. Left, centre, right. */
-    /** 三颈瓶三个瓶口（模型帧）：两侧颈向外张开 22.5°，y 略高于瓶口让塞子坐在上面。 */
-    public static final double[][] THREE_NECK = {{5.0, 9.3}, {8.5, 10.4}, {12.0, 9.34}};
+    /** 三颈瓶三个瓶口（模型帧）：两侧颈向外张开 35°，y 略高于瓶口让塞子坐在上面。 */
+    public static final double[][] THREE_NECK = ThreeNeckGeometry.PORTS;
 
     public static boolean isThreeNeck(ItemStack vessel) {
         if (vessel.isEmpty()) {
@@ -490,9 +507,12 @@ public final class VesselHeating {
         return switch (path) {
             case "round_bottom_flask", "ground_glass_flask" -> 1;
             case "erlenmeyer_flask", "ground_glass_erlenmeyer" -> 2;
+            case "suction_flask" -> 10;
             case "crucible" -> 3;
             case "evaporating_dish" -> 4;
             case "beaker_50ml", "beaker_100ml", "beaker_500ml", "beaker_1000ml" -> 5;
+            case "beaker_medium" -> 8;
+            case "beaker_tall" -> 9;
             case "three_neck_flask" -> 6;
             case "flat_bottom_flask", "ground_glass_flat_bottom_flask" -> 7;
             default -> 0;
@@ -502,9 +522,13 @@ public final class VesselHeating {
     /** 单口容器瓶口在模型帧里的 y（与各渲染器塞子位置一致）。 */
     public static double mouthTopY(int vesselType) {
         return switch (vesselType) {
+            case 1 -> 10.05;  // authored single-neck flasks
+            case 10 -> 9.88;
             case 3 -> 6.0;    // crucible
             case 4 -> 2.0;    // evaporating dish
-            case 5 -> 6.0;    // beaker
+            case 5 -> 7.8;
+            case 8 -> 10.5;
+            case 9 -> 14.0;    // beaker
             case 6 -> 10.4;   // three-neck flask centre neck
             case 7 -> 10.0;   // flat-bottom flask
             default -> 9.0;   // round-bottom / erlenmeyer / others
@@ -545,18 +569,21 @@ public final class VesselHeating {
         Vec3 v = m.subtract(from);
         double t = v.dot(dir);
         Vec3 closest = t > 0 ? from.add(dir.scale(t)) : from;
-        return m.distanceTo(closest) <= 0.4;
+        return m.distanceTo(closest) <= 0.3;
     }
 
     /** 容器在模型帧(0..16)里的大致包围盒：{{minX,minY,minZ},{maxX,maxY,maxZ}}。 */
     public static double[][] vesselBounds(int vesselType) {
         return switch (vesselType) {
-            case 1 -> new double[][] {{6, 0, 6}, {11, 10, 11}};      // round-bottom flask
+            case 1 -> new double[][] {{5, 0, 5}, {12, 10.05, 12}};      // round-bottom flask
             case 2 -> new double[][] {{6, 0, 6}, {11, 9, 11}};       // erlenmeyer flask
+            case 10 -> new double[][] {{4.23,0,4.23},{12.88,9.88,11.77}};
             case 3 -> new double[][] {{6, 0, 6}, {11, 6, 11}};       // crucible
             case 4 -> new double[][] {{6, 0, 6}, {11, 2, 11}};       // evaporating dish
-            case 5 -> new double[][] {{6, 0, 5}, {11, 6, 10}};       // beaker
-            case 6 -> new double[][] {{5, 0, 7.5}, {12, 10.4, 9.5}}; // three-neck flask (含两侧颈)
+            case 5 -> new double[][] {{2.93, 0, 2.45}, {14.07, 7.8, 14.07}};
+            case 8 -> new double[][] {{3.68,0,3.2},{13.32,10.5,13.32}};
+            case 9 -> new double[][] {{4.53,0,4.05},{12.47,14,12.47}};       // beaker
+            case 6 -> ThreeNeckGeometry.BOUNDS; // authored body and rotated necks
             case 7 -> new double[][] {{6, 0, 6}, {11, 10, 11}};      // flat-bottom flask
             default -> null;
         };
@@ -687,6 +714,7 @@ public final class VesselHeating {
                 .getKey(stack.getItem()).getPath();
         return switch (path) {
             case "straight_glass_tube" -> 1;
+            case "straight_glass_tube_long" -> 8;
             case "right_angle_glass_tube" -> 2;
             case "right_angle_glass_tube_long" -> 4;
             case "long_stem_funnel" -> 5;
@@ -725,13 +753,32 @@ public final class VesselHeating {
         double zOff = hole == 2 ? 0.55 / 16.0 : (hasOther ? -0.55 / 16.0 : 0.0);
         double y0, y1, half;
         switch (type) {
-            case 1, 2, 4 -> { y0 = 0.38; y1 = 1.2; half = 0.24; }  // 玻璃导管
+            case 1, 2, 4, 8 -> { y0 = 0.38; y1 = type==8?1.5:1.2; half = 0.24; }  // 玻璃导管
             case 3 -> { y0 = 0.38; y1 = 1.05; half = 0.26; }       // 胶头滴管
             case 5, 6 -> { y0 = 0.38; y1 = 1.3; half = 0.34; }     // 长颈/分液漏斗
             case 7 -> { y0 = 0.38; y1 = 1.3; half = 0.2; }         // 温度计
             default -> {
                 return null;
             }
+        }
+        if (isThreeNeck(vessel)) {
+            int neck = 1;
+            for (int i = 0; i < 3; i++) if (rubberHoles(vessel, i) > 0) { neck = i; break; }
+            double angle = Math.toRadians(neck == 0 ? ThreeNeckGeometry.SIDE_ANGLE
+                    : neck == 2 ? -ThreeNeckGeometry.SIDE_ANGLE : 0);
+            double yaw = Math.toRadians(yawDegrees);
+            net.minecraft.world.phys.AABB box = null;
+            for (double x : new double[]{-half, half})
+                for (double y : new double[]{y0, y1})
+                    for (double z : new double[]{zOff-half, zOff+half}) {
+                        double rx = x*Math.cos(angle)-y*Math.sin(angle);
+                        double ry = x*Math.sin(angle)+y*Math.cos(angle);
+                        Vec3 point = m.add(rx*Math.cos(yaw)+z*Math.sin(yaw), ry,
+                                z*Math.cos(yaw)-rx*Math.sin(yaw));
+                        var corner = new net.minecraft.world.phys.AABB(point, point);
+                        box = box == null ? corner : box.minmax(corner);
+                    }
+            return box;
         }
         return new net.minecraft.world.phys.AABB(
                 m.x - half, m.y + y0, m.z + zOff - half,

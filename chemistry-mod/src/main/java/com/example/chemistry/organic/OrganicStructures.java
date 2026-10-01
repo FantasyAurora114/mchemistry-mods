@@ -1,0 +1,10 @@
+package com.example.chemistry.organic;
+import java.util.*;
+import net.minecraft.world.item.ItemStack;
+import com.example.chemistry.transfer.BottleCodes;
+public final class OrganicStructures {
+ public record Structure(String id,int cid,String formula,String smiles,String name){}
+ public static final Map<String,Structure> ALL=Map.ofEntries(Map.entry("caffeine",new Structure("caffeine",2519,"C8H10N4O2","CN1C=NC2=C1C(=O)N(C(=O)N2C)C","咖啡因")),Map.entry("benzamide",new Structure("benzamide",2331,"C7H7NO","C1=CC=C(C=C1)C(=O)N","苯甲酰胺")),Map.entry("acetanilide",new Structure("acetanilide",904,"C8H9NO","CC(=O)NC1=CC=CC=C1","乙酰苯胺")),Map.entry("ethyl_benzoate",new Structure("ethyl_benzoate",7165,"C9H10O2","CCOC(=O)C1=CC=CC=C1","苯甲酸乙酯")),Map.entry("cyclohexanone",new Structure("cyclohexanone",7967,"C6H10O","C1CCC(=O)CC1","环己酮")),Map.entry("cyclohexanol",new Structure("cyclohexanol",7966,"C6H12O","C1CCC(CC1)O","环己醇")),Map.entry("ethyl_acetoacetate",new Structure("ethyl_acetoacetate",8868,"C6H10O3","CCOC(=O)CC(=O)C","乙酰乙酸乙酯")),Map.entry("benzophenone",new Structure("benzophenone",3102,"C13H10O","C1=CC=C(C=C1)C(=O)C2=CC=CC=C2","二苯甲酮")),Map.entry("benzil",new Structure("benzil",8651,"C14H10O2","C1=CC=C(C=C1)C(=O)C(=O)C2=CC=CC=C2","苯偶酰")),Map.entry("vanillin",new Structure("vanillin",1183,"C8H8O3","COC1=C(C=CC(=C1)C=O)O","香兰素")),Map.entry("cinnamic_acid",new Structure("cinnamic_acid",444539,"C9H8O2","C1=CC=C(C=C1)/C=C/C(=O)O","反式肉桂酸")),Map.entry("paracetamol",new Structure("paracetamol",1983,"C8H9NO2","CC(=O)NC1=CC=C(C=C1)O","对乙酰氨基酚")));
+ public static Structure of(ItemStack s){String id=BottleCodes.solidIdOf(s);if(id==null)id=BottleCodes.liquidIdOf(s);if(id==null){String p=BottleCodes.pathOf(s);if(p.startsWith("loose_"))id=p.substring(6);}return id==null?null:ALL.get(id.replace("_solution",""));}
+ private OrganicStructures(){}
+}

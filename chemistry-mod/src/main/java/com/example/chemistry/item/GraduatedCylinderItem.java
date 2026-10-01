@@ -2,6 +2,8 @@ package com.example.chemistry.item;
 
 import com.example.chemistry.registry.ModBlocks;
 import com.example.chemistry.registry.ModBlockEntities;
+import com.example.chemistry.registry.ModEntities;
+import com.example.chemistry.entity.GraduatedCylinderEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -63,7 +65,7 @@ public class GraduatedCylinderItem extends Item {
         return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
     }
 
-    /** 右键放下量筒。 */
+    /** 右键放下量筒（生成技术性实体，带虚拟命中框）。 */
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
@@ -78,10 +80,12 @@ public class GraduatedCylinderItem extends Item {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
-        level.setBlock(pos, ModBlocks.PLACED_GRADUATED_CYLINDER.get().defaultBlockState(), 3);
-        if (level.getBlockEntity(pos) instanceof com.example.chemistry.blockentity.PlacedGraduatedCylinderBlockEntity be) {
-            be.setCylinder(context.getItemInHand().copy());
-        }
+        GraduatedCylinderEntity entity =
+                new GraduatedCylinderEntity(ModEntities.GRADUATED_CYLINDER.get(), level);
+        entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+        String liquid = GraduatedCylinderItem.getLiquid(context.getItemInHand());
+        entity.setContents(liquid, liquid == null ? 0.0 : GraduatedCylinderItem.getMl(context.getItemInHand()));
+        level.addFreshEntity(entity);
         context.getItemInHand().shrink(1);
         return InteractionResult.SUCCESS;
     }

@@ -28,7 +28,7 @@ public final class HandbookClientEvents {
 
     @SubscribeEvent
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
-        if (event.getHand() != InteractionHand.MAIN_HAND) {
+        if (!event.getLevel().isClientSide() || event.getHand() != InteractionHand.MAIN_HAND) {
             return;
         }
         ItemStack held = event.getItemStack();
@@ -39,6 +39,9 @@ public final class HandbookClientEvents {
         // 1.21.10 单机下该事件可能在服务器线程触发，直接 setScreen 会导致
         // "setScreen called from non-game thread"（界面状态可能异常），切回游戏线程再打开。
         Minecraft mc = Minecraft.getInstance();
-        mc.execute(() -> mc.setScreen(new ChemistryHandbookScreen()));
+        mc.execute(() -> {
+            if (mc.player == event.getEntity() && mc.screen == null)
+                mc.setScreen(new ChemistryHandbookScreen());
+        });
     }
 }

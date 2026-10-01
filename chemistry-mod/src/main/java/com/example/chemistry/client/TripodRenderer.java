@@ -69,6 +69,7 @@ public class TripodRenderer implements BlockEntityRenderer<TripodBlockEntity, Tr
         renderState.lampLit = state.getValue(TripodBlock.LAMP_LIT);
         renderState.vesselType = vesselType(blockEntity.getVessel());
         renderState.vesselColor = LabVesselItem.contentsColor(blockEntity.getVessel());
+        renderState.vesselVisual = VesselVisualState.of(blockEntity.getVessel());
     }
 
     @Override
@@ -117,22 +118,16 @@ public class TripodRenderer implements BlockEntityRenderer<TripodBlockEntity, Tr
         if (renderState.vesselType != 0) {
             poseStack.pushPose();
             poseStack.translate((8.0 - 7.5) / 16.0, 11.17F / 16.0F, (8.0 - 8.5) / 16.0);
-            if (renderState.vesselType == 2) {
+            if (renderState.vesselType == 1) {
+                SingleNeckRenderer.draw(poseStack, nodeCollector, renderState.vesselVisual, renderState.lightCoords);
+            } else if (renderState.vesselType == 2) {
                 ErlenmeyerRenderer.draw(poseStack, nodeCollector,
-                        ModStandaloneModels.vessel(2),
-                        ModStandaloneModels.erlenmeyerBodyUnit(),
-                        ModStandaloneModels.erlenmeyerLiquidUnit(),
-                        renderState.vesselColor, renderState.lightCoords);
+                        renderState.vesselVisual, renderState.lightCoords);
             } else {
-                render(ModStandaloneModels.vessel(renderState.vesselType),
-                        poseStack, nodeCollector, renderState, 1.0F, 1.0F, 1.0F);
-                int c = renderState.vesselColor;
-                if (c != 0xFFFFFF) {
-                    render(ModStandaloneModels.vesselContents(renderState.vesselType),
-                            poseStack, nodeCollector, renderState,
-                            ((c >> 16) & 0xFF) / 255.0F, ((c >> 8) & 0xFF) / 255.0F,
-                            (c & 0xFF) / 255.0F);
-                }
+                nodeCollector.submitBlockModel(poseStack,CabinetGlassLayer.TYPE,ModStandaloneModels.vessel(renderState.vesselType),1,1,1,renderState.lightCoords,OverlayTexture.NO_OVERLAY,0);
+                VesselContentRenderer.draw(poseStack, nodeCollector,
+                        renderState.vesselType, renderState.vesselVisual,
+                        renderState.lightCoords);
             }
             poseStack.popPose();
         }

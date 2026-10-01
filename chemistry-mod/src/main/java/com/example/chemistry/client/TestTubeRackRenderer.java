@@ -36,6 +36,7 @@ public class TestTubeRackRenderer
         for (int i = 0; i < 5; i++) {
             ItemStack tube = blockEntity.getTube(i);
             renderState.hasTube[i] = !tube.isEmpty();
+            renderState.dewar[i]=tube.getItem() instanceof com.example.chemistry.item.TestTubeItem t&&t.isDewar();
             renderState.inverted[i] = blockEntity.isInverted(i);
             renderState.color[i] = com.example.chemistry.item.LabVesselItem.contentsColor(tube);
         }
@@ -72,7 +73,7 @@ public class TestTubeRackRenderer
                 poseStack.translate((xs[i] - 8.8333) / 16.0, (1.0 - 7.0) / 16.0,
                         (9.5 - 8.8333) / 16.0);
             }
-            nodeCollector.submitBlockModel(poseStack, RenderType.cutout(), tube,
+            nodeCollector.submitBlockModel(poseStack, CabinetGlassLayer.TYPE, ModStandaloneModels.testTube(0,renderState.dewar[i]),
                     1.0F, 1.0F, 1.0F, renderState.lightCoords,
                     OverlayTexture.NO_OVERLAY, 0);
             int c = renderState.color[i];
@@ -80,7 +81,7 @@ public class TestTubeRackRenderer
             // 否则会显示一块白色/灰色的填充把试管下半截盖住。
             if (contents != null && c != 0xFFFFFF) {
                 nodeCollector.submitBlockModel(poseStack,
-                        RenderType.translucentMovingBlock(), contents,
+                        CabinetGlassLayer.TYPE, contents,
                         ((c >> 16) & 0xFF) / 255.0F, ((c >> 8) & 0xFF) / 255.0F,
                         (c & 0xFF) / 255.0F, renderState.lightCoords,
                         OverlayTexture.NO_OVERLAY, 0);

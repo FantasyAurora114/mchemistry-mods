@@ -1,0 +1,121 @@
+{
+  "ambientocclusion": false,
+  "render_type": "mchemistry:lab_glass",
+  "textures": {
+    "contents": "mchemistry:block/lab_water",
+    "water_body": "mchemistry:block/lab_water_body"
+  },
+  "elements": [
+    {
+      "from": [
+        5.227203791469194,
+        0.17744075829383885,
+        5.227203791469194
+      ],
+      "to": [
+        11.772796208530806,
+        0.49880568720379137,
+        11.772796208530806
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "#water_body",
+          "tintindex": 0
+        },
+        "south": {
+          "texture": "#water_body",
+          "tintindex": 0
+        },
+        "east": {
+          "texture": "#water_body",
+          "tintindex": 0
+        },
+        "west": {
+          "texture": "#water_body",
+          "tintindex": 0
+        },
+        "up": {
+          "texture": "#contents",
+          "tintindex": 0
+        },
+        "down": {
+          "texture": "#water_body",
+          "tintindex": 0
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        25,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        1,
+        0
+      ],
+      "scale": [
+        1.15,
+        1.15,
+        1.15
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
+    },
+    "fixed": {
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        25,
+        0
+      ],
+      "translation": [
+        0,
+        2,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ]
+    }
+  }
+}

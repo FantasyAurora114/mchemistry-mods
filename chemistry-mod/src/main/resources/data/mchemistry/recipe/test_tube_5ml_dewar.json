@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "G G",
+    "GTG",
+    "GGG"
+  ],
+  "key": {
+    "G": "minecraft:glass",
+    "T": "mchemistry:test_tube_5ml"
+  },
+  "result": {
+    "id": "mchemistry:test_tube_5ml_dewar",
+    "count": 1
+  }
+}

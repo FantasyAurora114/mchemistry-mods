@@ -3,8 +3,11 @@ package com.example.chemistry.client;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 
 public class PlacedVesselRenderState extends BlockEntityRenderState {
+    public java.util.List<com.example.chemistry.garden.ChemicalGarden.Stem> garden = java.util.List.of();
+    public VesselVisualState vesselVisual = VesselVisualState.EMPTY;
 
     /** 0 = none, 2 = erlenmeyer (extensible). */
+    public boolean watchGlass;
     public int vesselType;
     public int color = 0xFFFFFF;
     public boolean vesselSealed;

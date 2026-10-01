@@ -1,6 +1,24 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "mchemistry:item/glass_rod"
+  "parent": "mchemistry:block/glass_rod",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ]
+    },
+    "ground": {
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    }
   }
 }

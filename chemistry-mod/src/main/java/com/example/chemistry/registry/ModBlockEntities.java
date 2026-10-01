@@ -2,7 +2,6 @@ package com.example.chemistry.registry;
 
 import com.example.chemistry.ChemistryMod;
 import com.example.chemistry.blockentity.IronStandBlockEntity;
-import com.example.chemistry.blockentity.PlacedTestTubeBlockEntity;
 import com.example.chemistry.blockentity.RubberTubeLinkBlockEntity;
 import com.example.chemistry.blockentity.GasCollectingBottleBlockEntity;
 import com.example.chemistry.blockentity.GasWashingBottleBlockEntity;
@@ -26,10 +25,12 @@ public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
             DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ChemistryMod.MODID);
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PlacedTestTubeBlockEntity>> PLACED_TEST_TUBE =
-            BLOCK_ENTITY_TYPES.register("placed_test_tube",
-                    () -> new BlockEntityType<>(PlacedTestTubeBlockEntity::new, ModBlocks.PLACED_TEST_TUBE.get()));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.example.chemistry.blockentity.GasApplianceBlockEntity>> GAS_APPLIANCE = BLOCK_ENTITY_TYPES.register("gas_appliance", () -> new BlockEntityType<>(com.example.chemistry.blockentity.GasApplianceBlockEntity::new, ModBlocks.BUNSEN_BURNER.get(), ModBlocks.GAS_CYLINDER_SMALL.get(), ModBlocks.GAS_CYLINDER_TALL.get()));
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.example.chemistry.blockentity.ReagentCabinetBlockEntity>> REAGENT_CABINET = BLOCK_ENTITY_TYPES.register("reagent_cabinet", () -> new BlockEntityType<>(com.example.chemistry.blockentity.ReagentCabinetBlockEntity::new,ModBlocks.TALL_REAGENT_CABINET.get(),ModBlocks.BASE_REAGENT_CABINET.get()));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.example.chemistry.blockentity.LaboratoryBenchBlockEntity>> LABORATORY_BENCH = BLOCK_ENTITY_TYPES.register("laboratory_bench", () -> new BlockEntityType<>(com.example.chemistry.blockentity.LaboratoryBenchBlockEntity::new,ModBlocks.LAB_TABLE.get(),ModBlocks.LAB_TABLE_CABINET.get(),ModBlocks.LAB_TABLE_SINK.get()));
+
+    public static final DeferredHolder<BlockEntityType<?>,BlockEntityType<com.example.chemistry.radiation.ShieldedStorageBlockEntity>> SHIELDED_STORAGE=BLOCK_ENTITY_TYPES.register("shielded_storage",()->new BlockEntityType<>(com.example.chemistry.radiation.ShieldedStorageBlockEntity::new,ModBlocks.RADIATION_SHIELD_BOX.get(),ModBlocks.LEAD_LINED_CABINET.get()));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<IronStandBlockEntity>> IRON_STAND =
             BLOCK_ENTITY_TYPES.register("iron_stand",
                     () -> new BlockEntityType<>(IronStandBlockEntity::new, ModBlocks.IRON_STAND.get()));

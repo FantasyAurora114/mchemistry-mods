@@ -1,0 +1,472 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "cases": [
+      {
+        "when": "filled_005",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_01",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_010",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_02",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_015",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_03",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_020",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_04",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_025",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_05",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_030",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_06",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_035",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_07",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_040",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_08",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_045",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_09",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_050",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_10",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_055",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_11",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_060",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_12",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_065",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_13",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_070",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_14",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_075",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_15",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_080",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_16",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_085",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_17",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_090",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_18",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_095",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_19",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      },
+      {
+        "when": "filled_100",
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe_level_20",
+              "tints": [
+                {
+                  "type": "minecraft:custom_model_data",
+                  "index": 0,
+                  "default": 9489384
+                }
+              ]
+            },
+            {
+              "type": "minecraft:model",
+              "model": "mchemistry:item/burette_amber_ptfe"
+            }
+          ]
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "mchemistry:item/burette_amber_ptfe"
+    }
+  }
+}

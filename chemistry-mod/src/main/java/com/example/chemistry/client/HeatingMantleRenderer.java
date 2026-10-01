@@ -38,6 +38,7 @@ public class HeatingMantleRenderer
         ItemStack flask = blockEntity.getFlask();
         renderState.vesselType = vesselType(flask);
         renderState.color = LabVesselItem.contentsColor(flask);
+        renderState.vesselVisual = VesselVisualState.of(flask);
         renderState.vesselStoppers = VesselHeating.neckStopperMask(flask);
     }
 
@@ -54,31 +55,22 @@ public class HeatingMantleRenderer
         poseStack.translate((8.5 - 8.5 * s) / 16.0, 2.5 / 16.0,
                 (8.5 - 8.5 * s) / 16.0);
         poseStack.scale((float) s, (float) s, (float) s);
-        if (type == 2) {
+        if (type == 1) {
+            SingleNeckRenderer.draw(poseStack,nodeCollector,renderState.vesselVisual,renderState.lightCoords);
+        } else if (type == 2) {
             ErlenmeyerRenderer.draw(poseStack, nodeCollector,
-                    ModStandaloneModels.vessel(2),
-                    ModStandaloneModels.erlenmeyerBodyUnit(),
-                    ModStandaloneModels.erlenmeyerLiquidUnit(),
-                    renderState.color, renderState.lightCoords);
+                    renderState.vesselVisual, renderState.lightCoords);
         } else {
             // 圆底烧瓶(1)/三颈烧瓶(6)/平底烧瓶(7)各自用对应模型。
             int vesselType = type;
             BlockStateModel model = ModStandaloneModels.vessel(vesselType);
             if (model != null) {
-                nodeCollector.submitBlockModel(poseStack, RenderType.cutout(), model,
+                nodeCollector.submitBlockModel(poseStack, (vesselType==5||vesselType>=8||vesselType==6)?CabinetGlassLayer.TYPE:RenderType.cutout(), model,
                         1.0F, 1.0F, 1.0F, renderState.lightCoords,
                         OverlayTexture.NO_OVERLAY, 0);
             }
-            int c = renderState.color;
-            if (c != 0xFFFFFF) {
-                BlockStateModel contents = ModStandaloneModels.vesselContents(vesselType);
-                if (contents != null) {
-                    nodeCollector.submitBlockModel(poseStack, RenderType.cutout(), contents,
-                            ((c >> 16) & 0xFF) / 255.0F, ((c >> 8) & 0xFF) / 255.0F,
-                            (c & 0xFF) / 255.0F, renderState.lightCoords,
-                            OverlayTexture.NO_OVERLAY, 0);
-                }
-            }
+            VesselContentRenderer.draw(poseStack, nodeCollector, vesselType,
+                    renderState.vesselVisual, renderState.lightCoords);
             if (renderState.vesselStoppers != 0) {
                 PlacedVesselRenderer.drawNeckStoppers(renderState.vesselStoppers,
                         poseStack, nodeCollector, renderState.lightCoords);

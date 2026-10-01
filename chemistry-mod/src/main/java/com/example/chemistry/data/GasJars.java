@@ -11,6 +11,16 @@ public final class GasJars {
     }
 
     public static final List<GasJar> ALL = List.of(
+            new GasJar("tungsten_hexafluoride","WF6","Tungsten Hexafluoride","六氟化钨",0xDAE8B0,false),
+        new GasJar("radon","Rn","Radon","氡",0xC0C8D8,false),
+            new GasJar("phosgene","COCl2","Phosgene","光气",0xCBDDE1,false),
+            new GasJar("ozone","O3","Ozone","臭氧",0xA5BBDD,false),
+            new GasJar("dinitrogen_tetroxide","N2O4","Dinitrogen Tetroxide","四氧化二氮",0xD8D2B4,false),
+            new GasJar("hydrogen_fluoride","HF","Hydrogen Fluoride","氟化氢",0xCBDDE1,true),
+            new GasJar("hydrogen_bromide","HBr","Hydrogen Bromide","溴化氢",0xCBDDE1,false),
+            new GasJar("hydrogen_iodide","HI","Hydrogen Iodide","碘化氢",0xCBDDE1,false),
+            new GasJar("boron_trifluoride","BF3","Boron Trifluoride","三氟化硼",0xCBDDE1,false),
+            new GasJar("silane","SiH4","Silane","硅烷",0xCBDDE1,false),
             new GasJar("oxygen", "O2", "Oxygen", "氧气", 0x8FD0F0, false),
             new GasJar("hydrogen", "H2", "Hydrogen", "氢气", 0xF0C8E0, true),
             new GasJar("nitrogen", "N2", "Nitrogen", "氮气", 0xD0C8F0, true),

@@ -32,6 +32,13 @@ public class SolidBottleItem extends Item {
     }
 
     @Override
+    public InteractionResult useOn(net.minecraft.world.item.context.UseOnContext context){
+        if(context.getPlayer()!=null&&context.getPlayer().isShiftKeyDown())
+            return com.example.chemistry.entity.PlacedReagentBottleEntity.place(context);
+        return InteractionResult.PASS;
+    }
+
+    @Override
     public net.minecraft.network.chat.Component getName(ItemStack stack) {
         net.minecraft.network.chat.Component name = BottleCodes.displayName(stack);
         return name != null ? name : super.getName(stack);
@@ -59,6 +66,7 @@ public class SolidBottleItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
+        BottleCodes.refreshModel(stack);
         if (!(entity instanceof Player player) || BottleCodes.isSealed(stack)) {
             return;
         }
@@ -78,7 +86,9 @@ public class SolidBottleItem extends Item {
         if (product == null || product.equals(id)) {
             return;
         }
+        double remaining = BottleCodes.solidGrams(stack);
         BottleCodes.setSolid(stack, product, false);
+        BottleCodes.setSolidGrams(stack, remaining);
         BottleCodes.refreshModel(stack);
     }
 

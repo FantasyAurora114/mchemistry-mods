@@ -1,0 +1,32 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "mchemistry:radiation_suit_base"
+      },
+      {
+        "texture": "minecraft:leather",
+        "dyeable": {
+          "color_when_undyed": 16765952
+        }
+      },
+      {
+        "texture": "mchemistry:radiation_suit"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "mchemistry:radiation_suit_base"
+      },
+      {
+        "texture": "minecraft:leather",
+        "dyeable": {
+          "color_when_undyed": 16765952
+        }
+      },
+      {
+        "texture": "mchemistry:radiation_suit"
+      }
+    ]
+  }
+}

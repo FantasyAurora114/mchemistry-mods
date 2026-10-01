@@ -9,6 +9,8 @@ import com.example.chemistry.api.goggles.ChemGoggleLines;
 import com.example.chemistry.blockentity.GasCollectingBottleBlockEntity;
 import com.example.chemistry.blockentity.IronStandBlockEntity;
 import com.example.chemistry.blockentity.PlacedVesselBlockEntity;
+import com.example.chemistry.entity.GasCollectingBottleEntity;
+import com.example.chemistry.entity.PlacedVesselEntity;
 import com.example.chemistry.blockentity.WaterTroughBlockEntity;
 import com.example.chemistry.entity.RubberTubeEntity;
 import com.example.chemistry.entity.RubberTubeEntity.Port;
@@ -123,8 +125,7 @@ public final class GlassTubeIgnition {
                         0.1, 0.1, 0.1, 0.02);
                 server.playSound(null, player.blockPosition(),
                         SoundEvents.GENERIC_EXPLODE.value(), SoundSource.BLOCKS, 0.8F, 1.6F);
-                player.displayClientMessage(
-                        combustionMessage(gas, "mchemistry.nozzle.pop", name), true);
+                ExperimentFeedback.send(player,combustionMessage(gas, "mchemistry.nozzle.pop", name));
             } else {
                 server.sendParticles(ParticleTypes.FLAME, tip.x, tip.y, tip.z, 12,
                         0.12, 0.12, 0.12, 0.04);
@@ -132,8 +133,7 @@ public final class GlassTubeIgnition {
                         0.1, 0.1, 0.1, 0.01);
                 server.playSound(null, player.blockPosition(),
                         SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 0.8F, 1.0F);
-                player.displayClientMessage(
-                        combustionMessage(gas, "mchemistry.nozzle.ignite", name), true);
+                ExperimentFeedback.send(player,combustionMessage(gas, "mchemistry.nozzle.ignite", name));
             }
         }
         return true;
@@ -207,6 +207,14 @@ public final class GlassTubeIgnition {
             }
             return new GasSource(id, ml -> be.removeGas(id, ml));
         }
+        for (GasCollectingBottleEntity be : level.getEntitiesOfClass(
+                GasCollectingBottleEntity.class, new net.minecraft.world.phys.AABB(pos))) {
+            String id = be.getGasId();
+            if (id.isEmpty() || be.getFillMl() <= 0) {
+                return null;
+            }
+            return new GasSource(id, ml -> be.removeGas(id, ml));
+        }
         if (state.is(ModBlocks.WATER_TROUGH.get())
                 && level.getBlockEntity(pos) instanceof WaterTroughBlockEntity be) {
             String id = be.getGasId();
@@ -231,6 +239,21 @@ public final class GlassTubeIgnition {
         if (state.is(ModBlocks.PLACED_VESSEL.get())
                 && level.getBlockEntity(pos) instanceof PlacedVesselBlockEntity be
                 && !be.getVessel().isEmpty()) {
+            ItemStack vessel = be.getVessel();
+            String id = GasFlowEngine.dominantPendingGas(vessel);
+            if (id.isEmpty()) {
+                return null;
+            }
+            return new GasSource(id, ml -> {
+                GasFlowEngine.consumePending(vessel, id, ml);
+                be.setVessel(vessel);
+            });
+        }
+        for (PlacedVesselEntity be : level.getEntitiesOfClass(PlacedVesselEntity.class,
+                new net.minecraft.world.phys.AABB(pos))) {
+            if (be.getVessel().isEmpty()) {
+                continue;
+            }
             ItemStack vessel = be.getVessel();
             String id = GasFlowEngine.dominantPendingGas(vessel);
             if (id.isEmpty()) {

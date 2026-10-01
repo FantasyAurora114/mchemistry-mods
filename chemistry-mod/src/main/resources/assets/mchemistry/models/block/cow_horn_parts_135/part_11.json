@@ -1,0 +1,61 @@
+{
+  "ambientocclusion": false,
+  "render_type": "mchemistry:lab_glass",
+  "textures": {
+    "0": "mchemistry:block/cow_horn_adapter_135",
+    "particle": "mchemistry:block/cow_horn_adapter_135"
+  },
+  "elements": [
+    {
+      "from": [
+        7.680093369490652,
+        6.95,
+        6.95
+      ],
+      "to": [
+        8.319906630509347,
+        9.05,
+        9.05
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "uv": [
+            7.0,
+            2.25,
+            7.5,
+            4.0
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            7.5,
+            2.25,
+            8.0,
+            4.0
+          ],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            0.0,
+            2.75,
+            0.5,
+            4.5
+          ],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [
+            0.5,
+            2.75,
+            1.0,
+            4.5
+          ],
+          "texture": "#0"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "category": "misc", "pattern": ["IGI", "CBC", "IRI"], "key": {"I": "minecraft:iron_ingot", "G": "minecraft:glass", "C": "minecraft:copper_ingot", "B": "minecraft:bucket", "R": "minecraft:redstone"}, "result": {"id": "mchemistry:temperature_controlled_circulator", "count": 1}}

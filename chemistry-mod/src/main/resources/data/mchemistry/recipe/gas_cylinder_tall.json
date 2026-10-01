@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","category":"misc","pattern":["INI","I I","III"],"key":{"I":"minecraft:iron_ingot","N":"minecraft:iron_nugget"},"result":{"id":"mchemistry:gas_cylinder_tall","count":1}}

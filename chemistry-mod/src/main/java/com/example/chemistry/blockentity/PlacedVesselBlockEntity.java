@@ -85,6 +85,7 @@ public class PlacedVesselBlockEntity extends BlockEntity implements IChemGoggleI
                 VesselHeating.coolGradual(vessel);
             }
         }
+        com.example.chemistry.garden.ChemicalGarden.tick(vessel);
         VesselHeating.Outcome outcome = VesselHeating.tick(vessel, level, worldPosition,
                 ItemStack.EMPTY, false,
                 !attached1.isEmpty() || !attached2.isEmpty(),

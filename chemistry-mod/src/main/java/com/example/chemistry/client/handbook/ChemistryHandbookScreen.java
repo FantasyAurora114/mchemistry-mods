@@ -76,6 +76,7 @@ public class ChemistryHandbookScreen extends Screen {
     private List<Reactions.Reaction> related = List.of();
     private int relatedScroll;
 
+    private Page reactionOrigin = Page.LIST;
     private Reactions.Reaction reaction;
     private List<String> guideLines = List.of();
     private String guideTitle = "";
@@ -99,7 +100,8 @@ public class ChemistryHandbookScreen extends Screen {
         leftPos = (this.width - GUI_W) / 2;
         topPos = (this.height - GUI_H) / 2;
         unlockVersion = HandbookUnlockCache.version();
-        ClientPacketDistributor.sendToServer(new ChemistryNetworking.HandbookUnlockRequestPacket());
+        if (minecraft.getConnection() != null)
+            ClientPacketDistributor.sendToServer(new ChemistryNetworking.HandbookUnlockRequestPacket());
     }
 
     @Override
@@ -167,7 +169,7 @@ public class ChemistryHandbookScreen extends Screen {
         g.fill(leftPos + 150, topPos + 15, leftPos + 151, topPos + 31, COLOR_LABEL);
         g.fill(leftPos + 235, topPos + 15, leftPos + 236, topPos + 31, COLOR_LABEL);
         blitIcon(g, SEARCH_ICON, leftPos + 154, topPos + 17);
-        g.drawString(font, search.toString(), leftPos + 173, topPos + 18, COLOR_TEXT);
+        g.drawString(font, truncate(search.toString(), 58), leftPos + 173, topPos + 18, COLOR_TEXT);
 
         List<HandbookEntries.Entry> shown = filtered;
         int rowsVisible = 7;
@@ -194,6 +196,7 @@ public class ChemistryHandbookScreen extends Screen {
             g.drawString(font, truncate(e.subtitle(), 70), leftPos + LIST_SUB_X, y + 3, COLOR_GRAY);
         }
         drawScrollbar(g, shown.size(), rowsVisible);
+        g.drawString(font, "共 " + shown.size() + " 项 · 滚轮浏览", leftPos + 34, topPos + 186, COLOR_GRAY);
     }
 
     private void renderEntry(GuiGraphics g, int mouseX, int mouseY) {
@@ -295,14 +298,17 @@ public class ChemistryHandbookScreen extends Screen {
         blitFull(g, PAGE);
         drawBack(g);
         g.drawString(font, guideTitle, leftPos + TITLE_X, topPos + TITLE_Y, COLOR_TEXT);
-        int y = topPos + 44 - guideScroll * 12;
-        for (String line : guideLines) {
-            for (FormattedCharSequence part : font.split(Component.literal(line), 220)) {
-                g.drawString(font, part, leftPos + 34, y, COLOR_TEXT);
-                y += 12;
-            }
-            y += 2;
-        }
+        var wrapped = wrappedGuide();
+        g.enableScissor(leftPos + 34, topPos + 42, leftPos + 230, topPos + 182);
+        for (int i = guideScroll; i < Math.min(wrapped.size(), guideScroll + 12); i++)
+            g.drawString(font, wrapped.get(i), leftPos + 34, topPos + 44 + (i - guideScroll) * 12, COLOR_TEXT);
+        g.disableScissor();
+        if (wrapped.size() > 12) g.drawString(font, "滚轮浏览 " + (guideScroll + 1) + "/" + wrapped.size(), leftPos + 34, topPos + 186, COLOR_GRAY);
+    }
+    private List<FormattedCharSequence> wrappedGuide() {
+        List<FormattedCharSequence> result = new ArrayList<>();
+        for (String line : guideLines) result.addAll(font.split(Component.literal(line), 194));
+        return result;
     }
 
     private void blitFull(GuiGraphics g, ResourceLocation texture) {
@@ -387,7 +393,8 @@ public class ChemistryHandbookScreen extends Screen {
                         page = Page.COVER;
                         return true;
                     }
-                    int row = (int) ((y - LIST_ROW_Y) / LIST_ROW_STEP);
+                    int row = y >= LIST_ROW_Y && x >= 34 && x < 236
+                            ? (int) ((y - LIST_ROW_Y) / LIST_ROW_STEP) : -1;
                     if (row >= 0 && row < 7) {
                         int idx = listScroll + row;
                         if (idx < filtered.size()) {
@@ -401,10 +408,11 @@ public class ChemistryHandbookScreen extends Screen {
                         page = Page.LIST;
                         return true;
                     }
-                    int row = (int) ((y - 164) / 12);
+                    int row = y >= 164 && x >= 34 && x < 236 ? (int) ((y - 164) / 12) : -1;
                     if (row >= 0 && row < 2) {
                         int idx = relatedScroll + row;
                         if (idx < related.size()) {
+                            reactionOrigin = Page.ENTRY;
                             reaction = related.get(idx);
                             page = Page.REACTION;
                             return true;
@@ -413,7 +421,7 @@ public class ChemistryHandbookScreen extends Screen {
                 }
                 case REACTION -> {
                     if (BACK.contains(x, y)) {
-                        page = Page.ENTRY;
+                        page = reactionOrigin;
                         return true;
                     }
                 }
@@ -434,7 +442,7 @@ public class ChemistryHandbookScreen extends Screen {
         switch (page) {
             case LIST -> listScroll = clamp(listScroll - step, 0, Math.max(0, filtered.size() - 7));
             case ENTRY -> relatedScroll = clamp(relatedScroll - step, 0, Math.max(0, related.size() - 2));
-            case GUIDE_TEXT -> guideScroll = clamp(guideScroll - step, 0, Math.max(0, guideLines.size() * 2 - 12));
+            case GUIDE_TEXT -> guideScroll = clamp(guideScroll - step, 0, Math.max(0, wrappedGuide().size() - 12));
             default -> {
                 return false;
             }
@@ -444,6 +452,10 @@ public class ChemistryHandbookScreen extends Screen {
 
     @Override
     public boolean keyPressed(KeyEvent event) {
+        if (event.key() == GLFW.GLFW_KEY_ESCAPE) {
+            onClose();
+            return true;
+        }
         if (page == Page.LIST) {
             if (event.key() == GLFW.GLFW_KEY_BACKSPACE && !search.isEmpty()) {
                 search.deleteCharAt(search.length() - 1);
@@ -451,10 +463,8 @@ public class ChemistryHandbookScreen extends Screen {
                 listScroll = 0;
                 return true;
             }
-            if (event.key() == GLFW.GLFW_KEY_ENTER && !search.isEmpty()) {
-                search.setLength(0);
-                refreshFiltered();
-                listScroll = 0;
+            if (event.key() == GLFW.GLFW_KEY_ENTER && !filtered.isEmpty()) {
+                openEntry(filtered.get(Math.min(listScroll, filtered.size() - 1)));
                 return true;
             }
         }
@@ -463,7 +473,7 @@ public class ChemistryHandbookScreen extends Screen {
 
     @Override
     public boolean charTyped(CharacterEvent event) {
-        if (page == Page.LIST && event.isAllowedChatCharacter()) {
+        if (page == Page.LIST && event.isAllowedChatCharacter() && search.length() < 64) {
             search.append(event.codepointAsString());
             refreshFiltered();
             listScroll = 0;
@@ -485,6 +495,8 @@ public class ChemistryHandbookScreen extends Screen {
 
     private void openEntry(HandbookEntries.Entry e) {
         if (category == HandbookEntries.Category.REACTIONS && e.reaction() != null) {
+            reactionOrigin = Page.LIST;
+            entry = null;
             reaction = e.reaction();
             page = Page.REACTION;
             return;
@@ -503,15 +515,21 @@ public class ChemistryHandbookScreen extends Screen {
     }
 
     private void refreshFiltered() {
-        String q = search.toString().toLowerCase();
+        String q = searchText(search.toString());
         if (q.isEmpty()) {
             filtered = entries;
         } else {
             filtered = entries.stream()
-                    .filter(e -> e.title().toLowerCase().contains(q)
-                            || e.subtitle().toLowerCase().contains(q))
+                    .filter(e -> searchText(e.title()).contains(q)
+                            || searchText(e.subtitle()).contains(q)
+                            || (e.infoKey() != null && searchText(e.infoKey()).contains(q)))
                     .toList();
         }
+    }
+
+    private static String searchText(String value) {
+        return java.text.Normalizer.normalize(value, java.text.Normalizer.Form.NFKC)
+                .toLowerCase(java.util.Locale.ROOT).replaceAll("[\\s_·]", "");
     }
 
     private static List<HandbookEntries.Entry> unlockedReactions(List<HandbookEntries.Entry> all) {
@@ -522,7 +540,7 @@ public class ChemistryHandbookScreen extends Screen {
     }
 
     private List<Reactions.Reaction> unlockedRelated() {
-        return HandbookEntries.relatedReactions(entry).stream()
+        return (entry == null ? List.<Reactions.Reaction>of() : HandbookEntries.relatedReactions(entry)).stream()
                 .filter(r -> HandbookUnlockCache.isUnlocked(r.display()))
                 .toList();
     }

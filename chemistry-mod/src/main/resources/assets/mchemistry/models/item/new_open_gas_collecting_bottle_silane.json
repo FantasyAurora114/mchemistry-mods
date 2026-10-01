@@ -1,0 +1,1 @@
+{"parent":"mchemistry:block/gas_bottle","display":{"gui":{"rotation":[20,210,0],"translation":[0,0,0],"scale":[0.85,0.85,0.85]},"ground":{"scale":[0.75,0.75,0.75]},"firstperson_righthand":{"scale":[1,1,1]},"thirdperson_righthand":{"scale":[0.8,0.8,0.8]}},"render_type":"mchemistry:lab_glass"}

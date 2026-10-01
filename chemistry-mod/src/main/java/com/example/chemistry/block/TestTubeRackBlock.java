@@ -48,8 +48,16 @@ public class TestTubeRackBlock extends Block implements EntityBlock {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos,
             CollisionContext context) {
-        return SHAPE;
+        VoxelShape outline=SHAPE;
+        if(level.getBlockEntity(pos) instanceof TestTubeRackBlockEntity rack){
+            for(int i=0;i<TestTubeRackBlockEntity.SLOTS;i++)if(!rack.getTube(i).isEmpty())
+                outline=net.minecraft.world.phys.shapes.Shapes.or(outline,net.minecraft.world.phys.shapes.Shapes.create(rack.slotBox(i)));
+        }
+        return outline;
     }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context){return SHAPE;}
 
     /** 插在架孔里的试管上半截悬空在碰撞体(至 y=5)之上；交互命中框覆盖到试管口高度。 */
     @Override
@@ -65,7 +73,7 @@ public class TestTubeRackBlock extends Block implements EntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
             Level level, BlockState state, BlockEntityType<T> type) {
-        return null;
+        return level.isClientSide()?null:(l,p,s,be)->((TestTubeRackBlockEntity)be).tickContents();
     }
 
     @Override

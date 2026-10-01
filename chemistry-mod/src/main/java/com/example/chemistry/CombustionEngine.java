@@ -76,9 +76,9 @@ public final class CombustionEngine {
             tag.putString(KEY_FUEL, canonical);
             stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
             String prose = isInBottle(stack) ? burn.oxygenMessage() : burn.airMessage();
-            player.displayClientMessage(
+            ExperimentFeedback.send(player,
                     Component.translatable("mchemistry.combustion",
-                            Component.literal(burn.equation()), Component.literal(prose)), true);
+                            Component.literal(burn.equation()), Component.literal(prose)));
         }
         // 持续燃烧：燃烧中的燃烧匙在玩家前方不断冒出火焰与烟。
         if (player.level() instanceof ServerLevel server) {

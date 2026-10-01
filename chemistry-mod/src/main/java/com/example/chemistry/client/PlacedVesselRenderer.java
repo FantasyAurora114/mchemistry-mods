@@ -36,8 +36,10 @@ public class PlacedVesselRenderer
         BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick,
                 cameraPosition, breakProgress);
         ItemStack vessel = blockEntity.getVessel();
-        renderState.vesselType = vesselType(vessel);
+        renderState.vesselType = vesselType(vessel);renderState.watchGlass=com.example.chemistry.organic.OrganicApparatus.covered(vessel);
         renderState.color = LabVesselItem.contentsColor(vessel);
+        renderState.vesselVisual = VesselVisualState.of(vessel);
+        renderState.garden=com.example.chemistry.garden.ChemicalGarden.stems(vessel);
         renderState.vesselSealed = VesselHeating.isSealed(vessel);
         renderState.vesselStoppers = VesselHeating.neckStopperMask(vessel);
         for (int i = 0; i < 3; i++) {
@@ -53,30 +55,22 @@ public class PlacedVesselRenderer
         if (renderState.vesselType == 0) {
             return;
         }
-        if (renderState.vesselType == 2) {
+        if (renderState.vesselType == 1) {
+                SingleNeckRenderer.draw(poseStack, nodeCollector, renderState.vesselVisual, renderState.lightCoords);
+            } else if (renderState.vesselType == 2) {
             ErlenmeyerRenderer.draw(poseStack, nodeCollector,
-                    ModStandaloneModels.vessel(2),
-                    ModStandaloneModels.erlenmeyerBodyUnit(),
-                    ModStandaloneModels.erlenmeyerLiquidUnit(),
-                    renderState.color, renderState.lightCoords);
+                    renderState.vesselVisual, renderState.lightCoords);
         } else {
             BlockStateModel model = ModStandaloneModels.vessel(renderState.vesselType);
             if (model != null) {
-                nodeCollector.submitBlockModel(poseStack, RenderType.cutout(), model,
+                nodeCollector.submitBlockModel(poseStack, (renderState.vesselType == 6 || renderState.vesselType == 5 || renderState.vesselType >= 8) ? CabinetGlassLayer.TYPE : RenderType.cutout(), model,
                         1.0F, 1.0F, 1.0F, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             }
-            int c = renderState.color;
-            if (c != 0xFFFFFF) {
-                BlockStateModel contents = ModStandaloneModels.vesselContents(renderState.vesselType);
-                if (contents != null) {
-                    nodeCollector.submitBlockModel(poseStack,
-                            RenderType.translucentMovingBlock(), contents,
-                            ((c >> 16) & 0xFF) / 255.0F, ((c >> 8) & 0xFF) / 255.0F,
-                            (c & 0xFF) / 255.0F,
-                            renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
-                }
-            }
+            VesselContentRenderer.draw(poseStack, nodeCollector, renderState.vesselType,
+                    renderState.vesselVisual, renderState.lightCoords);
         }
+        WatchGlassRenderer.draw(poseStack,nodeCollector,renderState.vesselType,renderState.watchGlass,renderState.lightCoords);
+        GardenRenderer.draw(poseStack,nodeCollector,renderState.garden,renderState.vesselType,renderState.lightCoords,renderState.vesselVisual.liquidFill());
         if (renderState.vesselSealed) {
             if (renderState.vesselType == 6) {
                 int instrumentNeck = -1;
@@ -94,16 +88,16 @@ public class PlacedVesselRenderer
                     double[] neck = VesselHeating.THREE_NECK[n];
                     poseStack.translate(neck[0] / 16.0F, neck[1] / 16.0F, 8.5F / 16.0F);
                     if (n == 0) {
-                        poseStack.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(22.5F));
+                        poseStack.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(com.example.chemistry.ThreeNeckGeometry.SIDE_ANGLE));
                     } else if (n == 2) {
-                        poseStack.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(-22.5F));
+                        poseStack.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(-com.example.chemistry.ThreeNeckGeometry.SIDE_ANGLE));
                     }
                     submitStopper(renderState, poseStack, nodeCollector, n == instrumentNeck);
                     poseStack.popPose();
                 }
             } else {
                 poseStack.pushPose();
-                poseStack.translate(8.5F / 16.0F, 9.0F / 16.0F, 8.5F / 16.0F);
+                poseStack.translate(8.5F / 16.0F, (float) VesselHeating.mouthTopY(renderState.vesselType) / 16.0F, 8.5F / 16.0F);
                 submitStopper(renderState, poseStack, nodeCollector, true);
                 poseStack.popPose();
             }
@@ -159,11 +153,11 @@ public class PlacedVesselRenderer
             double[] neck = VesselHeating.THREE_NECK[i];
             poseStack.pushPose();
             poseStack.translate(neck[0] / 16.0, neck[1] / 16.0, 8.5 / 16.0);
-            // 两侧颈向外张开 22.5°，瓶塞跟着倾斜（中间颈不动）。
+            // 两侧颈向外张开 35°，瓶塞跟着倾斜（中间颈不动）。
             if (i == 0) {
-                poseStack.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(22.5F));
+                poseStack.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(com.example.chemistry.ThreeNeckGeometry.SIDE_ANGLE));
             } else if (i == 2) {
-                poseStack.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(-22.5F));
+                poseStack.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(-com.example.chemistry.ThreeNeckGeometry.SIDE_ANGLE));
             }
             nodeCollector.submitBlockModel(poseStack, RenderType.cutout(), plug,
                     1.0F, 1.0F, 1.0F, lightCoords, OverlayTexture.NO_OVERLAY, 0);
@@ -192,6 +186,7 @@ public class PlacedVesselRenderer
         String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
         return switch (path) {
             case "straight_glass_tube" -> 1;
+            case "straight_glass_tube_long" -> 8;
             case "right_angle_glass_tube" -> 2;
             case "right_angle_glass_tube_long" -> 4;
             case "long_stem_funnel" -> 5;

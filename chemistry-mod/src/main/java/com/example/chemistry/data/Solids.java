@@ -14,7 +14,10 @@ public final class Solids {
     public record Solid(String id, String formula, String english, String chinese, int color, SolidForm form, String openProduct) {
     }
 
-    public static final List<Solid> ALL = List.of(
+    public static final List<Solid> ALL = java.util.stream.Stream.concat(FutureChemicals.ALL.stream().filter(c->c.phase().equals("SOLID")).map(c->new Solid(c.id(),c.formula(),c.english(),c.chinese(),c.color(),FutureElements.ALL.stream().anyMatch(e->e.id().equals(c.id()))?SolidForm.LUMP:SolidForm.POWDER,"")), java.util.stream.Stream.concat(BatchChemicals.ALL.stream().filter(c -> !c.id().equals("tin_iv_chloride") && !c.id().equals("ethylenediamine")).map(c -> new Solid(c.id(),c.formula(),c.english(),c.chinese(),c.color(),SolidForm.POWDER,"")), java.util.stream.Stream.concat(EdtaCompounds.ALL.stream().map(c -> new Solid(c.id(), c.formula(), c.english(), c.chinese(), c.color(), SolidForm.POWDER, "")), List.of(
+            new Solid("sodium_silicate", "Na2SiO3", "Sodium Silicate", "硅酸钠", 0xE5E9DF, SolidForm.POWDER, ""),
+            new Solid("zinc_nitrate", "Zn(NO3)2", "Zinc Nitrate", "硝酸锌", 0xE6EBE9, SolidForm.POWDER, ""),
+            new Solid("crude_salt", "mixture", "Crude Salt", "粗盐", 0xC9C1A6, SolidForm.POWDER, ""),
             new Solid("marble", "CaCO3", "Marble", "大理石", 0xD8D8D0, SolidForm.LUMP, ""),
             new Solid("iron", "Fe", "Iron", "铁块", 0xC8C8D0, SolidForm.LUMP, ""),
             new Solid("iron_powder", "Fe", "Iron Powder", "铁粉", 0x909090, SolidForm.POWDER, ""),
@@ -284,7 +287,38 @@ public final class Solids {
             new Solid("potassium_ferrate", "K2FeO4", "Potassium Ferrate", "高铁酸钾", 0x4A2A6A, SolidForm.POWDER, ""),
             new Solid("sodium_ferrate", "Na2FeO4", "Sodium Ferrate", "高铁酸钠", 0x5A3A7A, SolidForm.POWDER, ""),
             new Solid("potassium_cuprate", "KCuO2", "Potassium Cuprate", "高铜酸钾", 0x2A3A5A, SolidForm.POWDER, ""),
-            new Solid("sodium_cuprate", "NaCuO2", "Sodium Cuprate", "高铜酸钠", 0x3A4A6A, SolidForm.POWDER, "")
+            new Solid("sodium_cuprate", "NaCuO2", "Sodium Cuprate", "高铜酸钠", 0x3A4A6A, SolidForm.POWDER, ""),
+
+            // 有机酸与危险化学品（柠檬酸/水杨酸/五氯化磷/氢化铝锂）
+            new Solid("citric_acid", "C6H8O7", "Citric Acid", "柠檬酸", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("salicylic_acid", "C7H6O3", "Salicylic Acid", "水杨酸", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("phosphorus_pentachloride", "PCl5", "Phosphorus Pentachloride", "五氯化磷", 0xF0F0D0, SolidForm.POWDER, ""),
+            new Solid("lithium_aluminium_hydride", "LiAlH4", "Lithium Aluminium Hydride", "氢化铝锂", 0xE8E8E8, SolidForm.POWDER, ""),
+
+            // 更多有机酸
+            new Solid("tartaric_acid", "C4H6O6", "Tartaric Acid", "酒石酸", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("malic_acid", "C4H6O5", "Malic Acid", "苹果酸", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("succinic_acid", "C4H6O4", "Succinic Acid", "琥珀酸", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("ascorbic_acid", "C6H8O6", "Ascorbic Acid (Vitamin C)", "抗坏血酸（维生素C）", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("gallic_acid", "C7H6O5", "Gallic Acid", "没食子酸", 0xF0F0E8, SolidForm.POWDER, ""),
+            new Solid("stearic_acid", "C18H36O2", "Stearic Acid", "硬脂酸", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("palmitic_acid", "C16H32O2", "Palmitic Acid", "棕榈酸", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("adipic_acid", "C6H10O4", "Adipic Acid", "己二酸", 0xF0F0F0, SolidForm.POWDER, ""),
+
+            // 更多危险化学品
+            new Solid("sodium_borohydride", "NaBH4", "Sodium Borohydride", "硼氢化钠", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("sodium_azide", "NaN3", "Sodium Azide", "叠氮化钠", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("benzoyl_peroxide", "C14H10O4", "Benzoyl Peroxide", "过氧化苯甲酰", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("picric_acid", "C6H3N3O7", "Picric Acid", "苦味酸", 0xE8D040, SolidForm.POWDER, ""),
+
+            // 有机酸盐 / 危险化学品水解产物（补全反应产物）
+            new Solid("sodium_citrate", "Na3C6H5O7", "Sodium Citrate", "柠檬酸钠", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("sodium_tartrate", "Na2C4H4O6", "Sodium Tartrate", "酒石酸钠", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("sodium_salicylate", "NaC7H5O3", "Sodium Salicylate", "水杨酸钠", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("lithium_hydroxide", "LiOH", "Lithium Hydroxide", "氢氧化锂", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("chromium_iii_chloride", "CrCl3", "Chromium(III) Chloride", "氯化铬", 0x9060C0, SolidForm.POWDER, ""),
+            new Solid("magnesium_citrate", "Mg3(C6H5O7)2", "Magnesium Citrate", "柠檬酸镁", 0xF0F0F0, SolidForm.POWDER, ""),
+            new Solid("acetylsalicylic_acid", "C9H8O4", "Acetylsalicylic Acid (Aspirin)", "乙酰水杨酸（阿司匹林）", 0xF0F0F0, SolidForm.POWDER, "")
 
 
 
@@ -292,7 +326,7 @@ public final class Solids {
 
 
 
-    );
+    ).stream()))).toList();
 
     private Solids() {
     }

@@ -1,6 +1,7 @@
 package com.example.chemistry.client;
 
 import com.example.chemistry.ChemistryMod;
+import com.example.chemistry.entity.PlacedVesselEntity;
 import com.example.chemistry.registry.ModBlocks;
 import com.example.chemistry.item.LabVesselItem;
 import com.example.chemistry.network.ChemistryNetworking;
@@ -12,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -68,17 +70,24 @@ public final class ModClientKeyHandler {
             }
             while (ModKeyMappings.FIX_TEMP.consumeClick()) {
                 HitResult hit = Minecraft.getInstance().hitResult;
-                if (hit instanceof BlockHitResult blockHit
-                        && Minecraft.getInstance().level != null) {
-                    BlockState state = Minecraft.getInstance().level.getBlockState(blockHit.getBlockPos());
-                    boolean apparatus = state.is(ModBlocks.PLACED_VESSEL.get())
-                            || (state.is(ModBlocks.IRON_STAND.get())
-                                    && state.getValue(IronStandBlock.HAS_VESSEL))
-                            || (state.is(ModBlocks.TRIPOD.get())
-                                    && state.getValue(TripodBlock.HAS_VESSEL));
-                    if (apparatus) {
+                if (Minecraft.getInstance().level != null) {
+                    if (hit instanceof EntityHitResult entityHit
+                            && entityHit.getEntity() instanceof PlacedVesselEntity) {
                         ClientPacketDistributor.sendToServer(
-                                new ChemistryNetworking.FixTempPacket(blockHit.getBlockPos()));
+                                new ChemistryNetworking.FixTempPacket(
+                                        entityHit.getEntity().blockPosition()));
+                    } else if (hit instanceof BlockHitResult blockHit) {
+                        BlockState state = Minecraft.getInstance().level
+                                .getBlockState(blockHit.getBlockPos());
+                        boolean apparatus = state.is(ModBlocks.PLACED_VESSEL.get())
+                                || (state.is(ModBlocks.IRON_STAND.get())
+                                        && state.getValue(IronStandBlock.HAS_VESSEL))
+                                || (state.is(ModBlocks.TRIPOD.get())
+                                        && state.getValue(TripodBlock.HAS_VESSEL));
+                        if (apparatus) {
+                            ClientPacketDistributor.sendToServer(
+                                    new ChemistryNetworking.FixTempPacket(blockHit.getBlockPos()));
+                        }
                     }
                 }
             }

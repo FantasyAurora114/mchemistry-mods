@@ -5,6 +5,8 @@ import net.minecraft.world.phys.Vec3;
 
 public class RubberTubeRenderState extends EntityRenderState {
 
+    public boolean supply;
+    public java.util.List<Vec3> curve = java.util.List.of();
     public Vec3 a = Vec3.ZERO;
     public Vec3 b = Vec3.ZERO;
     public boolean validA;

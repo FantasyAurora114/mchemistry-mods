@@ -108,7 +108,7 @@ public class PlacedVesselBlock extends Block implements EntityBlock {
         // Insert a glass tube / dropper / funnel through the flask's stopper.
         if (VesselHeating.isSealed(be.getVessel())
                 && VesselHeating.getStopperHoles(be.getVessel()) > 0
-                && (stack.is(ModItems.STRAIGHT_GLASS_TUBE.get())
+                && ((stack.is(ModItems.STRAIGHT_GLASS_TUBE.get()) || stack.is(ModItems.STRAIGHT_GLASS_TUBE_LONG.get()))
                         || stack.is(ModItems.RIGHT_ANGLE_GLASS_TUBE.get())
                         || stack.is(ModItems.RIGHT_ANGLE_GLASS_TUBE_LONG.get())
                         || stack.is(ModItems.LONG_STEM_FUNNEL.get())
@@ -310,8 +310,7 @@ public class PlacedVesselBlock extends Block implements EntityBlock {
         }
         String liquid = DropperHelper.getLiquid(dropper);
         ItemStack vessel = be.getVessel();
-        if (LabVesselItem.addLiquid(vessel, liquid, 5)) {
-            DropperHelper.setMl(dropper, DropperHelper.getMl(dropper) - 5);
+        if (DropperHelper.pour(dropper,vessel,player.isShiftKeyDown())) {
             ReactionEngine.checkAndStart(vessel, player);
             be.setVessel(vessel);
             level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 0.8F, 1.2F);
@@ -389,7 +388,7 @@ public class PlacedVesselBlock extends Block implements EntityBlock {
     }
 
     private static boolean isGlassTube(ItemStack stack) {
-        return stack.is(ModItems.STRAIGHT_GLASS_TUBE.get())
+        return (stack.is(ModItems.STRAIGHT_GLASS_TUBE.get()) || stack.is(ModItems.STRAIGHT_GLASS_TUBE_LONG.get()))
                 || stack.is(ModItems.RIGHT_ANGLE_GLASS_TUBE.get())
                 || stack.is(ModItems.RIGHT_ANGLE_GLASS_TUBE_LONG.get());
     }

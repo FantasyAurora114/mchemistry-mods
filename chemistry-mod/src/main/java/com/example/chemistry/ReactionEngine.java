@@ -46,12 +46,19 @@ public final class ReactionEngine {
     private record Pending(int index, double moles, List<String> actualIds, int duration) {
     }
 
+    /** The actual reacted extent, needed by gas routing after completion. */
+    public record Completion(Reaction reaction, double moles) {
+    }
+
     /** Kicks off a reaction if the vessel's contents match one; returns true
      *  if a reaction is now pending. */
     public static boolean checkAndStart(ItemStack vessel, Player player) {
         if (!(vessel.getItem() instanceof LabVesselItem)) {
             return false;
         }
+        LabVesselItem.normalizeSolutions(vessel);
+        if (com.example.chemistry.solution.AcidBaseEquilibrium.tick(vessel)
+                || com.example.chemistry.solution.AcidBaseEquilibrium.reacting(vessel)) return true;
         if (readPending(vessel) != null) {
             return true;
         }
@@ -64,6 +71,10 @@ public final class ReactionEngine {
         Pending best = null;
         int bestEntries = -1;
         for (int i = 0; i < reactions.size(); i++) {
+            if (com.example.chemistry.data.FutureReactions.ALL.contains(reactions.get(i)) || com.example.chemistry.data.BatchReactions.ALL.contains(reactions.get(i)) || com.example.chemistry.solution.PrecipitationEquilibrium.ownsLegacyReaction(vessel,reactions.get(i))
+                    || com.example.chemistry.solution.AcidBaseEquilibrium.ownsLegacyReaction(vessel,reactions.get(i))) {
+                continue;
+            }
             if (atEquilibrium(vessel, reactions.get(i))) {
                 continue;
             }
@@ -77,7 +88,7 @@ public final class ReactionEngine {
             }
         }
         if (best != null) {
-            writePending(vessel, best, 0);
+            writePending(vessel, best, reactions.get(best.index()).display(), 0);
             return true;
         }
         return false;
@@ -87,6 +98,12 @@ public final class ReactionEngine {
      *  or null. The caller can spawn visible phenomena. */
     @org.jetbrains.annotations.Nullable
     public static Reactions.Reaction tick(ItemStack vessel, Player player) {
+        Completion completion = tickResult(vessel, player);
+        return completion == null ? null : completion.reaction();
+    }
+
+    @org.jetbrains.annotations.Nullable
+    public static Completion tickResult(ItemStack vessel, Player player) {
         if (!(vessel.getItem() instanceof LabVesselItem)) {
             return null;
         }
@@ -94,43 +111,90 @@ public final class ReactionEngine {
         if (pending == null) {
             return null;
         }
-        int progress = pending.getIntOr("progress", 0) + 1;
+        int index = pending.getIntOr("index", -1);
+        double moles = pending.getDoubleOr("moles", 0.0);
+        List<Reaction> reactions = ChemistryAPI.allReactions();
+        if (index < 0 || index >= reactions.size()
+                || !Double.isFinite(moles) || moles <= 0) {
+            clearPending(vessel);
+            return null;
+        }
+        Reaction reaction = reactions.get(index);
+        if (com.example.chemistry.data.FutureReactions.ALL.contains(reaction) || com.example.chemistry.data.BatchReactions.ALL.contains(reaction) || com.example.chemistry.solution.PrecipitationEquilibrium.ownsLegacyReaction(vessel,reaction)
+                || com.example.chemistry.solution.AcidBaseEquilibrium.ownsLegacyReaction(vessel,reaction)) {
+            clearPending(vessel);
+            return null;
+        }
+        List<String> ids = new ArrayList<>();
+        for (Tag t : pending.getListOrEmpty("ids")) {
+            if (t instanceof CompoundTag c) {
+                String id = c.getStringOr("id", "");
+                if (!id.isEmpty()) {
+                    ids.add(id);
+                }
+            }
+        }
+        if (ids.size() != reaction.reactants().size()
+                || (!pending.getStringOr("reaction", "").isEmpty()
+                        && !pending.getStringOr("reaction", "").equals(reaction.display()))) {
+            clearPending(vessel);
+            return null;
+        }
+        for (int i = 0; i < ids.size(); i++) {
+            if (!SubstanceVariants.canonicalOf(ids.get(i)).equals(reaction.reactants().get(i).id())
+                    && !dissolvedSolidMatches(reaction.reactants().get(i).id(),ids.get(i))) {
+                clearPending(vessel);
+                return null;
+            }
+        }
         int duration = pending.getIntOr("duration", BASE_TICKS);
+        Pending state = new Pending(index, moles, ids, duration);
+        if (!hasAllReactants(vessel, reaction, state)) {
+            clearPending(vessel);
+            if (player != null) {
+                ExperimentFeedback.send(player,Component.translatable("mchemistry.reaction.missing_reactants"));
+            }
+            return null;
+        }
+        // Heat, pressure and a separate catalyst can change during the timer.
+        // Pause progress until the apparatus restores those conditions.
+        if (!conditionsMet(vessel, reaction)) {
+            return null;
+        }
+        int progress = pending.getIntOr("progress", 0) + 1;
         pending.putInt("progress", progress);
         writePendingRaw(vessel, pending);
         if (progress >= duration) {
-            int index = pending.getIntOr("index", -1);
-            double moles = pending.getDoubleOr("moles", 0.0);
-            List<String> ids = new ArrayList<>();
-            ListTag idList = pending.getListOrEmpty("ids");
-            for (Tag t : idList) {
-                if (t instanceof CompoundTag c) {
-                    String id = c.getStringOr("id", "");
-                    if (!id.isEmpty()) {
-                        ids.add(id);
-                    }
-                }
-            }
             clearPending(vessel);
-            List<Reaction> reactions = ChemistryAPI.allReactions();
-            if (index >= 0 && index < reactions.size() && !ids.isEmpty()) {
-                Reaction completed = reactions.get(index);
-                // A reactant may have evaporated / been removed while the
-                // reaction was ticking (e.g. water boils off a hot crucible).
-                // Never complete a reaction whose reactants are gone.
-                if (!hasAllReactants(vessel, completed, new Pending(index, moles, ids, duration))) {
-                    if (player != null) {
-                        player.displayClientMessage(
-                                Component.translatable("mchemistry.reaction.missing_reactants"), true);
-                    }
-                    return null;
-                }
-                complete(vessel, completed, new Pending(index, moles, ids, duration), player);
-                checkAndStart(vessel, player);
-                return completed;
-            }
+            complete(vessel, reaction, state, player);
+            checkAndStart(vessel, player);
+            return new Completion(reaction,
+                    moles * (isReversible(reaction) ? EQUILIBRIUM_FRACTION : 1.0));
         }
         return null;
+    }
+
+    private static boolean conditionsMet(ItemStack vessel, Reaction reaction) {
+        if (TemperatureSystem.getTemp(vessel) < reaction.requiredTemp()
+                || VesselHeating.pressureKpa(vessel) < reaction.requiredPressure()) {
+            return false;
+        }
+        boolean chlorineBase=reaction.reactants().stream().anyMatch(e->e.id().equals("chlorine"))
+                &&reaction.reactants().stream().anyMatch(e->e.id().equals("sodium_hydroxide")||e.id().equals("potassium_hydroxide")||e.id().endsWith("_hydroxide_solution"));
+        if(chlorineBase){
+            boolean hot=TemperatureSystem.getTemp(vessel)>=80;
+            double water=LabVesselItem.getContents(vessel).stream().filter(e->e.id().equals("water")).mapToDouble(LabVesselItem.Entry::amount).sum();
+            double base=LabVesselItem.getContents(vessel).stream().filter(e->e.id().equals("sodium_hydroxide_solution")||e.id().equals("potassium_hydroxide_solution")||e.id().equals("sodium_hydroxide")||e.id().equals("potassium_hydroxide")).mapToDouble(LabVesselItem.Entry::amount).sum();
+            boolean chlorateBranch=hot&&(water<=0||base/(water+base)>=.1);
+            boolean producesChlorate=reaction.products().stream().anyMatch(e->e.id().endsWith("_chlorate"));
+            if(producesChlorate!=chlorateBranch)return false;
+        }
+        String catalyst = reaction.catalyst();
+        return catalyst.isEmpty() || catalyst.equals("any")
+                || LabVesselItem.getContents(vessel).stream().anyMatch(e ->
+                        e.type().equals("solid")
+                                && SubstanceVariants.canonicalOf(e.id()).equals(catalyst)
+                                && e.amount() > EPS);
     }
 
     /** True when every reactant is still present in the required mass. */
@@ -145,7 +209,8 @@ public final class ReactionEngine {
             }
             double have = 0;
             for (LabVesselItem.Entry e : contents) {
-                if (e.type().equals(ing.type()) && e.id().equals(pending.actualIds().get(i))) {
+                if ((e.type().equals(ing.type()) || ing.type().equals("solid") && e.type().equals("liquid")
+                        && dissolvedSolidMatches(ing.id(),e.id())) && e.id().equals(pending.actualIds().get(i))) {
                     have = e.amount();
                     break;
                 }
@@ -158,7 +223,7 @@ public final class ReactionEngine {
     }
 
     private static Pending detect(Reaction reaction, int index, ItemStack vessel, double temp) {
-        if (temp < reaction.requiredTemp()) {
+        if (!conditionsMet(vessel, reaction)) {
             return null;
         }
         boolean passivation = reaction.products().stream()
@@ -213,6 +278,13 @@ public final class ReactionEngine {
         return new Pending(index, limit, actualIds, duration);
     }
 
+    /** Only the newly soluble salts bridge the legacy solid-reagent table. */
+    private static boolean dissolvedSolidMatches(String canonical, String actual) {
+        return (canonical.equals("calcium_chloride") || canonical.equals("sodium_oxalate")
+                || canonical.equals("potassium_oxalate") || canonical.equals("sodium_acetate")
+                || canonical.equals("potassium_acetate")) && actual.equals(canonical + "_solution");
+    }
+
     /**
      * Finds the vessel entry for a canonical substance. Any variant counts
      * (浓盐酸 is 盐酸, 铁粉 is 铁); the fastest available variant is chosen.
@@ -223,7 +295,8 @@ public final class ReactionEngine {
         double bestSpeed = -1;
         for (LabVesselItem.Entry e : contents) {
             boolean canonMatch = SubstanceVariants.canonicalOf(e.id()).equals(canonicalId);
-            if (e.type().equals(type) && canonMatch) {
+            if (e.type().equals(type) && canonMatch || type.equals("solid") && e.type().equals("liquid")
+                    && dissolvedSolidMatches(canonicalId,e.id())) {
                 // Concentration only applies to acids that HAVE a concentrated
                 // variant (浓/稀盐酸、硫酸、硝酸、磷酸). Other liquids such as
                 // 高锰酸钾溶液 must not be rejected by a "concentrated" gate.
@@ -248,6 +321,7 @@ public final class ReactionEngine {
     }
 
     private static void complete(ItemStack vessel, Reaction reaction, Pending pending, Player player) {
+        ContainerHazards.record(vessel,reaction,pending.moles());
         boolean passivation = reaction.products().stream()
                 .anyMatch(p -> p.type().equals("passivate"));
         boolean reversible = isReversible(reaction);
@@ -264,7 +338,10 @@ public final class ReactionEngine {
                 }
                 double grams = pending.moles() * ing.coefficient() * factor
                         * ChemicalInfoProvider.molarMassOf(ing.type() + "_" + ing.id());
-                LabVesselItem.consumeMass(vessel, ing.type(), pending.actualIds().get(i), grams);
+                String actualId = pending.actualIds().get(i);
+                String actualType = ing.type().equals("solid") && dissolvedSolidMatches(ing.id(),actualId)
+                        ? "liquid" : ing.type();
+                LabVesselItem.consumeMass(vessel, actualType, actualId, grams);
             }
         }
         for (Product p : reaction.products()) {
@@ -290,8 +367,9 @@ public final class ReactionEngine {
             }
             markEquilibrium(vessel, reaction);
         }
+        ThermalSystem.addHeat(vessel,ThermalSystem.reactionJoules(reaction,pending.moles()*factor),"reaction_estimate");
         if (player != null) {
-            player.displayClientMessage(Component.translatable("mchemistry.reaction", Component.literal(reaction.display())), true);
+            ExperimentFeedback.send(player,Component.translatable("mchemistry.reaction", Component.literal(reaction.display())));
             ReactionUnlocks.unlock(player, reaction.display());
         }
     }
@@ -299,6 +377,27 @@ public final class ReactionEngine {
     /** True when the display uses the equilibrium arrow ⇌ (可逆反应). */
     public static boolean isReversible(Reactions.Reaction reaction) {
         return reaction.display().contains("⇌");
+    }
+
+    /** Live diagnostic data for the goggles overlay; does not start or advance reactions. */
+    public static void appendFeedback(List<Component> lines,ItemStack vessel) {
+        CompoundTag pending=readPending(vessel);
+        if(pending==null)return;
+        int index=pending.getIntOr("index",-1);
+        var reactions=ChemistryAPI.allReactions();
+        if(index<0||index>=reactions.size())return;
+        var reaction=reactions.get(index);
+        if(TemperatureSystem.getTemp(vessel)<reaction.requiredTemp()) {
+            lines.add(Component.literal("实验反馈：反应暂停，未达到所需温度"));
+        } else if(VesselHeating.pressureKpa(vessel)<reaction.requiredPressure()) {
+            lines.add(Component.literal("实验反馈：反应暂停，压力不足"));
+        } else if(!conditionsMet(vessel,reaction)) {
+            lines.add(Component.literal("实验反馈：反应暂停，催化剂或反应条件不满足"));
+        } else {
+            int duration=Math.max(1,pending.getIntOr("duration",BASE_TICKS));
+            int percent=Math.clamp(pending.getIntOr("progress",0)*100/duration,0,100);
+            lines.add(Component.literal("实验反馈：反应进行中 "+percent+"%"));
+        }
     }
 
     private static void markEquilibrium(ItemStack vessel, Reactions.Reaction reaction) {
@@ -376,9 +475,10 @@ public final class ReactionEngine {
         return tag.contains("chem_reaction") ? tag.getCompoundOrEmpty("chem_reaction") : null;
     }
 
-    private static void writePending(ItemStack stack, Pending pending, int progress) {
+    private static void writePending(ItemStack stack, Pending pending, String reaction, int progress) {
         CompoundTag state = new CompoundTag();
         state.putInt("index", pending.index());
+        state.putString("reaction", reaction);
         state.putDouble("moles", pending.moles());
         state.putInt("duration", pending.duration());
         state.putInt("progress", progress);
@@ -408,22 +508,5 @@ public final class ReactionEngine {
     }
 
     /** 放热/剧烈/点燃 reactions warm the vessel (放热反应使容器温度上升). */
-    public static void applyReactionHeat(ItemStack vessel, Reactions.Reaction reaction) {
-        if (vessel.isEmpty() || reaction == null
-                || !(vessel.getItem() instanceof LabVesselItem)) {
-            return;
-        }
-        double delta = 0;
-        if (reaction.display().contains("剧烈")) {
-            delta = 40.0;
-        } else if (reaction.display().contains("放热")) {
-            delta = 20.0;
-        } else if (reaction.display().contains("点燃")) {
-            delta = 15.0;
-        }
-        if (delta > 0) {
-            TemperatureSystem.setTemp(vessel,
-                    TemperatureSystem.getTemp(vessel) + delta);
-        }
-    }
+
 }

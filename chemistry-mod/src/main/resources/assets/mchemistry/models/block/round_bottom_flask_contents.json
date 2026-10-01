@@ -1,21 +1,85 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "contents": "mchemistry:block/vessel_contents"
+    "fill": "mchemistry:block/vessel_contents",
+    "particle": "mchemistry:block/vessel_contents"
   },
   "elements": [
     {
-      "from": [6.4, 0.6, 6.4],
-      "to": [10.6, 4.4, 10.6],
+      "from": [
+        5.18,
+        0.18,
+        5.18
+      ],
+      "to": [
+        11.82,
+        6.3,
+        11.82
+      ],
       "shade": false,
       "faces": {
-        "north": {"texture": "contents", "tintindex": 0},
-        "south": {"texture": "contents", "tintindex": 0},
-        "east": {"texture": "contents", "tintindex": 0},
-        "west": {"texture": "contents", "tintindex": 0},
-        "up": {"texture": "contents", "tintindex": 0},
-        "down": {"texture": "contents", "tintindex": 0}
+        "up": {
+          "texture": "#fill",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "down": {
+          "texture": "#fill",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "north": {
+          "texture": "#fill",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "south": {
+          "texture": "#fill",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "east": {
+          "texture": "#fill",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        },
+        "west": {
+          "texture": "#fill",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": 0
+        }
       }
     }
-  ]
+  ],
+  "render_type": "minecraft:cutout"
 }

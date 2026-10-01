@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " IN",
+    " RR"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "N": "minecraft:iron_nugget",
+    "R": "minecraft:red_dye"
+  },
+  "result": {
+    "id": "mchemistry:alligator_clip_red",
+    "count": 1
+  }
+}

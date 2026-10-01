@@ -29,9 +29,11 @@ import com.example.chemistry.item.GlassTubeItem;
 import com.example.chemistry.item.GlassTubeTubedItem;
 import com.example.chemistry.item.GraduatedCylinderItem;
 import com.example.chemistry.item.HandbookItem;
+import com.example.chemistry.item.IronStandItem;
 import com.example.chemistry.item.LabVesselItem;
 import com.example.chemistry.item.LabelItem;
 import com.example.chemistry.item.LiquidBottleItem;
+import com.example.chemistry.item.MagneticStirrerItem;
 import com.example.chemistry.item.PlacedVesselItem;
 import com.example.chemistry.item.RubberTubeItem;
 import com.example.chemistry.item.SolidBottleItem;
@@ -54,6 +56,57 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class ModItems {
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ChemistryMod.MODID);
+    public static final DeferredItem<net.minecraft.world.item.BlockItem> LAB_CEILING_TILE=ITEMS.registerSimpleBlockItem("lab_ceiling_tile",ModBlocks.LAB_CEILING_TILE);
+    public static final DeferredItem<net.minecraft.world.item.BlockItem> LAB_CEILING_LIGHT=ITEMS.registerSimpleBlockItem("lab_ceiling_light",ModBlocks.LAB_CEILING_LIGHT);
+    public static final java.util.List<DeferredItem<com.example.chemistry.radiation.IsotopeSampleItem>> ISOTOPES=java.util.List.of(ITEMS.registerItem("isotope_hydrogen_2",p->new com.example.chemistry.radiation.IsotopeSampleItem(p,"H2"),UnaryOperator.identity()),ITEMS.registerItem("isotope_hydrogen_3",p->new com.example.chemistry.radiation.IsotopeSampleItem(p,"H3"),UnaryOperator.identity()),ITEMS.registerItem("isotope_carbon_13",p->new com.example.chemistry.radiation.IsotopeSampleItem(p,"C13"),UnaryOperator.identity()),ITEMS.registerItem("isotope_carbon_14",p->new com.example.chemistry.radiation.IsotopeSampleItem(p,"C14"),UnaryOperator.identity()),ITEMS.registerItem("isotope_oxygen_18",p->new com.example.chemistry.radiation.IsotopeSampleItem(p,"O18"),UnaryOperator.identity()),ITEMS.registerItem("isotope_uranium_235",p->new com.example.chemistry.radiation.IsotopeSampleItem(p,"U235"),UnaryOperator.identity()),ITEMS.registerItem("isotope_uranium_238",p->new com.example.chemistry.radiation.IsotopeSampleItem(p,"U238"),UnaryOperator.identity()),ITEMS.registerItem("isotope_plutonium_239",p->new com.example.chemistry.radiation.IsotopeSampleItem(p,"Pu239"),UnaryOperator.identity()),ITEMS.registerItem("isotope_radon_222",p->new com.example.chemistry.radiation.IsotopeSampleItem(p,"Rn222"),UnaryOperator.identity()));
+    public static final DeferredItem<Item> GEIGER_COUNTER=ITEMS.registerItem("geiger_counter",com.example.chemistry.radiation.GeigerCounterItem::new,p->p.stacksTo(1));
+    public static final DeferredItem<Item> RADIATION_HOOD=ITEMS.registerItem("radiation_hood",Item::new,p->com.example.chemistry.radiation.RadiationGear.properties(p,net.minecraft.world.item.equipment.ArmorType.HELMET));
+    public static final DeferredItem<Item> RADIATION_SUIT=ITEMS.registerItem("radiation_suit",Item::new,p->com.example.chemistry.radiation.RadiationGear.properties(p,net.minecraft.world.item.equipment.ArmorType.CHESTPLATE));
+    public static final DeferredItem<Item> RADIATION_LEGGINGS=ITEMS.registerItem("radiation_leggings",Item::new,p->com.example.chemistry.radiation.RadiationGear.properties(p,net.minecraft.world.item.equipment.ArmorType.LEGGINGS));
+    public static final DeferredItem<Item> RADIATION_BOOTS=ITEMS.registerItem("radiation_boots",Item::new,p->com.example.chemistry.radiation.RadiationGear.properties(p,net.minecraft.world.item.equipment.ArmorType.BOOTS));
+    public static final DeferredItem<net.minecraft.world.item.BlockItem> RADIATION_SHIELD_BOX=ITEMS.registerSimpleBlockItem("radiation_shield_box",ModBlocks.RADIATION_SHIELD_BOX);
+    public static final DeferredItem<net.minecraft.world.item.BlockItem> LEAD_LINED_CABINET=ITEMS.registerSimpleBlockItem("lead_lined_cabinet",ModBlocks.LEAD_LINED_CABINET);
+    public static final DeferredItem<Item> RADIOACTIVE_WASTE_BOTTLE=ITEMS.registerItem("radioactive_waste_bottle",p->new com.example.chemistry.item.LabVesselItem(p,10000),p->p.stacksTo(1));
+
+
+    public static final DeferredItem<Item> IRON_STAND_EXTENSION = ITEMS.registerSimpleItem("iron_stand_extension");
+    public static final DeferredItem<com.example.chemistry.utility.WaterMachineItem> TEMPERATURE_CONTROLLED_CIRCULATOR = ITEMS.registerItem("temperature_controlled_circulator",com.example.chemistry.utility.WaterMachineItem::new,UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.utility.WaterMachineItem> CIRCULATING_WATER_VACUUM_PUMP = ITEMS.registerItem("circulating_water_vacuum_pump",com.example.chemistry.utility.WaterMachineItem::new,UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.utility.IECCableItem> IEC_CABLE = ITEMS.registerItem("iec_cable",com.example.chemistry.utility.IECCableItem::new,p->p.stacksTo(16));
+    public static final DeferredItem<BlockItem> BUNSEN_BURNER = ITEMS.registerSimpleBlockItem("bunsen_burner", ModBlocks.BUNSEN_BURNER);
+    public static final DeferredItem<com.example.chemistry.item.GasCylinderItem> GAS_CYLINDER_SMALL = ITEMS.registerItem("gas_cylinder_small", p -> new com.example.chemistry.item.GasCylinderItem(ModBlocks.GAS_CYLINDER_SMALL.get(), p, ""), p -> p.stacksTo(1));
+    public static final DeferredItem<com.example.chemistry.item.GasCylinderItem> GAS_CYLINDER_TALL = ITEMS.registerItem("gas_cylinder_tall", p -> new com.example.chemistry.item.GasCylinderItem(ModBlocks.GAS_CYLINDER_TALL.get(), p, ""), p -> p.stacksTo(1));
+    public static final DeferredItem<com.example.chemistry.electrical.SaltBridgeItem> SALT_BRIDGE = ITEMS.registerItem("salt_bridge",com.example.chemistry.electrical.SaltBridgeItem::new,UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.electrical.ElectrodePartItem> ZINC_ELECTRODE_MESH = ITEMS.registerItem("zinc_electrode_mesh",com.example.chemistry.electrical.ElectrodePartItem::new,UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.electrical.ElectroDeviceItem> GALVANIC_HALF_CELL = ITEMS.registerItem("galvanic_half_cell",p->new com.example.chemistry.electrical.ElectroDeviceItem(p,500),UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.electrical.ElectroDeviceItem> LAB_RESISTOR = ITEMS.registerItem("lab_resistor",p->new com.example.chemistry.electrical.ElectroDeviceItem(p,0),UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.electrical.ElectroDeviceItem> LAB_VOLTMETER = ITEMS.registerItem("lab_voltmeter",p->new com.example.chemistry.electrical.ElectroDeviceItem(p,0),UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.item.GasSupplyTubeItem> GAS_SUPPLY_TUBE = ITEMS.registerItem("gas_supply_tube", com.example.chemistry.item.GasSupplyTubeItem::new, p -> p.stacksTo(16));
+    public static final List<DeferredItem<com.example.chemistry.item.GasCylinderItem>> GAS_CYLINDERS = new ArrayList<>();
+    static {
+        for (var gas : com.example.chemistry.data.GasJars.ALL) for (boolean tall : new boolean[]{false, true}) {
+            GAS_CYLINDERS.add(ITEMS.registerItem("gas_cylinder_" + gas.id() + (tall ? "_tall" : "_small"),
+                    p -> new com.example.chemistry.item.GasCylinderItem(tall ? ModBlocks.GAS_CYLINDER_TALL.get() : ModBlocks.GAS_CYLINDER_SMALL.get(), p, gas.id()), p -> p.stacksTo(1)));
+        }
+    }
+
+    public static final DeferredItem<Item> USED_PH_PAPER=ITEMS.registerSimpleItem("used_ph_paper");
+    public static final DeferredItem<BlockItem> LAB_FLOOR_TILE=ITEMS.registerSimpleBlockItem(ModBlocks.LAB_FLOOR_TILE);
+    public static final DeferredItem<BlockItem> LAB_WALL_TILE=ITEMS.registerSimpleBlockItem(ModBlocks.LAB_WALL_TILE);
+    public static final DeferredItem<Item> FILTER_PAPER = ITEMS.registerItem("filter_paper", Item::new, UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.filtration.UsedFilterPaperItem> USED_FILTER_PAPER = ITEMS.registerItem("used_filter_paper", com.example.chemistry.filtration.UsedFilterPaperItem::new, UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.filtration.FilterFunnelItem> FILTER_FUNNEL = ITEMS.registerItem("filter_funnel", com.example.chemistry.filtration.FilterFunnelItem::new, UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.titration.BuretteItem> BURETTE_GLASS = ITEMS.registerItem("burette_glass",com.example.chemistry.titration.BuretteItem::new,UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.titration.BuretteItem> BURETTE_ALKALI = ITEMS.registerItem("burette_alkali",com.example.chemistry.titration.BuretteItem::new,UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.titration.BuretteItem> BURETTE_PTFE = ITEMS.registerItem("burette_ptfe",com.example.chemistry.titration.BuretteItem::new,UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.titration.BuretteItem> BURETTE_AMBER_GLASS = ITEMS.registerItem("burette_amber_glass",com.example.chemistry.titration.BuretteItem::new,UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.titration.BuretteItem> BURETTE_AMBER_PTFE = ITEMS.registerItem("burette_amber_ptfe",com.example.chemistry.titration.BuretteItem::new,UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.organic.SeparatoryFunnelItem> SEPARATORY_FUNNEL = ITEMS.registerItem("separatory_funnel",com.example.chemistry.organic.SeparatoryFunnelItem::new,UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.organic.PhasePipetteItem> PHASE_PIPETTE = ITEMS.registerItem("phase_pipette",com.example.chemistry.organic.PhasePipetteItem::new,UnaryOperator.identity());
+    public static final DeferredItem<Item> ELECTRICAL_WIRE = ITEMS.registerItem("electrical_wire", com.example.chemistry.electrical.ElectricWireItem::new, UnaryOperator.identity());
+
+    public static final DeferredItem<BlockItem> TALL_REAGENT_CABINET = ITEMS.registerSimpleBlockItem(ModBlocks.TALL_REAGENT_CABINET);
+    public static final DeferredItem<BlockItem> BASE_REAGENT_CABINET = ITEMS.registerSimpleBlockItem(ModBlocks.BASE_REAGENT_CABINET);
 
     // --- Elements: ingot / dust / nugget for every element, sealed tube for gases ---
     public static final List<DeferredItem<ElementItem>> ELEMENT_ITEMS = new ArrayList<>();
@@ -116,7 +169,7 @@ public class ModItems {
             "bromine",
             "hydroiodic_acid");
 
-    private static final Set<String> ALKALI_METALS = Set.of("Li", "Na", "K");
+    private static final Set<String> ALKALI_METALS = Set.of("Li", "Na", "K", "Rb", "Cs");
 
     public static final List<DeferredItem<BucketItem>> LIQUID_BUCKETS = new ArrayList<>();
     private static final Map<String, DeferredItem<BucketItem>> LIQUID_BUCKETS_BY_ID = new HashMap<>();
@@ -140,7 +193,7 @@ public class ModItems {
             }
         }
         for (String instrumentId : Instruments.ALL) {
-            INSTRUMENTS.add(ITEMS.registerItem(instrumentId, Item::new, UnaryOperator.identity()));
+            INSTRUMENTS.add(instrumentId.equals("suction_flask")?ITEMS.registerItem(instrumentId,p->new LabVesselItem(p.stacksTo(1),500),UnaryOperator.identity()):instrumentId.equals("buchner_funnel")?ITEMS.registerItem(instrumentId,com.example.chemistry.filtration.FilterFunnelItem::new,UnaryOperator.identity()):ITEMS.registerItem(instrumentId, Item::new, p->instrumentId.equals("watch_glass")?p.stacksTo(1):p));
         }
         // Loose (散装) solids are a separate family, not a bottle; they keep
         // one item per substance for world-dropping / hand-loading.
@@ -325,15 +378,18 @@ public class ModItems {
 
     // --- Block items ---
     public static final DeferredItem<BlockItem> IRON_STAND_ITEM =
-            ITEMS.registerSimpleBlockItem("iron_stand", ModBlocks.IRON_STAND);
+            ITEMS.registerItem("iron_stand",
+                    props -> new IronStandItem(ModBlocks.IRON_STAND.get(), props.stacksTo(1)),
+                    UnaryOperator.identity());
     public static final DeferredItem<BlockItem> LAB_TABLE_ITEM =
             ITEMS.registerSimpleBlockItem("lab_table", ModBlocks.LAB_TABLE);
+    public static final DeferredItem<BlockItem> LAB_TABLE_CABINET_ITEM = ITEMS.registerSimpleBlockItem("lab_table_cabinet",ModBlocks.LAB_TABLE_CABINET);
+    public static final DeferredItem<BlockItem> LAB_TABLE_SINK_ITEM = ITEMS.registerSimpleBlockItem("lab_table_sink",ModBlocks.LAB_TABLE_SINK);
     public static final DeferredItem<BlockItem> WATER_TROUGH_ITEM =
             ITEMS.registerSimpleBlockItem("water_trough", ModBlocks.WATER_TROUGH);
     public static final DeferredItem<BlockItem> LONG_STEM_FUNNEL =
             ITEMS.registerSimpleBlockItem("long_stem_funnel", ModBlocks.LONG_STEM_FUNNEL);
-    public static final DeferredItem<BlockItem> SEPARATORY_FUNNEL =
-            ITEMS.registerSimpleBlockItem("separatory_funnel", ModBlocks.SEPARATORY_FUNNEL);
+    // Legacy decorative block remains registered for saved worlds; its item is now functional.
     public static final DeferredItem<BlockItem> TRIPOD =
             ITEMS.registerSimpleBlockItem("tripod", ModBlocks.TRIPOD);
     public static final DeferredItem<BlockItem> HEATING_MANTLE =
@@ -380,6 +436,20 @@ public class ModItems {
             ITEMS.registerItem("receiver_adapter_straight", Item::new, props -> props.stacksTo(16));
     public static final DeferredItem<Item> RECEIVER_ADAPTER_BENT =
             ITEMS.registerItem("receiver_adapter_bent", Item::new, props -> props.stacksTo(16));
+    public static final DeferredItem<com.example.chemistry.electrical.ElectroDeviceItem> DEEP_WATER_TROUGH =
+            ITEMS.registerItem("deep_water_trough", p -> new com.example.chemistry.electrical.ElectroDeviceItem(p,1000), p -> p.stacksTo(1));
+    public static final DeferredItem<com.example.chemistry.electrical.ElectrodePartItem> ALLIGATOR_CLIP_RED = ITEMS.registerItem("alligator_clip_red", com.example.chemistry.electrical.ElectrodePartItem::new, p -> p.stacksTo(1));
+    public static final DeferredItem<com.example.chemistry.electrical.ElectrodePartItem> ALLIGATOR_CLIP_BLACK = ITEMS.registerItem("alligator_clip_black", com.example.chemistry.electrical.ElectrodePartItem::new, p -> p.stacksTo(1));
+    public static final DeferredItem<com.example.chemistry.electrical.ElectrodePartItem> COPPER_ELECTRODE_MESH = ITEMS.registerItem("copper_electrode_mesh", com.example.chemistry.electrical.ElectrodePartItem::new, p -> p.stacksTo(1));
+    public static final DeferredItem<com.example.chemistry.electrical.ElectrodePartItem> SILVER_ELECTRODE_MESH = ITEMS.registerItem("silver_electrode_mesh", com.example.chemistry.electrical.ElectrodePartItem::new, p -> p.stacksTo(1));
+    public static final DeferredItem<com.example.chemistry.electrical.ElectrodePartItem> PLATINUM_ELECTRODE_MESH = ITEMS.registerItem("platinum_electrode_mesh", com.example.chemistry.electrical.ElectrodePartItem::new, p -> p.stacksTo(1));
+
+    public static final DeferredItem<com.example.chemistry.electrical.ElectroDeviceItem> BENCH_POWER_SUPPLY =
+            ITEMS.registerItem("bench_power_supply", props -> new com.example.chemistry.electrical.ElectroDeviceItem(props,0), UnaryOperator.identity());
+    public static final DeferredItem<com.example.chemistry.electrical.ElectroDeviceItem> HOFMANN_VOLTAMETER =
+            ITEMS.registerItem("hofmann_voltameter", props -> new com.example.chemistry.electrical.ElectroDeviceItem(props,250), UnaryOperator.identity());
+    public static final DeferredItem<Item> THERMOMETER_SLEEVE =
+            ITEMS.registerItem("thermometer_sleeve", Item::new, props -> props.stacksTo(16));
     public static final DeferredItem<Item> THERMOMETER =
             ITEMS.registerItem("thermometer", Item::new, props -> props.stacksTo(1));
     public static final DeferredItem<Item> CRUCIBLE_TONGS =
@@ -392,18 +462,22 @@ public class ModItems {
                     props -> new SplintItem(props.stacksTo(1), true), UnaryOperator.identity());
     public static final DeferredItem<Item> STRAIGHT_GLASS_TUBE =
             ITEMS.registerItem("straight_glass_tube", GlassTubeItem::new, props -> props.stacksTo(16));
+    public static final DeferredItem<Item> STRAIGHT_GLASS_TUBE_LONG =
+            ITEMS.registerItem("straight_glass_tube_long", GlassTubeItem::new, props -> props.stacksTo(16));
     public static final DeferredItem<Item> RIGHT_ANGLE_GLASS_TUBE =
             ITEMS.registerItem("right_angle_glass_tube", GlassTubeItem::new, props -> props.stacksTo(16));
     public static final DeferredItem<Item> RIGHT_ANGLE_GLASS_TUBE_LONG =
             ITEMS.registerItem("right_angle_glass_tube_long", GlassTubeItem::new, props -> props.stacksTo(16));
     public static final DeferredItem<Item> STRAIGHT_GLASS_TUBE_TUBED =
             ITEMS.registerItem("straight_glass_tube_tubed", GlassTubeTubedItem::new, props -> props.stacksTo(1));
+    public static final DeferredItem<Item> STRAIGHT_GLASS_TUBE_LONG_TUBED =
+            ITEMS.registerItem("straight_glass_tube_long_tubed", GlassTubeTubedItem::new, props -> props.stacksTo(1));
     public static final DeferredItem<Item> RIGHT_ANGLE_GLASS_TUBE_TUBED =
             ITEMS.registerItem("right_angle_glass_tube_tubed", GlassTubeTubedItem::new, props -> props.stacksTo(1));
     public static final DeferredItem<Item> RIGHT_ANGLE_GLASS_TUBE_LONG_TUBED =
             ITEMS.registerItem("right_angle_glass_tube_long_tubed", GlassTubeTubedItem::new, props -> props.stacksTo(1));
     public static final DeferredItem<Item> GLASS_ROD =
-            ITEMS.registerSimpleItem("glass_rod");
+            ITEMS.registerItem("glass_rod", Item::new, props -> props.stacksTo(1));
     public static final DeferredItem<GraduatedCylinderItem> GRADUATED_CYLINDER =
             ITEMS.registerItem("graduated_cylinder", GraduatedCylinderItem::new,
                     props -> props.stacksTo(1));
@@ -412,7 +486,10 @@ public class ModItems {
     public static final DeferredItem<Item> DISTILLATION_HEAD =
             ITEMS.registerSimpleItem("distillation_head");
     public static final DeferredItem<BlockItem> MAGNETIC_STIRRER =
-            ITEMS.registerSimpleBlockItem("magnetic_stirrer", ModBlocks.MAGNETIC_STIRRER);
+            ITEMS.registerItem("magnetic_stirrer",
+                    props -> new MagneticStirrerItem(ModBlocks.MAGNETIC_STIRRER.get(),
+                            props.stacksTo(1)),
+                    UnaryOperator.identity());
     public static final DeferredItem<PlacedVesselItem> THREE_NECK_FLASK =
             ITEMS.registerItem("three_neck_flask",
                     props -> new PlacedVesselItem(props.stacksTo(1), 500),
@@ -467,6 +544,7 @@ public class ModItems {
         return switch (type) {
             case 2 -> RIGHT_ANGLE_GLASS_TUBE_TUBED.get();
             case 3 -> RIGHT_ANGLE_GLASS_TUBE_LONG_TUBED.get();
+            case 4 -> STRAIGHT_GLASS_TUBE_LONG_TUBED.get();
             default -> STRAIGHT_GLASS_TUBE_TUBED.get();
         };
     }

@@ -1,0 +1,8 @@
+{
+  "ambientocclusion": true,
+  "textures": {
+    "0": "mchemistry:block/reagent_cabinet",
+    "particle": "mchemistry:block/reagent_cabinet"
+  },
+  "elements": []
+}

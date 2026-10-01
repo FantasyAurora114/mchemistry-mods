@@ -1,0 +1,76 @@
+{
+  "textures": {
+    "all": "mchemistry:block/organic_lab_atlas",
+    "particle": "mchemistry:block/organic_lab_atlas"
+  },
+  "elements": [
+    {
+      "from": [
+        3,
+        4,
+        4
+      ],
+      "to": [
+        13,
+        8,
+        12
+      ],
+      "faces": {
+        "east": {
+          "texture": "#all",
+          "uv": [
+            0.05,
+            12.05,
+            3.95,
+            15.95
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            0.05,
+            12.05,
+            3.95,
+            15.95
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            0.05,
+            12.05,
+            3.95,
+            15.95
+          ]
+        },
+        "down": {
+          "texture": "#all",
+          "uv": [
+            0.05,
+            12.05,
+            3.95,
+            15.95
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            0.05,
+            12.05,
+            3.95,
+            15.95
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            0.05,
+            12.05,
+            3.95,
+            15.95
+          ]
+        }
+      }
+    }
+  ]
+}

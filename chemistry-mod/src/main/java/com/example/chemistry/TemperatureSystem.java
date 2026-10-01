@@ -1,6 +1,7 @@
 package com.example.chemistry;
 
 import com.example.chemistry.item.TestTubeItem;
+import com.example.chemistry.item.LabVesselItem;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -37,9 +38,11 @@ public final class TemperatureSystem {
         int heatmode = getHeatmode(stack);
         // No environmental heating: temperature only changes via the sustained
         // heating mode (sneak + fire) or explicit right-click interactions.
-        double next = current;
+        double delta=ROOM_TEMP-current;
+        double step=.025*TestTubeItem.exchangeFactor(stack);
+        double next=current+Math.copySign(Math.min(step,Math.abs(delta)),delta);
         if (heatmode > 0) {
-            next = current + (heatmode - current) * 0.1;
+            next = current + (heatmode - current) * 0.1 * TestTubeItem.exchangeFactor(stack);
             if (Math.abs(next - current) < 0.5) {
                 next = heatmode;
             }
@@ -57,7 +60,7 @@ public final class TemperatureSystem {
         if (next != current) {
             setTemp(stack, next);
         }
-        if (next > HOT_THRESHOLD && !tube.isClamped()) {
+        if (next > HOT_THRESHOLD && !tube.isClamped() && !tube.isDewar()) {
             player.hurt(player.damageSources().onFire(), 4.0F);
             player.displayClientMessage(Component.translatable("mchemistry.tube.hot"), true);
             ItemStack dropped = stack.copy();
@@ -104,9 +107,17 @@ public final class TemperatureSystem {
     }
 
     public static void setTemp(ItemStack stack, double temp) {
+        if (stack.getItem() instanceof LabVesselItem) {
+            ThermalSystem.targetTemperature(stack,temp,"thermal_adjustment");
+        } else setRawTemp(stack,temp);
+    }
+
+    /** Internal energy commit; callers should normally use ThermalSystem.addHeat. */
+    public static void setRawTemp(ItemStack stack,double temp) {
+        if(!Double.isFinite(temp))throw new IllegalArgumentException("Invalid temperature");
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        tag.putDouble(KEY_TEMP, temp);
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+        tag.putDouble(KEY_TEMP,temp);
+        stack.set(DataComponents.CUSTOM_DATA,CustomData.of(tag));
     }
 
     private TemperatureSystem() {

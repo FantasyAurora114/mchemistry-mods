@@ -40,8 +40,9 @@
   "textures": {
     "iron_stand": "mchemistry:block/iron_stand",
     "test_tube": "mchemistry:block/test_tube",
-    "contents": "mchemistry:block/test_tube_contents",
-    "stopper": "mchemistry:block/rubber_stopper"
+    "contents": "mchemistry:block/lab_water",
+    "stopper": "mchemistry:block/rubber_stopper",
+    "water_body": "mchemistry:block/lab_water_body"
   },
   "elements": [
     {
@@ -58,27 +59,27 @@
       "shade": false,
       "faces": {
         "north": {
-          "texture": "contents",
+          "texture": "#water_body",
           "tintindex": 0
         },
         "south": {
-          "texture": "contents",
+          "texture": "#water_body",
           "tintindex": 0
         },
         "east": {
-          "texture": "contents",
+          "texture": "#water_body",
           "tintindex": 0
         },
         "west": {
-          "texture": "contents",
+          "texture": "#water_body",
           "tintindex": 0
         },
         "up": {
-          "texture": "contents",
+          "texture": "#contents",
           "tintindex": 0
         },
         "down": {
-          "texture": "contents",
+          "texture": "#water_body",
           "tintindex": 0
         }
       },
@@ -92,5 +93,6 @@
         "angle": 45
       }
     }
-  ]
+  ],
+  "render_type": "mchemistry:lab_glass"
 }

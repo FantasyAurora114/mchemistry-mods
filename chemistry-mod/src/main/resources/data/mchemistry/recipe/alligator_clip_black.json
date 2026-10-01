@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " IN",
+    " BB"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "N": "minecraft:iron_nugget",
+    "B": "minecraft:black_dye"
+  },
+  "result": {
+    "id": "mchemistry:alligator_clip_black",
+    "count": 1
+  }
+}

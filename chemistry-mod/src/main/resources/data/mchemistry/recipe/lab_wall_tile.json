@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "QQ",
+    "QQ"
+  ],
+  "key": {
+    "Q": "minecraft:quartz"
+  },
+  "result": {
+    "id": "mchemistry:lab_wall_tile",
+    "count": 4
+  }
+}

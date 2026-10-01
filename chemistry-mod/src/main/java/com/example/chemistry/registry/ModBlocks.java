@@ -3,7 +3,6 @@ package com.example.chemistry.registry;
 import com.example.chemistry.ChemistryMod;
 import com.example.chemistry.block.AlcoholLampBlock;
 import com.example.chemistry.block.IronStandBlock;
-import com.example.chemistry.block.PlacedTestTubeBlock;
 import com.example.chemistry.block.RubberTubeLinkBlock;
 import com.example.chemistry.block.WaterTroughBlock;
 import com.example.chemistry.block.GasCollectingBottleBlock;
@@ -29,6 +28,20 @@ public class ModBlocks {
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ChemistryMod.MODID);
 
+    public static final DeferredBlock<com.example.chemistry.block.GasApplianceBlock> BUNSEN_BURNER = BLOCKS.registerBlock("bunsen_burner", p -> new com.example.chemistry.block.GasApplianceBlock(p, 0), p -> p.strength(1.5F).sound(SoundType.METAL).noOcclusion().noLootTable());
+    public static final DeferredBlock<com.example.chemistry.block.GasApplianceBlock> GAS_CYLINDER_SMALL = BLOCKS.registerBlock("gas_cylinder_small", p -> new com.example.chemistry.block.GasApplianceBlock(p, 1), p -> p.strength(2.5F).sound(SoundType.METAL).noOcclusion().noLootTable());
+    public static final DeferredBlock<com.example.chemistry.block.GasApplianceBlock> GAS_CYLINDER_TALL = BLOCKS.registerBlock("gas_cylinder_tall", p -> new com.example.chemistry.block.GasApplianceBlock(p, 2), p -> p.strength(2.5F).sound(SoundType.METAL).noOcclusion().noLootTable());
+
+    public static final DeferredBlock<com.example.chemistry.block.ReagentCabinetBlock> TALL_REAGENT_CABINET = BLOCKS.registerBlock("tall_reagent_cabinet", p -> new com.example.chemistry.block.ReagentCabinetBlock(p,true), p -> p.strength(2.5f).sound(SoundType.METAL).noOcclusion().noLootTable().pushReaction(PushReaction.BLOCK));
+    public static final DeferredBlock<com.example.chemistry.block.ReagentCabinetBlock> BASE_REAGENT_CABINET = BLOCKS.registerBlock("base_reagent_cabinet", p -> new com.example.chemistry.block.ReagentCabinetBlock(p,false), p -> p.strength(2.5f).sound(SoundType.METAL).noOcclusion().noLootTable().pushReaction(PushReaction.BLOCK));
+
+    public static final DeferredBlock<com.example.chemistry.radiation.ShieldedStorageBlock> RADIATION_SHIELD_BOX=BLOCKS.registerBlock("radiation_shield_box",com.example.chemistry.radiation.ShieldedStorageBlock::new,p->p.strength(3F).sound(SoundType.METAL).noLootTable());
+    public static final DeferredBlock<com.example.chemistry.radiation.ShieldedStorageBlock> LEAD_LINED_CABINET=BLOCKS.registerBlock("lead_lined_cabinet",com.example.chemistry.radiation.ShieldedStorageBlock::new,p->p.strength(3F).sound(SoundType.METAL).noLootTable());
+    public static final DeferredBlock<Block> LAB_CEILING_TILE=BLOCKS.registerBlock("lab_ceiling_tile",Block::new,p->p.strength(1.5F,6F).sound(SoundType.STONE));
+    public static final DeferredBlock<com.example.chemistry.organic.LabCeilingLightBlock> LAB_CEILING_LIGHT=BLOCKS.registerBlock("lab_ceiling_light",com.example.chemistry.organic.LabCeilingLightBlock::new,p->p.strength(1F).sound(SoundType.GLASS).noOcclusion().lightLevel(s->s.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.LIT)?15:0));
+    public static final DeferredBlock<Block> LAB_FLOOR_TILE=BLOCKS.registerBlock("lab_floor_tile",Block::new,p->p.strength(1.5F,6F).sound(SoundType.STONE));
+    public static final DeferredBlock<Block> LAB_WALL_TILE=BLOCKS.registerBlock("lab_wall_tile",Block::new,p->p.strength(1.5F,6F).sound(SoundType.STONE));
+
     public static final DeferredBlock<LiquidBlock> CHEMICAL_WATER = BLOCKS.registerBlock("chemical_water",
             props -> new LiquidBlock(ModFluids.CHEMICAL_WATER.get(), props),
             props -> props.mapColor(MapColor.WATER)
@@ -39,14 +52,6 @@ public class ModBlocks {
                     .noLootTable()
                     .liquid());
 
-    public static final DeferredBlock<PlacedTestTubeBlock> PLACED_TEST_TUBE = BLOCKS.registerBlock("placed_test_tube",
-            PlacedTestTubeBlock::new,
-            props -> props.mapColor(MapColor.NONE)
-                    .noOcclusion()
-                    .strength(0.2F)
-                    .noLootTable()
-                    .pushReaction(PushReaction.DESTROY));
-
     public static final DeferredBlock<IronStandBlock> IRON_STAND = BLOCKS.registerBlock("iron_stand",
             IronStandBlock::new,
             props -> props.mapColor(MapColor.METAL)
@@ -56,14 +61,16 @@ public class ModBlocks {
                     .noLootTable()
                     .pushReaction(PushReaction.DESTROY));
 
-    /** Decorative lab bench (实验台); black top, four sides, open bottom. */
-    public static final DeferredBlock<Block> LAB_TABLE = BLOCKS.registerBlock("lab_table",
-            Block::new,
-            props -> props.mapColor(MapColor.COLOR_LIGHT_BLUE)
-                    .strength(2.0F, 6.0F)
-                    .sound(SoundType.WOOD)
-                    .noOcclusion()
-                    .pushReaction(PushReaction.DESTROY));
+    /** Preserve the old registry ID so placed benches become the new A variant. */
+    public static final DeferredBlock<com.example.chemistry.block.LaboratoryBenchBlock> LAB_TABLE = BLOCKS.registerBlock("lab_table",
+            p -> new com.example.chemistry.block.LaboratoryBenchBlock(p,0),
+            p -> p.mapColor(MapColor.COLOR_LIGHT_BLUE).strength(2.0F,6.0F).sound(SoundType.METAL).noOcclusion().noLootTable());
+    public static final DeferredBlock<com.example.chemistry.block.LaboratoryBenchBlock> LAB_TABLE_CABINET = BLOCKS.registerBlock("lab_table_cabinet",
+            p -> new com.example.chemistry.block.LaboratoryBenchBlock(p,1),
+            p -> p.mapColor(MapColor.COLOR_LIGHT_BLUE).strength(2.0F,6.0F).sound(SoundType.METAL).noOcclusion().noLootTable());
+    public static final DeferredBlock<com.example.chemistry.block.LaboratoryBenchBlock> LAB_TABLE_SINK = BLOCKS.registerBlock("lab_table_sink",
+            p -> new com.example.chemistry.block.LaboratoryBenchBlock(p,2),
+            p -> p.mapColor(MapColor.COLOR_LIGHT_BLUE).strength(2.0F,6.0F).sound(SoundType.METAL).noOcclusion().noLootTable());
 
     /** Alcohol lamp (酒精灯): unlit / lit / capped states, heats test tubes. */
     public static final DeferredBlock<AlcoholLampBlock> ALCOHOL_LAMP = BLOCKS.registerBlock("alcohol_lamp",
@@ -86,6 +93,8 @@ public class ModBlocks {
                     .noOcclusion()
                     .pushReaction(PushReaction.DESTROY));
 
+    public static final DeferredBlock<com.example.chemistry.block.DeepWaterTroughBlock> DEEP_WATER_TROUGH = BLOCKS.registerBlock("deep_water_trough",com.example.chemistry.block.DeepWaterTroughBlock::new,p->p.strength(1.5F,3F).sound(SoundType.GLASS).noOcclusion().noLootTable());
+
     /** Water trough (水槽): empty / water-filled states. */
     public static final DeferredBlock<WaterTroughBlock> WATER_TROUGH = BLOCKS.registerBlock("water_trough",
             WaterTroughBlock::new,
@@ -93,6 +102,8 @@ public class ModBlocks {
                     .strength(1.5F, 3.0F)
                     .sound(SoundType.GLASS)
                     .noOcclusion()
+                    .dynamicShape()
+                    .forceSolidOn()
                     .pushReaction(PushReaction.DESTROY));
 
     /** Placeable gas collecting bottle (集气瓶). */
@@ -166,7 +177,7 @@ public class ModBlocks {
                     props -> props.mapColor(MapColor.WOOD)
                             .strength(0.6F, 2.0F)
                             .sound(SoundType.WOOD)
-                            .noOcclusion()
+                            .noOcclusion().dynamicShape()
                             .noLootTable()
                             .pushReaction(PushReaction.DESTROY));
 

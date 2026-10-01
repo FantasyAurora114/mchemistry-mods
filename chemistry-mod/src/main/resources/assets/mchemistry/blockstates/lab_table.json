@@ -1,7 +1,1 @@
-{
-  "variants": {
-    "": {
-      "model": "mchemistry:block/lab_table"
-    }
-  }
-}
+{"variants": {"": {"model": "mchemistry:block/lab_table_body"}}}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "III",
+    "SCS",
+    "III"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "S": "minecraft:smooth_stone",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "mchemistry:lab_table",
+    "count": 1
+  }
+}

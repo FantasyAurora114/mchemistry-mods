@@ -4,12 +4,8 @@ import java.util.List;
 
 import com.example.chemistry.ChemistryMod;
 import com.example.chemistry.TemperatureSystem;
-import com.example.chemistry.blockentity.PlacedTestTubeBlockEntity;
-import com.example.chemistry.registry.ModBlocks;
 import com.example.chemistry.registry.ModItems;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -23,10 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * A test tube with a temperature system. Clamped tubes are insulated; normal
@@ -51,6 +44,13 @@ public class TestTubeItem extends LabVesselItem {
         this.stopperHoles = stopperHoles;
     }
 
+    public boolean isDewar() {
+        return BuiltInRegistries.ITEM.getKey(this).getPath().contains("_dewar");
+    }
+    public static double exchangeFactor(ItemStack stack) {
+        return stack.getItem() instanceof TestTubeItem tube && tube.isDewar() ? .125 : 1;
+    }
+
     public int meltingPoint() {
         return meltingPoint;
     }
@@ -66,46 +66,6 @@ public class TestTubeItem extends LabVesselItem {
     /** 0 = no stopper, 1 = 1-hole, 2 = 2-hole. */
     public int stopperHoles() {
         return stopperHoles;
-    }
-
-    /** Right-click the top of a normal block to stand the tube upright. */
-    @Override
-    public InteractionResult useOn(UseOnContext context) {
-        Level level = context.getLevel();
-        var player = context.getPlayer();
-        if (player == null) {
-            return InteractionResult.PASS;
-        }
-        // Let clamp-attach / pour interactions (offhand) and chemistry blocks win.
-        ItemStack off = player.getOffhandItem();
-        if (off.getItem() instanceof LabVesselItem || off.getItem() == ModItems.TEST_TUBE_CLAMP.get()
-                || off.getItem() == ModItems.RUBBER_STOPPER_1_HOLE.get()
-                || off.getItem() == ModItems.RUBBER_STOPPER_2_HOLE.get()) {
-            return InteractionResult.PASS;
-        }
-        if (context.getClickedFace() != Direction.UP) {
-            return InteractionResult.PASS;
-        }
-        BlockPos clicked = context.getClickedPos();
-        String namespace = BuiltInRegistries.BLOCK.getKey(level.getBlockState(clicked).getBlock()).getNamespace();
-        if (namespace.equals(ChemistryMod.MODID)) {
-            return InteractionResult.PASS;
-        }
-        BlockPos target = clicked.above();
-        BlockState targetState = level.getBlockState(target);
-        if (!targetState.isAir() && !targetState.canBeReplaced(new BlockPlaceContext(context))) {
-            return InteractionResult.PASS;
-        }
-        if (level.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }
-        ItemStack held = context.getItemInHand();
-        level.setBlock(target, ModBlocks.PLACED_TEST_TUBE.get().defaultBlockState(), 3);
-        if (level.getBlockEntity(target) instanceof PlacedTestTubeBlockEntity be) {
-            be.setTube(held.copy());
-        }
-        held.shrink(1);
-        return InteractionResult.SUCCESS;
     }
 
     @Override

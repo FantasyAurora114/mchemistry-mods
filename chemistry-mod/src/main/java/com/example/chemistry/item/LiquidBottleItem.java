@@ -34,6 +34,13 @@ public class LiquidBottleItem extends Item {
     }
 
     @Override
+    public InteractionResult useOn(net.minecraft.world.item.context.UseOnContext context){
+        if(context.getPlayer()!=null&&context.getPlayer().isShiftKeyDown())
+            return com.example.chemistry.entity.PlacedReagentBottleEntity.place(context);
+        return InteractionResult.PASS;
+    }
+
+    @Override
     public net.minecraft.network.chat.Component getName(ItemStack stack) {
         net.minecraft.network.chat.Component name = BottleCodes.displayName(stack);
         return name != null ? name : super.getName(stack);
@@ -50,8 +57,8 @@ public class LiquidBottleItem extends Item {
         }
         // Filling a dropper from the offhand takes priority over opening.
         ItemStack offhand = player.getOffhandItem();
-        if (DropperHelper.isDropper(offhand) && DropperHelper.isEmpty(offhand)) {
-            DropperHelper.fill(offhand, liquidId, DropperHelper.CAPACITY);
+        if (!BottleCodes.isSealed(player.getItemInHand(hand)) && DropperHelper.isDropper(offhand) && DropperHelper.isEmpty(offhand)) {
+            com.example.chemistry.transfer.BottleQuantities.fillDropper(player.getItemInHand(hand),offhand);
             return InteractionResult.SUCCESS;
         }
         if (!BottleCodes.isSealed(player.getItemInHand(hand))) {
@@ -71,6 +78,7 @@ public class LiquidBottleItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
+        BottleCodes.refreshModel(stack);
         if (!(entity instanceof Player player) || BottleCodes.isSealed(stack)) {
             return;
         }

@@ -1,0 +1,8 @@
+{
+  "textures": {
+    "all": "mchemistry:block/burette_alkali",
+    "particle": "mchemistry:block/burette_alkali"
+  },
+  "elements": [],
+  "render_type": "minecraft:translucent"
+}

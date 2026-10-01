@@ -64,7 +64,7 @@ public class PlacedGraduatedCylinderRenderer
         poseStack.pushPose();
         poseStack.translate(0.0F, 1.3F / 16.0F, 0.0F);
         poseStack.scale(1.0F, Math.max(0.02F, renderState.fill * (13.2F / 16.0F)), 1.0F);
-        nodeCollector.submitBlockModel(poseStack, RenderType.translucentMovingBlock(), liquid,
+        nodeCollector.submitBlockModel(poseStack, CabinetGlassLayer.TYPE, liquid,
                 ((c >> 16) & 0xFF) / 255.0F, ((c >> 8) & 0xFF) / 255.0F,
                 (c & 0xFF) / 255.0F, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();

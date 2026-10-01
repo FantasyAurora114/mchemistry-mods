@@ -8,6 +8,7 @@ import com.example.chemistry.block.GasCollectingBottleBlock;
 import com.example.chemistry.blockentity.GasCollectingBottleBlockEntity;
 import com.example.chemistry.blockentity.IronStandBlockEntity;
 import com.example.chemistry.blockentity.PlacedVesselBlockEntity;
+import com.example.chemistry.entity.PlacedVesselEntity;
 import com.example.chemistry.blockentity.WaterTroughBlockEntity;
 import com.example.chemistry.data.Reactions;
 import com.example.chemistry.entity.RubberTubeEntity;
@@ -50,8 +51,8 @@ public final class GasFlowEngine {
     private static final int VENT_RATE_ML = 4;
     /** Tube internal volume per block of length (mL). */
     private static final double ML_PER_BLOCK = 1.0;
-    /** Total gas produced by one completed reaction (mL per gas sign ↑). */
-    private static final int ML_PER_COMPLETION = 100;
+    /** Approximate molar gas volume at room temperature and ambient pressure. */
+    public static final double ML_PER_MOL = 24_000.0;
 
     private static final String KEY_PENDING = "chem_gas_pending";
 
@@ -130,20 +131,19 @@ public final class GasFlowEngine {
     public record PendingGas(String id, int ml, double purity) {
     }
 
-    /** Gases produced by a completed reaction: display ↑ tokens and
-     *  "gas"-type products, each with its stoichiometric coefficient. */
+    /** Only vented gases enter tubing; gas products remain in the vessel for later reactions. */
     private static List<GasSource> gasSources(Reactions.Reaction reaction) {
-        List<GasSource> out = new ArrayList<>();
+        Map<String, Integer> coefficients = new java.util.LinkedHashMap<>();
         for (Map.Entry<String, String> e : GAS_NAME_TO_ID.entrySet()) {
+            if(reaction.products().stream().anyMatch(p->p.type().equals("gas")&&p.id().equals(e.getValue())))continue;
             int coeff = countFormulaCoefficients(reaction.display(), e.getKey() + "↑");
             if (coeff > 0) {
-                out.add(new GasSource(e.getValue(), coeff));
+                coefficients.putIfAbsent(e.getValue(), coeff);
             }
         }
-        for (Reactions.Product p : reaction.products()) {
-            if (p.type().equals("gas") && p.id() != null && !p.id().isEmpty()) {
-                out.add(new GasSource(p.id(), Math.max(1, p.coefficient())));
-            }
+        List<GasSource> out = new ArrayList<>();
+        for (Map.Entry<String, Integer> e : coefficients.entrySet()) {
+            out.add(new GasSource(e.getKey(), e.getValue()));
         }
         return out;
     }
@@ -201,31 +201,21 @@ public final class GasFlowEngine {
     /** A reaction completed: queue its produced gas inside the vessel instead
      *  of teleporting it into the collector. */
     public static void enqueue(Level level, BlockPos vesselPos, ItemStack vessel,
-            Reactions.Reaction completed) {
+            ReactionEngine.Completion completed) {
         if (level.isClientSide()) {
             return;
         }
-        // One completion produces ML_PER_COMPLETION mL of gas in total, split
-        // among the produced gases by stoichiometry (水煤气: CO 50 + H₂ 50).
-        List<GasSource> sources = gasSources(completed);
+        List<GasSource> sources = gasSources(completed.reaction());
         if (sources.isEmpty()) {
             return;
         }
-        int totalCoeff = 0;
-        for (GasSource s : sources) {
-            totalCoeff += s.coeff();
-        }
         double purity = PurityHelper.getPurity(vessel);
-        int allocated = 0;
-        for (int i = 0; i < sources.size(); i++) {
-            GasSource s = sources.get(i);
-            int ml = (i == sources.size() - 1)
-                    ? ML_PER_COMPLETION - allocated
-                    : (int) Math.round((double) ML_PER_COMPLETION * s.coeff() / totalCoeff);
+        for (GasSource s : sources) {
+            double volume = completed.moles() * s.coeff() * ML_PER_MOL;
+            int ml = (int) Math.min(Integer.MAX_VALUE, Math.round(volume));
             if (ml > 0) {
                 addPending(vessel, s.id(), ml, purity);
             }
-            allocated += ml;
         }
     }
 
@@ -333,6 +323,13 @@ public final class GasFlowEngine {
         } else if (be instanceof PlacedVesselBlockEntity pbe) {
             attached1 = pbe.getAttached1();
             attached2 = pbe.getAttached2();
+        } else {
+            for (PlacedVesselEntity pve : level.getEntitiesOfClass(PlacedVesselEntity.class,
+                    new net.minecraft.world.phys.AABB(pos))) {
+                attached1 = pve.getAttached1();
+                attached2 = pve.getAttached2();
+                break;
+            }
         }
         boolean aGlass = attached1 != null && isGlassTube(attached1);
         boolean bGlass = attached2 != null && isGlassTube(attached2);
@@ -352,7 +349,7 @@ public final class GasFlowEngine {
     }
 
     private static boolean isGlassTube(ItemStack stack) {
-        return stack.is(com.example.chemistry.registry.ModItems.STRAIGHT_GLASS_TUBE.get())
+        return (stack.is(com.example.chemistry.registry.ModItems.STRAIGHT_GLASS_TUBE.get()) || stack.is(com.example.chemistry.registry.ModItems.STRAIGHT_GLASS_TUBE_LONG.get()))
                 || stack.is(com.example.chemistry.registry.ModItems.RIGHT_ANGLE_GLASS_TUBE.get())
                 || stack.is(com.example.chemistry.registry.ModItems.RIGHT_ANGLE_GLASS_TUBE_LONG.get());
     }

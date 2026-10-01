@@ -42,17 +42,19 @@ public class ReactionTicker {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
             if (stack.getItem() instanceof LabVesselItem) {
+                LabVesselItem.normalizeSolutions(stack);
                 Reactions.Reaction completed = ReactionEngine.tick(stack, player);
                 if (completed != null) {
-                    ReactionEngine.applyReactionHeat(stack, completed);
                     ReactionPhenomena.spawn(player.level(),
                             player.getEyePosition().add(player.getLookAngle().scale(0.4)),
                             ReactionPhenomena.detect(completed, stack));
                 }
+                if(ContainerHazards.discharge(stack,player.level(),player.position().add(0,1,0))){stack.shrink(1);continue;}
                 // 敞口容器里比空气轻的气体慢慢逸出（被空气取代）。
                 VesselGasPhase.tickLeak(stack);
                 // 物态变化：融化/凝固/蒸发/凝结/升华/凝华/溶解/结晶。
                 PhaseSystem.tick(stack, TemperatureSystem.getTemp(stack));
+                com.example.chemistry.solution.BatchChemistry.unlock(stack,player);
             }
             if (stack.getItem() instanceof TestTubeItem) {
                 TemperatureSystem.tick(stack, player, i);
@@ -108,8 +110,7 @@ public class ReactionTicker {
                 Player p = server.getNearestPlayer(item.getX(), item.getY(), item.getZ(),
                         12.0, false);
                 if (p != null) {
-                    p.displayClientMessage(
-                            Component.translatable("mchemistry.water.react", id), true);
+                    ExperimentFeedback.send(p,Component.translatable("mchemistry.water.react", id));
                 }
             }
         }
@@ -127,16 +128,8 @@ public class ReactionTicker {
         for (LabVesselItem.Entry entry : LabVesselItem.getContents(stack)) {
             if (entry.type().equals("liquid")) {
                 String solute = Solutions.soluteOf(entry.id());
-                if (solute != null) {
-                    if (temp > 100) {
-                        if (entry.amount() <= 0.05) {
-                            LabVesselItem.consumeMass(stack, "liquid", entry.id(), entry.amount());
-                            LabVesselItem.addMass(stack, "solid", solute, 1.0);
-                        } else {
-                            LabVesselItem.consumeMass(stack, "liquid", entry.id(), 0.05);
-                        }
-                    }
-                } else if (temp > ChemicalInfoProvider.boilingPointOf("liquid_" + entry.id())) {
+                if (solute != null) continue;
+                if (temp > ChemicalInfoProvider.boilingPointOf("liquid_" + entry.id())) {
                     LabVesselItem.consumeMass(stack, "liquid", entry.id(), entry.amount());
                 }
             } else if (entry.type().equals("solid")

@@ -1,0 +1,1 @@
+{"model": {"type": "minecraft:composite", "models": [{"type": "minecraft:model", "model": "mchemistry:item/used_ph_paper_base"}, {"type": "minecraft:model", "model": "mchemistry:item/used_ph_paper_patch", "tints": [{"type": "minecraft:custom_model_data", "index": 0, "default": 7186525}]}]}}
