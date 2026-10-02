@@ -63,6 +63,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,
+            mod_author             : mod_author,
             mod_version            : mod_version,
     ]
     inputs.properties replaceProperties
@@ -72,3 +73,10 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
 }
 sourceSets.main.resources.srcDir generateModMetadata
 neoForge.ideSyncTask generateModMetadata
+
+// Include the original-content license and preserve upstream template notices.
+tasks.named('jar', Jar) {
+    from('../LICENSE')
+    from('../THIRD_PARTY_NOTICES.md')
+    from('../chemistry-mod/TEMPLATE_LICENSE.txt')
+}

@@ -24,7 +24,9 @@ import com.example.chemistry.api.CoreSubstances;
 /**
  * MChemistry（化学时代）—— NeoForge 1.21.10 化学模组本体。
  *
- * 防伪标识：
+ * Copyright (c) 2026 FantasyAurora (FantasyAurora114). All Rights Reserved.
+ * Personal marks: FantasyAurora / Observer / Anastasiya. See the repository LICENSE.
+ * 作者标识（非密码学签名）：
  *  - 作者：FantasyAurora114
  *  - 签名：MCH-AUTH::FantasyAurora114::0.1.0::2026
  *  - 运行时可用 /chemistry about 校验；打包后的 jar 清单含
@@ -34,18 +36,19 @@ import com.example.chemistry.api.CoreSubstances;
 public class ChemistryMod {
 
     public static final String MODID = "mchemistry";
-    /** 模组作者（防伪标识之一）。 */
+    /** 模组作者（归属标识）。 */
     public static final String AUTHOR = "FantasyAurora114";
-    /** 构建签名（防伪标识之二，随版本号变化）。 */
+    /** 构建署名（非密码学签名）。 */
     public static final String SIGNATURE = "MCH-AUTH::FantasyAurora114::0.1.0::2026";
     /** 构建版本号（由 mod_version 注入，运行时可查）。 */
     public static final String VERSION = "0.1.0";
-    /** 全部署名（防伪标识）：散落在代码各处，可用防伪校验码核对。 */
+    /** 全部署名：用于归属标识及运行时署名摘要。 */
     private static final java.util.List<String> ALL_SIGNATURES = java.util.List.of(
-            "Fantasy_Aurora", "FantasyAurora114", "Observer", "Valer1ya", "FantasyForward");
+            "FantasyAurora", "Fantasy_Aurora", "FantasyAurora114", "Observer",
+            "Anastasiya", "Valer1ya", "FantasyForward");
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    /** 由全部署名生成防伪校验码（/chemistry about 显示）。 */
+    /** 由全部署名生成署名摘要（非密码学校验）（/chemistry about 显示）。 */
     public static String signatureChecksum() {
         String joined = String.join("|", ALL_SIGNATURES);
         return Integer.toHexString(joined.hashCode());

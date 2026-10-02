@@ -1,3 +1,5 @@
+// Copyright (c) 2026 FantasyAurora (FantasyAurora114). All Rights Reserved.
+// MChemistry author mark: Anastasiya. See the repository LICENSE.
 package com.example.chemistry.client.handbook;
 
 import java.util.ArrayList;

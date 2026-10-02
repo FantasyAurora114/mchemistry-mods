@@ -1,3 +1,5 @@
+// Copyright (c) 2026 FantasyAurora (FantasyAurora114). All Rights Reserved.
+// MChemistry author mark: FantasyAurora. See the repository LICENSE.
 package com.example.chemistry.api;
 
 import com.example.chemistry.api.Substances.ElementSubstance;

@@ -96,3 +96,13 @@ src/main/resources/
 - 玻璃器皿 3D 模型（Blockbench）与液体容量
 - 加热 / 冷却等反应条件
 - 材料分解器、电解槽等机器
+
+## 版权与作者标志
+
+MChemistry / MCI 为闭源项目，原创内容保留所有权利。作者：
+**FantasyAurora（FantasyAurora114）**；个人标志：**Observer / Anastasiya**。
+署名出现在源码、模组信息和构建清单中，用于归属标识，不是密码学防伪。
+
+正式发布的模组文件允许个人游戏和私人服务器使用；源码与素材的复制、修改、
+再发布及商业使用需另获作者书面许可。详见仓库根目录 `LICENSE`。
+第三方内容继续适用其原许可，详见 `THIRD_PARTY_NOTICES.md`。

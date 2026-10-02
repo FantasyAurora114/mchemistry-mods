@@ -1,3 +1,5 @@
+// Copyright (c) 2026 FantasyAurora (FantasyAurora114). All Rights Reserved.
+// MChemistry author mark: Observer. See the repository LICENSE.
 package com.example.chemistry.electrical;
 
 import com.example.chemistry.*;

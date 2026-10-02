@@ -4,6 +4,8 @@ license="${mod_license}"
 modId="${mod_id}"
 version="${mod_version}"
 displayName="${mod_name}"
+authors="${mod_author}"
+credits="FantasyAurora / Observer / Anastasiya"
 description='''
 MCI（化学时代·化工）— MChemistry 的工业/矿石附属模组。
 26 种矿石与对应化学冶炼链、原版铁/铜/金矿石的化学处理改造、

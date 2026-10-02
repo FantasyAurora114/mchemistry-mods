@@ -196,12 +196,21 @@ idea {
     }
 }
 
-// 防伪标识：jar 清单属性，可用 `unzip -p <jar> META-INF/MANIFEST.MF` 校验。
+// 作者标识（非密码学签名）：jar 清单属性，可用 `unzip -p <jar> META-INF/MANIFEST.MF` 校验。
 tasks.named('jar', Jar) {
     manifest {
         attributes(
                 'X-Chemistry-Author': 'FantasyAurora114',
-                'X-Chemistry-Signature': 'MCH-AUTH::FantasyAurora114::0.1.0::2026'
+                'X-Chemistry-Signature': 'MCH-AUTH::FantasyAurora114::0.1.0::2026',
+                'X-Chemistry-Author-Marks': 'FantasyAurora / Observer / Anastasiya',
+                'X-Chemistry-License': 'All Rights Reserved'
         )
     }
+}
+
+// Include the original-content license and preserve upstream template notices.
+tasks.named('jar', Jar) {
+    from('../LICENSE')
+    from('../THIRD_PARTY_NOTICES.md')
+    from('../chemistry-mod/TEMPLATE_LICENSE.txt')
 }
